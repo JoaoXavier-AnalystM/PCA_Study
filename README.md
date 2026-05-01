@@ -73,61 +73,6 @@ rate(http_requests_total[5m])
 Este projeto serve como:
 
 * guia de estudos para PCA
-* laboratório prático de observabilidade
-* referência para consultas PromQL
-* portfólio DevOps/SRE/Observability Engineer
-
----
-
-## 🏗 Estrutura do Repositório
-
-```txt
-.
-├── 1-Introdução
-├── 2-Conceitos-de-Observabilidade
-├── 3-Fundamentos-Prometheus
-├── detail
-├── index.html
-└── .github/workflows
-```
-
----
-
-## 🔥 CI/CD Automatizado
-
-Este projeto utiliza:
-
-* GitHub Actions
-* Deploy automático para VPS
-* Servidor web com Nginx
-* Proxy/CDN com Cloudflare
-
-Fluxo:
-
-```txt
-git push
-   ↓
-GitHub Actions
-   ↓
-Deploy automático no VPS
-   ↓
-Reload do Nginx
-   ↓
-Site atualizado automaticamente
-```
-
----
-
-## 🛠 Tecnologias Utilizadas
-
-* Prometheus
-* Grafana
-* Nginx
-* GitHub Actions
-* Cloudflare
-* Linux
-* Docker
-* Kubernetes
 
 ---
 
@@ -147,17 +92,28 @@ Os principais tópicos cobrados incluem:
 
 ---
 
-## 🌐 Deploy
+## 🌐 Acesso ao Projeto
 
-O projeto é publicado automaticamente via pipeline CI/CD.
+O conteúdo deste projeto está disponível online:
+
+🔗 https://pca-study.joaoxavier.app.br/
+
+O site reúne materiais de estudo, anotações e recursos voltados para a certificação Prometheus Certified Associate (PCA).
 
 ---
 
 ## 📖 Referências
 
-* Documentação oficial do Prometheus
-* Documentação oficial da Cloud Native Computing Foundation
-* Laboratórios práticos
-* Simulados PCA
+- 📘 Prometheus – Documentação oficial  
+  https://prometheus.io/docs/
+
+- ☁️ Cloud Native Computing Foundation (CNCF) – Prometheus Project  
+  https://www.cncf.io/projects/prometheus/
+
+- 🧪 Laboratórios práticos  
+  Experimentos e práticas com Prometheus, exporters, métricas e dashboards em ambientes de observabilidade.
+
+- 📝 Simulados PCA (Prometheus Certified Associate)  
+  Questões práticas baseadas no currículo oficial da Linux Foundation e CNCF para preparação do exame.
 
 ---
