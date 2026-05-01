@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PCA Study Kit — 1 Semana</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap');
+
+  :root {
+    --bg: #0a0c10;
+    --surface: #111318;
+    --surface2: #1a1e26;
+    --border: #252a35;
+    --accent: #e8ff47;
+    --accent2: #47b8ff;
+    --accent3: #ff6b6b;
+    --accent4: #a47fff;
+    --text: #e8eaf0;
+    --muted: #6b7280;
+    --promql: #47ffb8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,12,16,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; gap: 2px; padding: 0 24px;
+    overflow-x: auto;
+  }
+  .nav-btn {
+    background: none; border: none; color: var(--muted);
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    padding: 16px 18px; cursor: pointer; white-space: nowrap;
+    border-bottom: 2px solid transparent; transition: all .2s;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .nav-btn:hover { color: var(--text); }
+  .nav-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* SECTIONS */
+  .section { display: none; padding: 32px 24px; max-width: 1100px; margin: 0 auto; }
+  .section.active { display: block; }
+
+  h1 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
+  h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 16px; }
+  h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+
+  .tag {
+    display: inline-block; font-family: 'Space Mono', monospace;
+    font-size: 10px; padding: 3px 8px; border-radius: 3px;
+    font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  }
+  .tag-promql { background: #1a3d2e; color: var(--promql); }
+  .tag-fund { background: #1e2a3a; color: var(--accent2); }
+  .tag-obs { background: #2a1e3a; color: var(--accent4); }
+  .tag-alert { background: #3a1e1e; color: var(--accent3); }
+  .tag-inst { background: #2a2a1e; color: var(--accent); }
+
+  /* ======= PLANO DE ESTUDOS ======= */
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px; margin-top: 24px;
+  }
+  .day-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+    transition: border-color .2s;
+  }
+  .day-card:hover { border-color: var(--accent); }
+  .day-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .day-number { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--muted); }
+  .day-label { font-weight: 700; font-size: 1.1rem; }
+  .day-pct {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px; font-weight: 700; color: var(--accent);
+  }
+  .day-body { padding: 16px 20px; }
+  .day-topic { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+  .day-tasks { list-style: none; margin-top: 12px; }
+  .day-tasks li {
+    font-size: 13px; padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .day-tasks li:last-child { border-bottom: none; }
+  .day-tasks li::before { content: '▸'; color: var(--accent); flex-shrink: 0; margin-top: 1px; }
+  .day-source {
+    margin-top: 12px; padding: 8px 10px;
+    background: var(--surface2); border-radius: 6px;
+    font-size: 11px; color: var(--muted);
+    font-family: 'Space Mono', monospace;
+  }
+  .exam-info {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px; margin-bottom: 28px;
+  }
+  .exam-stat {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px;
+    text-align: center;
+  }
+  .exam-stat .val { font-size: 1.8rem; font-weight: 800; color: var(--accent); }
+  .exam-stat .lbl { font-size: 11px; color: var(--muted); margin-top: 4px; font-family: 'Space Mono', monospace; }
+
+  /* ======= CHEAT SHEET ======= */
+  .cheat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px; margin-top: 20px;
+  }
+  .cheat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px;
+  }
+  .cheat-card h3 {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 12px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .cheat-item {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 5px 0; font-size: 12px;
+    border-bottom: 1px dashed var(--border);
+    gap: 8px;
+  }
+  .cheat-item:last-child { border-bottom: none; }
+  .cheat-key { color: var(--muted); flex-shrink: 0; }
+  .cheat-val {
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    color: var(--promql); text-align: right; word-break: break-all;
+  }
+  .cheat-val.blue { color: var(--accent2); }
+  .cheat-val.yellow { color: var(--accent); }
+  .cheat-val.red { color: var(--accent3); }
+  .cheat-val.purple { color: var(--accent4); }
+  code {
+    font-family: 'Space Mono', monospace;
+    background: var(--surface2);
+    padding: 1px 5px; border-radius: 3px; font-size: 11px;
+    color: var(--promql);
+  }
+
+  /* ======= QUIZ ======= */
+  .quiz-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
+  }
+  .quiz-progress {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px; color: var(--muted);
+  }
+  .quiz-score {
+    font-family: 'Space Mono', monospace;
+    font-size: 16px; font-weight: 700;
+    color: var(--accent);
+  }
+  .question-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px;
+    margin-bottom: 16px;
+  }
+  .question-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; color: var(--muted); margin-bottom: 8px;
+    display: flex; gap: 8px; align-items: center;
+  }
+  .question-text {
+    font-size: 15px; font-weight: 600; margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .option-btn {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px 16px;
+    cursor: pointer; text-align: left; font-family: 'Syne', sans-serif;
+    font-size: 13px; color: var(--text); transition: all .15s;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .option-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .option-btn.correct { background: #1a3d2e; border-color: var(--promql); color: var(--promql); }
+  .option-btn.wrong { background: #3a1e1e; border-color: var(--accent3); color: var(--accent3); }
+  .option-btn.reveal { background: #1a3d2e; border-color: var(--promql); color: var(--promql); opacity: .7; }
+  .option-letter {
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    font-weight: 700; flex-shrink: 0; margin-top: 1px;
+    color: var(--muted);
+  }
+  .explanation {
+    margin-top: 14px; padding: 12px;
+    background: var(--surface2); border-radius: 8px;
+    font-size: 12px; color: var(--muted); line-height: 1.6;
+    display: none;
+  }
+  .explanation.show { display: block; }
+  .explanation strong { color: var(--accent); }
+  .quiz-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 20px; flex-wrap: wrap; gap: 12px;
+  }
+  .btn {
+    background: var(--accent); color: #0a0c10;
+    border: none; border-radius: 8px; padding: 10px 22px;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px;
+    cursor: pointer; transition: opacity .2s;
+  }
+  .btn:hover { opacity: .85; }
+  .btn-outline {
+    background: none; border: 1px solid var(--border); color: var(--text);
+    border-radius: 8px; padding: 10px 22px;
+    font-family: 'Syne', sans-serif; font-weight: 600; font-size: 13px;
+    cursor: pointer; transition: all .2s;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .filter-btn {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 6px; padding: 6px 14px;
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    cursor: pointer; color: var(--muted); transition: all .2s;
+    text-transform: uppercase;
+  }
+  .filter-btn:hover, .filter-btn.active { color: var(--accent); border-color: var(--accent); }
+
+  /* ======= MAPA MENTAL ======= */
+  .mindmap-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px;
+    margin-top: 20px; overflow-x: auto;
+  }
+  svg text { font-family: 'Syne', sans-serif; }
+
+  /* ======= PROMQL ======= */
+  .promql-section { margin-bottom: 32px; }
+  .promql-section h2 { color: var(--promql); margin-bottom: 16px; }
+  .cmd-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 12px;
+  }
+  .cmd-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px;
+  }
+  .cmd-card .cmd-code {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px; color: var(--promql);
+    background: var(--surface2); padding: 8px 10px;
+    border-radius: 6px; margin-bottom: 8px;
+    word-break: break-all;
+  }
+  .cmd-card .cmd-desc { font-size: 12px; color: var(--muted); }
+  .cmd-card .cmd-tip {
+    margin-top: 6px; font-size: 11px;
+    color: var(--accent); font-style: italic;
+  }
+  .importance {
+    display: flex; gap: 3px; margin-bottom: 6px;
+  }
+  .star { color: var(--accent); font-size: 10px; }
+  .star.off { color: var(--border); }
+
+  /* PRINT BUTTON */
+  .print-btn {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--accent); color: #0a0c10;
+    border: none; border-radius: 50px; padding: 12px 20px;
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 12px; cursor: pointer; z-index: 200;
+    box-shadow: 0 4px 20px rgba(232,255,71,.3);
+  }
+
+  /* HERO */
+  .hero {
+    text-align: center; padding: 40px 0 32px;
+    border-bottom: 1px solid var(--border); margin-bottom: 32px;
+  }
+  .hero-badge {
+    display: inline-block; background: var(--surface);
+    border: 1px solid var(--accent); border-radius: 50px;
+    padding: 6px 16px; font-family: 'Space Mono', monospace;
+    font-size: 10px; color: var(--accent); margin-bottom: 16px;
+    letter-spacing: 2px;
+  }
+  .hero h1 { font-size: 2.5rem; }
+  .hero h1 span { color: var(--accent); }
+  .hero p { color: var(--muted); margin-top: 8px; font-size: 14px; }
+
+  @media print {
+    nav, .print-btn { display: none; }
+    .section { display: block !important; page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <button class="nav-btn active" onclick="show('plano')">📅 Plano </button>
+  <button class="nav-btn" onclick="show('cheat')">📋 Cheat Sheet</button>
+  <button class="nav-btn" onclick="show('quiz')">🧠 50 Questões</button>
+  <button class="nav-btn" onclick="show('mindmap')">🗺️ Mapa Mental</button>
+  <button class="nav-btn" onclick="show('promql')">⚡ PromQL Top</button>
+</nav>
+
+<!-- ============================================================ -->
+<!--  PLANO DE ESTUDOS                                            -->
+<!-- ============================================================ -->
+<div id="plano" class="section active">
+  <div class="hero">
+    <div class="hero-badge">PROMETHEUS CERTIFIED ASSOCIATE</div>
+    <h1>Plano de Estudos</h1>
+    <p>60 questões · 90 minutos · Nota mínima 75% · Prova em inglês</p>
+  </div>
+
+  <div class="exam-info">
+    <div class="exam-stat"><div class="val">60</div><div class="lbl">Questões</div></div>
+    <div class="exam-stat"><div class="val">90</div><div class="lbl">Minutos</div></div>
+    <div class="exam-stat"><div class="val">75%</div><div class="lbl">Nota Mínima</div></div>
+    <div class="exam-stat"><div class="val">28%</div><div class="lbl">PromQL (maior peso)</div></div>
+    <div class="exam-stat"><div class="val">2 anos</div><div class="lbl">Validade</div></div>
+  </div>
+
+  <h2>Distribuição de Domínios</h2>
+  <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px;">
+    <div class="tag tag-promql">PromQL 28%</div>
+    <div class="tag tag-fund">Fundamentos 20%</div>
+    <div class="tag tag-obs">Observability 18%</div>
+    <div class="tag tag-alert">Alerting & Dash 18%</div>
+    <div class="tag tag-inst">Instrumentação 16%</div>
+  </div>
+
+  <h2>Cronograma Semanal</h2>
+  <div class="week-grid">
+
+    <div class="day-card">
+      <div class="day-header">
+        <div>
+          <div class="day-number">DIA 01 </div>
+          <div class="day-label">Observability + Fundamentos</div>
+        </div>
+        <div class="day-pct">18%+20%</div>
+      </div>
+      <div class="day-body">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+          <span class="tag tag-obs">Observability</span>
+          <span class="tag tag-fund">Fundamentos</span>
+        </div>
+        <ul class="day-tasks">
+          <li>Métricas, Logs e Traces (diferenças e quando usar)</li>
+          <li>Push vs Pull — como Prometheus coleta dados</li>
+          <li>SLI, SLO, SLA — definições e exemplos</li>
+          <li>Arquitetura do Prometheus (server, TSDB, exporters, pushgateway)</li>
+          <li>Data model: time series, labels, samples</li>
+          <li>Formato de exposição de métricas (text/OpenMetrics)</li>
+          <li>Limitações do Prometheus</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div>
+          <div class="day-number">DIA 02 </div>
+          <div class="day-label">PromQL Básico</div>
+        </div>
+        <div class="day-pct">28%</div>
+      </div>
+      <div class="day-body">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+          <span class="tag tag-promql">PromQL</span>
+        </div>
+        <ul class="day-tasks">
+          <li>Tipos de métricas: Counter, Gauge, Histogram, Summary</li>
+          <li>Seletores: instant vectors, range vectors, offset</li>
+          <li>Funções: rate(), irate(), increase(), delta()</li>
+          <li>Agregadores: sum, avg, min, max, count, topk, bottomk</li>
+          <li>Filtros por label: =, !=, =~, !~</li>
+          <li>by() e without() em agregações</li>
+          <li>Praticar no Prometheus Expression Browser</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div>
+          <div class="day-number">DIA 03 </div>
+          <div class="day-label">PromQL Avançado</div>
+        </div>
+        <div class="day-pct">28%</div>
+      </div>
+      <div class="day-body">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+          <span class="tag tag-promql">PromQL</span>
+        </div>
+        <ul class="day-tasks">
+          <li>histogram_quantile() e uso com Histogramas</li>
+          <li>Operadores binários: +, -, *, /, %, ^</li>
+          <li>Matching: on(), ignoring(), group_left(), group_right()</li>
+          <li>predict_linear() e time series forecasting</li>
+          <li>Subqueries e funções de timestamp</li>
+          <li>Recording Rules — quando e como usar</li>
+          <li>Resolver 20 questões do Udemy Practice Exam</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div>
+          <div class="day-number">DIA 04 </div>
+          <div class="day-label">Instrumentação & Exporters</div>
+        </div>
+        <div class="day-pct">16%</div>
+      </div>
+      <div class="day-body">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+          <span class="tag tag-inst">Instrumentação</span>
+        </div>
+        <ul class="day-tasks">
+          <li>Client Libraries: Go, Python, Java, Ruby</li>
+          <li>Como expor métricas via /metrics endpoint</li>
+          <li>Node Exporter (host metrics), cAdvisor (containers)</li>
+          <li>Blackbox Exporter (probe HTTP, TCP, ICMP)</li>
+          <li>Pushgateway — batch jobs e casos de uso</li>
+          <li>Naming conventions: app_subsystem_unit_suffix</li>
+          <li>Relabeling com relabel_configs</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div>
+          <div class="day-number">DIA 05 </div>
+          <div class="day-label">Alerting & Dashboarding</div>
+        </div>
+        <div class="day-pct">18%</div>
+      </div>
+      <div class="day-body">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+          <span class="tag tag-alert">Alerting</span>
+        </div>
+        <ul class="day-tasks">
+          <li>Alerting Rules: groups, rules, for, labels, annotations</li>
+          <li>Estados de alerta: pending, firing, inactive</li>
+          <li>Alertmanager: receivers, routes, grouping, silences</li>
+          <li>Inibição e deduplicação de alertas</li>
+          <li>Grafana: datasources, painéis, variáveis, PromQL</li>
+          <li>Service Discovery: Kubernetes, Consul, EC2, file-based</li>
+          <li>Praticar configuração de alertas simples</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div>
+          <div class="day-number">DIA 06 </div>
+          <div class="day-label">Simulado Completo + Revisão</div>
+        </div>
+        <div class="day-pct">Mock Exam</div>
+      </div>
+      <div class="day-body">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+          <span class="tag tag-promql">Todos os Domínios</span>
+        </div>
+        <ul class="day-tasks">
+          <li>Udemy Practice Exam 1 completo (60 questões, 90min)</li>
+          <li>Analisar erros por domínio e revisar pontos fracos</li>
+          <li>Udemy Practice Exam 2 (foco nos erros do dia)</li>
+          <li>Revisar: Cheat Sheet + lista de PromQL</li>
+          <li>KodeKloud Mock Exam final</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-card active-day">
+      <div class="day-header active-header">
+        <div>
+          <div class="day-number">DIA 07 </div>
+          <div class="day-label">Revisão Rápida + Exam Day</div>
+        </div>
+        <div class="day-pct" style="color: var(--accent3);">🎯 PROVA</div>
+      </div>
+      <div class="day-body">
+        <ul class="day-tasks">
+          <li>Revisar Cheat Sheet pela manhã (30min)</li>
+          <li>Revisar lista de PromQL e funções mais cobradas</li>
+          <li>Não estudar conteúdo novo — só revisar</li>
+          <li>Descansar 1h antes da prova</li>
+          <li>Checar ambiente: câmera, internet, ID, quarto limpo</li>
+          <li>Marcar questões duvidosas para revisar no final</li>
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- /week-grid -->
+</div>
+
+<!-- ============================================================ -->
+<!--  CHEAT SHEET                                                 -->
+<!-- ============================================================ -->
+<div id="cheat" class="section">
+  <div class="hero" style="padding-bottom:24px;margin-bottom:24px;">
+    <div class="hero-badge">CHEAT SHEET</div>
+    <h1>PCA Quick <span>Reference</span></h1>
+  </div>
+
+  <div class="cheat-grid">
+
+    <div class="cheat-card">
+      <h3><span class="tag tag-obs">Observability</span></h3>
+      <div class="cheat-item"><span class="cheat-key">SLI</span><span class="cheat-val blue">métrica real de desempenho</span></div>
+      <div class="cheat-item"><span class="cheat-key">SLO</span><span class="cheat-val blue">meta interna do time (ex: 99.9%)</span></div>
+      <div class="cheat-item"><span class="cheat-key">SLA</span><span class="cheat-val blue">contrato com o cliente</span></div>
+      <div class="cheat-item"><span class="cheat-key">Métricas</span><span class="cheat-val blue">valores numéricos no tempo</span></div>
+      <div class="cheat-item"><span class="cheat-key">Logs</span><span class="cheat-val blue">eventos discretos com contexto</span></div>
+      <div class="cheat-item"><span class="cheat-key">Traces</span><span class="cheat-val blue">spans rastreando req. distribuídas</span></div>
+      <div class="cheat-item"><span class="cheat-key">Pull model</span><span class="cheat-val blue">Prometheus scrapa /metrics</span></div>
+      <div class="cheat-item"><span class="cheat-key">Push model</span><span class="cheat-val blue">app envia p/ Pushgateway</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3><span class="tag tag-fund">Tipos de Métricas</span></h3>
+      <div class="cheat-item"><span class="cheat-key">Counter</span><span class="cheat-val">só sobe (ou zera no restart)</span></div>
+      <div class="cheat-item"><span class="cheat-key">Gauge</span><span class="cheat-val">sobe e desce (memória, temp)</span></div>
+      <div class="cheat-item"><span class="cheat-key">Histogram</span><span class="cheat-val">_bucket, _sum, _count</span></div>
+      <div class="cheat-item"><span class="cheat-key">Summary</span><span class="cheat-val">quantis pré-calculados no app</span></div>
+      <div class="cheat-item"><span class="cheat-key">Histogram vs Summary</span><span class="cheat-val">hist: agreg server; sum: agreg client</span></div>
+      <div class="cheat-item"><span class="cheat-key">Naming</span><span class="cheat-val">namespace_subsystem_name_unit</span></div>
+      <div class="cheat-item"><span class="cheat-key">Sufixos</span><span class="cheat-val">_total _seconds _bytes _ratio</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3><span class="tag tag-fund">Arquitetura & Portas</span></h3>
+      <div class="cheat-item"><span class="cheat-key">Prometheus</span><span class="cheat-val yellow">:9090</span></div>
+      <div class="cheat-item"><span class="cheat-key">Alertmanager</span><span class="cheat-val yellow">:9093</span></div>
+      <div class="cheat-item"><span class="cheat-key">Pushgateway</span><span class="cheat-val yellow">:9091</span></div>
+      <div class="cheat-item"><span class="cheat-key">Node Exporter</span><span class="cheat-val yellow">:9100</span></div>
+      <div class="cheat-item"><span class="cheat-key">cAdvisor</span><span class="cheat-val yellow">:8080</span></div>
+      <div class="cheat-item"><span class="cheat-key">Grafana</span><span class="cheat-val yellow">:3000</span></div>
+      <div class="cheat-item"><span class="cheat-key">Scrape default</span><span class="cheat-val yellow">15s (configável)</span></div>
+      <div class="cheat-item"><span class="cheat-key">Endpoint</span><span class="cheat-val yellow">GET /metrics</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3><span class="tag tag-promql">PromQL Funções Core</span></h3>
+      <div class="cheat-item"><span class="cheat-key">rate()</span><span class="cheat-val">taxa/s para counters (suave)</span></div>
+      <div class="cheat-item"><span class="cheat-key">irate()</span><span class="cheat-val">taxa instantânea (reativo)</span></div>
+      <div class="cheat-item"><span class="cheat-key">increase()</span><span class="cheat-val">aumento total no período</span></div>
+      <div class="cheat-item"><span class="cheat-key">delta()</span><span class="cheat-val">diferença para gauges</span></div>
+      <div class="cheat-item"><span class="cheat-key">histogram_quantile()</span><span class="cheat-val">p99 de histogramas</span></div>
+      <div class="cheat-item"><span class="cheat-key">predict_linear()</span><span class="cheat-val">projeção linear futura</span></div>
+      <div class="cheat-item"><span class="cheat-key">absent()</span><span class="cheat-val">alertar se métrica some</span></div>
+      <div class="cheat-item"><span class="cheat-key">label_replace()</span><span class="cheat-val">manipular labels via regex</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3><span class="tag tag-promql">Seletores & Vetores</span></h3>
+      <div class="cheat-item"><span class="cheat-key">Instant vector</span><span class="cheat-val">http_requests_total{job="api"}</span></div>
+      <div class="cheat-item"><span class="cheat-key">Range vector</span><span class="cheat-val">http_requests_total[5m]</span></div>
+      <div class="cheat-item"><span class="cheat-key">Offset</span><span class="cheat-val">metric offset 1h</span></div>
+      <div class="cheat-item"><span class="cheat-key">= igual</span><span class="cheat-val">job="api"</span></div>
+      <div class="cheat-item"><span class="cheat-key">!= diferente</span><span class="cheat-val">status!="200"</span></div>
+      <div class="cheat-item"><span class="cheat-key">=~ regex</span><span class="cheat-val">status=~"5.."</span></div>
+      <div class="cheat-item"><span class="cheat-key">!~ neg regex</span><span class="cheat-val">status!~"2.."</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3><span class="tag tag-promql">Agregações</span></h3>
+      <div class="cheat-item"><span class="cheat-key">sum by(job)</span><span class="cheat-val">agrupa mantendo label</span></div>
+      <div class="cheat-item"><span class="cheat-key">sum without(pod)</span><span class="cheat-val">remove label, mantém resto</span></div>
+      <div class="cheat-item"><span class="cheat-key">topk(5, expr)</span><span class="cheat-val">top 5 valores</span></div>
+      <div class="cheat-item"><span class="cheat-key">count()</span><span class="cheat-val">número de séries</span></div>
+      <div class="cheat-item"><span class="cheat-key">avg()</span><span class="cheat-val">média dos valores</span></div>
+      <div class="cheat-item"><span class="cheat-key">stddev()</span><span class="cheat-val">desvio padrão</span></div>
+      <div class="cheat-item"><span class="cheat-key">quantile(0.9,e)</span><span class="cheat-val">percentil 90 de gauge</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3><span class="tag tag-alert">Alerting Rules</span></h3>
+      <div class="cheat-item"><span class="cheat-key">pending</span><span class="cheat-val red">condição ativa, antes do for</span></div>
+      <div class="cheat-item"><span class="cheat-key">firing</span><span class="cheat-val red">alerta disparado</span></div>
+      <div class="cheat-item"><span class="cheat-key">inactive</span><span class="cheat-val red">condição não satisfeita</span></div>
+      <div class="cheat-item"><span class="cheat-key">for: 5m</span><span class="cheat-val red">aguarda antes de disparar</span></div>
+      <div class="cheat-item"><span class="cheat-key">labels</span><span class="cheat-val red">enriquecem o alerta</span></div>
+      <div class="cheat-item"><span class="cheat-key">annotations</span><span class="cheat-val red">info legível p/ humanos</span></div>
+      <div class="cheat-item"><span class="cheat-key">group_wait</span><span class="cheat-val red">espera antes de enviar 1o grupo</span></div>
+      <div class="cheat-item"><span class="cheat-key">group_interval</span><span class="cheat-val red">intervalo para alertas do grupo</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3><span class="tag tag-inst">Exporters & Service Discovery</span></h3>
+      <div class="cheat-item"><span class="cheat-key">Node Exporter</span><span class="cheat-val purple">métricas de host (CPU, RAM…)</span></div>
+      <div class="cheat-item"><span class="cheat-key">cAdvisor</span><span class="cheat-val purple">métricas de containers</span></div>
+      <div class="cheat-item"><span class="cheat-key">Blackbox</span><span class="cheat-val purple">probe HTTP/TCP/ICMP</span></div>
+      <div class="cheat-item"><span class="cheat-key">Pushgateway</span><span class="cheat-val purple">batch jobs de curta duração</span></div>
+      <div class="cheat-item"><span class="cheat-key">SD: Kubernetes</span><span class="cheat-val purple">auto-descoberta de pods/svc</span></div>
+      <div class="cheat-item"><span class="cheat-key">SD: file</span><span class="cheat-val purple">targets em JSON/YAML</span></div>
+      <div class="cheat-item"><span class="cheat-key">relabeling</span><span class="cheat-val purple">transforma labels no scrape</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3><span class="tag tag-fund">Limitações do Prometheus</span></h3>
+      <div class="cheat-item"><span class="cheat-key">Não ideal para</span><span class="cheat-val">logs de eventos, 100% precisão</span></div>
+      <div class="cheat-item"><span class="cheat-key">Long-term storage</span><span class="cheat-val">use Thanos, Cortex, VictoriaMetrics</span></div>
+      <div class="cheat-item"><span class="cheat-key">Cardinality</span><span class="cheat-val">labels com alta cardinalidade = ruim</span></div>
+      <div class="cheat-item"><span class="cheat-key">HA</span><span class="cheat-val">múltiplas instâncias (sem consenso)</span></div>
+      <div class="cheat-item"><span class="cheat-key">Retention default</span><span class="cheat-val">15 dias</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!--  QUIZ 50 QUESTÕES                                            -->
+<!-- ============================================================ -->
+<div id="quiz" class="section">
+  <div class="quiz-header">
+    <div>
+      <h2>50 Questões Estilo PCA</h2>
+      <p style="color:var(--muted);font-size:13px;margin-top:4px;">Clique na alternativa para responder · Veja a explicação logo abaixo</p>
+    </div>
+    <div>
+      <div class="quiz-score" id="scoreDisplay">Score: 0/0</div>
+      <div class="quiz-progress" id="progressDisplay" style="text-align:right;font-size:11px;color:var(--muted)"></div>
+    </div>
+  </div>
+
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="filterQuiz('all')">Todas (50)</button>
+    <button class="filter-btn" onclick="filterQuiz('PromQL')">PromQL</button>
+    <button class="filter-btn" onclick="filterQuiz('Fundamentos')">Fundamentos</button>
+    <button class="filter-btn" onclick="filterQuiz('Observability')">Observability</button>
+    <button class="filter-btn" onclick="filterQuiz('Alerting')">Alerting</button>
+    <button class="filter-btn" onclick="filterQuiz('Instrumentação')">Instrumentação</button>
+  </div>
+
+  <div id="quizContainer"></div>
+
+  <div class="quiz-nav">
+    <button class="btn-outline" onclick="resetQuiz()">🔄 Reiniciar Quiz</button>
+    <div class="quiz-score" id="finalScore"></div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!--  MAPA MENTAL                                                 -->
+<!-- ============================================================ -->
+<div id="mindmap" class="section">
+  <div class="hero" style="padding-bottom:24px;margin-bottom:24px;">
+    <div class="hero-badge">MAPA MENTAL</div>
+    <h1>PCA <span>Mind Map</span></h1>
+    <p>Visão completa dos 5 domínios</p>
+  </div>
+  <div class="mindmap-container" style="overflow:auto;">
+    <svg width="1000" height="700" viewBox="0 0 1000 700" style="min-width:800px;">
+      <defs>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+          <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- Center -->
+      <ellipse cx="500" cy="350" rx="75" ry="40" fill="#e8ff47" filter="url(#glow)"/>
+      <text x="500" y="345" text-anchor="middle" fill="#0a0c10" font-weight="800" font-size="14">Prometheus</text>
+      <text x="500" y="362" text-anchor="middle" fill="#0a0c10" font-size="11">Certified</text>
+
+      <!-- Branch 1: PromQL (top) -->
+      <line x1="500" y1="310" x2="500" y2="200" stroke="#47ffb8" stroke-width="2"/>
+      <ellipse cx="500" cy="175" rx="65" ry="28" fill="#1a3d2e" stroke="#47ffb8" stroke-width="2"/>
+      <text x="500" y="172" text-anchor="middle" fill="#47ffb8" font-weight="700" font-size="12">PromQL</text>
+      <text x="500" y="185" text-anchor="middle" fill="#47ffb8" font-size="9">28%</text>
+      <!-- Sub-nodes PromQL -->
+      <line x1="460" y1="152" x2="370" y2="110" stroke="#47ffb8" stroke-width="1.5"/>
+      <rect x="290" y="90" width="80" height="22" rx="5" fill="#111318" stroke="#47ffb8" stroke-width="1"/>
+      <text x="330" y="105" text-anchor="middle" fill="#47ffb8" font-size="10">rate() irate()</text>
+
+      <line x1="500" y1="147" x2="500" y2="100" stroke="#47ffb8" stroke-width="1.5"/>
+      <rect x="440" y="82" width="120" height="22" rx="5" fill="#111318" stroke="#47ffb8" stroke-width="1"/>
+      <text x="500" y="97" text-anchor="middle" fill="#47ffb8" font-size="10">histogram_quantile()</text>
+
+      <line x1="540" y1="152" x2="630" y2="110" stroke="#47ffb8" stroke-width="1.5"/>
+      <rect x="620" y="90" width="100" height="22" rx="5" fill="#111318" stroke="#47ffb8" stroke-width="1"/>
+      <text x="670" y="105" text-anchor="middle" fill="#47ffb8" font-size="10">sum by / without</text>
+
+      <!-- Branch 2: Fundamentos (top-right) -->
+      <line x1="570" y1="330" x2="750" y2="240" stroke="#47b8ff" stroke-width="2"/>
+      <ellipse cx="800" cy="225" rx="65" ry="28" fill="#1e2a3a" stroke="#47b8ff" stroke-width="2"/>
+      <text x="800" y="222" text-anchor="middle" fill="#47b8ff" font-weight="700" font-size="12">Fundamentos</text>
+      <text x="800" y="235" text-anchor="middle" fill="#47b8ff" font-size="9">20%</text>
+      <!-- Sub Fundamentos -->
+      <line x1="860" y1="220" x2="940" y2="190" stroke="#47b8ff" stroke-width="1.5"/>
+      <rect x="920" y="175" width="70" height="22" rx="5" fill="#111318" stroke="#47b8ff" stroke-width="1"/>
+      <text x="955" y="190" text-anchor="middle" fill="#47b8ff" font-size="10">TSDB :9090</text>
+
+      <line x1="860" y1="230" x2="940" y2="250" stroke="#47b8ff" stroke-width="1.5"/>
+      <rect x="910" y="238" width="80" height="22" rx="5" fill="#111318" stroke="#47b8ff" stroke-width="1"/>
+      <text x="950" y="253" text-anchor="middle" fill="#47b8ff" font-size="10">Data Model</text>
+
+      <line x1="800" y1="253" x2="800" y2="290" stroke="#47b8ff" stroke-width="1.5"/>
+      <rect x="740" y="288" width="120" height="22" rx="5" fill="#111318" stroke="#47b8ff" stroke-width="1"/>
+      <text x="800" y="303" text-anchor="middle" fill="#47b8ff" font-size="10">Counter/Gauge/Hist</text>
+
+      <!-- Branch 3: Alerting (bottom-right) -->
+      <line x1="560" y1="375" x2="750" y2="460" stroke="#ff6b6b" stroke-width="2"/>
+      <ellipse cx="800" cy="480" rx="65" ry="28" fill="#3a1e1e" stroke="#ff6b6b" stroke-width="2"/>
+      <text x="800" y="477" text-anchor="middle" fill="#ff6b6b" font-weight="700" font-size="12">Alerting &</text>
+      <text x="800" y="490" text-anchor="middle" fill="#ff6b6b" font-size="9">Dashboarding 18%</text>
+      <!-- Sub Alerting -->
+      <line x1="860" y1="475" x2="930" y2="445" stroke="#ff6b6b" stroke-width="1.5"/>
+      <rect x="900" y="432" width="90" height="22" rx="5" fill="#111318" stroke="#ff6b6b" stroke-width="1"/>
+      <text x="945" y="447" text-anchor="middle" fill="#ff6b6b" font-size="10">Alertmanager</text>
+
+      <line x1="860" y1="490" x2="930" y2="515" stroke="#ff6b6b" stroke-width="1.5"/>
+      <rect x="900" y="503" width="80" height="22" rx="5" fill="#111318" stroke="#ff6b6b" stroke-width="1"/>
+      <text x="940" y="518" text-anchor="middle" fill="#ff6b6b" font-size="10">Grafana :3000</text>
+
+      <line x1="800" y1="508" x2="800" y2="550" stroke="#ff6b6b" stroke-width="1.5"/>
+      <rect x="745" y="548" width="110" height="22" rx="5" fill="#111318" stroke="#ff6b6b" stroke-width="1"/>
+      <text x="800" y="563" text-anchor="middle" fill="#ff6b6b" font-size="10">pending/firing/inactive</text>
+
+      <!-- Branch 4: Instrumentação (bottom-left) -->
+      <line x1="440" y1="375" x2="250" y2="460" stroke="#e8ff47" stroke-width="2"/>
+      <ellipse cx="200" cy="480" rx="65" ry="28" fill="#2a2a1e" stroke="#e8ff47" stroke-width="2"/>
+      <text x="200" y="477" text-anchor="middle" fill="#e8ff47" font-weight="700" font-size="12">Instrumentação</text>
+      <text x="200" y="490" text-anchor="middle" fill="#e8ff47" font-size="9">& Exporters 16%</text>
+      <!-- Sub Instrumentação -->
+      <line x1="140" y1="475" x2="60" y2="445" stroke="#e8ff47" stroke-width="1.5"/>
+      <rect x="10" y="432" width="80" height="22" rx="5" fill="#111318" stroke="#e8ff47" stroke-width="1"/>
+      <text x="50" y="447" text-anchor="middle" fill="#e8ff47" font-size="10">Node Exporter</text>
+
+      <line x1="140" y1="490" x2="60" y2="515" stroke="#e8ff47" stroke-width="1.5"/>
+      <rect x="10" y="503" width="80" height="22" rx="5" fill="#111318" stroke="#e8ff47" stroke-width="1"/>
+      <text x="50" y="518" text-anchor="middle" fill="#e8ff47" font-size="10">Pushgateway</text>
+
+      <line x1="200" y1="508" x2="200" y2="548" stroke="#e8ff47" stroke-width="1.5"/>
+      <rect x="140" y="546" width="120" height="22" rx="5" fill="#111318" stroke="#e8ff47" stroke-width="1"/>
+      <text x="200" y="561" text-anchor="middle" fill="#e8ff47" font-size="10">Client Libraries</text>
+
+      <!-- Branch 5: Observability (top-left) -->
+      <line x1="430" y1="330" x2="250" y2="240" stroke="#a47fff" stroke-width="2"/>
+      <ellipse cx="200" cy="220" rx="65" ry="28" fill="#2a1e3a" stroke="#a47fff" stroke-width="2"/>
+      <text x="200" y="217" text-anchor="middle" fill="#a47fff" font-weight="700" font-size="12">Observability</text>
+      <text x="200" y="230" text-anchor="middle" fill="#a47fff" font-size="9">Concepts 18%</text>
+      <!-- Sub Obs -->
+      <line x1="140" y1="215" x2="60" y2="185" stroke="#a47fff" stroke-width="1.5"/>
+      <rect x="10" y="172" width="80" height="22" rx="5" fill="#111318" stroke="#a47fff" stroke-width="1"/>
+      <text x="50" y="187" text-anchor="middle" fill="#a47fff" font-size="10">SLI / SLO / SLA</text>
+
+      <line x1="140" y1="225" x2="60" y2="250" stroke="#a47fff" stroke-width="1.5"/>
+      <rect x="10" y="238" width="80" height="22" rx="5" fill="#111318" stroke="#a47fff" stroke-width="1"/>
+      <text x="50" y="253" text-anchor="middle" fill="#a47fff" font-size="10">Push vs Pull</text>
+
+      <line x1="200" y1="192" x2="200" y2="150" stroke="#a47fff" stroke-width="1.5"/>
+      <rect x="140" y="130" width="120" height="22" rx="5" fill="#111318" stroke="#a47fff" stroke-width="1"/>
+      <text x="200" y="145" text-anchor="middle" fill="#a47fff" font-size="10">Metrics/Logs/Traces</text>
+
+      <!-- Service Discovery node (center-right) -->
+      <line x1="565" y1="355" x2="660" y2="355" stroke="#47b8ff" stroke-width="1.5" stroke-dasharray="4"/>
+      <rect x="655" y="342" width="110" height="22" rx="5" fill="#111318" stroke="#47b8ff" stroke-width="1"/>
+      <text x="710" y="357" text-anchor="middle" fill="#47b8ff" font-size="10">Service Discovery</text>
+
+    </svg>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!--  PROMQL TOP                                                  -->
+<!-- ============================================================ -->
+<div id="promql" class="section">
+  <div class="hero" style="padding-bottom:24px;margin-bottom:24px;">
+    <div class="hero-badge">PROMQL + COMANDOS</div>
+    <h1>O que <span>mais cai</span> na PCA</h1>
+    <p>Ordenado por frequência de cobrança</p>
+  </div>
+
+  <div class="promql-section">
+    <h2>⚡ Funções Mais Cobradas</h2>
+    <div class="cmd-grid">
+
+      <div class="cmd-card">
+        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <div class="cmd-code">rate(http_requests_total[5m])</div>
+        <div class="cmd-desc">Taxa por segundo de um counter. SEMPRE use com range vector. Suaviza picos.</div>
+        <div class="cmd-tip">💡 rate() é A função mais cobrada. Saiba a diferença para irate().</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <div class="cmd-code">histogram_quantile(0.99, rate(http_duration_seconds_bucket[5m]))</div>
+        <div class="cmd-desc">Calcula o percentil 99 de latência. Requer _bucket do Histogram.</div>
+        <div class="cmd-tip">💡 Summary não suporta agregação cross-instance, Histogram sim.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <div class="cmd-code">sum(rate(http_requests_total[5m])) by (job)</div>
+        <div class="cmd-desc">Agrega taxa de requests agrupando por job. Padrão clássico de query.</div>
+        <div class="cmd-tip">💡 by() mantém labels, without() remove. Saiba a diferença.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star off">★</span></div>
+        <div class="cmd-code">irate(http_requests_total[5m])</div>
+        <div class="cmd-desc">Taxa instantânea — usa apenas os 2 últimos pontos. Mais reativo que rate().</div>
+        <div class="cmd-tip">💡 Use irate para dashboards real-time, rate para alertas.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star off">★</span></div>
+        <div class="cmd-code">increase(http_requests_total[1h])</div>
+        <div class="cmd-desc">Total de aumento de um counter no período. Equivale a rate() * range.</div>
+        <div class="cmd-tip">💡 Pode não ser inteiro — Prometheus extrapola.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star off">★</span></div>
+        <div class="cmd-code">predict_linear(node_filesystem_avail_bytes[1h], 4*3600)</div>
+        <div class="cmd-desc">Prevê valor daqui a 4h com base na tendência da última 1h.</div>
+        <div class="cmd-tip">💡 Clássico para alertar sobre disco cheio antes que aconteça.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star off">★</span><span class="star off">★</span></div>
+        <div class="cmd-code">absent(up{job="api"})</div>
+        <div class="cmd-desc">Retorna vetor se a métrica NÃO existe. Usado para alertar quando target some.</div>
+        <div class="cmd-tip">💡 Resultado: 1 se ausente. Nada se presente.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star off">★</span><span class="star off">★</span></div>
+        <div class="cmd-code">delta(cpu_temp_celsius[10m])</div>
+        <div class="cmd-desc">Diferença entre primeiro e último valor num range. Use com Gauges.</div>
+        <div class="cmd-tip">💡 delta() para gauges; increase() para counters.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star off">★</span><span class="star off">★</span></div>
+        <div class="cmd-code">topk(3, sum(rate(requests[5m])) by (service))</div>
+        <div class="cmd-desc">Top 3 serviços com maior taxa de request. Operador de agregação.</div>
+        <div class="cmd-tip">💡 topk/bottomk retornam instant vectors, não ranges.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star off">★</span><span class="star off">★</span></div>
+        <div class="cmd-code">label_replace(metric, "dst", "$1", "src", "(.*):.*")</div>
+        <div class="cmd-desc">Cria ou modifica labels com regex. Útil para normalizar dados.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star off">★</span><span class="star off">★</span><span class="star off">★</span></div>
+        <div class="cmd-code">changes(config_reloads_total[1h])</div>
+        <div class="cmd-desc">Número de vezes que o valor de uma série mudou no período.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star off">★</span><span class="star off">★</span><span class="star off">★</span></div>
+        <div class="cmd-code">floor(expr) / ceil(expr) / round(expr)</div>
+        <div class="cmd-desc">Funções matemáticas padrão aplicadas a vetores.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="promql-section">
+    <h2>🎯 Patterns de Alerta Mais Cobrados</h2>
+    <div class="cmd-grid">
+
+      <div class="cmd-card">
+        <div class="cmd-code">sum(rate(http_requests_total{status=~"5.."}[5m]))
+/ sum(rate(http_requests_total[5m])) > 0.05</div>
+        <div class="cmd-desc">Error rate acima de 5%. Padrão clássico de SLO alert.</div>
+        <div class="cmd-tip">💡 Use =~ "5.." para todos os 5xx codes.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">node_filesystem_avail_bytes
+/ node_filesystem_size_bytes < 0.1</div>
+        <div class="cmd-desc">Disco com menos de 10% livre. Operador binário simples.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">up == 0</div>
+        <div class="cmd-desc">Target down. A métrica 'up' é 1 se scrape OK, 0 se falhou.</div>
+        <div class="cmd-tip">💡 Métrica especial gerada pelo próprio Prometheus.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">ALERTS{alertstate="firing"}</div>
+        <div class="cmd-desc">Query os alertas que estão atualmente em firing state.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="promql-section">
+    <h2>📝 Configuração: Arquivos que Mais Caem</h2>
+    <div class="cmd-grid">
+
+      <div class="cmd-card">
+        <div class="cmd-code">global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+scrape_configs:
+  - job_name: 'myapp'
+    static_configs:
+      - targets: ['localhost:9090']</div>
+        <div class="cmd-desc">prometheus.yml básico — estrutura mais cobrada.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">groups:
+- name: example
+  rules:
+  - alert: HighErrorRate
+    expr: rate(errors_total[5m]) > 0.1
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: "High error rate"</div>
+        <div class="cmd-desc">Alert rule — saiba todos os campos de cabeça.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">route:
+  group_by: ['alertname','job']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  receiver: 'slack'
+receivers:
+- name: 'slack'
+  slack_configs:
+  - channel: '#alerts'</div>
+        <div class="cmd-desc">alertmanager.yml — routing e receivers.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">groups:
+- name: recording_rules
+  rules:
+  - record: job:http_inprogress_requests:sum
+    expr: sum by (job) (http_inprogress_requests)</div>
+        <div class="cmd-desc">Recording Rules — pré-computam queries pesadas. Naming: level:metric:ops</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<button class="print-btn" onclick="window.print()">🖨️ Imprimir</button>
+
+<script>
+// ============================================================
+// NAVIGATION
+// ============================================================
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const btns = document.querySelectorAll('.nav-btn');
+  const map = {plano:0, cheat:1, quiz:2, mindmap:3, promql:4};
+  btns[map[id]].classList.add('active');
+}
+
+// ============================================================
+// QUIZ DATA
+// ============================================================
+const questions = [
+  // OBSERVABILITY (9q)
+  {domain:"Observability", q:"Qual a principal diferença entre SLO e SLA?", opts:["SLO é o contrato com o cliente; SLA é a meta interna do time","SLA é o contrato com o cliente; SLO é a meta interna/técnica do time","SLO e SLA são sinônimos no contexto de observabilidade","SLA é o indicador medido; SLO é o alerta disparado"], ans:1, exp:"<strong>SLA (Service Level Agreement)</strong> é o contrato formal com o cliente. <strong>SLO (Service Level Objective)</strong> é a meta técnica interna que o time define para garantir o SLA. O SLI é a métrica real medida."},
+  {domain:"Observability", q:"No modelo push vs pull do Prometheus, qual é o comportamento padrão?", opts:["Push — o app envia métricas ao Prometheus","Pull — o Prometheus scrapa o endpoint /metrics dos targets","Ambos são usados simultaneamente por padrão","O modelo depende do tipo de exporter usado"], ans:1, exp:"Prometheus usa o modelo <strong>pull</strong> por padrão: ele faz scrape periódico do endpoint <code>/metrics</code> de cada target. O Pushgateway existe para casos em que o push é necessário (batch jobs)."},
+  {domain:"Observability", q:"Qual pilar da observabilidade é MAIS adequado para rastrear uma requisição atravessando múltiplos microsserviços?", opts:["Métricas","Logs","Traces (rastreamento distribuído)","Alertas"], ans:2, exp:"<strong>Distributed Tracing</strong> com spans é a solução para rastrear o caminho de uma requisição através de múltiplos serviços. OpenTelemetry e Jaeger são ferramentas dessa categoria."},
+  {domain:"Observability", q:"Um SLI mede:", opts:["A penalidade contratual quando o SLA é violado","O valor real de uma métrica de desempenho do serviço","A meta percentual que o time quer atingir","O orçamento de erros disponível"], ans:1, exp:"<strong>SLI (Service Level Indicator)</strong> é a métrica real e observável — por exemplo, a disponibilidade medida nos últimos 30 dias. É o número que comparamos com o SLO."},
+  {domain:"Observability", q:"Por que logs são menos adequados que métricas para alertas em tempo real?", opts:["Logs não podem ser consultados em queries","Logs têm alto volume e custo de armazenamento/processamento para alertas de baixa latência","Logs não registram erros de sistema","Logs não suportam timestamps"], ans:1, exp:"Métricas são dados numéricos pré-agregados, ideais para alertas. Logs têm alto volume e latência maior para processar, tornando métricas mais eficientes para monitoramento em tempo real."},
+  {domain:"Observability", q:"Quando usar Pushgateway em vez do scrape padrão do Prometheus?", opts:["Para aplicações que rodam continuamente em containers","Para batch jobs de curta duração que terminam antes do próximo scrape","Para exporters que precisam de alta cardinalidade","Para scraping de endpoints HTTPS"], ans:1, exp:"<strong>Pushgateway</strong> resolve o problema de batch jobs que têm vida útil menor que o intervalo de scrape. O job faz push das métricas ao Pushgateway, que fica disponível para o Prometheus scrapar."},
+  {domain:"Observability", q:"O que é cardinality no contexto do Prometheus?", opts:["O número de instâncias do Prometheus rodando","O número de time series únicas geradas por combinações de labels","A taxa de ingestão de métricas por segundo","A duração máxima de retenção de dados"], ans:1, exp:"<strong>Cardinality</strong> é o número de combinações únicas de labels, gerando time series distintas. Alta cardinality (ex: usar user_id como label) pode causar problemas sérios de performance e memória."},
+  {domain:"Observability", q:"Qual a limitação principal do Prometheus para long-term storage?", opts:["Prometheus não suporta formato Protobuf","O storage local tem retenção padrão de 15 dias e não é adequado para análise histórica longa","Prometheus não consegue scrapar mais de 100 targets","Prometheus não tem suporte a backup automático"], ans:1, exp:"O storage local do Prometheus tem retenção padrão de 15 dias. Para long-term storage, use soluções externas como <strong>Thanos, Cortex, ou VictoriaMetrics</strong> com remote_write."},
+  {domain:"Observability", q:"O que é um 'error budget' em SRE?", opts:["O custo de infraestrutura alocado para correção de bugs","A quantidade aceitável de downtime/erros antes de violar o SLO","O número máximo de alertas por dia permitidos","O tempo máximo para resolver um incidente"], ans:1, exp:"<strong>Error budget</strong> = 100% - SLO. Se o SLO é 99.9%, o error budget é 0.1% do tempo. Quando o budget está esgotado, o time deve priorizar confiabilidade sobre features novas."},
+
+  // FUNDAMENTOS (10q)
+  {domain:"Fundamentos", q:"Qual o tipo de métrica adequado para medir o número total de requisições HTTP recebidas?", opts:["Gauge","Counter","Histogram","Summary"], ans:1, exp:"<strong>Counter</strong> é usado para valores que só aumentam (ou resetam no reinício). Número total de requisições é um contador clássico. Use com rate() ou increase() para calcular taxas."},
+  {domain:"Fundamentos", q:"Qual a porta padrão do Prometheus?", opts:[":9091",":9090",":9100",":3000"], ans:1, exp:"Prometheus expõe sua UI e API na porta <strong>:9090</strong> por padrão. Memorize: 9090=Prometheus, 9091=Pushgateway, 9093=Alertmanager, 9100=Node Exporter."},
+  {domain:"Fundamentos", q:"Uma métrica Histogram gera automaticamente quais séries com sufixo?", opts:["_total e _avg","_bucket, _sum e _count","_p50, _p90 e _p99","_min e _max"], ans:1, exp:"Histogram gera 3 séries: <strong>_bucket</strong> (contagem por le), <strong>_sum</strong> (soma total dos valores) e <strong>_count</strong> (número de observações). Use histogram_quantile() para calcular percentis."},
+  {domain:"Fundamentos", q:"Qual a diferença entre Histogram e Summary?", opts:["Histogram calcula percentis no servidor; Summary calcula no cliente","Summary calcula percentis no servidor; Histogram calcula no cliente","Ambos calculam percentis no servidor, mas com algoritmos diferentes","Histogram é para latência; Summary é apenas para tamanho de payload"], ans:0, exp:"<strong>Histogram</strong> armazena buckets e calcula percentis no servidor Prometheus (via histogram_quantile). <strong>Summary</strong> calcula percentis no próprio cliente da aplicação. Histogram permite agregação entre instâncias; Summary não."},
+  {domain:"Fundamentos", q:"O que representa a métrica 'up' gerada pelo Prometheus?", opts:["CPU utilizada pelo processo Prometheus","1 se o último scrape do target foi bem-sucedido; 0 se falhou","Número de targets monitorados","Status da conexão com o Alertmanager"], ans:1, exp:"A métrica <strong>up</strong> é gerada automaticamente pelo Prometheus para cada target. Valor 1 = scrape bem-sucedido; 0 = scrape falhou. Clássico: <code>up == 0</code> para alertar targets down."},
+  {domain:"Fundamentos", q:"Qual campo do prometheus.yml define com que frequência as regras são avaliadas?", opts:["scrape_interval","evaluation_interval","rule_interval","alert_interval"], ans:1, exp:"<strong>evaluation_interval</strong> no bloco global define a frequência com que as alerting e recording rules são avaliadas. scrape_interval define a frequência de coleta de métricas."},
+  {domain:"Fundamentos", q:"O que é um 'target' no contexto do Prometheus?", opts:["Um servidor Alertmanager configurado","Um endpoint HTTP que o Prometheus scrapa para coletar métricas","Uma regra de alerta definida no arquivo de rules","Um receptor de notificações no Alertmanager"], ans:1, exp:"<strong>Target</strong> é qualquer endpoint que o Prometheus monitora — um host, pod, serviço, etc. — que expõe métricas no formato Prometheus em um endpoint <code>/metrics</code>."},
+  {domain:"Fundamentos", q:"Qual o formato de naming convention recomendado para métricas?", opts:["camelCase com sufixos tipo _Rate e _Total","snake_case: namespace_subsystem_name_unit (ex: http_requests_total)","PascalCase sem underscores","Qualquer formato, pois o Prometheus normaliza automaticamente"], ans:1, exp:"A convenção é <strong>snake_case</strong> com estrutura: <code>namespace_subsystem_name_unit</code>. Sufixos padrão: _total (counters), _seconds (tempo), _bytes (tamanho), _ratio (0-1)."},
+  {domain:"Fundamentos", q:"Qual é o armazenamento padrão do Prometheus?", opts:["PostgreSQL com extensão timescale","Cassandra distribuído","TSDB (Time Series Database) local em disco","InfluxDB"], ans:2, exp:"Prometheus usa seu próprio <strong>TSDB (Time Series Database)</strong> local, otimizado para dados de séries temporais. É eficiente mas não projetado para longa retenção ou alta disponibilidade."},
+  {domain:"Fundamentos", q:"O que é relabeling no Prometheus?", opts:["Renomear alertas no Alertmanager","Transformar, filtrar ou adicionar labels antes ou após o scrape","Criar dashboards com labels personalizadas no Grafana","Exportar labels para sistemas externos"], ans:1, exp:"<strong>Relabeling</strong> permite transformar labels de targets antes (relabel_configs) ou após (metric_relabel_configs) o scrape. Pode filtrar targets, renomear labels e adicionar metadata."},
+
+  // PROMQL (16q)
+  {domain:"PromQL", q:"Qual query calcula a taxa de requisições por segundo nos últimos 5 minutos?", opts:["increase(http_requests_total[5m])","rate(http_requests_total[5m])","delta(http_requests_total[5m])","sum(http_requests_total)"], ans:1, exp:"<strong>rate()</strong> calcula a taxa por segundo de um counter sobre o range especificado. É a função mais usada para visualizar counters. increase() retorna o total no período, não a taxa."},
+  {domain:"PromQL", q:"Qual a diferença entre rate() e irate()?", opts:["rate() usa os 2 últimos pontos; irate() usa todos os pontos do range","irate() usa os 2 últimos pontos (mais reativo); rate() usa todo o range (mais suave)","São equivalentes, apenas com sintaxe diferente","irate() é mais preciso para períodos longos"], ans:1, exp:"<strong>irate()</strong> calcula a taxa usando apenas os 2 últimos pontos — mais reativo a mudanças. <strong>rate()</strong> usa todo o range — mais suave e estável. rate() é melhor para alertas; irate() para dashboards real-time."},
+  {domain:"PromQL", q:"O que retorna a query: sum(http_requests_total) by (status_code)?", opts:["A soma de todas as requisições sem agrupamento","A soma de requisições agrupada por status_code, com uma série por código","A quantidade de séries por status_code","O percentil 99 das requisições por status_code"], ans:1, exp:"<strong>by (label)</strong> mantém apenas os labels especificados e agrupa os valores. O resultado terá uma série para cada valor único de status_code com a soma das requisições."},
+  {domain:"PromQL", q:"Qual query encontra os 5 jobs com maior número de erros?", opts:["max(errors_total) by (job)","topk(5, sum(errors_total) by (job))","sort_desc(sum(errors_total) by (job))","limit(5, sum(errors_total) by (job))"], ans:1, exp:"<strong>topk(n, expr)</strong> retorna as n séries com maiores valores. <code>topk(5, sum(errors_total) by (job))</code> soma erros por job e retorna os 5 maiores."},
+  {domain:"PromQL", q:"Para calcular o percentil 99 de latência usando um Histogram, qual função usar?", opts:["quantile(0.99, latency_seconds)","percentile(99, latency_seconds_bucket)","histogram_quantile(0.99, rate(latency_seconds_bucket[5m]))","p99(latency_seconds)"], ans:2, exp:"<strong>histogram_quantile(φ, b)</strong> calcula o quantil φ a partir dos buckets de um Histogram. Sempre precisa de rate() nos buckets: <code>histogram_quantile(0.99, rate(metric_bucket[5m]))</code>"},
+  {domain:"PromQL", q:"O que faz 'sum without (pod)' em uma agregação?", opts:["Exclui o label 'pod' dos resultados e mantém todos os outros labels","Mantém apenas o label 'pod' e remove os demais","Filtra séries onde pod está vazio","Remove todas as séries do pod especificado"], ans:0, exp:"<strong>without (label)</strong> é o oposto de by(): mantém todos os labels EXCETO os listados. <code>sum without (pod)</code> soma agrupando por tudo exceto pod, útil para agregar por job/instance."},
+  {domain:"PromQL", q:"Qual label matcher usa regex para incluir status codes 4xx e 5xx?", opts:['status_code="4..|5.."','status_code=~"[45].."','status_code!="2.."','status_code~="[45].."'], ans:1, exp:"<strong>=~</strong> é o matcher de regex. <code>status_code=~\"[45]..\"</code> seleciona qualquer código começando com 4 ou 5. Note: a regex é sempre ancorada — equivale a ^[45]..$"},
+  {domain:"PromQL", q:"O que é um 'range vector' em PromQL?", opts:["Um vetor com valores em diferentes regiões geográficas","Um conjunto de samples de uma time series dentro de um intervalo de tempo","Uma série com valores ordenados em ranking","Múltiplas métricas combinadas com operadores binários"], ans:1, exp:"<strong>Range vector</strong> é representado por <code>metric[5m]</code> — retorna todos os samples da série nos últimos 5 minutos. Funções como rate() e increase() requerem range vectors."},
+  {domain:"PromQL", q:"Qual query alerta se o disco vai encher em menos de 4 horas?", opts:["node_filesystem_avail_bytes < 10","predict_linear(node_filesystem_avail_bytes[1h], 4*3600) < 0","rate(node_filesystem_avail_bytes[1h]) > 0","increase(node_filesystem_size_bytes[4h]) > 0"], ans:1, exp:"<strong>predict_linear(v, t)</strong> projeta o valor daqui a t segundos usando regressão linear sobre o range v. Se o resultado for < 0, o disco vai encher antes de t segundos."},
+  {domain:"PromQL", q:"O que faz a função absent()?", opts:["Remove séries com valores ausentes (NaN)","Retorna 1 se a série NÃO existe; nada se existe — útil para alertar targets ausentes","Substitui valores ausentes por zero","Filtra séries com labels undefined"], ans:1, exp:"<strong>absent()</strong> retorna um vetor com valor 1 se a expressão não tem dados. Essencial para alertar quando uma métrica desaparece: <code>absent(up{job='api'})</code> dispara se o job api some."},
+  {domain:"PromQL", q:"Qual é o resultado de 'sum(rate(errors[5m])) / sum(rate(requests[5m]))'?", opts:["O número absoluto de erros","A taxa de erros como proporção do total de requisições","O tempo médio de resposta","O número de instâncias com erro"], ans:1, exp:"Esta query calcula o <strong>error ratio</strong> — fração de erros sobre o total. Multiplique por 100 para percentual. Padrão clássico para alertas de SLO: <code>> 0.01</code> = mais de 1% de erros."},
+  {domain:"PromQL", q:"Como selecionar todas as instâncias EXCETO a de staging?", opts:['instance="prod"','instance!="staging"','instance=~"prod.*"','instance!~"staging.*"'], ans:1, exp:"<strong>!=</strong> é o label matcher de negação exata. <code>instance!=\"staging\"</code> exclui exatamente a instância chamada 'staging'. Use !~ para negação com regex."},
+  {domain:"PromQL", q:"O que são Recording Rules e quando usar?", opts:["Regras que gravam logs de auditoria do Prometheus","Expressões PromQL pré-computadas e armazenadas, usadas para queries pesadas e recorrentes","Regras que fazem backup das métricas em remote storage","Configurações de scrape salvas para reutilização"], ans:1, exp:"<strong>Recording Rules</strong> pré-computam expressões PromQL e armazenam o resultado como nova métrica. Use para queries complexas usadas em vários alertas/dashboards, melhorando performance. Naming: <code>level:metric:operations</code>"},
+  {domain:"PromQL", q:"Qual operador binário de matching usar quando 'on' labels não correspondem 1:1?", opts:["group_left() ou group_right()","by() ou without()","on() sozinho","ignore()"], ans:0, exp:"<strong>group_left()</strong> e <strong>group_right()</strong> são usados em joins many-to-one. Ex: <code>metric_a * on(job) group_left(label) metric_b</code> — multiplica métricas onde 'a' tem muitos para um 'b'."},
+  {domain:"PromQL", q:"O que retorna 'rate(counter[1m])' se o counter resetou no período?", opts:["Um valor negativo indicando o reset","Zero, pois o reset invalida o cálculo","rate() detecta resets e ajusta automaticamente o cálculo","Um erro de sintaxe"], ans:2, exp:"<strong>rate()</strong> detecta automaticamente resets de counters (quando o valor cai) e ajusta o cálculo. Por isso é preferível a subtrações manuais de counters."},
+  {domain:"PromQL", q:"Qual a diferença entre delta() e increase()?", opts:["delta() é para counters; increase() é para gauges","delta() é para gauges (pode ser negativo); increase() é para counters","São equivalentes","increase() inclui extrapolação; delta() não"], ans:1, exp:"<strong>delta()</strong> calcula a diferença simples para <strong>Gauges</strong>. <strong>increase()</strong> é para <strong>Counters</strong> e inclui extrapolação para bordas do range. Não misture os dois com tipos errados."},
+
+  // INSTRUMENTAÇÃO (7q)
+  {domain:"Instrumentação", q:"Qual exporter é usado para coletar métricas de CPU, memória e disco do host?", opts:["cAdvisor","Blackbox Exporter","Node Exporter","Pushgateway"], ans:2, exp:"<strong>Node Exporter</strong> expõe métricas do sistema operacional host: CPU, memória, disco, rede, etc. Roda na porta :9100 e é o exporter padrão para monitoramento de infraestrutura."},
+  {domain:"Instrumentação", q:"Qual exporter monitora métricas de containers Docker/Kubernetes?", opts:["Node Exporter","cAdvisor","Blackbox Exporter","kube-state-metrics"], ans:1, exp:"<strong>cAdvisor</strong> (Container Advisor) coleta métricas de containers: CPU, memória, I/O. Já integrado no kubelet do Kubernetes. Porta padrão :8080."},
+  {domain:"Instrumentação", q:"Para que serve o Blackbox Exporter?", opts:["Monitorar métricas internas de aplicações black-box","Fazer probes de endpoints HTTP, TCP, ICMP — testar disponibilidade externa","Exportar métricas de bancos de dados","Substituir o Node Exporter em ambientes containerizados"], ans:1, exp:"<strong>Blackbox Exporter</strong> testa endpoints de fora (como um usuário): verifica se HTTP retorna 200, se TCP conecta, se ICMP responde. Ideal para checar disponibilidade e SSL certificates."},
+  {domain:"Instrumentação", q:"Qual a convenção de naming para uma métrica de latência de requisições HTTP?", opts:["httpRequestDurationSeconds","http_request_duration","http_request_duration_seconds","HttpRequestDurationSecs"], ans:2, exp:"A convenção é <strong>snake_case</strong> com sufixo de unidade: <code>http_request_duration_seconds</code>. Nunca abrevie unidades (não _secs). Sufixos padrão: _seconds, _bytes, _total, _ratio."},
+  {domain:"Instrumentação", q:"Por que NÃO usar user_id como label em uma métrica?", opts:["Labels devem ser apenas strings, não números","Alta cardinality — milhões de user_ids criariam milhões de time series, degradando performance","Prometheus não aceita labels com underscore","Labels são case-sensitive e user_id pode conflitar"], ans:1, exp:"Labels com alta cardinality (como user_id, request_id) criam uma time series por valor único, podendo gerar milhões de séries. Isso sobrecarrega memória e TSDB. Use em logs, não em métricas."},
+  {domain:"Instrumentação", q:"Qual client library NÃO é oficialmente suportada pelo Prometheus?", opts:["Go","Python","PHP","Java"], ans:2, exp:"As client libraries oficiais do Prometheus são: <strong>Go, Java/Scala, Python e Ruby</strong>. PHP não tem biblioteca oficial — existem bibliotecas de terceiros. Go é a linguagem nativa do Prometheus."},
+  {domain:"Instrumentação", q:"O que o Pushgateway faz com as métricas após o job terminar?", opts:["Apaga automaticamente após o TTL configurado","Mantém as métricas indefinidamente até serem deletadas manualmente ou via API","Envia imediatamente ao Prometheus","Agrega com outros jobs do mesmo tipo"], ans:1, exp:"<strong>Pushgateway persiste as métricas</strong> mesmo após o job terminar — é exatamente para isso que serve! Para limpar, o job deve deletar suas métricas via API (<code>DELETE /metrics/job/{job}</code>) ou por tempo de vida configurado."},
+
+  // ALERTING (8q)
+  {domain:"Alerting", q:"Qual o estado de um alerta que acabou de ter sua condição satisfeita mas ainda não passou pelo campo 'for'?", opts:["firing","inactive","pending","warning"], ans:2, exp:"<strong>pending</strong>: a condição foi satisfeita mas o tempo definido em <code>for</code> ainda não passou. Depois do 'for', o alerta passa para <strong>firing</strong>. Sem 'for', vai direto para firing."},
+  {domain:"Alerting", q:"O que faz o campo 'for: 5m' em uma alerting rule?", opts:["O alerta expira após 5 minutos","O alerta precisa estar em pending por 5 minutos antes de disparar","O Alertmanager aguarda 5 minutos para enviar a notificação","O alerta é avaliado a cada 5 minutos"], ans:1, exp:"<strong>for</strong> define o tempo mínimo que a condição deve ser satisfeita antes de disparar. Evita falsos positivos de picos momentâneos. O alerta fica em 'pending' durante esse período."},
+  {domain:"Alerting", q:"Qual a função do 'group_wait' no Alertmanager?", opts:["Tempo de espera entre notificações do mesmo grupo","Tempo inicial de espera antes de enviar a primeira notificação de um novo grupo","Tempo de cooldown após resolver um alerta","Tempo máximo de processamento de um alerta"], ans:1, exp:"<strong>group_wait</strong> é o tempo que o Alertmanager aguarda para juntar alertas do mesmo grupo antes de enviar a primeira notificação. Permite agrupar alertas que chegam juntos. Padrão: 30s."},
+  {domain:"Alerting", q:"O que é 'inhibition' no Alertmanager?", opts:["Silenciar alertas manualmente por um período","Impedir que alertas menos críticos sejam enviados quando um alerta mais crítico está ativo","Agrupar alertas similares em uma única notificação","Rotear alertas para diferentes canais por severidade"], ans:1, exp:"<strong>Inhibition</strong> suprime alertas menos relevantes quando um alerta mais crítico está disparando. Ex: se o host está down, inibe alertas de apps nesse host — pois a causa raiz já é conhecida."},
+  {domain:"Alerting", q:"Qual campo de uma alert rule é destinado a informações legíveis por humanos como 'runbook' e descrição?", opts:["labels","annotations","expr","summary_config"], ans:1, exp:"<strong>annotations</strong> contém informações legíveis para humanos: summary, description, runbook_url, etc. <strong>labels</strong> são usados para roteamento e silenciamentos. São campos distintos!"},
+  {domain:"Alerting", q:"Como o Alertmanager agrupa alertas?", opts:["Sempre envia um alerta por vez","Agrupa alertas com os mesmos labels definidos em group_by, enviando como um pacote","Agrupa por severidade automaticamente","Agrupa apenas alertas idênticos"], ans:1, exp:"<strong>group_by</strong> no Alertmanager define quais labels usar para agrupar alertas. Ex: <code>group_by: ['alertname', 'cluster']</code> — alertas com mesmo alertname e cluster são agrupados em uma notificação."},
+  {domain:"Alerting", q:"Qual a diferença entre 'silence' e 'inhibition' no Alertmanager?", opts:["São sinônimos no contexto do Alertmanager","Silence suprime manualmente por critérios; inhibition suprime automaticamente baseado em outros alertas","Silence é permanente; inhibition é temporário","Inhibition funciona por label; silence funciona por tempo"], ans:1, exp:"<strong>Silence</strong>: supressão manual por um período de tempo (maintenance window). <strong>Inhibition</strong>: supressão automática baseada na presença de outro alerta específico — configurado em arquivo."},
+  {domain:"Alerting", q:"Como configurar um painel Grafana para usar dados do Prometheus?", opts:["Importar o prometheus.yml diretamente no Grafana","Configurar um Datasource do tipo Prometheus com a URL do servidor e usar PromQL nas queries","Usar o plugin node_exporter_full do Grafana","Conectar via SSH ao servidor Prometheus"], ans:1, exp:"No Grafana, configure um <strong>Datasource → Prometheus</strong> com a URL do servidor (ex: http://prometheus:9090). Nos painéis, use PromQL para consultar dados. Grafana suporta variáveis e templates com PromQL."},
+];
+
+let answered = {};
+let currentFilter = 'all';
+let score = 0;
+let total = 0;
+
+function filterQuiz(domain) {
+  currentFilter = domain;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderQuiz();
+}
+
+function renderQuiz() {
+  const container = document.getElementById('quizContainer');
+  const filtered = currentFilter === 'all' ? questions : questions.filter(q => q.domain === currentFilter);
+  
+  container.innerHTML = '';
+  filtered.forEach((q, i) => {
+    const globalIdx = questions.indexOf(q);
+    const letters = ['A','B','C','D'];
+    const isAnswered = answered[globalIdx] !== undefined;
+    
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.innerHTML = `
+      <div class="question-num">
+        <span>Q${i+1}</span>
+        <span class="tag tag-${domainTag(q.domain)}">${q.domain}</span>
+      </div>
+      <div class="question-text">${q.q}</div>
+      <div class="options">
+        ${q.opts.map((opt, j) => {
+          let cls = 'option-btn';
+          if (isAnswered) {
+            if (j === q.ans) cls += ' correct';
+            else if (j === answered[globalIdx] && j !== q.ans) cls += ' wrong';
+            else cls += '';
+          }
+          return `<button class="${cls}" ${isAnswered?'disabled':''} onclick="answer(${globalIdx}, ${j})">
+            <span class="option-letter">${letters[j]}</span>
+            <span>${opt}</span>
+          </button>`;
+        }).join('')}
+      </div>
+      <div class="explanation ${isAnswered?'show':''}" id="exp-${globalIdx}">
+        ${q.exp}
+      </div>
+    `;
+    container.appendChild(card);
+  });
+  updateScore();
+}
+
+function domainTag(d) {
+  const m = {PromQL:'promql',Fundamentos:'fund',Observability:'obs',Alerting:'alert',Instrumentação:'inst'};
+  return m[d]||'fund';
+}
+
+function answer(idx, chosen) {
+  if (answered[idx] !== undefined) return;
+  answered[idx] = chosen;
+  const q = questions[idx];
+  total++;
+  if (chosen === q.ans) score++;
+  renderQuiz();
+}
+
+function updateScore() {
+  document.getElementById('scoreDisplay').textContent = `Score: ${score}/${total}`;
+  const pct = total > 0 ? Math.round(score/total*100) : 0;
+  document.getElementById('progressDisplay').textContent = total > 0 ? `${pct}% correto` : '';
+  const final = document.getElementById('finalScore');
+  if (total === questions.length) {
+    final.textContent = `Resultado final: ${score}/${questions.length} (${pct}%)`;
+    final.style.color = pct >= 75 ? 'var(--promql)' : 'var(--accent3)';
+  }
+}
+
+function resetQuiz() {
+  answered = {};
+  score = 0;
+  total = 0;
+  renderQuiz();
+  document.getElementById('finalScore').textContent = '';
+}
+
+renderQuiz();
+</script>
+</body>
+</html>

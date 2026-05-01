@@ -20,18 +20,18 @@ jobs:
 
       - name: Validate HTML exists
         run: |
-          test -f docs/index.html
+          test -f web/index.html
 
       - name: Validate HTML structure
         run: |
-          grep -q "<html" docs/index.html
-          grep -q "</html>" docs/index.html
-          grep -q "<body" docs/index.html
-          grep -q "</body>" docs/index.html
+          grep -q "<html" web/index.html
+          grep -q "</html>" web/index.html
+          grep -q "<body" web/index.html
+          grep -q "</body>" web/index.html
 
       - name: Check HTML size
         run: |
-          SIZE=$(wc -c < docs/index.html)
+          SIZE=$(wc -c < web/index.html)
 
           echo "HTML size: $SIZE bytes"
 
@@ -67,7 +67,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          source: "docs/*"
+          source: "web/*"
           target: "/var/www/pca-study"
 
       - name: Validate nginx config
