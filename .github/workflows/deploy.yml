@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'web/**'
 
 jobs:
   validate-and-deploy:
@@ -14,6 +12,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Show repository structure
+        run: |
+          pwd
+          ls -R
 
       - name: Validate HTML exists
         run: |
@@ -45,7 +48,18 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             mkdir -p /var/www/backups
-            cp /var/www/pca-study/index.html /var/www/backups/index-$(date +%F-%H-%M-%S).html || true
+
+            cp /var/www/pca-study/index.html \
+            /var/www/backups/index-$(date +%F-%H-%M-%S).html || true
+
+      - name: Create target directory
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            mkdir -p /var/www/pca-study
 
       - name: Deploy files to VPS
         uses: appleboy/scp-action@v0.1.7
@@ -84,3 +98,7 @@ jobs:
             echo "Health check failed"
             exit 1
           fi
+
+      - name: Deployment Success
+        run: |
+          echo "Deploy completed successfully"
