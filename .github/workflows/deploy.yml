@@ -86,7 +86,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            systemctl reload nginx
+            systemctl restart nginx
 
       - name: Health Check
         uses: appleboy/ssh-action@v1.0.3
