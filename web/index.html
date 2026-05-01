@@ -568,14 +568,19 @@
 
     <div class="cheat-card">
       <h3><span class="tag tag-obs">Observability</span></h3>
-      <div class="cheat-item"><span class="cheat-key">SLI</span><span class="cheat-val blue">métrica real de desempenho</span></div>
-      <div class="cheat-item"><span class="cheat-key">SLO</span><span class="cheat-val blue">meta interna do time (ex: 99.9%)</span></div>
-      <div class="cheat-item"><span class="cheat-key">SLA</span><span class="cheat-val blue">contrato com o cliente</span></div>
-      <div class="cheat-item"><span class="cheat-key">Métricas</span><span class="cheat-val blue">valores numéricos no tempo</span></div>
-      <div class="cheat-item"><span class="cheat-key">Logs</span><span class="cheat-val blue">eventos discretos com contexto</span></div>
-      <div class="cheat-item"><span class="cheat-key">Traces</span><span class="cheat-val blue">spans rastreando req. distribuídas</span></div>
-      <div class="cheat-item"><span class="cheat-key">Pull model</span><span class="cheat-val blue">Prometheus scrapa /metrics</span></div>
-      <div class="cheat-item"><span class="cheat-key">Push model</span><span class="cheat-val blue">app envia p/ Pushgateway</span></div>
+
+      <div class="cheat-item"><span class="cheat-key">SLI</span><span class="cheat-val blue">métrica real de performance (latência, erro, disponibilidade)</span></div>
+      <div class="cheat-item"><span class="cheat-key">SLO</span><span class="cheat-val blue">meta interna baseada no SLI (ex: 99.9% uptime)</span></div>
+      <div class="cheat-item"><span class="cheat-key">SLA</span><span class="cheat-val blue">acordo formal com cliente + penalidade se violar SLO</span></div>
+      <div class="cheat-item"><span class="cheat-key">Error Budget</span><span class="cheat-val blue">tolerância de falha (100% - SLO)</span></div>
+      <div class="cheat-item"><span class="cheat-key">Golden Signals</span><span class="cheat-val blue">latency, traffic, errors, saturation</span></div>
+
+      <div class="cheat-item"><span class="cheat-key">Métricas</span><span class="cheat-val blue">dados numéricos em série temporal</span></div>
+      <div class="cheat-item"><span class="cheat-key">Logs</span><span class="cheat-val blue">eventos discretos com contexto detalhado</span></div>
+      <div class="cheat-item"><span class="cheat-key">Traces</span><span class="cheat-val blue">rastreamento de requisições distribuídas(spans)</span></div>
+
+      <div class="cheat-item"><span class="cheat-key">Pull model</span><span class="cheat-val blue">Prometheus coleta métricas via scrape(/metrics)</span></div>
+      <div class="cheat-item"><span class="cheat-key">Push model</span><span class="cheat-val blue">aplicação envia métricas(Pushgateway/batch jobs)</span></div>
     </div>
 
     <div class="cheat-card">
