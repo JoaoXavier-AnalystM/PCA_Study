@@ -1,40 +1,163 @@
-# Prometheus-KodeKloud-PCA
+# Prometheus Certified Associate (PCA) Study
 
-Prometheus é uma solução de monitoramento e alerta de código aberto que coleta dados de métricas e os armazena em um banco de dados de série temporal. O Prometheus coleta métricas coletando alvos que expõem métricas por meio de um endpoint HTTP.
 
-O pessoal do SoundCloud o criou e, em 2016, ele se juntou à Cloud Native Computing Foundation.
+## 📚 Sobre o Projeto
 
-Os principais recursos do Prometheus incluem:
+Este repositório foi criado para centralizar estudos, laboratórios práticos e materiais relacionados à certificação **Prometheus Certified Associate (PCA)** da Cloud Native Computing Foundation.
 
-PromQL – linguagem de consulta flexível
-- Coleta dados por meio de um modelo pull
-- Modelo multidimensional
-- Os Targets podem ser definidos estaticamente ou aprendidos dinamicamente por meio de descoberta de serviço
-- Painel e visualização integrados
-- Geração de alertas/notificações via AlertManager
+O objetivo é fornecer uma base sólida sobre:
 
-Este repositório lhe dará uma base sólida para instalar, configurar, operar e gerenciar um servidor Prometheus. Além disso, ajudará você a se preparar para o exame Prometheus Certified Associate (PCA). 
+* Observabilidade
+* Monitoramento moderno
+* Arquitetura do Prometheus
+* Consultas PromQL
+* Alertas
+* Métricas
+* Integração com Kubernetes
+* Dashboards e visualização
+* Boas práticas de monitoramento
 
-## Detalhes do Exame PCA 
+---
 
-![Detalhes](/detail/image.png)
+## 🚀 O que você encontrará neste repositório
 
-## Domínios e Competências
-Agora que você tem uma compreensão completa do exame, deixe-os olhar para o programa de exame PCA com domínios e competências.
+### 📖 Fundamentos
 
-Serão abordados os seguintes tópicos:
-<pre>
-- Noções básicas de observabilidade
-- Arquitetura Prometheus
-- Instalação/configuração do Prometheus
-- Visão geral das métricas
-- Prometheus Exportadores
-- Seletores/Modificadores/Operadores/Funções/Quantis PromQL
-- Painel e visualização
-- Instrumentação de aplicação
-- Descoberta de serviço
-- Gateway de envio
-- Alertas (Gerenciador de alertas e notificações)
-- Monitorando Kubernetes
-</pre>
-![dominio](/detail/image-1.png)
+* Conceitos de Observabilidade
+* Métricas, Logs e Traces
+* Golden Signals
+* RED Method
+* USE Method
+
+### ⚙️ Prometheus
+
+* Arquitetura do Prometheus
+* Instalação e configuração
+* Targets e Scrape Jobs
+* Service Discovery
+* Exporters
+* Pushgateway
+* Alertmanager
+
+### 🔎 PromQL
+
+* Seletores
+* Operadores
+* Funções
+* Agregações
+* Quantiles
+* Queries avançadas
+
+Exemplo:
+
+rate(http_requests_total[5m])
+
+### 📊 Visualização
+
+* Dashboards com Grafana
+* Boas práticas de visualização
+* Criação de painéis estratégicos
+
+### ☸️ Kubernetes Monitoring
+
+* Monitoramento de clusters
+* kube-state-metrics
+* node-exporter
+* ServiceMonitor
+* Integração com Prometheus Operator
+
+---
+
+## 🎯 Objetivo
+
+Este projeto serve como:
+
+* guia de estudos para PCA
+* laboratório prático de observabilidade
+* referência para consultas PromQL
+* portfólio DevOps/SRE/Observability Engineer
+
+---
+
+## 🏗 Estrutura do Repositório
+
+```txt
+.
+├── 1-Introdução
+├── 2-Conceitos-de-Observabilidade
+├── 3-Fundamentos-Prometheus
+├── detail
+├── index.html
+└── .github/workflows
+```
+
+---
+
+## 🔥 CI/CD Automatizado
+
+Este projeto utiliza:
+
+* GitHub Actions
+* Deploy automático para VPS
+* Servidor web com Nginx
+* Proxy/CDN com Cloudflare
+
+Fluxo:
+
+```txt
+git push
+   ↓
+GitHub Actions
+   ↓
+Deploy automático no VPS
+   ↓
+Reload do Nginx
+   ↓
+Site atualizado automaticamente
+```
+
+---
+
+## 🛠 Tecnologias Utilizadas
+
+* Prometheus
+* Grafana
+* Nginx
+* GitHub Actions
+* Cloudflare
+* Linux
+* Docker
+* Kubernetes
+
+---
+
+## 📌 Conteúdo do Exame PCA
+
+Os principais tópicos cobrados incluem:
+
+* Observabilidade
+* Arquitetura Prometheus
+* Instalação e configuração
+* Exporters
+* PromQL
+* Alertmanager
+* Service Discovery
+* Instrumentação
+* Kubernetes Monitoring
+
+---
+
+## 🌐 Deploy
+
+O projeto é publicado automaticamente via pipeline CI/CD.
+
+---
+
+## 📖 Referências
+
+* Documentação oficial do Prometheus
+* Documentação oficial da Cloud Native Computing Foundation
+* Laboratórios práticos
+* Simulados PCA
+
+---

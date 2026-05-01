@@ -1,32 +1,86 @@
-name: Deploy Site
+name: Deploy PCA Study
 
 on:
   push:
     branches:
-    - main
+      - main
+    paths:
+      - 'site/**'
 
 jobs:
-  deploy:
+  validate-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Deploy to VPS
-      uses: appleboy/scp-action@v0.1.7
-      with:
-        host: ${{ secrets.VPS_HOST }}
-        username: ${{ secrets.VPS_USER }}
-        key: ${{ secrets.VPS_SSH_KEY }}
-        source: "./*"
-        target: "/var/www/pca-study-kit"
+      - name: Validate HTML exists
+        run: |
+          test -f site/index.html
 
-    - name: Restart Nginx
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.VPS_HOST }}
-        username: ${{ secrets.VPS_USER }}
-        key: ${{ secrets.VPS_SSH_KEY }}
-        script: |
-          systemctl reload nginx
+      - name: Validate HTML structure
+        run: |
+          grep -q "<html" site/index.html
+          grep -q "</html>" site/index.html
+          grep -q "<body" site/index.html
+          grep -q "</body>" site/index.html
+
+      - name: Check HTML size
+        run: |
+          SIZE=$(wc -c < site/index.html)
+
+          echo "HTML size: $SIZE bytes"
+
+          if [ "$SIZE" -lt 100 ]; then
+            echo "HTML file too small"
+            exit 1
+          fi
+
+      - name: Backup current version
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            mkdir -p /var/www/backups
+            cp /var/www/pca-study/index.html /var/www/backups/index-$(date +%F-%H-%M-%S).html || true
+
+      - name: Deploy files to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "site/*"
+          target: "/var/www/pca-study"
+
+      - name: Validate nginx config
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            nginx -t
+
+      - name: Reload nginx
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            systemctl reload nginx
+
+      - name: Health Check
+        run: |
+          STATUS=$(curl -o /dev/null -s -w "%{http_code}" https://pca-study.joaoxavier.app.br)
+
+          echo "HTTP Status: $STATUS"
+
+          if [ "$STATUS" -ne 200 ]; then
+            echo "Health check failed"
+            exit 1
+          fi
