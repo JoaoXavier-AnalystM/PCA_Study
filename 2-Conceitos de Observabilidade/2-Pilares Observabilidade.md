@@ -20,7 +20,7 @@ Os registros são compostos por:
 2023-11-20 10:15:35 ERROR UserService: Failed to send notification email to userId=12345, email=johndoe@example.com
 2023-11-20 10:15:35 INFO  UserService: getUserById completed for userId=12345
 </pre>
-![Logs](image.png)
+![Logs](images/image.png)
 
 Logs são a forma mais comum de observação produzida por sistemas. No entanto, eles podem ser difíceis de usar devido ao detalhamento dos logs gerados pelo sistemas/aplicativos
 
