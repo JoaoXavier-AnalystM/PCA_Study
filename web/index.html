@@ -618,10 +618,10 @@
       <div class="cheat-item"><span class="cheat-key">Instant vector</span><span class="cheat-val">http_requests_total{job="api"}</span></div>
       <div class="cheat-item"><span class="cheat-key">Range vector</span><span class="cheat-val">http_requests_total[5m]</span></div>
       <div class="cheat-item"><span class="cheat-key">Offset</span><span class="cheat-val">metric offset 1h</span></div>
-      <div class="cheat-item"><span class="cheat-key">= igual</span><span class="cheat-val">job="api"</span></div>
-      <div class="cheat-item"><span class="cheat-key">!= diferente</span><span class="cheat-val">status!="200"</span></div>
-      <div class="cheat-item"><span class="cheat-key">=~ regex</span><span class="cheat-val">status=~"5.."</span></div>
-      <div class="cheat-item"><span class="cheat-key">!~ neg regex</span><span class="cheat-val">status!~"2.."</span></div>
+      <div class="cheat-item"><span class="cheat-key">Igual</span><span class="cheat-val">job="api"</span></div>
+      <div class="cheat-item"><span class="cheat-key">Diferente</span><span class="cheat-val">status!="200"</span></div>
+      <div class="cheat-item"><span class="cheat-key">Regex match</span><span class="cheat-val">status<span class="op op-regex">=~"5.."</span></div>
+      <div class="cheat-item"><span class="cheat-key">Negação regex</span><span class="cheat-val">status!~"2.."</span></div>
     </div>
 
     <div class="cheat-card">
@@ -636,6 +636,44 @@
     </div>
 
     <div class="cheat-card">
+      <h3><span class="tag tag-inst">Functions PromQL</span></h3>
+
+      <div class="cheat-item"><span class="cheat-key">rate</span><span class="cheat-val">taxa média de variação por segundo</span></div>
+      <div class="cheat-item"><span class="cheat-key">irate</span><span class="cheat-val">taxa instantânea (últimos 2 pontos)</span></div>
+      <div class="cheat-item"><span class="cheat-key">increase</span><span class="cheat-val">incremento total no intervalo</span></div>
+      <div class="cheat-item"><span class="cheat-key">delta</span><span class="cheat-val">diferença entre início e fim</span></div>
+      <div class="cheat-item"><span class="cheat-key">abs</span><span class="cheat-val">valor absoluto</span></div>
+      <div class="cheat-item"><span class="cheat-key">absent</span><span class="cheat-val">retorna 1 se não existe métrica</span></div>
+      <div class="cheat-item"><span class="cheat-key">exp</span><span class="cheat-val">e^x (exponencial)</span></div>
+
+      <div class="cheat-item"><span class="cheat-key">sum</span><span class="cheat-val">agregação somando valores</span></div>
+      <div class="cheat-item"><span class="cheat-key">avg</span><span class="cheat-val">média dos valores</span></div>
+      <div class="cheat-item"><span class="cheat-key">min</span><span class="cheat-val">menor valor do conjunto</span></div>
+      <div class="cheat-item"><span class="cheat-key">max</span><span class="cheat-val">maior valor do conjunto</span></div>
+      <div class="cheat-item"><span class="cheat-key">count</span><span class="cheat-val">conta séries/valores</span></div>
+
+      <div class="cheat-item"><span class="cheat-key">topk</span><span class="cheat-val">top N maiores valores</span></div>
+      <div class="cheat-item"><span class="cheat-key">bottomk</span><span class="cheat-val">bottom N menores valores</span></div>
+      <div class="cheat-item"><span class="cheat-key">clamp</span><span class="cheat-val">limita valores entre min e max</span></div>
+      <div class="cheat-item"><span class="cheat-key">histogram_quantile</span><span class="cheat-val">calcula percentis de histogramas (P95, P99)</span></div>
+      <div class="cheat-item"><span class="cheat-key">label_replace</span><span class="cheat-val">modifica labels dinamicamente</span></div>
+    </div>
+
+    <div class="cheat-card">
+      <h3><span class="tag tag-promql">Campos importantes (prometheus.yml)</span></h3>
+      <div class="cheat-item"><span class="cheat-key">global.scrape_interval</span><span class="cheat-val purple">intervalo padrão de coleta das métricas</span></div>
+      <div class="cheat-item"><span class="cheat-key">global.evaluation_interval</span><span class="cheat-val purple">intervalo de avaliação das regras (alertas)</span></div>
+      <div class="cheat-item"><span class="cheat-key">scrape_configs</span><span class="cheat-val purple">define os jobs de coleta de métricas</span></div>
+      <div class="cheat-item"><span class="cheat-key">job_name</span><span class="cheat-val purple">nome lógico do job de scraping</span></div>
+      <div class="cheat-item"><span class="cheat-key">static_configs</span><span class="cheat-val purple">lista fixa de targets (IPs/hosts)</span></div>
+      <div class="cheat-item"><span class="cheat-key">targets</span><span class="cheat-val purple">endereços dos endpoints (host:port)</span></div>
+      <div class="cheat-item"><span class="cheat-key">file_sd_configs</span><span class="cheat-val purple">service discovery via arquivo JSON/YAML</span></div>
+      <div class="cheat-item"><span class="cheat-key">relabel_configs</span><span class="cheat-val purple">modifica/filtra labels antes do scrape</span></div>
+      <div class="cheat-item"><span class="cheat-key">metrics_path</span><span class="cheat-val purple">endpoint da métrica (/metrics por padrão)</span></div>
+      <div class="cheat-item"><span class="cheat-key">scheme</span><span class="cheat-val purple">protocolo HTTP ou HTTPS</span></div>
+    </div>
+
+    <div class="cheat-card">
       <h3><span class="tag tag-alert">Alerting Rules</span></h3>
       <div class="cheat-item"><span class="cheat-key">pending</span><span class="cheat-val red">condição ativa, antes do for</span></div>
       <div class="cheat-item"><span class="cheat-key">firing</span><span class="cheat-val red">alerta disparado</span></div>
@@ -643,18 +681,20 @@
       <div class="cheat-item"><span class="cheat-key">for: 5m</span><span class="cheat-val red">aguarda antes de disparar</span></div>
       <div class="cheat-item"><span class="cheat-key">labels</span><span class="cheat-val red">enriquecem o alerta</span></div>
       <div class="cheat-item"><span class="cheat-key">annotations</span><span class="cheat-val red">info legível p/ humanos</span></div>
-      <div class="cheat-item"><span class="cheat-key">group_wait</span><span class="cheat-val red">espera antes de enviar 1o grupo</span></div>
-      <div class="cheat-item"><span class="cheat-key">group_interval</span><span class="cheat-val red">intervalo para alertas do grupo</span></div>
+      <div class="cheat-item"><span class="cheat-key">group_wait</span><span class="cheat-val red">Define o tempo de espera inicial antes de enviar a primeira notificação de um grupo.
+      Isso permite agrupar alertas relacionados antes do envio.</span></div>
+      <div class="cheat-item"><span class="cheat-key">group_interval</span><span class="cheat-val red">Controla o tempo entre novas notificações de um mesmo grupo já ativo,
+      incluindo novos alertas adicionados ao grupo.</span></div>
     </div>
 
     <div class="cheat-card">
       <h3><span class="tag tag-inst">Exporters & Service Discovery</span></h3>
       <div class="cheat-item"><span class="cheat-key">Node Exporter</span><span class="cheat-val purple">métricas de host (CPU, RAM…)</span></div>
       <div class="cheat-item"><span class="cheat-key">cAdvisor</span><span class="cheat-val purple">métricas de containers</span></div>
-      <div class="cheat-item"><span class="cheat-key">Blackbox</span><span class="cheat-val purple">probe HTTP/TCP/ICMP</span></div>
+      <div class="cheat-item"><span class="cheat-key">Blackbox</span><span class="cheat-val purple">testa endpoints de fora como um usuário (HTTP/TCP/ICMP)</span></div>
       <div class="cheat-item"><span class="cheat-key">Pushgateway</span><span class="cheat-val purple">batch jobs de curta duração</span></div>
       <div class="cheat-item"><span class="cheat-key">SD: Kubernetes</span><span class="cheat-val purple">auto-descoberta de pods/svc</span></div>
-      <div class="cheat-item"><span class="cheat-key">SD: file</span><span class="cheat-val purple">targets em JSON/YAML</span></div>
+      <div class="cheat-item"><span class="cheat-key">SD: file</span><span class="cheat-val purple">lê targets de um arquivo estático ou dinâmico (JSON/YAML)</span></div>
       <div class="cheat-item"><span class="cheat-key">relabeling</span><span class="cheat-val purple">transforma labels no scrape</span></div>
     </div>
 
