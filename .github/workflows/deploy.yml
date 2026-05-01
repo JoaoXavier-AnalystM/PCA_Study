@@ -89,15 +89,20 @@ jobs:
             systemctl reload nginx
 
       - name: Health Check
-        run: |
-          STATUS=$(curl -o /dev/null -s -w "%{http_code}" https://pca-study.joaoxavier.app.br)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            STATUS=$(curl -o /dev/null -s -w "%{http_code}" http://localhost)
 
-          echo "HTTP Status: $STATUS"
+            echo "HTTP Status: $STATUS"
 
-          if [ "$STATUS" -ne 200 ]; then
-            echo "Health check failed"
-            exit 1
-          fi
+            if [ "$STATUS" -ne 200 ]; then
+              echo "Health check failed"
+              exit 1
+            fi
 
       - name: Deployment Success
         run: |
