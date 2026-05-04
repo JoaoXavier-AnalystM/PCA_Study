@@ -78,9 +78,10 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 12px; overflow: hidden;
-    transition: border-color .2s;
+    transition: all .2s;
+    cursor: pointer;
   }
-  .day-card:hover { border-color: var(--accent); }
+  .day-card:hover { border-color: var(--accent); transform: translateY(-2px); }
   .day-header {
     padding: 16px 20px;
     border-bottom: 1px solid var(--border);
@@ -307,6 +308,43 @@
   .hero h1 span { color: var(--accent); }
   .hero p { color: var(--muted); margin-top: 8px; font-size: 14px; }
 
+  /* DAY STUDY CONTAINER */
+  .day-study-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 24px;
+  }
+  .day-study-header {
+    padding: 16px 24px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .day-study-header h2 { margin: 0; font-size: 1.2rem; }
+  .back-btn {
+    background: var(--accent);
+    color: #0a0c10;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    cursor: pointer;
+    transition: opacity .2s;
+  }
+  .back-btn:hover { opacity: .85; }
+  .day-study-frame {
+    width: 100%;
+    min-height: 80vh;
+    border: none;
+    background: white;
+  }
+
   @media print {
     nav, .print-btn { display: none; }
     .section { display: block !important; page-break-after: always; }
@@ -353,7 +391,7 @@
   <h2>Cronograma Semanal</h2>
   <div class="week-grid">
 
-    <div class="day-card">
+    <div class="day-card" onclick="loadDayStudy(1)">
       <div class="day-header">
         <div>
           <div class="day-number">DIA 01 </div>
@@ -384,7 +422,7 @@
     </div>
   </div>
 
-    <div class="day-card">
+    <div class="day-card" onclick="loadDayStudy(2)">
       <div class="day-header">
         <div>
           <div class="day-number">DIA 02 </div>
@@ -414,7 +452,7 @@
       </div>
     </div>
 
-    <div class="day-card">
+    <div class="day-card" onclick="loadDayStudy(3)">
       <div class="day-header">
         <div>
           <div class="day-number">DIA 03 </div>
@@ -444,7 +482,7 @@
       </div>
     </div>
 
-    <div class="day-card">
+    <div class="day-card" onclick="loadDayStudy(4)">
       <div class="day-header">
         <div>
           <div class="day-number">DIA 04 </div>
@@ -474,7 +512,7 @@
       </div>
     </div>
 
-    <div class="day-card">
+    <div class="day-card" onclick="loadDayStudy(5)">
       <div class="day-header">
         <div>
           <div class="day-number">DIA 05 </div>
@@ -504,7 +542,7 @@
       </div>
     </div>
 
-    <div class="day-card">
+    <div class="day-card" onclick="loadDayStudy(6)">
       <div class="day-header">
         <div>
           <div class="day-number">DIA 06 </div>
@@ -531,7 +569,7 @@
       </div>
     </div>
 
-    <div class="day-card active-day">
+    <div class="day-card active-day" onclick="loadDayStudy(7)">
       <div class="day-header active-header">
         <div>
           <div class="day-number">DIA 07 </div>
@@ -553,6 +591,16 @@
     </div>
 
   </div><!-- /week-grid -->
+
+  <!-- Day Study Container (aparece ao clicar em um dia) -->
+  <div id="dayStudyContainer" class="day-study-container" style="display:none;">
+    <div class="day-study-header">
+      <h2 id="dayStudyTitle">Estudo do Dia</h2>
+      <button class="back-btn" onclick="closeDayStudy()">← Voltar ao Plano</button>
+    </div>
+    <iframe id="dayStudyFrame" class="day-study-frame"></iframe>
+  </div>
+
 </div>
 
 <!-- ============================================================ -->
@@ -1064,6 +1112,44 @@ function show(id) {
   const btns = document.querySelectorAll('.nav-btn');
   const map = {plano:0, cheat:1, quiz:2, mindmap:3, promql:4};
   btns[map[id]].classList.add('active');
+  closeDayStudy();
+}
+
+// ============================================================
+// DAY STUDY NAVIGATION
+// ============================================================
+function loadDayStudy(dayNum) {
+  const container = document.getElementById('dayStudyContainer');
+  const frame = document.getElementById('dayStudyFrame');
+  const title = document.getElementById('dayStudyTitle');
+
+  const dayNames = [
+    '',
+    'Dia 1 — Observability + Fundamentos',
+    'Dia 2 — PromQL Básico',
+    'Dia 3 — PromQL Avançado',
+    'Dia 4 — Instrumentação & Exporters',
+    'Dia 5 — Alerting & Dashboarding',
+    'Dia 6 — Simulados + Revisão',
+    'Dia 7 — Revisão Rápida + Exam Day'
+  ];
+
+  title.textContent = dayNames[dayNum];
+  frame.src = 'day' + dayNum + '.html';
+  container.style.display = 'block';
+
+  setTimeout(() => {
+    container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
+function closeDayStudy() {
+  const container = document.getElementById('dayStudyContainer');
+  const frame = document.getElementById('dayStudyFrame');
+  if (!container) return;
+  container.style.display = 'none';
+  frame.src = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ============================================================
