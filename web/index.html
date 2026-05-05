@@ -47,7 +47,30 @@
     text-transform: uppercase; letter-spacing: 1px;
   }
   .nav-btn:hover { color: var(--text); }
-  .nav-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .nav-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    background: rgba(230, 82, 44, 0.08);
+    font-weight: 700;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .visited-badge {
+    display: inline-block;
+    font-size: 10px;
+    color: var(--promql);
+    border: 1px solid var(--promql);
+    border-radius: 4px;
+    padding: 2px 6px;
+    margin-top: 10px;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.5px;
+  }
 
   /* SECTIONS */
   .section { display: none; padding: 32px 24px; max-width: 1100px; margin: 0 auto; }
@@ -130,22 +153,36 @@
   .cheat-card {
     background: var(--surface);
     border: 1px solid var(--border);
+    border-left: 3px solid var(--border);
     border-radius: 10px; padding: 18px;
   }
   .cheat-card h3 {
-    font-size: 12px; text-transform: uppercase; letter-spacing: 1px;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px;
+    font-weight: 700; color: var(--muted);
     margin-bottom: 12px; padding-bottom: 8px;
     border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; gap: 8px;
   }
+
+  /* Cheat card color variants — title + left border match value color */
+  .cheat-card.c-blue   { border-left-color: var(--accent2); }
+  .cheat-card.c-blue h3   { color: var(--accent2); }
+  .cheat-card.c-green  { border-left-color: var(--promql); }
+  .cheat-card.c-green h3  { color: var(--promql); }
+  .cheat-card.c-yellow { border-left-color: var(--accent); }
+  .cheat-card.c-yellow h3 { color: var(--accent); }
+  .cheat-card.c-red    { border-left-color: var(--accent3); }
+  .cheat-card.c-red h3    { color: var(--accent3); }
+  .cheat-card.c-purple { border-left-color: var(--accent4); }
+  .cheat-card.c-purple h3 { color: var(--accent4); }
+
   .cheat-item {
     display: flex; justify-content: space-between; align-items: flex-start;
-    padding: 5px 0; font-size: 12px;
+    padding: 6px 0; font-size: 12px;
     border-bottom: 1px dashed var(--border);
-    gap: 8px;
+    gap: 12px;
   }
   .cheat-item:last-child { border-bottom: none; }
-  .cheat-key { color: var(--muted); flex-shrink: 0; }
+  .cheat-key { color: var(--muted); flex-shrink: 0; min-width: 130px; }
   .cheat-val {
     font-family: 'Space Mono', monospace; font-size: 11px;
     color: var(--promql); text-align: right; word-break: break-all;
@@ -207,6 +244,15 @@
     font-weight: 700; flex-shrink: 0; margin-top: 1px;
     color: var(--muted);
   }
+  .opt-indicator {
+    margin-left: auto;
+    flex-shrink: 0;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .option-btn.correct .opt-indicator { color: var(--promql); }
+  .option-btn.wrong .opt-indicator { color: var(--accent3); }
+
   .explanation {
     margin-top: 14px; padding: 12px;
     background: var(--surface2); border-radius: 8px;
@@ -248,8 +294,9 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 12px; padding: 24px;
-    margin-top: 20px; overflow-x: auto;
+    margin-top: 20px;
   }
+  .mindmap-container svg { display: block; width: 100%; height: auto; }
   svg text { font-family: 'Syne', sans-serif; }
 
   /* ======= PROMQL ======= */
@@ -353,8 +400,8 @@
 </head>
 <body>
 
-<nav>
-  <button class="nav-btn active" onclick="show('plano')">📅 Plano </button>
+<nav aria-label="Navegação principal">
+  <button class="nav-btn active" onclick="show('plano')" aria-current="page">📅 Plano </button>
   <button class="nav-btn" onclick="show('cheat')">📋 Cheat Sheet</button>
   <button class="nav-btn" onclick="show('quiz')">🧠 50 Questões</button>
   <button class="nav-btn" onclick="show('mindmap')">🗺️ Mapa Mental</button>
@@ -391,7 +438,7 @@
   <h2>Cronograma Semanal</h2>
   <div class="week-grid">
 
-    <div class="day-card" onclick="loadDayStudy(1)">
+    <div class="day-card" data-day="1" tabindex="0" onclick="loadDayStudy(1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(1)}">
       <div class="day-header">
         <div>
           <div class="day-number">DIA 01 </div>
@@ -422,7 +469,7 @@
     </div>
   </div>
 
-    <div class="day-card" onclick="loadDayStudy(2)">
+    <div class="day-card" data-day="2" tabindex="0" onclick="loadDayStudy(2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(2)}">
       <div class="day-header">
         <div>
           <div class="day-number">DIA 02 </div>
@@ -452,7 +499,7 @@
       </div>
     </div>
 
-    <div class="day-card" onclick="loadDayStudy(3)">
+    <div class="day-card" data-day="3" tabindex="0" onclick="loadDayStudy(3)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(3)}">
       <div class="day-header">
         <div>
           <div class="day-number">DIA 03 </div>
@@ -482,7 +529,7 @@
       </div>
     </div>
 
-    <div class="day-card" onclick="loadDayStudy(4)">
+    <div class="day-card" data-day="4" tabindex="0" onclick="loadDayStudy(4)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(4)}">
       <div class="day-header">
         <div>
           <div class="day-number">DIA 04 </div>
@@ -512,7 +559,7 @@
       </div>
     </div>
 
-    <div class="day-card" onclick="loadDayStudy(5)">
+    <div class="day-card" data-day="5" tabindex="0" onclick="loadDayStudy(5)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(5)}">
       <div class="day-header">
         <div>
           <div class="day-number">DIA 05 </div>
@@ -542,7 +589,7 @@
       </div>
     </div>
 
-    <div class="day-card" onclick="loadDayStudy(6)">
+    <div class="day-card" data-day="6" tabindex="0" onclick="loadDayStudy(6)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(6)}">
       <div class="day-header">
         <div>
           <div class="day-number">DIA 06 </div>
@@ -569,7 +616,7 @@
       </div>
     </div>
 
-    <div class="day-card active-day" onclick="loadDayStudy(7)">
+    <div class="day-card active-day" data-day="7" tabindex="0" onclick="loadDayStudy(7)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(7)}">
       <div class="day-header active-header">
         <div>
           <div class="day-number">DIA 07 </div>
@@ -614,8 +661,8 @@
 
   <div class="cheat-grid">
 
-    <div class="cheat-card">
-      <h3><span class="tag tag-obs">Observability</span></h3>
+    <div class="cheat-card c-blue">
+      <h3>Observability</h3>
 
       <div class="cheat-item"><span class="cheat-key">SLI</span><span class="cheat-val blue">Métrica real de performance (latência, erro, disponibilidade)</span></div>
       <div class="cheat-item"><span class="cheat-key">SLO</span><span class="cheat-val blue">Meta interna baseada no SLI (ex: 99.9% uptime)</span></div>
@@ -632,8 +679,8 @@
       <div class="cheat-item"><span class="cheat-key">Push model</span><span class="cheat-val blue">Aplicação envia métricas(Pushgateway/batch jobs)</span></div>
     </div>
 
-    <div class="cheat-card">
-      <h3><span class="tag tag-fund">Tipos de Métricas</span></h3>
+    <div class="cheat-card c-green">
+      <h3>Tipos de Métricas</h3>
       <div class="cheat-item"><span class="cheat-key">Counter</span><span class="cheat-val">Só sobe (ou zera no restart)</span></div>
       <div class="cheat-item"><span class="cheat-key">Gauge</span><span class="cheat-val">Sobe e desce (memória, temp)</span></div>
       <div class="cheat-item"><span class="cheat-key">Histogram</span><span class="cheat-val">_bucket, _sum, _count</span></div>
@@ -643,8 +690,8 @@
       <div class="cheat-item"><span class="cheat-key">Sufixos</span><span class="cheat-val">_total _seconds _bytes _ratio</span></div>
     </div>
 
-    <div class="cheat-card">
-      <h3><span class="tag tag-fund">Arquitetura & Portas</span></h3>
+    <div class="cheat-card c-yellow">
+      <h3>Arquitetura & Portas</h3>
       <div class="cheat-item"><span class="cheat-key">Prometheus</span><span class="cheat-val yellow">:9090</span></div>
       <div class="cheat-item"><span class="cheat-key">Alertmanager</span><span class="cheat-val yellow">:9093</span></div>
       <div class="cheat-item"><span class="cheat-key">Pushgateway</span><span class="cheat-val yellow">:9091</span></div>
@@ -655,8 +702,8 @@
       <div class="cheat-item"><span class="cheat-key">Endpoint</span><span class="cheat-val yellow">GET /metrics</span></div>
     </div>
 
-    <div class="cheat-card">
-      <h3><span class="tag tag-promql">Seletores & Vetores</span></h3>
+    <div class="cheat-card c-green">
+      <h3>Seletores & Vetores</h3>
       <div class="cheat-item"><span class="cheat-key">Instant vector</span><span class="cheat-val">http_requests_total{job="api"}</span></div>
       <div class="cheat-item"><span class="cheat-key">Range vector</span><span class="cheat-val">http_requests_total[5m]</span></div>
       <div class="cheat-item"><span class="cheat-key">Offset</span><span class="cheat-val">metric offset 1h</span></div>
@@ -666,8 +713,8 @@
       <div class="cheat-item"><span class="cheat-key">Negação regex</span><span class="cheat-val">status!~"2.."</span></div>
     </div>
 
-    <div class="cheat-card">
-      <h3><span class="tag tag-promql">Functions (Rate|Increase|Delta)</span></h3>
+    <div class="cheat-card c-green">
+      <h3>Functions — Rate / Increase / Delta</h3>
       <div class="cheat-item"><span class="cheat-key">rate()</span><span class="cheat-val">Taxa/s para counters (suave,por segundo)</span></div>
       <div class="cheat-item"><span class="cheat-key">irate()</span><span class="cheat-val">Taxa instantânea (reativo,(últimos 2 pontos))</span></div>
       <div class="cheat-item"><span class="cheat-key">increase()</span><span class="cheat-val">Aumento total no período</span></div>
@@ -683,8 +730,8 @@
     </div>
 
 
-    <div class="cheat-card">
-      <h3><span class="tag tag-promql">Functions (Agregações|Derivadas)</span></h3>
+    <div class="cheat-card c-green">
+      <h3>Functions — Agregações / Derivadas</h3>
       <div class="cheat-item"><span class="cheat-key">sum by(job)</span><span class="cheat-val">Agrupa mantendo label</span></div>
       <div class="cheat-item"><span class="cheat-key">sum without(pod)</span><span class="cheat-val">Remove label, mantém restante</span></div>
       <div class="cheat-item"><span class="cheat-key">topk(5, expr)</span><span class="cheat-val">Top 5 valores</span></div>
@@ -701,8 +748,8 @@
 
     </div>
 
-    <div class="cheat-card">
-      <h3><span class="tag tag-promql">Campos importantes (prometheus.yml)</span></h3>
+    <div class="cheat-card c-purple">
+      <h3>Campos — prometheus.yml</h3>
       <div class="cheat-item"><span class="cheat-key">scrape_interval</span><span class="cheat-val purple">Intervalo padrão de coleta das métricas</span></div>
       <div class="cheat-item"><span class="cheat-key">evaluation_interval</span><span class="cheat-val purple">Intervalo de avaliação das regras (alertas)</span></div>
       <div class="cheat-item"><span class="cheat-key">scrape_configs</span><span class="cheat-val purple">Define os jobs de coleta de métricas</span></div>
@@ -715,8 +762,8 @@
       <div class="cheat-item"><span class="cheat-key">scheme</span><span class="cheat-val purple">Protocolo HTTP ou HTTPS</span></div>
     </div>
 
-    <div class="cheat-card">
-      <h3><span class="tag tag-alert">Alerting Rules</span></h3>
+    <div class="cheat-card c-red">
+      <h3>Alerting Rules</h3>
       <div class="cheat-item"><span class="cheat-key">pending</span><span class="cheat-val red">Condição ativa, antes do for</span></div>
       <div class="cheat-item"><span class="cheat-key">firing</span><span class="cheat-val red">Alerta disparado</span></div>
       <div class="cheat-item"><span class="cheat-key">inactive</span><span class="cheat-val red">Condição não satisfeita</span></div>
@@ -729,8 +776,8 @@
       incluindo novos alertas adicionados ao grupo.</span></div>
     </div>
 
-    <div class="cheat-card">
-      <h3><span class="tag tag-inst">Exporters & Service Discovery</span></h3>
+    <div class="cheat-card c-purple">
+      <h3>Exporters & Service Discovery</h3>
       <div class="cheat-item"><span class="cheat-key">Node Exporter</span><span class="cheat-val purple">Métricas de host (CPU, RAM…)</span></div>
       <div class="cheat-item"><span class="cheat-key">cAdvisor</span><span class="cheat-val purple">Métricas de containers</span></div>
       <div class="cheat-item"><span class="cheat-key">Blackbox</span><span class="cheat-val purple">Testa endpoints de fora como um usuário (HTTP/TCP/ICMP)</span></div>
@@ -740,8 +787,8 @@
       <div class="cheat-item"><span class="cheat-key">relabeling</span><span class="cheat-val purple">Transforma labels no scrape</span></div>
     </div>
 
-    <div class="cheat-card">
-      <h3><span class="tag tag-fund">Limitações do Prometheus</span></h3>
+    <div class="cheat-card c-green">
+      <h3>Limitações do Prometheus</h3>
       <div class="cheat-item"><span class="cheat-key">Não ideal para</span><span class="cheat-val">Logs de eventos, 100% precisão</span></div>
       <div class="cheat-item"><span class="cheat-key">Long-term storage</span><span class="cheat-val">Use Thanos, Cortex, VictoriaMetrics</span></div>
       <div class="cheat-item"><span class="cheat-key">Cardinality</span><span class="cheat-val">Labels com alta cardinalidade = ruim</span></div>
@@ -793,114 +840,7 @@
     <h1>PCA <span>Map</span></h1>
     <p>Visão completa dos 5 domínios</p>
   </div>
-  <div class="mindmap-container" style="overflow:auto;">
-    <svg width="1000" height="700" viewBox="0 0 1000 700" style="min-width:800px;">
-      <defs>
-        <filter id="glow">
-          <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-          <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
-
-      <!-- Center -->
-      <ellipse cx="500" cy="350" rx="75" ry="40" fill="#E6522C" filter="url(#glow)"/>
-      <text x="500" y="345" text-anchor="middle" fill="#0a0c10" font-weight="800" font-size="14">Prometheus</text>
-      <!-- Branch 1: PromQL (top) -->
-      <line x1="500" y1="310" x2="500" y2="200" stroke="#47ffb8" stroke-width="2"/>
-      <ellipse cx="500" cy="175" rx="65" ry="28" fill="#1a3d2e" stroke="#47ffb8" stroke-width="2"/>
-      <text x="500" y="172" text-anchor="middle" fill="#47ffb8" font-weight="700" font-size="12">PromQL</text>
-      <text x="500" y="185" text-anchor="middle" fill="#47ffb8" font-size="9">28%</text>
-      <!-- Sub-nodes PromQL -->
-      <line x1="460" y1="152" x2="370" y2="110" stroke="#47ffb8" stroke-width="1.5"/>
-      <rect x="290" y="90" width="80" height="22" rx="5" fill="#111318" stroke="#47ffb8" stroke-width="1"/>
-      <text x="330" y="105" text-anchor="middle" fill="#47ffb8" font-size="10">rate() irate()</text>
-
-      <line x1="500" y1="147" x2="500" y2="100" stroke="#47ffb8" stroke-width="1.5"/>
-      <rect x="440" y="82" width="120" height="22" rx="5" fill="#111318" stroke="#47ffb8" stroke-width="1"/>
-      <text x="500" y="97" text-anchor="middle" fill="#47ffb8" font-size="10">histogram_quantile()</text>
-
-      <line x1="540" y1="152" x2="630" y2="110" stroke="#47ffb8" stroke-width="1.5"/>
-      <rect x="620" y="90" width="100" height="22" rx="5" fill="#111318" stroke="#47ffb8" stroke-width="1"/>
-      <text x="670" y="105" text-anchor="middle" fill="#47ffb8" font-size="10">sum by / without</text>
-
-      <!-- Branch 2: Fundamentos (top-right) -->
-      <line x1="570" y1="330" x2="750" y2="240" stroke="#47b8ff" stroke-width="2"/>
-      <ellipse cx="800" cy="225" rx="65" ry="28" fill="#1e2a3a" stroke="#47b8ff" stroke-width="2"/>
-      <text x="800" y="222" text-anchor="middle" fill="#47b8ff" font-weight="700" font-size="12">Fundamentos</text>
-      <text x="800" y="235" text-anchor="middle" fill="#47b8ff" font-size="9">20%</text>
-      <!-- Sub Fundamentos -->
-      <line x1="860" y1="220" x2="940" y2="190" stroke="#47b8ff" stroke-width="1.5"/>
-      <rect x="920" y="175" width="70" height="22" rx="5" fill="#111318" stroke="#47b8ff" stroke-width="1"/>
-      <text x="955" y="190" text-anchor="middle" fill="#47b8ff" font-size="10">TSDB :9090</text>
-
-      <line x1="860" y1="230" x2="940" y2="250" stroke="#47b8ff" stroke-width="1.5"/>
-      <rect x="910" y="238" width="80" height="22" rx="5" fill="#111318" stroke="#47b8ff" stroke-width="1"/>
-      <text x="950" y="253" text-anchor="middle" fill="#47b8ff" font-size="10">Data Model</text>
-
-      <line x1="800" y1="253" x2="800" y2="290" stroke="#47b8ff" stroke-width="1.5"/>
-      <rect x="740" y="288" width="120" height="22" rx="5" fill="#111318" stroke="#47b8ff" stroke-width="1"/>
-      <text x="800" y="303" text-anchor="middle" fill="#47b8ff" font-size="10">Counter/Gauge/Hist</text>
-
-      <!-- Branch 3: Alerting (bottom-right) -->
-      <line x1="560" y1="375" x2="750" y2="460" stroke="#ff6b6b" stroke-width="2"/>
-      <ellipse cx="800" cy="480" rx="65" ry="28" fill="#3a1e1e" stroke="#ff6b6b" stroke-width="2"/>
-      <text x="800" y="477" text-anchor="middle" fill="#ff6b6b" font-weight="700" font-size="12">Alerting &</text>
-      <text x="800" y="490" text-anchor="middle" fill="#ff6b6b" font-size="9">Dashboarding 18%</text>
-      <!-- Sub Alerting -->
-      <line x1="860" y1="475" x2="930" y2="445" stroke="#ff6b6b" stroke-width="1.5"/>
-      <rect x="900" y="432" width="90" height="22" rx="5" fill="#111318" stroke="#ff6b6b" stroke-width="1"/>
-      <text x="945" y="447" text-anchor="middle" fill="#ff6b6b" font-size="10">Alertmanager</text>
-
-      <line x1="860" y1="490" x2="930" y2="515" stroke="#ff6b6b" stroke-width="1.5"/>
-      <rect x="900" y="503" width="80" height="22" rx="5" fill="#111318" stroke="#ff6b6b" stroke-width="1"/>
-      <text x="940" y="518" text-anchor="middle" fill="#ff6b6b" font-size="10">Grafana :3000</text>
-
-      <line x1="800" y1="508" x2="800" y2="550" stroke="#ff6b6b" stroke-width="1.5"/>
-      <rect x="745" y="548" width="110" height="22" rx="5" fill="#111318" stroke="#ff6b6b" stroke-width="1"/>
-      <text x="800" y="563" text-anchor="middle" fill="#ff6b6b" font-size="10">pending/firing/inactive</text>
-
-      <!-- Branch 4: Instrumentação (bottom-left) -->
-      <line x1="440" y1="375" x2="250" y2="460" stroke="#e8ff47" stroke-width="2"/>
-      <ellipse cx="200" cy="480" rx="65" ry="28" fill="#2a2a1e" stroke="#e8ff47" stroke-width="2"/>
-      <text x="200" y="477" text-anchor="middle" fill="#e8ff47" font-weight="700" font-size="12">Instrumentação</text>
-      <text x="200" y="490" text-anchor="middle" fill="#e8ff47" font-size="9">& Exporters 16%</text>
-      <!-- Sub Instrumentação -->
-      <line x1="140" y1="475" x2="60" y2="445" stroke="#e8ff47" stroke-width="1.5"/>
-      <rect x="10" y="432" width="80" height="22" rx="5" fill="#111318" stroke="#e8ff47" stroke-width="1"/>
-      <text x="50" y="447" text-anchor="middle" fill="#e8ff47" font-size="10">Node Exporter</text>
-
-      <line x1="140" y1="490" x2="60" y2="515" stroke="#e8ff47" stroke-width="1.5"/>
-      <rect x="10" y="503" width="80" height="22" rx="5" fill="#111318" stroke="#e8ff47" stroke-width="1"/>
-      <text x="50" y="518" text-anchor="middle" fill="#e8ff47" font-size="10">Pushgateway</text>
-
-      <line x1="200" y1="508" x2="200" y2="548" stroke="#e8ff47" stroke-width="1.5"/>
-      <rect x="140" y="546" width="120" height="22" rx="5" fill="#111318" stroke="#e8ff47" stroke-width="1"/>
-      <text x="200" y="561" text-anchor="middle" fill="#e8ff47" font-size="10">Client Libraries</text>
-
-      <!-- Branch 5: Observability (top-left) -->
-      <line x1="430" y1="330" x2="250" y2="240" stroke="#a47fff" stroke-width="2"/>
-      <ellipse cx="200" cy="220" rx="65" ry="28" fill="#2a1e3a" stroke="#a47fff" stroke-width="2"/>
-      <text x="200" y="217" text-anchor="middle" fill="#a47fff" font-weight="700" font-size="12">Observability</text>
-      <text x="200" y="230" text-anchor="middle" fill="#a47fff" font-size="9">Concepts 18%</text>
-      <!-- Sub Obs -->
-      <line x1="140" y1="215" x2="60" y2="185" stroke="#a47fff" stroke-width="1.5"/>
-      <rect x="10" y="172" width="80" height="22" rx="5" fill="#111318" stroke="#a47fff" stroke-width="1"/>
-      <text x="50" y="187" text-anchor="middle" fill="#a47fff" font-size="10">SLI / SLO / SLA</text>
-
-      <line x1="140" y1="225" x2="60" y2="250" stroke="#a47fff" stroke-width="1.5"/>
-      <rect x="10" y="238" width="80" height="22" rx="5" fill="#111318" stroke="#a47fff" stroke-width="1"/>
-      <text x="50" y="253" text-anchor="middle" fill="#a47fff" font-size="10">Push vs Pull</text>
-
-      <line x1="200" y1="192" x2="200" y2="150" stroke="#a47fff" stroke-width="1.5"/>
-      <rect x="140" y="130" width="120" height="22" rx="5" fill="#111318" stroke="#a47fff" stroke-width="1"/>
-      <text x="200" y="145" text-anchor="middle" fill="#a47fff" font-size="10">Metrics/Logs/Traces</text>
-      <!-- Service Discovery node (linked to Observability) -->
-      <line x1="200" y1="220" x2="320" y2="260" stroke="#a47fff" stroke-width="1.5" stroke-dasharray="4"/>
-      <rect x="310" y="248" width="110" height="22" rx="5" fill="#111318" stroke="#a47fff" stroke-width="1"/>
-      <text x="365" y="263" text-anchor="middle" fill="#a47fff" font-size="10">Service Discovery</text>
-
-    </svg>
-  </div>
+  <div class="mindmap-container" id="mindmapSvg"></div>
 </div>
 
 <!-- ============================================================ -->
@@ -1095,11 +1035,16 @@ receivers:
 // ============================================================
 function show(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    b.classList.remove('active');
+    b.removeAttribute('aria-current');
+  });
   document.getElementById(id).classList.add('active');
   const btns = document.querySelectorAll('.nav-btn');
   const map = {plano:0, cheat:1, quiz:2, mindmap:3, promql:4};
-  btns[map[id]].classList.add('active');
+  const activeBtn = btns[map[id]];
+  activeBtn.classList.add('active');
+  activeBtn.setAttribute('aria-current', 'page');
   closeDayStudy();
 }
 
@@ -1126,9 +1071,25 @@ function loadDayStudy(dayNum) {
   frame.src = 'day' + dayNum + '.html';
   container.style.display = 'block';
 
+  const visited = JSON.parse(localStorage.getItem('pca_visited_days') || '[]');
+  if (!visited.includes(dayNum)) {
+    visited.push(dayNum);
+    localStorage.setItem('pca_visited_days', JSON.stringify(visited));
+  }
+  markVisitedDays(visited);
+
   setTimeout(() => {
     container.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, 100);
+}
+
+function markVisitedDays(visited) {
+  visited.forEach(d => {
+    const card = document.querySelector(`.day-card[data-day="${d}"]`);
+    if (card && !card.querySelector('.visited-badge')) {
+      card.querySelector('.day-body').insertAdjacentHTML('beforeend', '<span class="visited-badge">✓ Revisado</span>');
+    }
+  });
 }
 
 function closeDayStudy() {
@@ -1210,6 +1171,22 @@ let currentFilter = 'all';
 let score = 0;
 let total = 0;
 
+(function initFromStorage() {
+  const savedAnswered = localStorage.getItem('pca_quiz_answered');
+  const savedScore = localStorage.getItem('pca_quiz_score');
+  const savedTotal = localStorage.getItem('pca_quiz_total');
+  if (savedAnswered) {
+    const parsed = JSON.parse(savedAnswered);
+    Object.assign(answered, parsed);
+    score = parseInt(savedScore || '0', 10);
+    total = parseInt(savedTotal || '0', 10);
+  }
+  const visitedDays = JSON.parse(localStorage.getItem('pca_visited_days') || '[]');
+  if (visitedDays.length > 0) {
+    setTimeout(() => markVisitedDays(visitedDays), 0);
+  }
+})();
+
 function filterQuiz(domain) {
   currentFilter = domain;
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -1238,14 +1215,15 @@ function renderQuiz() {
       <div class="options">
         ${q.opts.map((opt, j) => {
           let cls = 'option-btn';
+          let indicator = '';
           if (isAnswered) {
-            if (j === q.ans) cls += ' correct';
-            else if (j === answered[globalIdx] && j !== q.ans) cls += ' wrong';
-            else cls += '';
+            if (j === q.ans) { cls += ' correct'; indicator = '<span class="opt-indicator" aria-label="Correto">✓</span>'; }
+            else if (j === answered[globalIdx] && j !== q.ans) { cls += ' wrong'; indicator = '<span class="opt-indicator" aria-label="Incorreto">✗</span>'; }
           }
           return `<button class="${cls}" ${isAnswered?'disabled':''} onclick="answer(${globalIdx}, ${j})">
             <span class="option-letter">${letters[j]}</span>
             <span>${opt}</span>
+            ${indicator}
           </button>`;
         }).join('')}
       </div>
@@ -1269,6 +1247,9 @@ function answer(idx, chosen) {
   const q = questions[idx];
   total++;
   if (chosen === q.ans) score++;
+  localStorage.setItem('pca_quiz_answered', JSON.stringify(answered));
+  localStorage.setItem('pca_quiz_score', String(score));
+  localStorage.setItem('pca_quiz_total', String(total));
   renderQuiz();
 }
 
@@ -1287,10 +1268,117 @@ function resetQuiz() {
   answered = {};
   score = 0;
   total = 0;
+  localStorage.removeItem('pca_quiz_answered');
+  localStorage.removeItem('pca_quiz_score');
+  localStorage.removeItem('pca_quiz_total');
   renderQuiz();
   document.getElementById('finalScore').textContent = '';
 }
 
+// ============================================================
+// MINDMAP — data-driven renderer
+// Para adicionar tópicos: edite MINDMAP_DATA.branches[n].nodes
+// ============================================================
+const MINDMAP_DATA = {
+  W: 1120, H: 580,
+  center: { cx: 555, cy: 290, rx: 90, ry: 45 },
+  branches: [
+    { color: '#47ffb8', bg: '#1a3d2e', cx: 555, cy: 118, label: ['PromQL'], pct: '28%',
+      nodes: [
+        { label: 'rate() / irate()',     cx: 328, cy: 42 },
+        { label: 'histogram_quantile()', cx: 555, cy: 25 },
+        { label: 'sum by / without',     cx: 782, cy: 42 },
+      ]
+    },
+    { color: '#47b8ff', bg: '#1e2a3a', cx: 820, cy: 195, label: ['Fundamentos'], pct: '20%',
+      nodes: [
+        { label: 'TSDB :9090',        cx: 1000, cy: 132 },
+        { label: 'Data Model',         cx: 1000, cy: 192 },
+        { label: 'Counter/Gauge/Hist', cx: 1000, cy: 260 },
+      ]
+    },
+    { color: '#ff6b6b', bg: '#3a1e1e', cx: 820, cy: 385, label: ['Alerting &', 'Dashboarding'], pct: '18%',
+      nodes: [
+        { label: 'Alertmanager',            cx: 1000, cy: 322 },
+        { label: 'Grafana :3000',           cx: 1000, cy: 382 },
+        { label: 'pending/firing/inactive', cx: 1000, cy: 455 },
+      ]
+    },
+    { color: '#e8ff47', bg: '#2a2a1e', cx: 290, cy: 385, label: ['Instrumentação', '& Exporters'], pct: '16%',
+      nodes: [
+        { label: 'Node Exporter',    cx: 110, cy: 322 },
+        { label: 'Pushgateway',      cx: 110, cy: 382 },
+        { label: 'Client Libraries', cx: 110, cy: 455 },
+      ]
+    },
+    { color: '#a47fff', bg: '#2a1e3a', cx: 290, cy: 195, label: ['Observability'], pct: '18%',
+      nodes: [
+        { label: 'Metrics/Logs/Traces', cx: 110, cy: 115 },
+        { label: 'SLI / SLO / SLA',    cx: 110, cy: 168 },
+        { label: 'Push vs Pull',        cx: 110, cy: 221 },
+        { label: 'Service Discovery',   cx: 110, cy: 278 },
+      ]
+    },
+  ]
+};
+
+function renderMindmap() {
+  const mm = MINDMAP_DATA;
+  const BRX = 75, BRY = 33, SH = 28;
+  const { cx: CCX, cy: CCY, rx: CRX, ry: CRY } = mm.center;
+
+  function esc(s) { return s.replace(/&/g, '&amp;'); }
+  function nodeW(label) { return Math.max(92, label.length * 7 + 20); }
+
+  let lines = '', shapes = '', texts = '';
+
+  mm.branches.forEach(b => {
+    const ang = Math.atan2(CCY - b.cy, b.cx - CCX);
+    const cex = CCX + CRX * Math.cos(ang);
+    const cey = CCY - CRY * Math.sin(ang);
+    const bex = b.cx - BRX * Math.cos(ang);
+    const bey = b.cy + BRY * Math.sin(ang);
+    lines += `<line x1="${cex.toFixed(1)}" y1="${cey.toFixed(1)}" x2="${bex.toFixed(1)}" y2="${bey.toFixed(1)}" stroke="${b.color}" stroke-width="2.5"/>`;
+
+    b.nodes.forEach(n => {
+      const na = Math.atan2(b.cy - n.cy, n.cx - b.cx);
+      const lx = b.cx + BRX * Math.cos(na);
+      const ly = b.cy - BRY * Math.sin(na);
+      lines += `<line x1="${lx.toFixed(1)}" y1="${ly.toFixed(1)}" x2="${n.cx}" y2="${n.cy}" stroke="${b.color}" stroke-width="1.5" opacity=".85"/>`;
+    });
+
+    shapes += `<ellipse cx="${b.cx}" cy="${b.cy}" rx="${BRX}" ry="${BRY}" fill="${b.bg}" stroke="${b.color}" stroke-width="2.5"/>`;
+
+    b.nodes.forEach(n => {
+      const w = nodeW(n.label);
+      shapes += `<rect x="${(n.cx - w/2).toFixed(1)}" y="${n.cy - SH/2}" width="${w}" height="${SH}" rx="6" fill="#0d1117" stroke="${b.color}" stroke-width="1.5"/>`;
+    });
+
+    const ml = b.label.length > 1;
+    b.label.forEach((line, i) => {
+      const ty = b.cy + (ml ? -7 + i * 16 : -4);
+      texts += `<text x="${b.cx}" y="${ty}" text-anchor="middle" fill="${b.color}" font-weight="700" font-size="14" font-family="Syne,sans-serif">${esc(line)}</text>`;
+    });
+    texts += `<text x="${b.cx}" y="${b.cy + (ml ? 20 : 14)}" text-anchor="middle" fill="${b.color}" font-size="10" font-family="Space Mono,monospace" opacity=".75">${b.pct}</text>`;
+
+    b.nodes.forEach(n => {
+      texts += `<text x="${n.cx}" y="${n.cy + 4.5}" text-anchor="middle" fill="#c9d1d9" font-size="12" font-family="Space Mono,monospace">${esc(n.label)}</text>`;
+    });
+  });
+
+  shapes += `<ellipse cx="${CCX}" cy="${CCY}" rx="${CRX}" ry="${CRY}" fill="#E6522C" filter="url(#mm-glow)"/>`;
+  texts  += `<text x="${CCX}" y="${CCY - 6}" text-anchor="middle" fill="#0a0c10" font-weight="800" font-size="16" font-family="Syne,sans-serif">Prometheus</text>`;
+  texts  += `<text x="${CCX}" y="${CCY + 13}" text-anchor="middle" fill="#0a0c10" font-size="11" font-family="Syne,sans-serif" opacity=".85">Certified Associate</text>`;
+
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${mm.W} ${mm.H}" role="img" aria-label="Mapa Mental PCA — 5 domínios">
+<defs><filter id="mm-glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+${lines}${shapes}${texts}</svg>`;
+
+  const el = document.getElementById('mindmapSvg');
+  if (el) el.innerHTML = svg;
+}
+
+renderMindmap();
 renderQuiz();
 </script>
 </body>
