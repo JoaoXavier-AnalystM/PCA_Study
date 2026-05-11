@@ -3,7 +3,7 @@
 
 ## 📚 Sobre o Projeto
 
-Este repositório foi criado para centralizar estudos, laboratórios práticos e materiais relacionados à certificação **Prometheus Certified Associate (PCA)** da Cloud Native Computing Foundation.
+Este repositório foi criado para centralizar estudos, laboratórios práticos e materiais relacionados à certificação **Prometheus Certified Associate (PCA)**.
 
 O objetivo é fornecer uma base sólida sobre:
 
