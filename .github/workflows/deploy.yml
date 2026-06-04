@@ -95,7 +95,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            STATUS=$(curl -o /dev/null -s -w "%{http_code}" http://localhost)
+            STATUS=$(curl -o /dev/null -s -w "%{http_code}" http://localhost:8080)
 
             echo "HTTP Status: $STATUS"
 
