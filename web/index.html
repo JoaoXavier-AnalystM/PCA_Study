@@ -105,16 +105,21 @@
     border-radius: 1px; transition: all .25s ease;
     transform-origin: center;
   }
-  /* expanded → bars normal */
-  /* collapsed → bars rotate to arrow */
-  nav.collapsed .nav-toggle-icon span:nth-child(1) {
-    transform: translateY(6px) rotate(45deg); width: 70%; align-self: flex-end;
+  /* expanded → « left chevron (click to collapse) */
+  .nav-toggle-icon span:nth-child(1) {
+    transform: translateY(6px) rotate(-45deg); width: 65%;
   }
-  nav.collapsed .nav-toggle-icon span:nth-child(2) {
-    transform: scaleX(0.5); opacity: 0.5;
+  .nav-toggle-icon span:nth-child(2) {
+    transform: scaleX(0); opacity: 0;
   }
+  .nav-toggle-icon span:nth-child(3) {
+    transform: translateY(-6px) rotate(45deg); width: 65%;
+  }
+  /* collapsed → ☰ hamburger (click to expand) */
+  nav.collapsed .nav-toggle-icon span:nth-child(1),
+  nav.collapsed .nav-toggle-icon span:nth-child(2),
   nav.collapsed .nav-toggle-icon span:nth-child(3) {
-    transform: translateY(-6px) rotate(-45deg); width: 70%; align-self: flex-end;
+    transform: none; width: 100%; opacity: 1;
   }
 
   :focus-visible {
@@ -403,11 +408,15 @@
     box-shadow: 0 4px 20px rgba(232,255,71,.3);
   }
 
-  /* HERO — left aligned */
+  /* HERO — flex row, badge right */
   .hero {
-    text-align: left; padding: 24px 0 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 24px; padding: 24px 0 28px;
     border-bottom: 1px solid var(--border); margin-bottom: 32px;
+    flex-wrap: wrap;
   }
+  .hero-body { flex: 1; min-width: 280px; }
+  .hero-badge-img { width: 90px; height: 90px; flex-shrink: 0; }
   .hero-badge {
     display: inline-block; background: var(--surface);
     border: 1px solid var(--accent); border-radius: 50px;
@@ -516,10 +525,12 @@
 <!-- ============================================================ -->
 <div id="plano" class="section active">
   <div class="hero">
-    <img src="https://training.linuxfoundation.org/wp-content/uploads/2022/04/Training_Badge_Prometheus_V2-2-300x300.png" alt="PCA Badge" style="width:80px;height:80px;margin-bottom:16px;">
-    <div class="hero-badge">PROMETHEUS CERTIFIED ASSOCIATE</div>
-    <h1>Plano de Estudos</h1>
-    <p>60 questões - 90 minutos - Nota mínima 75%(47 acertos) - Prova em inglês</p>
+    <div class="hero-body">
+      <div class="hero-badge">PROMETHEUS CERTIFIED ASSOCIATE</div>
+      <h1>Plano de Estudos</h1>
+      <p>60 questões - 90 minutos - Nota mínima 75%(47 acertos) - Prova em inglês</p>
+    </div>
+    <img class="hero-badge-img" src="https://training.linuxfoundation.org/wp-content/uploads/2022/04/Training_Badge_Prometheus_V2-2-300x300.png" alt="PCA Badge">
   </div>
 
   <div class="exam-info">
@@ -759,8 +770,10 @@
 <!-- ============================================================ -->
 <div id="cheat" class="section">
   <div class="hero" style="padding-bottom:24px;margin-bottom:24px;">
-    <div class="hero-badge">CHEAT SHEET</div>
-    <h1>PCA Quick <span>Reference</span></h1>
+    <div class="hero-body">
+      <div class="hero-badge">CHEAT SHEET</div>
+      <h1>PCA Quick <span>Reference</span></h1>
+    </div>
   </div>
 
   <div class="cheat-grid">
@@ -940,9 +953,11 @@
 <!-- ============================================================ -->
 <div id="mindmap" class="section">
   <div class="hero" style="padding-bottom:24px;margin-bottom:24px;">
-    <div class="hero-badge">MAPA MENTAL</div>
-    <h1>PCA <span>Map</span></h1>
-    <p>Visão completa dos 5 domínios</p>
+    <div class="hero-body">
+      <div class="hero-badge">MAPA MENTAL</div>
+      <h1>PCA <span>Map</span></h1>
+      <p>Visão completa dos 5 domínios</p>
+    </div>
   </div>
   <div class="mindmap-container" id="mindmapSvg"></div>
 </div>
@@ -952,8 +967,10 @@
 <!-- ============================================================ -->
 <div id="promql" class="section">
   <div class="hero" style="padding-bottom:24px;margin-bottom:24px;">
-    <div class="hero-badge">Itens de ATENÇÃO</div>
-    <h1>O que <span>aparece com frequência</span> na PCA</h1>
+    <div class="hero-body">
+      <div class="hero-badge">Itens de ATENÇÃO</div>
+      <h1>O que <span>aparece com frequência</span> na PCA</h1>
+    </div>
   </div>
 
   <div class="promql-section">
