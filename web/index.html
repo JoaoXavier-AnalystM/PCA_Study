@@ -7,7 +7,7 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap');
 
-  :root {
+  :root, [data-theme="dark"] {
     --bg: #0a0c10;
     --surface: #111318;
     --surface2: #1a1e26;
@@ -19,6 +19,19 @@
     --text: #e8eaf0;
     --muted: #6b7280;
     --promql: #47ffb8;
+  }
+  [data-theme="light"] {
+    --bg: #f8f9fb;
+    --surface: #ffffff;
+    --surface2: #f1f3f6;
+    --border: #dde1e7;
+    --accent: #d4441c;
+    --accent2: #1a8fd4;
+    --accent3: #cc4444;
+    --accent4: #7c3aed;
+    --text: #1a1d26;
+    --muted: #5f6b7a;
+    --promql: #0d7d4a;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -96,6 +109,20 @@
     margin-bottom: 10px; align-self: flex-end; margin-right: 12px;
   }
   .nav-toggle:hover { color: var(--text); border-color: var(--accent); background: var(--surface); }
+  /* theme toggle */
+  .nav-spacer { flex: 1; }
+  .nav-theme-btn {
+    background: none; border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 12px; cursor: pointer;
+    color: var(--muted); transition: all .2s;
+    font-size: 14px; margin: 8px 16px; text-align: center;
+  }
+  .nav-theme-btn:hover { color: var(--text); border-color: var(--accent); background: var(--surface2); }
+  .theme-icon-dark, .theme-icon-light { display: none; }
+  [data-theme="dark"] .theme-icon-dark { display: inline; }
+  [data-theme="light"] .theme-icon-light { display: inline; }
+  nav.collapsed .nav-theme-btn { font-size: 12px; padding: 6px; margin: 8px auto; border-radius: 50%; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; }
+  nav.collapsed .nav-spacer { display: none; }
   /* hamburger icon — 3 bars */
   .nav-toggle-icon {
     display: flex; flex-direction: column; gap: 4px; width: 16px;
@@ -163,55 +190,74 @@
   /* ======= PLANO DE ESTUDOS ======= */
   .week-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px; margin-top: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 14px; margin-top: 20px;
   }
   .day-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px; overflow: hidden;
+    border-left: 3px solid var(--border);
+    border-radius: 0 10px 10px 0; overflow: hidden;
     transition: all .2s;
     cursor: pointer;
   }
-  .day-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .day-card:hover { border-color: var(--accent); border-left-color: var(--accent); transform: translateY(-2px); }
+  .day-card.d-dom1 { border-left-color: var(--accent4); }
+  .day-card.d-dom2 { border-left-color: var(--promql); }
+  .day-card.d-dom3 { border-left-color: var(--promql); }
+  .day-card.d-dom4 { border-left-color: var(--accent); }
+  .day-card.d-dom5 { border-left-color: var(--accent3); }
+  .day-card.d-dom6 { border-left-color: var(--accent2); }
+  .day-card.d-dom7 { border-left-color: var(--accent3); }
+  .day-card.active-day { border-color: var(--accent3); border-left-color: var(--accent3); box-shadow: 0 0 0 1px rgba(255,107,107,0.15); }
   .day-header {
-    padding: 16px 20px;
+    padding: 16px 18px;
     border-bottom: 1px solid var(--border);
     display: flex; justify-content: space-between; align-items: center;
   }
-  .day-number { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--muted); }
-  .day-label { font-weight: 700; font-size: 1.1rem; }
+  .day-number { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+  .day-label { font-weight: 700; font-size: 1rem; }
   .day-pct {
     font-family: 'Space Mono', monospace;
-    font-size: 13px; font-weight: 700; color: var(--accent);
+    font-size: 12px; font-weight: 700; color: var(--accent);
+    background: rgba(230,82,44,0.1); padding: 3px 8px; border-radius: 4px;
   }
-  .day-body { padding: 16px 20px; }
+  .day-body { padding: 14px 18px; }
   .day-topic { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
-  .day-tasks { list-style: none; margin-top: 12px; }
+  .day-tasks { list-style: none; margin-top: 8px; }
   .day-tasks li {
-    font-size: 13px; padding: 6px 0;
-    border-bottom: 1px solid var(--border);
+    font-size: 12px; padding: 5px 0;
+    border-bottom: 1px solid rgba(37,42,53,0.3);
     display: flex; align-items: flex-start; gap: 8px;
+    color: var(--muted); line-height: 1.5;
   }
   .day-tasks li:last-child { border-bottom: none; }
-  .day-tasks li::before { content: '▸'; color: var(--accent); flex-shrink: 0; margin-top: 1px; }
+  .day-tasks li::before { content: '▸'; color: var(--accent); flex-shrink: 0; margin-top: 2px; font-size: 10px; }
   .day-source {
-    margin-top: 12px; padding: 8px 10px;
+    margin-top: 12px; padding: 10px 12px;
     background: var(--surface2); border-radius: 6px;
-    font-size: 11px; color: var(--muted);
-    font-family: 'Space Mono', monospace;
+    font-size: 10px; color: var(--muted);
+    font-family: 'Space Mono', monospace; line-height: 1.6;
   }
+  .day-source .title { font-weight: 700; color: var(--text); margin-bottom: 3px; font-size: 10px; text-transform: uppercase; letter-spacing: .5px; }
   .exam-info {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 12px; margin-bottom: 28px;
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 10px; margin-bottom: 32px;
   }
   .exam-stat {
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: 10px; padding: 16px;
-    text-align: center;
+    border-radius: 10px; padding: 18px 12px;
+    text-align: center; border-top: 3px solid var(--accent);
   }
-  .exam-stat .val { font-size: 1.8rem; font-weight: 800; color: var(--accent); }
-  .exam-stat .lbl { font-size: 11px; color: var(--muted); margin-top: 4px; font-family: 'Space Mono', monospace; }
+  .exam-stat:nth-child(1) { border-top-color: var(--accent2); }
+  .exam-stat:nth-child(2) { border-top-color: var(--accent4); }
+  .exam-stat:nth-child(3) { border-top-color: var(--accent3); }
+  .exam-stat:nth-child(4) { border-top-color: var(--promql); }
+  .exam-stat:nth-child(5) { border-top-color: var(--accent); }
+  .exam-stat .val { font-size: 1.7rem; font-weight: 800; color: var(--text); }
+  .exam-stat .lbl { font-size: 10px; color: var(--muted); margin-top: 4px; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: .5px; }
+  @media (max-width: 768px) { .exam-info { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 450px) { .exam-info { grid-template-columns: repeat(2, 1fr); } }
 
   /* ======= CHEAT SHEET ======= */
   .cheat-grid {
@@ -428,7 +474,7 @@
     font-size: 12px; color: var(--promql);
     background: var(--surface2); padding: 8px 10px;
     border-radius: 6px; margin-bottom: 8px;
-    word-break: break-all;
+    word-break: break-word; overflow-wrap: break-word;
   }
   .cmd-card .cmd-desc { font-size: 12px; color: var(--muted); }
   .cmd-card .cmd-tip {
@@ -501,12 +547,115 @@
     transition: opacity .2s;
   }
   .back-btn:hover { opacity: .85; }
-  .day-study-frame {
-    width: 100%;
+  .day-study-content {
+    padding: 24px 28px 40px 28px;
     min-height: 80vh;
-    border: none;
-    background: white;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px; line-height: 1.65;
+    border-radius: 0 0 8px 8px;
   }
+  /* scoped dark styles for injected day content */
+  .day-study-content h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+  .day-study-content h2 {
+    font-size: 1.2rem; font-weight: 700; margin: 24px 0 10px;
+    padding-bottom: 6px; border-bottom: 2px solid var(--accent);
+    color: var(--text); page-break-after: avoid;
+  }
+  .day-study-content h3 {
+    font-size: 1rem; font-weight: 700; margin: 16px 0 6px;
+    color: var(--accent4); page-break-after: avoid;
+  }
+  .day-study-content h4 {
+    font-size: .9rem; font-weight: 600; margin: 10px 0 4px;
+    color: var(--text); page-break-after: avoid;
+  }
+  .day-study-content p { margin-bottom: 8px; }
+  .day-study-content .cover-band {
+    padding: 18px 22px 14px; margin-bottom: 20px;
+    border-radius: 8px; background: var(--surface2);
+    color: var(--text); page-break-after: avoid;
+  }
+  .day-study-content .cover-band .day-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; opacity: .7; margin-bottom: 6px;
+  }
+  .day-study-content .cover-band h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
+  .day-study-content .cover-band .subtitle { font-size: 12px; opacity: .8; }
+  .day-study-content .cover-band .domains { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .day-study-content .badge {
+    display: inline-block; padding: 2px 10px; border-radius: 4px;
+    font-size: 10px; font-weight: 700; letter-spacing: .5px;
+    text-transform: uppercase; background: var(--accent2); color: #fff;
+  }
+  .day-study-content .box {
+    padding: 10px 14px; border-radius: 6px; margin: 10px 0;
+    border-left: 4px solid; page-break-inside: avoid;
+    background: var(--surface); color: var(--text);
+  }
+  .day-study-content .box.info { border-color: var(--accent2); background: rgba(71,184,255,0.08); }
+  .day-study-content .box.warn { border-color: #f59e0b; background: rgba(245,158,11,0.08); }
+  .day-study-content .box.tip { border-color: #22c55e; background: rgba(34,197,94,0.08); }
+  .day-study-content .box.danger { border-color: var(--accent3); background: rgba(255,107,107,0.08); }
+  .day-study-content .box.dark { border-color: var(--accent); background: var(--surface2); }
+  .day-study-content .box .box-title {
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+  .day-study-content code {
+    font-family: 'Space Mono', monospace; font-size: 12px;
+    background: var(--surface2); padding: 2px 6px;
+    border-radius: 3px; color: var(--promql);
+  }
+  .day-study-content pre {
+    font-family: 'Space Mono', monospace; font-size: 12px;
+    background: var(--surface2); color: var(--promql);
+    padding: 12px 16px; border-radius: 6px; margin: 10px 0;
+    white-space: pre-wrap; word-break: break-all; line-height: 1.7;
+    page-break-inside: avoid;
+  }
+  .day-study-content table {
+    width: 100%; border-collapse: collapse; margin: 10px 0;
+    font-size: 13px; page-break-inside: avoid;
+  }
+  .day-study-content th {
+    background: var(--surface2); color: var(--text);
+    padding: 6px 10px; font-weight: 600; text-align: left; font-size: 12px;
+  }
+  .day-study-content td {
+    padding: 6px 10px; border-bottom: 1px solid var(--border);
+    vertical-align: top; color: var(--text);
+  }
+  .day-study-content tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+  .day-study-content .kv-grid {
+    display: table; width: 100%; border: 1px solid var(--border);
+    border-radius: 6px; margin: 10px 0; overflow: hidden;
+    page-break-inside: avoid;
+  }
+  .day-study-content .kv-row { display: table-row; }
+  .day-study-content .kv-row:nth-child(even) .kv-k,
+  .day-study-content .kv-row:nth-child(even) .kv-v { background: rgba(255,255,255,0.02); }
+  .day-study-content .kv-k {
+    display: table-cell; padding: 6px 12px; font-weight: 600;
+    font-size: 12px; color: var(--muted); width: 35%;
+    border-bottom: 1px solid var(--border); vertical-align: middle;
+  }
+  .day-study-content .kv-v {
+    display: table-cell; padding: 6px 12px; font-size: 12px;
+    border-bottom: 1px solid var(--border); vertical-align: middle;
+  }
+  .day-study-content .cols2 { display: flex; gap: 12px; margin: 8px 0; }
+  .day-study-content .col { flex: 1; }
+  .day-study-content .quiz-block {
+    border: 1px solid var(--border); border-radius: 6px;
+    margin: 10px 0; padding: 14px; page-break-inside: avoid;
+    background: var(--surface);
+  }
+  .day-study-content .quiz-block .q {
+    font-weight: 700; margin-bottom: 6px; color: var(--text);
+  }
+  .day-study-content .quiz-block .opts { color: var(--muted); font-size: 12px; }
+  .day-study-content a { color: var(--accent2); }
 
   @media (max-width: 768px) {
     nav { width: 200px; }
@@ -556,22 +705,28 @@
       </div>
     </div>
   </div>
-  <button class="nav-btn active" onclick="show('plano')" aria-current="page" data-icon="📅">📅 Plano </button>
-  <button class="nav-btn" onclick="show('cheat')" data-icon="📋">📋 Cheat Sheet</button>
+  <button class="nav-btn active" onclick="show('mindmap')" aria-current="page" data-icon="🗺️">🗺️ Visão Geral</button>
+  <button class="nav-btn" onclick="show('plano')" data-icon="📅">📅 Plano </button>
+  <button class="nav-btn" onclick="show('cheat')" data-icon="📋">📋 Quick Ref</button>
+  <button class="nav-btn" onclick="show('promqlref')" data-icon="📖">📖 PromQL Ref</button>
   <button class="nav-btn" onclick="show('quiz')" data-icon="🧠">🧠 50 Questões</button>
-  <button class="nav-btn" onclick="show('mindmap')" data-icon="🗺️">🗺️ Visão Geral</button>
   <button class="nav-btn" onclick="show('promql')" data-icon="⚡">⚡Itens de Atenção </button>
+  <div class="nav-spacer"></div>
+  <button class="nav-theme-btn" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema claro/escuro">
+    <span class="theme-icon-dark">☀️</span>
+    <span class="theme-icon-light">🌙</span>
+  </button>
 </nav>
 
 <!-- ============================================================ -->
 <!--  PLANO DE ESTUDOS                                            -->
 <!-- ============================================================ -->
-<div id="plano" class="section active">
+<div id="plano" class="section">
   <div class="hero">
     <div class="hero-body">
       <div class="hero-badge">PROMETHEUS CERTIFIED ASSOCIATE</div>
-      <h1>Plano de Estudos</h1>
-      <p>60 questões - 90 minutos - Nota mínima 75%(47 acertos) - Prova em inglês</p>
+      <h1>Trilha de Estudos</h1>
+      <p>7 tópicos essenciais para a certificação PCA</p>
     </div>
     <img class="hero-badge-img" src="https://training.linuxfoundation.org/wp-content/uploads/2022/04/Training_Badge_Prometheus_V2-2-300x300.png" alt="PCA Badge">
   </div>
@@ -593,13 +748,16 @@
     <div class="tag tag-inst">Instrumentação 16%</div>
   </div>
 
-  <h2>Cronograma Semanal</h2>
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+    <h2 style="margin:0;">📚 Tópicos de Estudo</h2>
+    <button onclick="resetVisited()" style="background:none;border:1px solid var(--border);color:var(--muted);padding:4px 12px;border-radius:6px;cursor:pointer;font-family:'Space Mono',monospace;font-size:10px;" title="Limpar histórico de visitas">🗑️ Limpar revisados</button>
+  </div>
   <div class="week-grid">
 
-    <div class="day-card" data-day="1" tabindex="0" onclick="loadDayStudy(1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(1)}">
+    <div class="day-card d-dom1" data-day="1" tabindex="0" onclick="loadDayStudy(1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(1)}">
       <div class="day-header">
         <div>
-          <div class="day-number">DIA 01 </div>
+          <div class="day-number">TÓPICO 01</div>
           <div class="day-label">Observability + Fundamentos</div>
         </div>
         <div class="day-pct">18%+20%</div>
@@ -627,10 +785,10 @@
     </div>
   </div>
 
-    <div class="day-card" data-day="2" tabindex="0" onclick="loadDayStudy(2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(2)}">
+    <div class="day-card d-dom2" data-day="2" tabindex="0" onclick="loadDayStudy(2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(2)}">
       <div class="day-header">
         <div>
-          <div class="day-number">DIA 02 </div>
+          <div class="day-number">TÓPICO 02</div>
           <div class="day-label">PromQL Básico</div>
         </div>
         <div class="day-pct">28%</div>
@@ -657,10 +815,10 @@
       </div>
     </div>
 
-    <div class="day-card" data-day="3" tabindex="0" onclick="loadDayStudy(3)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(3)}">
+    <div class="day-card d-dom3" data-day="3" tabindex="0" onclick="loadDayStudy(3)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(3)}">
       <div class="day-header">
         <div>
-          <div class="day-number">DIA 03 </div>
+          <div class="day-number">TÓPICO 03</div>
           <div class="day-label">PromQL Avançado</div>
         </div>
         <div class="day-pct">28%</div>
@@ -687,10 +845,10 @@
       </div>
     </div>
 
-    <div class="day-card" data-day="4" tabindex="0" onclick="loadDayStudy(4)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(4)}">
+    <div class="day-card d-dom4" data-day="4" tabindex="0" onclick="loadDayStudy(4)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(4)}">
       <div class="day-header">
         <div>
-          <div class="day-number">DIA 04 </div>
+          <div class="day-number">TÓPICO 04</div>
           <div class="day-label">Instrumentação & Exporters</div>
         </div>
         <div class="day-pct">16%</div>
@@ -717,10 +875,10 @@
       </div>
     </div>
 
-    <div class="day-card" data-day="5" tabindex="0" onclick="loadDayStudy(5)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(5)}">
+    <div class="day-card d-dom5" data-day="5" tabindex="0" onclick="loadDayStudy(5)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(5)}">
       <div class="day-header">
         <div>
-          <div class="day-number">DIA 05 </div>
+          <div class="day-number">TÓPICO 05</div>
           <div class="day-label">Alerting & Dashboarding</div>
         </div>
         <div class="day-pct">18%</div>
@@ -747,10 +905,10 @@
       </div>
     </div>
 
-    <div class="day-card" data-day="6" tabindex="0" onclick="loadDayStudy(6)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(6)}">
+    <div class="day-card d-dom6" data-day="6" tabindex="0" onclick="loadDayStudy(6)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(6)}">
       <div class="day-header">
         <div>
-          <div class="day-number">DIA 06 </div>
+          <div class="day-number">TÓPICO 06</div>
           <div class="day-label">Simulado Completo + Revisão</div>
         </div>
         <div class="day-pct">Mock Exam</div>
@@ -774,10 +932,10 @@
       </div>
     </div>
 
-    <div class="day-card active-day" data-day="7" tabindex="0" onclick="loadDayStudy(7)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(7)}">
+    <div class="day-card d-dom7 active-day" data-day="7" tabindex="0" onclick="loadDayStudy(7)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(7)}">
       <div class="day-header active-header">
         <div>
-          <div class="day-number">DIA 07 </div>
+          <div class="day-number">TÓPICO 07</div>
           <div class="day-label">Revisão Rápida + Exam Day</div>
         </div>
         <div class="day-pct" style="color: var(--accent3);">🎯 PROVA</div>
@@ -800,10 +958,10 @@
   <!-- Day Study Container (aparece ao clicar em um dia) -->
   <div id="dayStudyContainer" class="day-study-container" style="display:none;">
     <div class="day-study-header">
-      <h2 id="dayStudyTitle">Estudo do Dia</h2>
+      <h2 id="dayStudyTitle">Estudo do Tópico</h2>
       <button class="back-btn" onclick="closeDayStudy()">← Voltar ao Plano</button>
     </div>
-    <iframe id="dayStudyFrame" class="day-study-frame"></iframe>
+    <div id="dayStudyContent" class="day-study-content"></div>
   </div>
 
 </div>
@@ -814,148 +972,472 @@
 <div id="cheat" class="section">
   <div class="hero" style="padding-bottom:24px;margin-bottom:24px;">
     <div class="hero-body">
-      <div class="hero-badge">CHEAT SHEET</div>
+      <div class="hero-badge">QUICK REF</div>
       <h1>PCA Quick <span>Reference</span></h1>
     </div>
   </div>
 
   <div class="cheat-grid">
 
+    <!-- ===== 1. OBSERVABILITY ===== -->
+    <div class="cheat-card c-purple">
+      <h3><span class="tag tag-obs">Observability</span></h3>
+      <div class="cheat-item"><span class="cheat-key">SLI</span><span class="cheat-val purple">Métrica real de performance (latência, erro, disponibilidade)</span></div>
+      <div class="cheat-item"><span class="cheat-key">SLO</span><span class="cheat-val purple">Meta interna baseada no SLI (ex: 99.9% uptime)</span></div>
+      <div class="cheat-item"><span class="cheat-key">SLA</span><span class="cheat-val purple">Acordo formal com cliente + penalidade se violar SLO</span></div>
+      <div class="cheat-item"><span class="cheat-key">Error Budget</span><span class="cheat-val purple">Tolerância de falha (100% - SLO)</span></div>
+      <div class="cheat-item"><span class="cheat-key">Error Budget Policy</span><span class="cheat-val purple">Ações a tomar quando SLO/SLA é violado</span></div>
+      <div class="cheat-item"><span class="cheat-key">Golden Signals</span><span class="cheat-val purple">Latency, Traffic, Errors, Saturation</span></div>
+      <div class="cheat-item"><span class="cheat-key">Métricas</span><span class="cheat-val purple">Dados numéricos em série temporal</span></div>
+      <div class="cheat-item"><span class="cheat-key">Logs</span><span class="cheat-val purple">Eventos discretos com contexto detalhado</span></div>
+      <div class="cheat-item"><span class="cheat-key">Traces</span><span class="cheat-val purple">Rastreamento distribuído (spans)</span></div>
+      <div class="cheat-item"><span class="cheat-key">Pull model</span><span class="cheat-val purple">Prometheus scrapa /metrics</span></div>
+      <div class="cheat-item"><span class="cheat-key">Push model</span><span class="cheat-val purple">Pushgateway / batch jobs</span></div>
+    </div>
+
+    <!-- ===== 2. FUNDAMENTOS ===== -->
     <div class="cheat-card c-blue">
-      <h3><span class="tag tag-obs">Observability(O11y)</span></h3>
-
-      <div class="cheat-item"><span class="cheat-key">SLI</span><span class="cheat-val blue">Métrica real de performance (latência, erro, disponibilidade)</span></div>
-      <div class="cheat-item"><span class="cheat-key">SLO</span><span class="cheat-val blue">Meta interna baseada no SLI (ex: 99.9% uptime)</span></div>
-      <div class="cheat-item"><span class="cheat-key">SLA</span><span class="cheat-val blue">Acordo formal com cliente + penalidade se violar SLO</span></div>
-      <div class="cheat-item"><span class="cheat-key">Error Budget</span><span class="cheat-val blue">Tolerância de falha (100% - SLO)</span></div>
-      <div class="cheat-item"><span class="cheat-key">Error Budget Policy</span><span class="cheat-val blue">Um conjunto de ações a serem tomadas quando um SLO ou SLA for violado.</span></div>
-      <div class="cheat-item"><span class="cheat-key">Golden Signals</span><span class="cheat-val blue">Latency, Traffic, Errors, Saturation</span></div>
-
-      <div class="cheat-item"><span class="cheat-key">Métricas</span><span class="cheat-val blue">Dados numéricos em série temporal</span></div>
-      <div class="cheat-item"><span class="cheat-key">Logs</span><span class="cheat-val blue">Eventos discretos com contexto detalhado</span></div>
-      <div class="cheat-item"><span class="cheat-key">Traces</span><span class="cheat-val blue">Rastreamento de requisições distribuídas(spans)</span></div>
-
-      <div class="cheat-item"><span class="cheat-key">Pull model</span><span class="cheat-val blue">Prometheus coleta métricas via scrape(/metrics)</span></div>
-      <div class="cheat-item"><span class="cheat-key">Push model</span><span class="cheat-val blue">Aplicação envia métricas(Pushgateway/batch jobs)</span></div>
+      <h3><span class="tag tag-fund">Fundamentos</span> — Tipos de Métricas</h3>
+      <div class="cheat-item"><span class="cheat-key">Counter</span><span class="cheat-val blue">Só sobe (ou zera no restart)</span></div>
+      <div class="cheat-item"><span class="cheat-key">Gauge</span><span class="cheat-val blue">Sobe e desce (memória, temp)</span></div>
+      <div class="cheat-item"><span class="cheat-key">Histogram</span><span class="cheat-val blue">_bucket, _sum, _count</span></div>
+      <div class="cheat-item"><span class="cheat-key">Summary</span><span class="cheat-val blue">Quantis pré-calculados no cliente</span></div>
+      <div class="cheat-item"><span class="cheat-key">Hist vs Summary</span><span class="cheat-val blue">Hist: agrega no server; Sum: agrega no client</span></div>
+      <div class="cheat-item"><span class="cheat-key">Naming</span><span class="cheat-val blue">namespace_subsystem_name_unit</span></div>
+      <div class="cheat-item"><span class="cheat-key">Sufixos</span><span class="cheat-val blue">_total _seconds _bytes _ratio</span></div>
     </div>
 
+    <div class="cheat-card c-blue">
+      <h3><span class="tag tag-fund">Fundamentos</span> — Arquitetura & Portas</h3>
+      <div class="cheat-item"><span class="cheat-key">Prometheus</span><span class="cheat-val blue">:9090</span></div>
+      <div class="cheat-item"><span class="cheat-key">Alertmanager</span><span class="cheat-val blue">:9093</span></div>
+      <div class="cheat-item"><span class="cheat-key">Pushgateway</span><span class="cheat-val blue">:9091</span></div>
+      <div class="cheat-item"><span class="cheat-key">Node Exporter</span><span class="cheat-val blue">:9100</span></div>
+      <div class="cheat-item"><span class="cheat-key">cAdvisor</span><span class="cheat-val blue">:8080</span></div>
+      <div class="cheat-item"><span class="cheat-key">Grafana</span><span class="cheat-val blue">:3000</span></div>
+      <div class="cheat-item"><span class="cheat-key">Scrape default</span><span class="cheat-val blue">15s (configurável)</span></div>
+      <div class="cheat-item"><span class="cheat-key">Endpoint</span><span class="cheat-val blue">GET /metrics</span></div>
+      <div class="cheat-item"><span class="cheat-key">Data Model</span><span class="cheat-val blue">metric + labels + timestamp + value</span></div>
+      <div class="cheat-item"><span class="cheat-key">TSDB</span><span class="cheat-val blue">Time Series DB local (15d retenção)</span></div>
+    </div>
+
+    <div class="cheat-card c-blue">
+      <h3><span class="tag tag-fund">Fundamentos</span> — prometheus.yml</h3>
+      <div class="cheat-item"><span class="cheat-key">scrape_interval</span><span class="cheat-val blue">Intervalo padrão de coleta</span></div>
+      <div class="cheat-item"><span class="cheat-key">evaluation_interval</span><span class="cheat-val blue">Intervalo de avaliação das rules</span></div>
+      <div class="cheat-item"><span class="cheat-key">scrape_configs</span><span class="cheat-val blue">Define os jobs de coleta</span></div>
+      <div class="cheat-item"><span class="cheat-key">job_name</span><span class="cheat-val blue">Nome lógico do job</span></div>
+      <div class="cheat-item"><span class="cheat-key">static_configs</span><span class="cheat-val blue">Lista fixa de targets (IPs/hosts)</span></div>
+      <div class="cheat-item"><span class="cheat-key">file_sd_configs</span><span class="cheat-val blue">Service Discovery via JSON/YAML</span></div>
+      <div class="cheat-item"><span class="cheat-key">relabel_configs</span><span class="cheat-val blue">Modifica/filtra labels antes do scrape</span></div>
+      <div class="cheat-item"><span class="cheat-key">metric_relabel_configs</span><span class="cheat-val blue">Modifica labels pós-scrape</span></div>
+      <div class="cheat-item"><span class="cheat-key">metrics_path</span><span class="cheat-val blue">Endpoint (/metrics padrão)</span></div>
+      <div class="cheat-item"><span class="cheat-key">scheme</span><span class="cheat-val blue">HTTP ou HTTPS</span></div>
+    </div>
+
+    <!-- ===== 3. PROMQL ===== -->
     <div class="cheat-card c-green">
-      <h3>Tipos de Métricas</h3>
-      <div class="cheat-item"><span class="cheat-key">Counter</span><span class="cheat-val">Só sobe (ou zera no restart)</span></div>
-      <div class="cheat-item"><span class="cheat-key">Gauge</span><span class="cheat-val">Sobe e desce (memória, temp)</span></div>
-      <div class="cheat-item"><span class="cheat-key">Histogram</span><span class="cheat-val">_bucket, _sum, _count</span></div>
-      <div class="cheat-item"><span class="cheat-key">Summary</span><span class="cheat-val">Quantis pré-calculados no app</span></div>
-      <div class="cheat-item"><span class="cheat-key">Histogram vs Summary</span><span class="cheat-val">hist: agreg server; sum: agreg client</span></div>
-      <div class="cheat-item"><span class="cheat-key">Naming</span><span class="cheat-val">namespace_subsystem_name_unit</span></div>
-      <div class="cheat-item"><span class="cheat-key">Sufixos</span><span class="cheat-val">_total _seconds _bytes _ratio</span></div>
-    </div>
-
-    <div class="cheat-card c-yellow">
-      <h3>Arquitetura & Portas</h3>
-      <div class="cheat-item"><span class="cheat-key">Prometheus</span><span class="cheat-val yellow">:9090</span></div>
-      <div class="cheat-item"><span class="cheat-key">Alertmanager</span><span class="cheat-val yellow">:9093</span></div>
-      <div class="cheat-item"><span class="cheat-key">Pushgateway</span><span class="cheat-val yellow">:9091</span></div>
-      <div class="cheat-item"><span class="cheat-key">Node Exporter</span><span class="cheat-val yellow">:9100</span></div>
-      <div class="cheat-item"><span class="cheat-key">cAdvisor</span><span class="cheat-val yellow">:8080</span></div>
-      <div class="cheat-item"><span class="cheat-key">Grafana</span><span class="cheat-val yellow">:3000</span></div>
-      <div class="cheat-item"><span class="cheat-key">Scrape default</span><span class="cheat-val yellow">15s (configável)</span></div>
-      <div class="cheat-item"><span class="cheat-key">Endpoint</span><span class="cheat-val yellow">GET /metrics</span></div>
-    </div>
-
-    <div class="cheat-card c-green">
-      <h3>Seletores & Vetores</h3>
+      <h3><span class="tag tag-promql">PromQL</span> — Seletores & Vetores</h3>
       <div class="cheat-item"><span class="cheat-key">Instant vector</span><span class="cheat-val">http_requests_total{job="api"}</span></div>
       <div class="cheat-item"><span class="cheat-key">Range vector</span><span class="cheat-val">http_requests_total[5m]</span></div>
       <div class="cheat-item"><span class="cheat-key">Offset</span><span class="cheat-val">metric offset 1h</span></div>
-      <div class="cheat-item"><span class="cheat-key">Igual</span><span class="cheat-val">job="api"</span></div>
-      <div class="cheat-item"><span class="cheat-key">Diferente</span><span class="cheat-val">status!="200"</span></div>
-      <div class="cheat-item"><span class="cheat-key">Regex match</span><span class="cheat-val">status<span class="op op-regex">=~"5.."</span></div>
-      <div class="cheat-item"><span class="cheat-key">Negação regex</span><span class="cheat-val">status!~"2.."</span></div>
+      <div class="cheat-item"><span class="cheat-key">@ modifier</span><span class="cheat-val">metric @ 1609746000 (unix timestamp)</span></div>
+      <div class="cheat-item"><span class="cheat-key">Igual / Diferente</span><span class="cheat-val">=  /  !=</span></div>
+      <div class="cheat-item"><span class="cheat-key">Regex match</span><span class="cheat-val">=~"5.."  /  !~"2.."</span></div>
+      <div class="cheat-item"><span class="cheat-key">Subquery</span><span class="cheat-val">expr[5m:1m] (range:step)</span></div>
     </div>
 
     <div class="cheat-card c-green">
-      <h3>Functions — Rate / Increase / Delta</h3>
-      <div class="cheat-item"><span class="cheat-key">rate()</span><span class="cheat-val">Taxa/s para counters (suave,por segundo)</span></div>
-      <div class="cheat-item"><span class="cheat-key">irate()</span><span class="cheat-val">Taxa instantânea (reativo,(últimos 2 pontos))</span></div>
-      <div class="cheat-item"><span class="cheat-key">increase()</span><span class="cheat-val">Aumento total no período</span></div>
-      <div class="cheat-item"><span class="cheat-key">delta()</span><span class="cheat-val">Diferença entre início e fim(gauges)</span></div>
-      <div class="cheat-item"><span class="cheat-key">abs</span><span class="cheat-val">Valor absoluto</span></div>
-      <div class="cheat-item"><span class="cheat-key">absent</span><span class="cheat-val">Retorna 1 se não existe métrica</span></div>
-      <div class="cheat-item"><span class="cheat-key">exp</span><span class="cheat-val">e^x (exponencial)</span></div>
-      <div class="cheat-item"><span class="cheat-key">clamp</span><span class="cheat-val">Limita valores entre min e max</span></div>
-      <div class="cheat-item"><span class="cheat-key">histogram_quantile()</span><span class="cheat-val">p99 de histogramas</span></div>
-      <div class="cheat-item"><span class="cheat-key">predict_linear()</span><span class="cheat-val">Projeção linear futura</span></div>
-      <div class="cheat-item"><span class="cheat-key">absent()</span><span class="cheat-val">Alertar se métrica some</span></div>
+      <h3><span class="tag tag-promql">PromQL</span> — Funções Essenciais</h3>
+      <div class="cheat-item"><span class="cheat-key">rate()</span><span class="cheat-val">Taxa/s para counters (suave, usa todo range)</span></div>
+      <div class="cheat-item"><span class="cheat-key">irate()</span><span class="cheat-val">Taxa instantânea (últimos 2 pontos, reativo)</span></div>
+      <div class="cheat-item"><span class="cheat-key">increase()</span><span class="cheat-val">Aumento total no período (counter)</span></div>
+      <div class="cheat-item"><span class="cheat-key">delta()</span><span class="cheat-val">Diferença início−fim (gauge)</span></div>
+      <div class="cheat-item"><span class="cheat-key">histogram_quantile()</span><span class="cheat-val">Percentil de histograma (p99, p95)</span></div>
+      <div class="cheat-item"><span class="cheat-key">predict_linear()</span><span class="cheat-val">Projeção linear futura (disco, crescimento)</span></div>
+      <div class="cheat-item"><span class="cheat-key">absent()</span><span class="cheat-val">Retorna 1 se métrica não existe</span></div>
       <div class="cheat-item"><span class="cheat-key">label_replace()</span><span class="cheat-val">Manipular labels via regex</span></div>
+      <div class="cheat-item"><span class="cheat-key">label_join()</span><span class="cheat-val">Concatenar valores de labels</span></div>
+      <div class="cheat-item"><span class="cheat-key">changes()</span><span class="cheat-val">Nº de vezes que valor mudou</span></div>
+      <div class="cheat-item"><span class="cheat-key">resets()</span><span class="cheat-val">Nº de counter resets no período</span></div>
+      <div class="cheat-item"><span class="cheat-key">holt_winters()</span><span class="cheat-val">Suavização para séries sazonais</span></div>
     </div>
-
 
     <div class="cheat-card c-green">
-      <h3>Functions — Agregações / Derivadas</h3>
-      <div class="cheat-item"><span class="cheat-key">sum by(job)</span><span class="cheat-val">Agrupa mantendo label</span></div>
-      <div class="cheat-item"><span class="cheat-key">sum without(pod)</span><span class="cheat-val">Remove label, mantém restante</span></div>
-      <div class="cheat-item"><span class="cheat-key">topk(5, expr)</span><span class="cheat-val">Top 5 valores</span></div>
-      <div class="cheat-item"><span class="cheat-key">bottomk</span><span class="cheat-val">Bottom N menores valores</span></div>
-      <div class="cheat-item"><span class="cheat-key">quantile(0.9,e)</span><span class="cheat-val">Percentil 90 de gauge</span></div>
-      <div class="cheat-item"><span class="cheat-key">sum</span><span class="cheat-val">Agregação somando valores</span></div>
-      <div class="cheat-item"><span class="cheat-key">avg</span><span class="cheat-val">Média dos valores</span></div>
-      <div class="cheat-item"><span class="cheat-key">min</span><span class="cheat-val">Menor valor do conjunto</span></div>
-      <div class="cheat-item"><span class="cheat-key">max</span><span class="cheat-val">Maior valor do conjunto</span></div>
-      <div class="cheat-item"><span class="cheat-key">count</span><span class="cheat-val">Conta número de séries/valores</span></div>
-      <div class="cheat-item"><span class="cheat-key">avg()</span><span class="cheat-val">Média dos valores</span></div>
-      <div class="cheat-item"><span class="cheat-key">stddev()</span><span class="cheat-val">Calcula o desvio padrão das séries</span></div>
-      <div class="cheat-item"><span class="cheat-key">stdvar()</span><span class="cheat-val">Calcula a variância, que é basicamente o desvio padrão ao quadrado</span></div>
-
+      <h3><span class="tag tag-promql">PromQL</span> — Agregações</h3>
+      <div class="cheat-item"><span class="cheat-key">sum by(job)</span><span class="cheat-val">Soma agrupando — mantém label</span></div>
+      <div class="cheat-item"><span class="cheat-key">sum without(pod)</span><span class="cheat-val">Soma removendo label — mantém resto</span></div>
+      <div class="cheat-item"><span class="cheat-key">topk(5, expr)</span><span class="cheat-val">Top N maiores valores</span></div>
+      <div class="cheat-item"><span class="cheat-key">bottomk(5, expr)</span><span class="cheat-val">Bottom N menores valores</span></div>
+      <div class="cheat-item"><span class="cheat-key">quantile(0.9, expr)</span><span class="cheat-val">Percentil de gauge (não histograma)</span></div>
+      <div class="cheat-item"><span class="cheat-key">Operadores</span><span class="cheat-val">sum / avg / min / max / count / stddev / stdvar</span></div>
+      <div class="cheat-item"><span class="cheat-key">Funções math</span><span class="cheat-val">abs / ceil / floor / round / clamp / exp / ln / sqrt</span></div>
     </div>
 
-    <div class="cheat-card c-purple">
-      <h3>Campos — prometheus.yml</h3>
-      <div class="cheat-item"><span class="cheat-key">scrape_interval</span><span class="cheat-val purple">Intervalo padrão de coleta das métricas</span></div>
-      <div class="cheat-item"><span class="cheat-key">evaluation_interval</span><span class="cheat-val purple">Intervalo de avaliação das regras (alertas)</span></div>
-      <div class="cheat-item"><span class="cheat-key">scrape_configs</span><span class="cheat-val purple">Define os jobs de coleta de métricas</span></div>
-      <div class="cheat-item"><span class="cheat-key">job_name</span><span class="cheat-val purple">Nome lógico do job de scraping</span></div>
-      <div class="cheat-item"><span class="cheat-key">static_configs</span><span class="cheat-val purple">Lista fixa de targets (IPs/hosts)</span></div>
-      <div class="cheat-item"><span class="cheat-key">targets</span><span class="cheat-val purple">Endereços dos endpoints (host:port)</span></div>
-      <div class="cheat-item"><span class="cheat-key">file_sd_configs</span><span class="cheat-val purple">Service discovery via arquivo JSON/YAML</span></div>
-      <div class="cheat-item"><span class="cheat-key">relabel_configs</span><span class="cheat-val purple">Modifica/filtra labels antes do scrape</span></div>
-      <div class="cheat-item"><span class="cheat-key">metrics_path</span><span class="cheat-val purple">Endpoint da métrica (/metrics por padrão)</span></div>
-      <div class="cheat-item"><span class="cheat-key">scheme</span><span class="cheat-val purple">Protocolo HTTP ou HTTPS</span></div>
+    <div class="cheat-card c-green">
+      <h3><span class="tag tag-promql">PromQL</span> — Operadores Binários</h3>
+      <div class="cheat-item"><span class="cheat-key">Aritméticos</span><span class="cheat-val">+  -  *  /  %  ^</span></div>
+      <div class="cheat-item"><span class="cheat-key">Comparação</span><span class="cheat-val">==  !=  >  <  >=  <=</span></div>
+      <div class="cheat-item"><span class="cheat-key">Lógicos</span><span class="cheat-val">and  or  unless</span></div>
+      <div class="cheat-item"><span class="cheat-key">on()</span><span class="cheat-val">Especifica labels para matching 1:1</span></div>
+      <div class="cheat-item"><span class="cheat-key">ignoring()</span><span class="cheat-val">Ignora labels no matching</span></div>
+      <div class="cheat-item"><span class="cheat-key">group_left()</span><span class="cheat-val">Many-to-one — mantém labels do lado esquerdo</span></div>
+      <div class="cheat-item"><span class="cheat-key">group_right()</span><span class="cheat-val">One-to-many — mantém labels do lado direito</span></div>
+      <div class="cheat-item" style="margin-top:6px;padding-top:6px;border-top:1px solid var(--border);">
+        <span class="cheat-key" style="color:var(--accent);font-weight:700;">📖 Docs oficiais</span>
+        <span class="cheat-val">
+          <a href="https://prometheus.io/docs/prometheus/latest/querying/operators/" target="_blank" rel="noopener" style="color:var(--accent2);">Operators</a> ·
+          <a href="https://prometheus.io/docs/prometheus/latest/querying/functions/" target="_blank" rel="noopener" style="color:var(--accent2);">Functions</a> ·
+          <a href="https://prometheus.io/docs/prometheus/latest/querying/basics/" target="_blank" rel="noopener" style="color:var(--accent2);">Query Basics</a>
+        </span>
+      </div>
     </div>
 
+    <!-- ===== 4. INSTRUMENTAÇÃO ===== -->
+    <div class="cheat-card c-yellow">
+      <h3><span class="tag tag-inst">Instrumentação</span> — Exporters & SD</h3>
+      <div class="cheat-item"><span class="cheat-key">Node Exporter</span><span class="cheat-val yellow">Métricas de host (CPU, RAM, disco) :9100</span></div>
+      <div class="cheat-item"><span class="cheat-key">cAdvisor</span><span class="cheat-val yellow">Métricas de containers :8080</span></div>
+      <div class="cheat-item"><span class="cheat-key">Blackbox</span><span class="cheat-val yellow">Probe HTTP/TCP/ICMP externo</span></div>
+      <div class="cheat-item"><span class="cheat-key">Pushgateway</span><span class="cheat-val yellow">Batch jobs de curta duração :9091</span></div>
+      <div class="cheat-item"><span class="cheat-key">Client Libs</span><span class="cheat-val yellow">Go, Python, Java, Ruby (oficiais)</span></div>
+      <div class="cheat-item"><span class="cheat-key">SD: Kubernetes</span><span class="cheat-val yellow">Auto-descoberta de pods/svc</span></div>
+      <div class="cheat-item"><span class="cheat-key">SD: file</span><span class="cheat-val yellow">Targets via JSON/YAML estático ou dinâmico</span></div>
+      <div class="cheat-item"><span class="cheat-key">relabeling</span><span class="cheat-val yellow">Transforma labels no scrape (relabel_configs)</span></div>
+    </div>
+
+    <!-- ===== 5. ALERTING & DASH ===== -->
     <div class="cheat-card c-red">
-      <h3>Alerting Rules</h3>
+      <h3><span class="tag tag-alert">Alerting & Dash</span> — Alerting Rules</h3>
       <div class="cheat-item"><span class="cheat-key">pending</span><span class="cheat-val red">Condição ativa, antes do for</span></div>
       <div class="cheat-item"><span class="cheat-key">firing</span><span class="cheat-val red">Alerta disparado</span></div>
       <div class="cheat-item"><span class="cheat-key">inactive</span><span class="cheat-val red">Condição não satisfeita</span></div>
-      <div class="cheat-item"><span class="cheat-key">for: 5m</span><span class="cheat-val red">Aguarda antes de disparar</span></div>
-      <div class="cheat-item"><span class="cheat-key">labels</span><span class="cheat-val red">Enriquecem o alerta</span></div>
-      <div class="cheat-item"><span class="cheat-key">annotations</span><span class="cheat-val red">Info legível p/ humanos</span></div>
-      <div class="cheat-item"><span class="cheat-key">group_wait</span><span class="cheat-val red">Define o tempo de espera inicial antes de enviar a primeira notificação de um grupo.
-      Isso permite agrupar alertas relacionados antes do envio.</span></div>
-      <div class="cheat-item"><span class="cheat-key">group_interval</span><span class="cheat-val red">Controla o tempo entre novas notificações de um mesmo grupo já ativo,
-      incluindo novos alertas adicionados ao grupo.</span></div>
+      <div class="cheat-item"><span class="cheat-key">for: 5m</span><span class="cheat-val red">Aguarda antes de disparar (evita flapping)</span></div>
+      <div class="cheat-item"><span class="cheat-key">labels</span><span class="cheat-val red">Roteamento e grouping</span></div>
+      <div class="cheat-item"><span class="cheat-key">annotations</span><span class="cheat-val red">Info human-readable: summary, description, runbook_url</span></div>
+      <div class="cheat-item"><span class="cheat-key">group_wait</span><span class="cheat-val red">Espera inicial antes de enviar 1ª notificação do grupo</span></div>
+      <div class="cheat-item"><span class="cheat-key">group_interval</span><span class="cheat-val red">Intervalo entre notificações de grupo já ativo</span></div>
+      <div class="cheat-item"><span class="cheat-key">repeat_interval</span><span class="cheat-val red">Intervalo para reenviar alerta ainda firing</span></div>
     </div>
 
-    <div class="cheat-card c-purple">
-      <h3>Exporters & Service Discovery</h3>
-      <div class="cheat-item"><span class="cheat-key">Node Exporter</span><span class="cheat-val purple">Métricas de host (CPU, RAM…)</span></div>
-      <div class="cheat-item"><span class="cheat-key">cAdvisor</span><span class="cheat-val purple">Métricas de containers</span></div>
-      <div class="cheat-item"><span class="cheat-key">Blackbox</span><span class="cheat-val purple">Testa endpoints de fora como um usuário (HTTP/TCP/ICMP)</span></div>
-      <div class="cheat-item"><span class="cheat-key">Pushgateway</span><span class="cheat-val purple">Batch jobs de curta duração</span></div>
-      <div class="cheat-item"><span class="cheat-key">SD: Kubernetes</span><span class="cheat-val purple">Auto-descoberta de pods/svc</span></div>
-      <div class="cheat-item"><span class="cheat-key">SD: file</span><span class="cheat-val purple">Lê targets de um arquivo estático ou dinâmico (JSON/YAML)</span></div>
-      <div class="cheat-item"><span class="cheat-key">relabeling</span><span class="cheat-val purple">Transforma labels no scrape</span></div>
+    <div class="cheat-card c-red">
+      <h3><span class="tag tag-alert">Alerting & Dash</span> — Alertmanager</h3>
+      <div class="cheat-item"><span class="cheat-key">Receivers</span><span class="cheat-val red">slack, email, pagerduty, webhook, opsgenie</span></div>
+      <div class="cheat-item"><span class="cheat-key">Route</span><span class="cheat-val red">Roteamento hierárquico (routes aninhadas)</span></div>
+      <div class="cheat-item"><span class="cheat-key">group_by</span><span class="cheat-val red">Labels usados para agrupar alertas</span></div>
+      <div class="cheat-item"><span class="cheat-key">Silence</span><span class="cheat-val red">Supressão manual temporária (maintenance window)</span></div>
+      <div class="cheat-item"><span class="cheat-key">Inhibition</span><span class="cheat-val red">Suprime alertas menos críticos automaticamente</span></div>
+      <div class="cheat-item"><span class="cheat-key">Grafana</span><span class="cheat-val red">Datasource → Prometheus :3000 · Painéis · Variáveis · PromQL</span></div>
     </div>
 
+    <!-- ===== LIMITAÇÕES ===== -->
     <div class="cheat-card c-green">
-      <h3>Limitações do Prometheus</h3>
-      <div class="cheat-item"><span class="cheat-key">Não ideal para</span><span class="cheat-val">Logs de eventos, 100% precisão</span></div>
-      <div class="cheat-item"><span class="cheat-key">Long-term storage</span><span class="cheat-val">Use Thanos, Cortex, VictoriaMetrics</span></div>
-      <div class="cheat-item"><span class="cheat-key">Cardinality</span><span class="cheat-val">Labels com alta cardinalidade = ruim</span></div>
-      <div class="cheat-item"><span class="cheat-key">HA</span><span class="cheat-val">Múltiplas instâncias (sem consenso)</span></div>
-      <div class="cheat-item"><span class="cheat-key">Retention default</span><span class="cheat-val">15 dias</span></div>
+      <h3>⚠️ Limitações do Prometheus</h3>
+      <div class="cheat-item"><span class="cheat-key">Não é ideal para</span><span class="cheat-val">Logs, eventos, 100% precisão</span></div>
+      <div class="cheat-item"><span class="cheat-key">Long-term storage</span><span class="cheat-val">Thanos, Cortex, VictoriaMetrics (remote_write)</span></div>
+      <div class="cheat-item"><span class="cheat-key">Cardinality</span><span class="cheat-val">Labels de alta cardinalidade degradam performance</span></div>
+      <div class="cheat-item"><span class="cheat-key">HA</span><span class="cheat-val">Múltiplas instâncias idênticas (sem consenso nativo)</span></div>
+      <div class="cheat-item"><span class="cheat-key">Retenção</span><span class="cheat-val">15 dias (default) — configurável via --storage.tsdb.retention.time</span></div>
+      <div class="cheat-item"><span class="cheat-key">Métrica up</span><span class="cheat-val">1 = scrape OK, 0 = falhou (gerada automaticamente)</span></div>
     </div>
 
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!--  PROMQL REFERENCE                                             -->
+<!-- ============================================================ -->
+<div id="promqlref" class="section">
+  <div class="hero" style="padding-bottom:24px;margin-bottom:24px;">
+    <div class="hero-body">
+      <div class="hero-badge">PROMQL REF</div>
+      <h1>PromQL <span>Reference</span></h1>
+      <p>Operadores e funções — referência oficial do Prometheus</p>
+    </div>
+  </div>
+
+  <div style="margin-bottom:28px;">
+    <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">📖 Conteúdo extraído da documentação oficial do Prometheus. Clique nos links para ver detalhes completos.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <a href="https://prometheus.io/docs/prometheus/latest/querying/operators/" target="_blank" rel="noopener" class="btn-outline" style="text-decoration:none;font-size:11px;">🔗 Operators Docs</a>
+      <a href="https://prometheus.io/docs/prometheus/latest/querying/functions/" target="_blank" rel="noopener" class="btn-outline" style="text-decoration:none;font-size:11px;">🔗 Functions Docs</a>
+    </div>
+  </div>
+
+  <!-- OPERATORS -->
+  <div class="promql-section">
+    <h2>🔷 Operadores Binários</h2>
+    <div class="cmd-grid">
+
+      <div class="cmd-card">
+        <div class="cmd-code">+  -  *  /  %  ^</div>
+        <div class="cmd-desc"><strong>Operadores aritméticos.</strong> Aplicam-se elemento a elemento entre dois instant vectors. <code>^</code> é exponenciação.</div>
+        <div class="cmd-tip">💡 <code>metric_a + metric_b</code> — soma os valores lado a lado com matching de labels.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">==  !=  >  <  >=  <=</div>
+        <div class="cmd-desc"><strong>Operadores de comparação.</strong> Filtram séries: retornam apenas os valores onde a condição é verdadeira. Podem ser aplicados entre scalar e vector.</div>
+        <div class="cmd-tip">💡 <code>http_errors > 10</code> — retorna apenas séries com mais de 10 erros.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">and  or  unless</div>
+        <div class="cmd-desc"><strong>Operadores lógicos/set.</strong> <code>and</code> = interseção, <code>or</code> = união, <code>unless</code> = diferença (A - B).</div>
+        <div class="cmd-tip">💡 <code>rate(errors[5m]) > 0 and rate(requests[5m]) > 10</code> — erros só onde há tráfego.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">on(label1, label2)  /  ignoring(label1)</div>
+        <div class="cmd-desc"><strong>Matching de labels.</strong> <code>on()</code> especifica quais labels usar no match 1:1. <code>ignoring()</code> ignora labels específicos, usando o resto.</div>
+        <div class="cmd-tip">💡 <code>cpu_usage * on(instance) group_left mem_total</code> — match por instance.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">group_left(label1)  /  group_right(label1)</div>
+        <div class="cmd-desc"><strong>Many-to-one / One-to-many.</strong> <code>group_left</code> adiciona labels do lado direito ao resultado. <code>group_right</code> faz o inverso.</div>
+        <div class="cmd-tip">💡 Essencial para juntar métricas com conjuntos de labels diferentes. Sempre requer <code>on()</code> ou <code>ignoring()</code>.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">vector1 or vector2</div>
+        <div class="cmd-desc"><strong>Precedência de operadores</strong> (maior para menor): <code>^</code> → <code>* / %</code> → <code>+ -</code> → <code>== != <= < >= ></code> → <code>and unless</code> → <code>or</code>.</div>
+        <div class="cmd-tip">💡 Use parênteses para controlar a ordem: <code>(a + b) * c</code>.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FUNCTIONS -->
+  <div class="promql-section">
+    <h2>🔶 Funções PromQL</h2>
+    <div class="cmd-grid">
+
+      <div class="cmd-card">
+        <div class="cmd-code">rate(v range-vector)</div>
+        <div class="cmd-desc">Taxa de crescimento por segundo. Calcula a média de incrementos por segundo ao longo do range. Requer <strong>counter</strong>.</div>
+        <div class="cmd-tip">💡 Função mais usada em alertas. Suaviza picos usando todos os pontos do range.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">irate(v range-vector)</div>
+        <div class="cmd-desc">Taxa instantânea. Usa apenas os <strong>dois últimos pontos</strong>. Mais sensível a mudanças rápidas que rate().</div>
+        <div class="cmd-tip">💡 Use em dashboards para gráficos reativos. rate() é melhor para alertas (mais estável).</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">increase(v range-vector)</div>
+        <div class="cmd-desc">Aumento total de um <strong>counter</strong> no período. Equivalente a <code>rate() * range_seconds</code>. Detecta resets automaticamente.</div>
+        <div class="cmd-tip">💡 <code>increase(http_requests_total[1h])</code> — total de requests na última hora.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">delta(v range-vector)</div>
+        <div class="cmd-desc">Diferença entre primeiro e último valor. Use com <strong>gauges</strong>. Pode ser negativa.</div>
+        <div class="cmd-tip">💡 <code>delta(temp[10m])</code> — variação de temperatura. Para counters use increase().</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">histogram_quantile(φ scalar, b instant-vector)</div>
+        <div class="cmd-desc">Calcula o <strong>φ-quantil</strong> (0 ≤ φ ≤ 1) a partir dos buckets de um histograma. Ex: p99 = φ=0.99.</div>
+        <div class="cmd-tip">💡 Sempre use com rate(): <code>histogram_quantile(0.99, rate(latency_bucket[5m]))</code>.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">predict_linear(v range-vector, t scalar)</div>
+        <div class="cmd-desc"><strong>Regressão linear simples</strong> sobre os valores do range, projeta o valor daqui a t segundos.</div>
+        <div class="cmd-tip">💡 <code>predict_linear(disk_free[1h], 4*3600) < 0</code> — alerta se disco vai encher em 4h.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">absent(v instant-vector)</div>
+        <div class="cmd-desc">Retorna 1 se o vetor estiver <strong>vazio</strong> (métrica não existe). Essencial para alertar quando um target desaparece.</div>
+        <div class="cmd-tip">💡 <code>absent(up{job="api"})</code> — dispara se nenhum target do job "api" está up.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">label_replace(v, "dst", "$1", "src", "regex")</div>
+        <div class="cmd-desc">Cria ou substitui labels usando regex. Útil para normalizar nomes de labels entre métricas diferentes.</div>
+        <div class="cmd-tip">💡 <code>label_replace(up, "job_short", "$1", "job", "(.*)-prod")</code> — extrai parte do label.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">changes(v range-vector)</div>
+        <div class="cmd-desc">Número de vezes que o valor mudou dentro do range. Útil para detectar instabilidade.</div>
+        <div class="cmd-tip">💡 <code>changes(version[10m]) > 0</code> — alerta se versão do deploy mudou.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">resets(v range-vector)</div>
+        <div class="cmd-desc">Número de <strong>counter resets</strong> no período. Detecta reinicializações de serviço.</div>
+        <div class="cmd-tip">💡 <code>resets(process_cpu_seconds_total[1h])</code> — quantas vezes o processo reiniciou.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">holt_winters(v range-vector, sf scalar, tf scalar)</div>
+        <div class="cmd-desc"><strong>Suavização exponencial dupla</strong> (Holt-Winters). Gera valores suavizados para séries com tendência sazonal.</div>
+        <div class="cmd-tip">💡 <code>holt_winters(requests[4h], 0.3, 0.3)</code> — smoothing + trend factor.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">day_of_week() / days_in_month() / hour() / minute()</div>
+        <div class="cmd-desc">Funções de <strong>data/hora</strong>. Retornam componentes de tempo. Úteis para regras que variam por horário.</div>
+        <div class="cmd-tip">💡 <code>hour() >= 9 and hour() < 17</code> — filtra apenas horário comercial.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">sort(v) / sort_desc(v)</div>
+        <div class="cmd-desc">Ordena os valores do vetor em ordem ascendente ou descendente. Útil para visualização.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">vector(t scalar)</div>
+        <div class="cmd-desc">Converte um <strong>scalar</strong> em um instant vector sem labels. Útil para testes e composição.</div>
+        <div class="cmd-tip">💡 <code>vector(1)</code> — cria um vetor com valor 1, sem labels.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- AGGREGATION -->
+  <div class="promql-section">
+    <h2>🔷 Agregações</h2>
+    <div class="cmd-grid">
+
+      <div class="cmd-card">
+        <div class="cmd-code">sum  /  avg  /  min  /  max  /  count</div>
+        <div class="cmd-desc"><strong>Agregações básicas.</strong> Operam sobre dimensões de labels. <code>sum by(job)</code> mantém label; <code>sum without(pod)</code> remove label.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">topk(k, expr)  /  bottomk(k, expr)</div>
+        <div class="cmd-desc">Retorna os <strong>k maiores/menores</strong> valores do vetor. Retorna <strong>instant vectors</strong>, não escalares.</div>
+        <div class="cmd-tip">💡 <code>topk(5, sum(rate(requests[5m])) by (service))</code> — top 5 serviços por taxa.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">quantile(φ, expr)  /  count_values("label", expr)</div>
+        <div class="cmd-desc"><strong>quantile</strong> calcula percentil sobre gauges. <strong>count_values</strong> conta frequência de cada valor, criando label.</div>
+        <div class="cmd-tip">💡 <code>count_values("version", app_version)</code> — quantas instâncias por versão.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">stddev  /  stdvar</div>
+        <div class="cmd-desc"><strong>Desvio padrão</strong> e <strong>variância</strong> populacional. Medem dispersão dos valores entre séries.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- OVER_TIME -->
+  <div class="promql-section">
+    <h2>🟢 &lt;aggregation&gt;_over_time()</h2>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:14px;">Funções que agregam <strong>todos os pontos</strong> de um range vector em um único valor por série. Retornam <strong>instant vector</strong>.</p>
+    <div class="cmd-grid">
+
+      <div class="cmd-card">
+        <div class="cmd-code">sum_over_time(range-vector)</div>
+        <div class="cmd-desc">Soma de <strong>todos os valores</strong> no range. Útil para totalizar eventos em uma janela.</div>
+        <div class="cmd-tip">💡 <code>sum_over_time(errors[1h])</code> — total de erros na última hora (todas as séries).</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">avg_over_time(range-vector)</div>
+        <div class="cmd-desc"><strong>Média</strong> de todos os valores no range. Ex: latência média de uma janela.</div>
+        <div class="cmd-tip">💡 <code>avg_over_time(cpu_temp[30m])</code> — temperatura média nos últimos 30 min.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">max_over_time(range-vector)</div>
+        <div class="cmd-desc"><strong>Valor máximo</strong> no range. Ex: pico de latência em uma janela.</div>
+        <div class="cmd-tip">💡 <code>max_over_time(latency[5m])</code> — maior latência nos últimos 5 min.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">min_over_time(range-vector)</div>
+        <div class="cmd-desc"><strong>Valor mínimo</strong> no range. Ex: menor uso de disco na janela.</div>
+        <div class="cmd-tip">💡 <code>min_over_time(disk_usage[1h])</code> — menor uso de disco na última hora.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">count_over_time(range-vector)</div>
+        <div class="cmd-desc"><strong>Contagem de pontos</strong> no range. Ex: número de scrapes na janela.</div>
+        <div class="cmd-tip">💡 <code>count_over_time(up[1h])</code> — nº de scrapes (≈ intervalos) em 1h.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">quantile_over_time(φ, range-vector)</div>
+        <div class="cmd-desc"><strong>φ-quantil</strong> dos valores no range. Ex: p95 de latência raw.</div>
+        <div class="cmd-tip">💡 <code>quantile_over_time(0.95, latency[1h])</code> — p95 da latência na última hora.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">stddev_over_time(range-vector)</div>
+        <div class="cmd-desc"><strong>Desvio padrão</strong> dos valores no range. Mede dispersão intra-série.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">stdvar_over_time(range-vector)</div>
+        <div class="cmd-desc"><strong>Variância</strong> dos valores no range.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">last_over_time(range-vector)</div>
+        <div class="cmd-desc"><strong>Último valor</strong> no range. Similar a pegar o valor mais recente do instant vector.</div>
+        <div class="cmd-tip">💡 <code>last_over_time(up[1h])</code> — estado mais recente do target.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">present_over_time(range-vector)</div>
+        <div class="cmd-desc"><strong>1</strong> se existe pelo menos um valor no range, caso contrário retorna vazio. Útil para verificar se métrica teve dados.</div>
+        <div class="cmd-tip">💡 <code>present_over_time(up[10m])</code> — 1 se target teve scrape nos últimos 10 min.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TRIG -->
+  <div class="promql-section">
+    <h2>📐 Trigonometric Functions</h2>
+    <p style="color:var(--muted);font-size:12px;margin-bottom:14px;">Funções trigonométricas operam em <strong>radianos</strong>. Disponíveis desde Prometheus v2.39.</p>
+    <div class="cmd-grid">
+
+      <div class="cmd-card">
+        <div class="cmd-code">sin(v)  /  cos(v)  /  tan(v)</div>
+        <div class="cmd-desc"><strong>Seno, cosseno, tangente.</strong> Entrada em radianos. Aplicam-se elemento a elemento.</div>
+        <div class="cmd-tip">💡 <code>sin(pi())</code> ≈ 0. Use <code>deg()</code> para converter de graus.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">asin(v)  /  acos(v)  /  atan(v)</div>
+        <div class="cmd-desc"><strong>Arco seno, arco cosseno, arco tangente.</strong> Retornam valor em radianos. Domínio: [-1, 1] para asin/acos.</div>
+        <div class="cmd-tip">💡 <code>rad(asin(0.5))</code> = 30°.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">atan2(y, x)</div>
+        <div class="cmd-desc"><strong>Arco tangente de y/x</strong>, considerando o sinal de ambos para determinar o quadrante correto. Retorna radianos.</div>
+        <div class="cmd-tip">💡 <code>atan2(1, 1)</code> = π/4 ≈ 0.785.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">sinh(v)  /  cosh(v)  /  tanh(v)</div>
+        <div class="cmd-desc"><strong>Seno, cosseno, tangente hiperbólicos.</strong> <code>tanh</code> útil para normalização suave de valores entre -1 e 1.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">deg(v)  /  rad(v)</div>
+        <div class="cmd-desc"><strong>deg:</strong> converte radianos → graus. <strong>rad:</strong> converte graus → radianos.</div>
+        <div class="cmd-tip">💡 <code>deg(pi()/2)</code> = 90. <code>rad(180)</code> = π ≈ 3.14159.</div>
+      </div>
+
+      <div class="cmd-card">
+        <div class="cmd-code">pi()</div>
+        <div class="cmd-desc">Retorna <strong>π</strong> (≈ 3.141592653589793). Constante, não recebe argumentos.</div>
+        <div class="cmd-tip">💡 <code>sin(pi()/2)</code> = 1.</div>
+      </div>
+
+    </div>
   </div>
 </div>
 
@@ -994,7 +1476,7 @@
 <!-- ============================================================ -->
 <!--  VISÃO GERAL DOS DOMÍNIOS                                    -->
 <!-- ============================================================ -->
-<div id="mindmap" class="section">
+<div id="mindmap" class="section active">
   <div class="hero" style="padding-bottom:24px;margin-bottom:24px;">
     <div class="hero-body">
       <div class="hero-badge">VISÃO GERAL</div>
@@ -1173,82 +1655,70 @@
     <div class="cmd-grid">
 
       <div class="cmd-card">
-        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
         <div class="cmd-code">rate(http_requests_total[5m])</div>
         <div class="cmd-desc">Taxa por segundo de um counter. SEMPRE use com range vector. Suaviza picos.</div>
         <div class="cmd-tip">💡 rate() é A função mais cobrada. Saiba a diferença para irate().</div>
       </div>
 
       <div class="cmd-card">
-        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
         <div class="cmd-code">histogram_quantile(0.99, rate(http_duration_seconds_bucket[5m]))</div>
         <div class="cmd-desc">Calcula o percentil 99 de latência. Requer _bucket do Histogram.</div>
         <div class="cmd-tip">💡 Summary não suporta agregação cross-instance, Histogram sim.</div>
       </div>
 
       <div class="cmd-card">
-        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
         <div class="cmd-code">sum(rate(http_requests_total[5m])) by (job)</div>
         <div class="cmd-desc">Agrega taxa de requests agrupando por job. Padrão clássico de query.</div>
         <div class="cmd-tip">💡 by() mantém labels, without() remove. Saiba a diferença.</div>
       </div>
 
       <div class="cmd-card">
-        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star off">★</span></div>
         <div class="cmd-code">irate(http_requests_total[5m])</div>
         <div class="cmd-desc">Taxa instantânea — usa apenas os 2 últimos pontos. Mais reativo que rate().</div>
         <div class="cmd-tip">💡 Use irate para dashboards real-time, rate para alertas.</div>
       </div>
 
       <div class="cmd-card">
-        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star off">★</span></div>
         <div class="cmd-code">increase(http_requests_total[1h])</div>
         <div class="cmd-desc">Total de aumento de um counter no período. Equivale a rate() * range.</div>
         <div class="cmd-tip">💡 Pode não ser inteiro — Prometheus extrapola.</div>
       </div>
 
       <div class="cmd-card">
-        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star off">★</span></div>
         <div class="cmd-code">predict_linear(node_filesystem_avail_bytes[1h], 4*3600)</div>
         <div class="cmd-desc">Prevê valor daqui a 4h com base na tendência da última 1h.</div>
         <div class="cmd-tip">💡 Clássico para alertar sobre disco cheio antes que aconteça.</div>
       </div>
 
       <div class="cmd-card">
-        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star off">★</span><span class="star off">★</span></div>
         <div class="cmd-code">absent(up{job="api"})</div>
         <div class="cmd-desc">Retorna vetor se a métrica NÃO existe. Usado para alertar quando target some.</div>
         <div class="cmd-tip">💡 Resultado: 1 se ausente. Nada se presente.</div>
       </div>
 
       <div class="cmd-card">
-        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star off">★</span><span class="star off">★</span></div>
         <div class="cmd-code">delta(cpu_temp_celsius[10m])</div>
         <div class="cmd-desc">Diferença entre primeiro e último valor num range. Use com Gauges.</div>
         <div class="cmd-tip">💡 delta() para gauges; increase() para counters.</div>
       </div>
 
       <div class="cmd-card">
-        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star off">★</span><span class="star off">★</span></div>
         <div class="cmd-code">topk(3, sum(rate(requests[5m])) by (service))</div>
         <div class="cmd-desc">Top 3 serviços com maior taxa de request. Operador de agregação.</div>
         <div class="cmd-tip">💡 topk/bottomk retornam instant vectors, não ranges.</div>
       </div>
 
       <div class="cmd-card">
-        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star off">★</span><span class="star off">★</span></div>
         <div class="cmd-code">label_replace(metric, "dst", "$1", "src", "(.*):.*")</div>
         <div class="cmd-desc">Cria ou modifica labels com regex. Útil para normalizar dados.</div>
       </div>
 
       <div class="cmd-card">
-        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star off">★</span><span class="star off">★</span><span class="star off">★</span></div>
         <div class="cmd-code">changes(config_reloads_total[1h])</div>
         <div class="cmd-desc">Número de vezes que o valor de uma série mudou no período.</div>
       </div>
 
       <div class="cmd-card">
-        <div class="importance"><span class="star">★</span><span class="star">★</span><span class="star off">★</span><span class="star off">★</span><span class="star off">★</span></div>
         <div class="cmd-code">floor(expr) / ceil(expr) / round(expr)</div>
         <div class="cmd-desc">Funções matemáticas padrão aplicadas a vetores.</div>
       </div>
@@ -1361,6 +1831,24 @@ function toggleSidebar() {
   }
 })();
 
+// ============================================================
+// THEME
+// ============================================================
+function getTheme() {
+  return localStorage.getItem('pca_theme') || 'dark';
+}
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('pca_theme', theme);
+  // day content inherits parent theme via CSS variables — no action needed
+}
+function toggleTheme() {
+  const next = getTheme() === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
+}
+// init theme on load
+applyTheme(getTheme());
+
 function show(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => {
@@ -1369,7 +1857,7 @@ function show(id) {
   });
   document.getElementById(id).classList.add('active');
   const btns = document.querySelectorAll('.nav-btn');
-  const map = {plano:0, cheat:1, quiz:2, mindmap:3, promql:4};
+  const map = {mindmap:0, plano:1, cheat:2, promqlref:3, quiz:4, promql:5};
   const activeBtn = btns[map[id]];
   activeBtn.classList.add('active');
   activeBtn.setAttribute('aria-current', 'page');
@@ -1381,23 +1869,41 @@ function show(id) {
 // ============================================================
 function loadDayStudy(dayNum) {
   const container = document.getElementById('dayStudyContainer');
-  const frame = document.getElementById('dayStudyFrame');
+  const content = document.getElementById('dayStudyContent');
   const title = document.getElementById('dayStudyTitle');
 
   const dayNames = [
     '',
-    'Dia 1 — Observability + Fundamentos',
-    'Dia 2 — PromQL Básico',
-    'Dia 3 — PromQL Avançado',
-    'Dia 4 — Instrumentação & Exporters',
-    'Dia 5 — Alerting & Dashboarding',
-    'Dia 6 — Simulados + Revisão',
-    'Dia 7 — Revisão Rápida + Exam Day'
+    'Tópico 1 — Observability + Fundamentos',
+    'Tópico 2 — PromQL Básico',
+    'Tópico 3 — PromQL Avançado',
+    'Tópico 4 — Instrumentação & Exporters',
+    'Tópico 5 — Alerting & Dashboarding',
+    'Tópico 6 — Simulados + Revisão',
+    'Tópico 7 — Revisão Rápida + Exam Day'
   ];
 
   title.textContent = dayNames[dayNum];
-  frame.src = 'day' + dayNum + '.html';
+  content.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted)">Carregando...</div>';
   container.style.display = 'block';
+
+  fetch('day' + dayNum + '.html')
+    .then(r => r.text())
+    .then(html => {
+      // extract body content and strip the style/script blocks
+      var bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+      var body = bodyMatch ? bodyMatch[1] : html;
+      // remove style and script blocks
+      body = body.replace(/<style[\s\S]*?<\/style>/gi, '');
+      body = body.replace(/<script[\s\S]*?<\/script>/gi, '');
+      // remove leftover head content if any
+      body = body.replace(/<head[\s\S]*?<\/head>/gi, '');
+      // wrap in a div with scoped class
+      content.innerHTML = body;
+    })
+    .catch(function() {
+      content.innerHTML = '<div style="text-align:center;padding:40px;color:var(--accent3)">Erro ao carregar conteúdo.</div>';
+    });
 
   const visited = JSON.parse(localStorage.getItem('pca_visited_days') || '[]');
   if (!visited.includes(dayNum)) {
@@ -1412,20 +1918,26 @@ function loadDayStudy(dayNum) {
 }
 
 function markVisitedDays(visited) {
+  // first remove all existing badges
+  document.querySelectorAll('.visited-badge').forEach(b => b.remove());
   visited.forEach(d => {
     const card = document.querySelector(`.day-card[data-day="${d}"]`);
-    if (card && !card.querySelector('.visited-badge')) {
+    if (card) {
       card.querySelector('.day-body').insertAdjacentHTML('beforeend', '<span class="visited-badge">✓ Revisado</span>');
     }
   });
 }
+function resetVisited() {
+  localStorage.removeItem('pca_visited_days');
+  document.querySelectorAll('.visited-badge').forEach(b => b.remove());
+}
 
 function closeDayStudy() {
   const container = document.getElementById('dayStudyContainer');
-  const frame = document.getElementById('dayStudyFrame');
+  const content = document.getElementById('dayStudyContent');
   if (!container) return;
   container.style.display = 'none';
-  frame.src = '';
+  if (content) content.innerHTML = '';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
