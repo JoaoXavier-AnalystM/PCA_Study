@@ -454,4 +454,34 @@ scrape_configs:
   <p style="margin-top:4pt"><strong>Prática:</strong> Instale Node Exporter e observe as métricas em /metrics</p>
 </div>
 
+<script>
+(function(){
+  var p = new URLSearchParams(location.search);
+  if (p.get('theme')==='dark') {
+    document.documentElement.classList.add('dark');
+    var s = document.createElement('style');
+    s.textContent = [
+      'body{background:#0a0c10!important;color:#e8eaf0!important}',
+      '.cover-band{background:#1a1e26!important;color:#e8eaf0!important}',
+      'h2,h3,h4{color:#e8eaf0!important}',
+      'h2{border-bottom-color:#252a35!important}',
+      '.box.info{background:#111318!important;border-color:#47b8ff!important;color:#e8eaf0!important}',
+      '.box.warn{background:#1a1a0e!important;border-color:#f59e0b!important;color:#e8eaf0!important}',
+      '.box.tip{background:#0e1a15!important;border-color:#22c55e!important;color:#e8eaf0!important}',
+      '.box.danger{background:#1a0e0e!important;border-color:#ef4444!important;color:#e8eaf0!important}',
+      '.box.dark{background:#1e293b!important}',
+      'code{background:#1e293b!important;color:#e2e8f0!important}',
+      'th{background:#1a1e26!important}',
+      'td{border-bottom-color:#252a35!important}',
+      'tr:nth-child(even) td{background:#111318!important}',
+      '.kv-row:nth-child(even) .kv-k,.kv-row:nth-child(even) .kv-v{background:#111318!important}',
+      '.kv-k{color:#6b7280!important}',
+      '.kv-grid{border-color:#252a35!important}',
+      '.quiz-block{border-color:#252a35!important}',
+      'pre{background:#0f172a!important}'
+    ].join(';');
+    document.head.appendChild(s);
+  }
+})();
+</script>
 </body></html>
