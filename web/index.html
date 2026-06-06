@@ -725,8 +725,8 @@
   <div class="hero">
     <div class="hero-body">
       <div class="hero-badge">PROMETHEUS CERTIFIED ASSOCIATE</div>
-      <h1>Plano de Estudos</h1>
-      <p>60 questões - 90 minutos - Nota mínima 75%(47 acertos) - Prova em inglês</p>
+      <h1>Trilha de Estudos</h1>
+      <p>7 tópicos essenciais para a certificação PCA</p>
     </div>
     <img class="hero-badge-img" src="https://training.linuxfoundation.org/wp-content/uploads/2022/04/Training_Badge_Prometheus_V2-2-300x300.png" alt="PCA Badge">
   </div>
@@ -749,7 +749,7 @@
   </div>
 
   <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
-    <h2 style="margin:0;">📅 Cronograma Semanal</h2>
+    <h2 style="margin:0;">📚 Tópicos de Estudo</h2>
     <button onclick="resetVisited()" style="background:none;border:1px solid var(--border);color:var(--muted);padding:4px 12px;border-radius:6px;cursor:pointer;font-family:'Space Mono',monospace;font-size:10px;" title="Limpar histórico de visitas">🗑️ Limpar revisados</button>
   </div>
   <div class="week-grid">
@@ -757,7 +757,7 @@
     <div class="day-card d-dom1" data-day="1" tabindex="0" onclick="loadDayStudy(1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(1)}">
       <div class="day-header">
         <div>
-          <div class="day-number">DIA 01 </div>
+          <div class="day-number">TÓPICO 01</div>
           <div class="day-label">Observability + Fundamentos</div>
         </div>
         <div class="day-pct">18%+20%</div>
@@ -788,7 +788,7 @@
     <div class="day-card d-dom2" data-day="2" tabindex="0" onclick="loadDayStudy(2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(2)}">
       <div class="day-header">
         <div>
-          <div class="day-number">DIA 02 </div>
+          <div class="day-number">TÓPICO 02</div>
           <div class="day-label">PromQL Básico</div>
         </div>
         <div class="day-pct">28%</div>
@@ -818,7 +818,7 @@
     <div class="day-card d-dom3" data-day="3" tabindex="0" onclick="loadDayStudy(3)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(3)}">
       <div class="day-header">
         <div>
-          <div class="day-number">DIA 03 </div>
+          <div class="day-number">TÓPICO 03</div>
           <div class="day-label">PromQL Avançado</div>
         </div>
         <div class="day-pct">28%</div>
@@ -848,7 +848,7 @@
     <div class="day-card d-dom4" data-day="4" tabindex="0" onclick="loadDayStudy(4)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(4)}">
       <div class="day-header">
         <div>
-          <div class="day-number">DIA 04 </div>
+          <div class="day-number">TÓPICO 04</div>
           <div class="day-label">Instrumentação & Exporters</div>
         </div>
         <div class="day-pct">16%</div>
@@ -878,7 +878,7 @@
     <div class="day-card d-dom5" data-day="5" tabindex="0" onclick="loadDayStudy(5)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(5)}">
       <div class="day-header">
         <div>
-          <div class="day-number">DIA 05 </div>
+          <div class="day-number">TÓPICO 05</div>
           <div class="day-label">Alerting & Dashboarding</div>
         </div>
         <div class="day-pct">18%</div>
@@ -908,7 +908,7 @@
     <div class="day-card d-dom6" data-day="6" tabindex="0" onclick="loadDayStudy(6)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(6)}">
       <div class="day-header">
         <div>
-          <div class="day-number">DIA 06 </div>
+          <div class="day-number">TÓPICO 06</div>
           <div class="day-label">Simulado Completo + Revisão</div>
         </div>
         <div class="day-pct">Mock Exam</div>
@@ -935,7 +935,7 @@
     <div class="day-card d-dom7 active-day" data-day="7" tabindex="0" onclick="loadDayStudy(7)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(7)}">
       <div class="day-header active-header">
         <div>
-          <div class="day-number">DIA 07 </div>
+          <div class="day-number">TÓPICO 07</div>
           <div class="day-label">Revisão Rápida + Exam Day</div>
         </div>
         <div class="day-pct" style="color: var(--accent3);">🎯 PROVA</div>
@@ -958,7 +958,7 @@
   <!-- Day Study Container (aparece ao clicar em um dia) -->
   <div id="dayStudyContainer" class="day-study-container" style="display:none;">
     <div class="day-study-header">
-      <h2 id="dayStudyTitle">Estudo do Dia</h2>
+      <h2 id="dayStudyTitle">Estudo do Tópico</h2>
       <button class="back-btn" onclick="closeDayStudy()">← Voltar ao Plano</button>
     </div>
     <div id="dayStudyContent" class="day-study-content"></div>
@@ -1874,13 +1874,13 @@ function loadDayStudy(dayNum) {
 
   const dayNames = [
     '',
-    'Dia 1 — Observability + Fundamentos',
-    'Dia 2 — PromQL Básico',
-    'Dia 3 — PromQL Avançado',
-    'Dia 4 — Instrumentação & Exporters',
-    'Dia 5 — Alerting & Dashboarding',
-    'Dia 6 — Simulados + Revisão',
-    'Dia 7 — Revisão Rápida + Exam Day'
+    'Tópico 1 — Observability + Fundamentos',
+    'Tópico 2 — PromQL Básico',
+    'Tópico 3 — PromQL Avançado',
+    'Tópico 4 — Instrumentação & Exporters',
+    'Tópico 5 — Alerting & Dashboarding',
+    'Tópico 6 — Simulados + Revisão',
+    'Tópico 7 — Revisão Rápida + Exam Day'
   ];
 
   title.textContent = dayNames[dayNum];
