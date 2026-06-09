@@ -96,7 +96,7 @@ Os principais tópicos cobrados incluem:
 
 O conteúdo deste projeto está disponível online:
 
-🔗 https://pca-study.joaoxavier.app.br/
+🔗 https://pca-guide.joaoxavier.app.br/
 
 O site reúne materiais de estudo, anotações e recursos voltados para a certificação Prometheus Certified Associate (PCA).
 
