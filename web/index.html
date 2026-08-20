@@ -255,20 +255,22 @@
 
   /* ======= CHEAT SHEET ======= */
   .cheat-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 16px; margin-top: 20px;
+    /* masonry: alturas naturais, sem esticar card na linha do grid */
+    columns: 3 320px;
+    column-gap: 16px; margin-top: 20px;
   }
-  @media (max-width: 1200px) { .cheat-grid { grid-template-columns: repeat(3, 1fr); } }
-  @media (max-width: 768px)  { .cheat-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 500px)  { .cheat-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 1100px) { .cheat-grid { columns: 2 300px; } }
+  @media (max-width: 620px)  { .cheat-grid { columns: 1; } }
   .cheat-card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-left: 3px solid var(--border);
     border-radius: 10px; padding: 18px;
     box-shadow: var(--shadow);
+    break-inside: avoid;
+    margin-bottom: 16px;
   }
+  .cheat-card.hidden { display: none; }
   .cheat-card h3 {
     font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px;
     font-weight: 700; color: var(--muted);
@@ -289,21 +291,19 @@
   .cheat-card.c-purple h3 { color: var(--accent4); }
 
   .cheat-item {
-    display: flex; justify-content: space-between; align-items: flex-start;
-    padding: 6px 0; font-size: 12px;
+    display: flex; flex-direction: column;
+    padding: 7px 0; font-size: 12.5px;
     border-bottom: 1px dashed var(--border);
-    gap: 12px;
   }
   .cheat-item:last-child { border-bottom: none; }
-  .cheat-key { color: var(--muted); flex-shrink: 0; min-width: 130px; }
-  .cheat-val {
-    font-family: 'Space Mono', monospace; font-size: 11px;
-    color: var(--promql); text-align: right; word-break: break-all;
+  .cheat-key {
+    color: var(--muted); font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .8px; margin-bottom: 2px;
   }
-  .cheat-val.blue { color: var(--accent2); }
-  .cheat-val.yellow { color: var(--accent); }
-  .cheat-val.red { color: var(--accent3); }
-  .cheat-val.purple { color: var(--accent4); }
+  .cheat-val {
+    color: var(--text); line-height: 1.5; word-break: break-word;
+  }
+  /* destaque de cor só em trechos de código (color ≠ significado único) */
   code {
     font-family: 'Space Mono', monospace;
     background: var(--surface2);
@@ -986,6 +986,15 @@
     </div>
   </div>
 
+  <div class="filter-bar" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px;">
+    <button class="filter-btn active" onclick="filterCheats('all')">TODOS</button>
+    <button class="filter-btn" onclick="filterCheats('obs')">Observability</button>
+    <button class="filter-btn" onclick="filterCheats('fund')">Fundamentos</button>
+    <button class="filter-btn" onclick="filterCheats('promql')">PromQL</button>
+    <button class="filter-btn" onclick="filterCheats('inst')">Instrumentação</button>
+    <button class="filter-btn" onclick="filterCheats('alert')">Alerting &amp; Dash</button>
+  </div>
+
   <div class="cheat-grid">
 
     <!-- ===== 1. OBSERVABILITY ===== -->
@@ -1141,7 +1150,7 @@
 
     <!-- ===== LIMITAÇÕES ===== -->
     <div class="cheat-card c-green">
-      <h3>⚠️ Limitações do Prometheus</h3>
+      <h3><span class="tag tag-fund">Fundamentos</span> ⚠️ Limitações do Prometheus</h3>
       <div class="cheat-item"><span class="cheat-key">Não é ideal para</span><span class="cheat-val">Logs, eventos, 100% precisão</span></div>
       <div class="cheat-item"><span class="cheat-key">Long-term storage</span><span class="cheat-val">Thanos, Cortex, VictoriaMetrics (remote_write)</span></div>
       <div class="cheat-item"><span class="cheat-key">Cardinality</span><span class="cheat-val">Labels de alta cardinalidade degradam performance</span></div>
@@ -2107,6 +2116,18 @@ function answer(idx, chosen) {
   renderQuiz();
   const exp = document.getElementById('exp-' + idx);
   if (exp) exp.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// filtro do Resumo Rápido por domínio (consistente com filtros do quiz)
+function filterCheats(domain) {
+  document.querySelectorAll('#cheat .filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('#cheat .cheat-card').forEach(card => {
+    const tag = card.querySelector('h3 .tag');
+    const m = tag ? tag.className.match(/tag-(obs|fund|promql|inst|alert)/) : null;
+    const d = m ? m[1] : 'fund'; // card sem tag = Fundamentos
+    card.classList.toggle('hidden', domain !== 'all' && d !== domain);
+  });
 }
 
 // quiz das day pages: esconde resposta, ativa clique -> feedback -> explicação
