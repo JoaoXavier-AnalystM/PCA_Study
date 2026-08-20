@@ -328,6 +328,40 @@
   .cheat-card.c-yellow .cheat-key { color: var(--accent); }
   .cheat-card.c-red    .cheat-key { color: var(--accent3); }
   .cheat-card.c-purple .cheat-key { color: var(--accent4); }
+
+  /* ===== tela Sobre a Certificação ===== */
+  .about-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 14px; margin: 14px 0 20px;
+  }
+  .about-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px; box-shadow: var(--shadow);
+  }
+  .about-card h3 { font-size: 13px; margin-bottom: 10px; color: var(--accent); }
+  .about-card p { font-size: 13px; color: var(--text); line-height: 1.6; }
+  .about-list { list-style: none; }
+  .about-list li {
+    font-size: 13px; padding: 5px 0 5px 18px; position: relative;
+    border-bottom: 1px dashed var(--border);
+  }
+  .about-list li:last-child { border-bottom: none; }
+  .about-list li::before {
+    content: '▸'; position: absolute; left: 0; color: var(--accent);
+    font-weight: 700;
+  }
+  .about-table {
+    width: 100%; border-collapse: collapse; margin: 12px 0 20px;
+    font-size: 13px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+  }
+  .about-table th {
+    background: var(--surface2); color: var(--text);
+    padding: 10px 14px; text-align: left; font-size: 11px;
+    text-transform: uppercase; letter-spacing: .6px;
+  }
+  .about-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+  .about-table tr:last-child td { border-bottom: none; }
+  .about-table td strong { color: var(--accent); font-family: 'Space Mono', monospace; }
   code {
     font-family: 'Space Mono', monospace;
     background: var(--surface2);
@@ -808,7 +842,7 @@
   <button class="nav-toggle" onclick="toggleSidebar()" aria-label="Recolher menu" title="Recolher menu">
     <span class="nav-toggle-chev" aria-hidden="true"></span>
   </button>
-  <div class="nav-brand">
+  <div class="nav-brand" onclick="show('about')" title="Sobre a certificação" style="cursor:pointer;">
     <div class="nav-brand-logo">
       <img class="nav-brand-badge" src="https://training.linuxfoundation.org/wp-content/uploads/2022/04/Training_Badge_Prometheus_V2-2-300x300.png" alt="PCA Badge" loading="eager">
       <div>
@@ -817,7 +851,8 @@
       </div>
     </div>
   </div>
-  <button class="nav-btn active" onclick="show('mindmap')" aria-current="page" data-icon="🗺️">🗺️ Visão Geral</button>
+  <button class="nav-btn active" onclick="show('about')" aria-current="page" data-icon="🎓">🎓 Sobre a Certificação</button>
+  <button class="nav-btn" onclick="show('mindmap')" data-icon="🗺️">🗺️ Visão Geral</button>
   <button class="nav-btn" onclick="show('plano')" data-icon="📅">📅 Plano de Estudo</button>
   <button class="nav-btn" onclick="show('cheat')" data-icon="📋">📋 Resumo Rápido</button>
   <button class="nav-btn" onclick="show('promqlref')" data-icon="📖">📖 Referência PromQL</button>
@@ -1597,7 +1632,81 @@
 <!-- ============================================================ -->
 <!--  VISÃO GERAL DOS DOMÍNIOS                                    -->
 <!-- ============================================================ -->
-<div id="mindmap" class="section active">
+<div id="about" class="section active">
+  <div class="hero" style="padding-bottom:24px;margin-bottom:24px;">
+    <div class="hero-body">
+      <div class="hero-badge">SOBRE A CERTIFICAÇÃO</div>
+      <h1>Prometheus Certified <span>Associate</span></h1>
+      <p style="color:var(--muted);font-size:13.5px;max-width:640px;margin-top:8px;">Certificação pré-profissional da CNCF e Linux Foundation que valida fundamentos de observabilidade e uso do Prometheus — o toolkit open source de monitoramento e alerting.</p>
+    </div>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-card">
+      <h3>O que é</h3>
+      <p>Exame online proctorado de múltipla escolha que atesta capacidade de monitorar aplicações e infraestrutura cloud native com Prometheus: coleta de métricas, PromQL, alertas e dashboards.</p>
+    </div>
+    <div class="about-card">
+      <h3>Para quem é</h3>
+      <p>Engenheiros, desenvolvedores, sysadmins, SREs e profissionais de plataforma com interesse em observabilidade. Sem pré-requisitos — ajuda ter base de containers e Kubernetes.</p>
+    </div>
+    <div class="about-card">
+      <h3>Detalhes do exame</h3>
+      <ul class="about-list">
+        <li>Online, proctorado, múltipla escolha</li>
+        <li>60 questões · 90 minutos</li>
+        <li>Nota mínima: 75%</li>
+        <li>Validade: 2 anos</li>
+        <li>US$ 250 · 1 retake incluído</li>
+        <li>Certificado PDF + badge digital</li>
+      </ul>
+    </div>
+    <div class="about-card">
+      <h3>O que atesta</h3>
+      <ul class="about-list">
+        <li>Arquitetura e componentes do Prometheus</li>
+        <li>Coleta de métricas via exporters</li>
+        <li>PromQL básico e avançado</li>
+        <li>Regras de alerta e Alertmanager</li>
+        <li>Boas práticas em ambientes Kubernetes</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Domínios do exame</h2>
+  <table class="about-table">
+    <tr><th>Domínio</th><th>Peso</th></tr>
+    <tr><td>Observability Concepts — métricas, logs, tracing, push vs pull, SLOs</td><td><strong>18%</strong></td></tr>
+    <tr><td>Prometheus Fundamentals — arquitetura, configuração, data model</td><td><strong>20%</strong></td></tr>
+    <tr><td>PromQL — seleção de dados, rates, agregações, histogramas</td><td><strong>28%</strong></td></tr>
+    <tr><td>Instrumentation and Exporters — client libraries, métricas</td><td><strong>16%</strong></td></tr>
+    <tr><td>Alerting &amp; Dashboarding — regras de alerta, Alertmanager, dashboards</td><td><strong>18%</strong></td></tr>
+  </table>
+
+  <h2>Como se preparar</h2>
+  <div class="about-grid">
+    <div class="about-card">
+      <h3>Curso oficial LFS241</h3>
+      <p>Self-paced, 8–10 horas, 24 capítulos com labs práticos — da introdução à observabilidade até Prometheus em Kubernetes, HA, alerting e storage.</p>
+    </div>
+    <div class="about-card">
+      <h3>Currículo open source</h3>
+      <p>O currículo usado para criar o exame é público — este guia segue exatamente a distribuição de domínios dele.</p>
+    </div>
+    <div class="about-card">
+      <h3>Candidate Handbook</h3>
+      <p>Regras do exame, agendamento, retake e FAQ oficial da Linux Foundation. Ler antes de marcar a prova.</p>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;">
+    <a class="btn-outline" style="text-decoration:none;font-size:12px;" href="https://training.linuxfoundation.org/certification/lfs241-pca/" target="_blank" rel="noopener">Registro oficial (Linux Foundation)</a>
+    <a class="btn-outline" style="text-decoration:none;font-size:12px;" href="https://www.cncf.io/training/certification/pca/" target="_blank" rel="noopener">Página CNCF</a>
+    <a class="btn-outline" style="text-decoration:none;font-size:12px;" href="https://github.com/cncf/curriculum" target="_blank" rel="noopener">Currículo open source</a>
+  </div>
+</div>
+
+<div id="mindmap" class="section">
   <div class="hero" style="padding-bottom:24px;margin-bottom:24px;">
     <div class="hero-body">
       <div class="hero-badge">VISÃO GERAL</div>
@@ -1982,7 +2091,7 @@ function show(id) {
   });
   document.getElementById(id).classList.add('active');
   const btns = document.querySelectorAll('.nav-btn');
-  const map = {mindmap:0, plano:1, cheat:2, promqlref:3, quiz:4, promql:5};
+  const map = {about:0, mindmap:1, plano:2, cheat:3, promqlref:4, quiz:5, promql:6};
   const activeBtn = btns[map[id]];
   activeBtn.classList.add('active');
   activeBtn.setAttribute('aria-current', 'page');
