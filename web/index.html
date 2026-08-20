@@ -401,6 +401,12 @@
   .quiz-ans { padding: 8px 14px; background: #14351f; border-top: 1px solid var(--border); color: var(--promql); font-size: 13px; }
   .quiz-exp { padding: 8px 14px; color: var(--muted); font-size: 12.5px; border-top: 1px dashed var(--border); }
 
+  /* checklist dos planos de estudo (CSS do day é stripado na injeção) */
+  .checklist { list-style: none; margin: 6pt 0 6pt 14pt; }
+  .checklist li { padding: 4pt 0 4pt 22pt; position: relative; font-size: 12.5px; border-bottom: 1px dashed var(--border); }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li::before { content: '☐'; position: absolute; left: 2pt; font-size: 13px; color: var(--muted); }
+
   .explanation {
     margin-top: 14px; padding: 12px;
     background: var(--surface2); border-radius: 8px;
