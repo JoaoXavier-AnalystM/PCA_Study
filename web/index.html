@@ -8,30 +8,33 @@
   @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap');
 
   :root, [data-theme="dark"] {
-    --bg: #0a0c10;
-    --surface: #111318;
-    --surface2: #1a1e26;
-    --border: #252a35;
+    /* tons azul-slate desaturados (não preto puro) — dark ≠ cores invertidas */
+    --bg: #0b0f1a;
+    --surface: #131826;
+    --surface2: #1c2333;
+    --border: #2a3348;
     --accent: #E6522C;
     --accent2: #47b8ff;
     --accent3: #ff6b6b;
     --accent4: #a47fff;
-    --text: #e8eaf0;
-    --muted: #6b7280;
+    --text: #e8ecf5;
+    --muted: #8b93a8; /* contraste ≥4.5:1 sobre surface */
     --promql: #47ffb8;
+    --shadow: 0 4px 16px rgba(0,0,0,.35);
   }
   [data-theme="light"] {
-    --bg: #f8f9fb;
+    --bg: #f6f8fb;
     --surface: #ffffff;
-    --surface2: #f1f3f6;
-    --border: #dde1e7;
+    --surface2: #eef1f6;
+    --border: #d8dee8;
     --accent: #d4441c;
     --accent2: #1a8fd4;
     --accent3: #cc4444;
     --accent4: #7c3aed;
     --text: #1a1d26;
-    --muted: #5f6b7a;
+    --muted: #55627a;
     --promql: #0d7d4a;
+    --shadow: 0 1px 3px rgba(16,24,40,.06), 0 4px 12px rgba(16,24,40,.05);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -201,8 +204,9 @@
     border-radius: 0 10px 10px 0; overflow: hidden;
     transition: all .2s;
     cursor: pointer;
+    box-shadow: var(--shadow);
   }
-  .day-card:hover { border-color: var(--accent); border-left-color: var(--accent); transform: translateY(-2px); }
+  .day-card:hover { border-color: var(--accent); border-left-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(16,24,40,.18); }
   .day-card.d-dom1 { border-left-color: var(--accent4); }
   .day-card.d-dom2 { border-left-color: var(--promql); }
   .day-card.d-dom3 { border-left-color: var(--promql); }
@@ -274,6 +278,7 @@
     border: 1px solid var(--border);
     border-left: 3px solid var(--border);
     border-radius: 10px; padding: 18px;
+    box-shadow: var(--shadow);
   }
   .cheat-card h3 {
     font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px;
@@ -429,8 +434,10 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 12px; overflow: hidden;
-    transition: border-color .2s;
+    transition: border-color .2s, box-shadow .2s, transform .2s;
+    box-shadow: var(--shadow);
   }
+  .domain-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(16,24,40,.18); }
   .domain-card:hover { border-color: var(--accent); }
   .domain-card-header {
     padding: 16px 20px; display: flex; justify-content: space-between; align-items: center;
