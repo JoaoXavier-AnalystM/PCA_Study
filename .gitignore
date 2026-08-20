@@ -20,3 +20,6 @@ Thumbs.db
 __pycache__/
 *.pyc
 *.tmp
+
+# Instrucoes locais do Claude (nao publicar)
+CLAUDE.md
