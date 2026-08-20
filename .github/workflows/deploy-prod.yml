@@ -92,7 +92,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             for i in 1 2 3 4 5; do
-              STATUS=$(curl -o /dev/null -s -w "%{http_code}" http://localhost:8080)
+              STATUS=$(curl -o /dev/null -s -w "%{http_code}" http://localhost:8081)
               echo "Attempt $i - HTTP Status: $STATUS"
               [ "$STATUS" -eq 200 ] && exit 0
               sleep 2

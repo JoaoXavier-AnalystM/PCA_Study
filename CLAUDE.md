@@ -53,7 +53,8 @@ Convenções: páginas single-file (CSS/JS inline), pt-BR, sem dependências ext
 ## DevOps
 
 - Docker local não existe nesta máquina — build/teste acontece na VPS via Actions
-- Mudanças em `deploy/nginx.conf`, `Dockerfile` ou `deploy.yml` = validar fluxo completo (build → health check `http://localhost:8080` = 200)
+- Mudanças em `deploy/nginx.conf`, `Dockerfile` ou workflows = validar fluxo completo (build → health check direto no container: `localhost:8081` prod / `localhost:8082` dev = 200)
+- Entrada dos domínios: Cloudflare Tunnel (cloudflared na VPS, ingress via dashboard Zero Trust) → containers. nginx do host (8080) NÃO faz parte da rota
 - Observabilidade: plugins `grafana-mcp` (config pendente: `/plugin configure`), `terraform` para IaC
 - Health check do deploy faz 5 tentativas com retry de 2s
 
