@@ -372,6 +372,17 @@
   .option-btn.correct .opt-indicator { color: var(--promql); }
   .option-btn.wrong .opt-indicator { color: var(--accent3); }
 
+  /* quiz das day pages injetadas — interativo, modelo 50 questões */
+  .quiz-block { border: 1px solid var(--border); border-radius: 8px; margin: 10px 0; overflow: hidden; background: var(--surface); }
+  .quiz-q { padding: 10px 14px; font-weight: 600; background: var(--surface2); border-bottom: 1px solid var(--border); }
+  .quiz-opts { padding: 8px 14px; display: flex; flex-direction: column; gap: 4px; }
+  .quiz-opt { padding: 6px 8px; border-radius: 6px; font-size: 13px; }
+  .quiz-block:not([data-answered="1"]) .quiz-opt:hover { background: var(--surface2); cursor: pointer; }
+  .quiz-opt.quiz-correct { background: #1a3d2e; color: var(--promql); }
+  .quiz-opt.quiz-wrong { background: #3a1e1e; color: var(--accent3); }
+  .quiz-ans { padding: 8px 14px; background: #14351f; border-top: 1px solid var(--border); color: var(--promql); font-size: 13px; }
+  .quiz-exp { padding: 8px 14px; color: var(--muted); font-size: 12.5px; border-top: 1px dashed var(--border); }
+
   .explanation {
     margin-top: 14px; padding: 12px;
     background: var(--surface2); border-radius: 8px;
@@ -1908,6 +1919,7 @@ function loadDayStudy(dayNum) {
       body = body.replace(/<head[\s\S]*?<\/head>/gi, '');
       // wrap in a div with scoped class
       content.innerHTML = body;
+      initDayQuizzes(content);
     })
     .catch(function() {
       content.innerHTML = '<div style="text-align:center;padding:40px;color:var(--accent3)">Erro ao carregar conteúdo.</div>';
@@ -2101,6 +2113,36 @@ function answer(idx, chosen) {
   renderQuiz();
   const exp = document.getElementById('exp-' + idx);
   if (exp) exp.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// quiz das day pages: esconde resposta, ativa clique -> feedback -> explicação
+function initDayQuizzes(root) {
+  root.querySelectorAll('.quiz-block').forEach(block => {
+    const ansEl = block.querySelector('.quiz-ans');
+    const expEl = block.querySelector('.quiz-exp');
+    if (!ansEl || !expEl) return;
+    const answerLetter = (ansEl.textContent.match(/Resposta:\s*([A-E])/i) || [])[1];
+    if (!answerLetter) return;
+    ansEl.style.display = 'none';
+    expEl.style.display = 'none';
+    block.querySelectorAll('.quiz-opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        if (block.dataset.answered) return;
+        block.dataset.answered = '1';
+        const optLetter = (opt.textContent.match(/^\s*([A-E])\)/) || [])[1];
+        if (optLetter === answerLetter) opt.classList.add('quiz-correct');
+        else {
+          opt.classList.add('quiz-wrong');
+          block.querySelectorAll('.quiz-opt').forEach(o => {
+            if ((o.textContent.match(/^\s*([A-E])\)/) || [])[1] === answerLetter) o.classList.add('quiz-correct');
+          });
+        }
+        ansEl.style.display = '';
+        expEl.style.display = '';
+        expEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+    });
+  });
 }
 
 function updateScore() {
