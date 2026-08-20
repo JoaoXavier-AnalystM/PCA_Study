@@ -5,4 +5,4 @@ services:
     container_name: pca-study-dev
     restart: unless-stopped
     ports:
-      - "127.0.0.1:8082:80"
+      - "0.0.0.0:8082:80"
