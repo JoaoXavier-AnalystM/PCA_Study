@@ -36,10 +36,10 @@ tr:nth-child(even) td{background:#f8fafc}
 .cols2{display:table;width:100%;margin:6pt 0}
 .col{display:table-cell;width:50%;padding-right:10pt;vertical-align:top}
 .col:last-child{padding-right:0;padding-left:4pt}
-.checklist{list-style:none;margin:6pt 0}
-.checklist li{padding:4pt 0 4pt 18pt;position:relative;font-size:9.5pt;border-bottom:.5pt dashed #e2e8f0}
+.checklist{list-style:none;margin:6pt 0 6pt 14pt}
+.checklist li{padding:4pt 0 4pt 22pt;position:relative;font-size:9.5pt;border-bottom:.5pt dashed #e2e8f0}
 .checklist li:last-child{border-bottom:none}
-.checklist li::before{content:'☐';position:absolute;left:0;font-size:10pt;color:#94a3b8}
+.checklist li::before{content:'☐';position:absolute;left:2pt;font-size:10pt;color:#94a3b8}
 .hl{background:#fef3c7;font-weight:600}
 hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 .pb{page-break-before:always}
@@ -55,38 +55,17 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 </div>
 
 <div class="box dark">
-  <div class="box-title">🔥 Mindset </div>
+  <div class="box-title">Mindset </div>
   <p style="font-size:10pt;line-height:1.8;margin-top:4pt;">
     Hoje NÃO é dia de estudar conteúdo novo. É dia de <strong>revisão estratégica</strong>, <strong>descanso mental</strong> e <strong>preparação logística</strong>. Você já estudou 6 dias — confie no preparo. Foco agora é estar fresco, confiante e com tudo pronto para a prova.
   </p>
 </div>
 
-<h2>1. Cronograma </h2>
-
-<table>
-  <tr><th>Horário</th><th>Atividade</th><th>Duração</th><th>Objetivo</th></tr>
-  <tr class="hl"><td>Manhã<br>08:00-09:00</td><td><strong>Revisão do Cheat Sheet</strong> (leitura completa, sem estresse)</td><td>30min</td><td>Ativar memória dos conceitos-chave</td></tr>
-  <tr><td>09:00-09:30</td><td>Revisar lista de PromQL top + comandos mais cobrados</td><td>30min</td><td>Fixar funções essenciais</td></tr>
-  <tr><td>09:30-10:00</td><td>Café + alongamento + descanso</td><td>30min</td><td>Relaxar</td></tr>
-  <tr><td>10:00-11:00</td><td>Revisar APENAS os conceitos que errou ontem nos simulados</td><td>60min</td><td>Corrigir últimas lacunas</td></tr>
-  <tr><td>11:00-12:00</td><td>Pausa total — caminhar, ver algo leve, NÃO estudar</td><td>60min</td><td>Descanso mental</td></tr>
-  <tr class="hl"><td>Tarde<br>12:00-14:00</td><td>Almoço leve + descanso</td><td>2h</td><td>Energia para a prova</td></tr>
-  <tr><td>14:00-14:30</td><td>Checklist técnico: câmera, internet, ambiente, ID</td><td>30min</td><td>Garantir zero problemas técnicos</td></tr>
-  <tr><td>14:30-15:00</td><td>Revisão final ultra-rápida: só portas + estados de alerta + tipos de métrica</td><td>30min</td><td>Fixar o essencial</td></tr>
-  <tr><td>15:00-16:30</td><td><strong>Descanso total</strong> — dormir, meditar, relaxar</td><td>90min</td><td>Chegar fresco na prova</td></tr>
-  <tr class="hl"><td>16:30-16:45</td><td>Preparação final: banheiro, água, fechar apps, avisar família</td><td>15min</td><td>Evitar interrupções</td></tr>
-  <tr style="background:#fef3c7;"><td><strong>17:00</strong></td><td><strong>🎯 INÍCIO DA PROVA</strong></td><td>90min</td><td>Dar o seu melhor</td></tr>
-</table>
-
-<div class="box warn">
-  <p><strong>Importante:</strong> Se sua prova for em outro horário, ajuste o cronograma. O princípio é: <strong>revisão leve pela manhã, descanso à tarde, chegar fresco e confiante</strong>. Evite estudar conteúdo pesado hoje — isso gera mais ansiedade que benefício.</p>
-</div>
-
-<h2>2. Revisão Rápida — Os 20% que Dão 80% dos Pontos</h2>
+<h2>1. Revisão Rápida — Os 20% que Dão 80% dos Pontos</h2>
 
 <div class="cols2">
 <div class="col">
-<h3>⚡ PromQL (28% da prova)</h3>
+<h3>PromQL (28% da prova)</h3>
 <pre style="font-size:7.5pt;">
 rate(counter[5m])      # taxa/s do counter
 irate(counter[5m])     # taxa instantânea (2 pontos)
@@ -107,7 +86,7 @@ sum without (pod) (metric) # remove pod
 </pre>
 </div>
 <div class="col">
-<h3>🔢 Portas (Decore AGORA)</h3>
+<h3>Portas (Decore AGORA)</h3>
 <pre style="font-size:7.5pt;">
 :9090  Prometheus
 :9091  Pushgateway
@@ -117,7 +96,7 @@ sum without (pod) (metric) # remove pod
 :3000  Grafana
 </pre>
 
-<h3>📊 Tipos de Métrica</h3>
+<h3>Tipos de Métrica</h3>
 <pre style="font-size:7.5pt;">
 Counter   só sobe → use rate()
 Gauge     sobe/desce → use delta()
@@ -141,7 +120,7 @@ Summary   quantis no cliente
   <div class="kv-row"><div class="kv-k">repeat_interval</div><div class="kv-v">Repetir alerta não resolvido (padrão: 4h)</div></div>
 </div>
 
-<h3>🔀 Silence vs Inhibition</h3>
+<h3>Silence vs Inhibition</h3>
 <table>
   <tr><th>Silence</th><th>Inhibition</th></tr>
   <tr><td>Manual, via UI/API</td><td>Automático, via YAML</td></tr>
@@ -149,7 +128,7 @@ Summary   quantis no cliente
   <tr><td>Maintenance window</td><td>Host down suprime apps</td></tr>
 </table>
 
-<h3>📛 Naming Convention</h3>
+<h3>Naming Convention</h3>
 <pre style="font-size:7.5pt;">
 namespace_subsystem_name_unit  (snake_case)
 
@@ -159,7 +138,7 @@ http_response_size_bytes       # tamanho
 disk_usage_ratio               # proporção 0-1
 </pre>
 
-<h2>3. Checklist Técnico </h2>
+<h2>2. Checklist Técnico </h2>
 
 <div class="box danger">
   <div class="box-title">🚨 Faça isso ANTES da prova — não deixe para a última hora</div>
@@ -193,7 +172,7 @@ disk_usage_ratio               # proporção 0-1
   </ul>
 </div>
 
-<h2>4. Estratégia Durante a Prova</h2>
+<h2>3. Estratégia Durante a Prova</h2>
 
 <div class="cols2">
 <div class="col">
@@ -215,7 +194,7 @@ disk_usage_ratio               # proporção 0-1
 </ul>
 </div>
 <div class="col">
-<h3>🧠 Mindset</h3>
+<h3>Mindset</h3>
 <ul style="font-size:9pt;padding-left:14pt;">
   <li>Respire fundo se sentir ansiedade</li>
   <li>Lembre: você estudou 6 dias, está preparado</li>
@@ -236,7 +215,7 @@ disk_usage_ratio               # proporção 0-1
 </div>
 </div>
 
-<h2>5. Últimas Dicas — Leia 1h Antes da Prova</h2>
+<h2>4. Últimas Dicas — Leia 1h Antes da Prova</h2>
 
 <div class="box tip">
   <div class="box-title">✅ Checklist Final (15min antes)</div>
@@ -274,7 +253,7 @@ disk_usage_ratio               # proporção 0-1
   <li>Avisei família/roommates para não interromper</li>
   <li>Silenciei notificações e celular</li>
   <li>Fiz o check-in da prova 15min antes</li>
-  <li>Estou CALMO e CONFIANTE — vou passar! 💪</li>
+  <li>Estou CALMO e CONFIANTE — vou passar!</li>
 </ul>
 
 <div class="box info" style="margin-top:20pt;padding:16pt;">

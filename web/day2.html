@@ -43,10 +43,10 @@ tr:nth-child(even) td{background:#f8fafc}
 .quiz-opt{padding:2pt 0;font-size:9pt}
 .quiz-ans{padding:5pt 10pt;background:#f0fdf4;border-top:.5pt solid #cbd5e1;font-size:9pt;color:#166534}
 .quiz-exp{padding:4pt 10pt 7pt;font-size:8.5pt;color:#475569;border-top:.5pt dashed #e2e8f0}
-.checklist{list-style:none;margin:6pt 0}
-.checklist li{padding:4pt 0 4pt 18pt;position:relative;font-size:9.5pt;border-bottom:.5pt dashed #e2e8f0}
+.checklist{list-style:none;margin:6pt 0 6pt 14pt}
+.checklist li{padding:4pt 0 4pt 22pt;position:relative;font-size:9.5pt;border-bottom:.5pt dashed #e2e8f0}
 .checklist li:last-child{border-bottom:none}
-.checklist li::before{content:'☐';position:absolute;left:0;font-size:10pt;color:#94a3b8}
+.checklist li::before{content:'☐';position:absolute;left:2pt;font-size:10pt;color:#94a3b8}
 .hl{background:#fefce8;font-weight:600}
 hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 .pb{page-break-before:always}
@@ -88,7 +88,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 </table>
 
 <div class="box dark">
-  <div class="box-title">🔑 Regra Essencial</div>
+  <div class="box-title">Regra Essencial</div>
   <p>Funções como <code>rate()</code>, <code>irate()</code>, <code>increase()</code> e <code>delta()</code> <strong>requerem Range Vector</strong> como entrada — nunca Instant Vector.</p>
   <p style="margin-top:6pt;font-family:'Space Mono',monospace;font-size:9pt;">
     ✅ rate(http_requests_total[5m])     ← range vector [5m]<br>
@@ -357,7 +357,7 @@ sum(increase(http_requests_total[1m])) by (job)
 
 <!-- ═══════════════════════════════════════════════════════ -->
 <div class="pb"></div>
-<h2>🧪 Questões de Revisão</h2>
+<h2>Questões de Revisão</h2>
 
 <div class="quiz-block">
   <div class="quiz-q">Q1. Qual query calcula a taxa de requisições por segundo usando os 2 últimos pontos apenas?</div>
@@ -476,7 +476,7 @@ sum(increase(http_requests_total[1m])) by (job)
 </ul>
 
 <div class="box tip" style="margin-top:14pt">
-  <div class="box-title">📖 Material de Estudo para Hoje</div>
+  <div class="box-title">Material de Estudo para Hoje</div>
   <p><strong>LFS241:</strong> Capítulo 5 (Basic Querying)</p>
   <p style="margin-top:4pt"><strong>KodeKloud:</strong> Módulo PromQL Básico</p>
   <p style="margin-top:4pt"><strong>Prática:</strong> Abra o Prometheus UI em localhost:9090 e execute todas as queries deste material</p>
