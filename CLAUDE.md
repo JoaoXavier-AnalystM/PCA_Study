@@ -1,7 +1,7 @@
 # PCA_Study — Guia de Estudos Prometheus Certified Associate
 
 Repositório de estudos para certificação PCA (Prometheus Certified Associate).
-Notas em markdown + site estático publicado em https://pca-study.joaoxavier.app.br
+Notas em markdown + site estático publicado em https://pca-guide.joaoxavier.app.br (prod) e https://pca-guide-dev.joaoxavier.app.br (dev)
 
 ## Estrutura
 
@@ -15,7 +15,7 @@ Notas em markdown + site estático publicado em https://pca-study.joaoxavier.app
 
 - Site: HTML estático puro, uma página por arquivo, sem build step
 - Container: nginx:1.27-alpine (Dockerfile + docker-compose.yml)
-- **Dois containers sempre**: `pca-study-prod` (`127.0.0.1:8081`) e `pca-study-dev` (`127.0.0.1:8082`)
+- **Dois containers sempre**: `pca-study-prod` (`127.0.0.1:8081`, domínio pca-guide.joaoxavier.app.br) e `pca-study-dev` (`127.0.0.1:8082`, domínio pca-guide-dev.joaoxavier.app.br)
 - Pipeline: push em `main` → `deploy-prod.yml`; push em `dev` → `deploy-dev.yml`; ambos SCP p/ VPS → `docker compose build --pull && up -d`
 - Rollback prod: `docker tag pca-study-prod:previous pca-study-prod:latest && docker compose up -d`
 - Secrets Actions: `VPS_HOST`, `VPS_USER`, `VPS_SSH_KEY`
