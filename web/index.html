@@ -297,13 +297,18 @@
   }
   .cheat-item:last-child { border-bottom: none; }
   .cheat-key {
-    color: var(--muted); font-size: 10px; font-weight: 600;
+    color: var(--muted); font-size: 10.5px; font-weight: 700;
     text-transform: uppercase; letter-spacing: .8px; margin-bottom: 2px;
   }
   .cheat-val {
     color: var(--text); line-height: 1.5; word-break: break-word;
   }
-  /* destaque de cor só em trechos de código (color ≠ significado único) */
+  /* chave herda cor do domínio do card — escaneabilidade por seção */
+  .cheat-card.c-blue   .cheat-key { color: var(--accent2); }
+  .cheat-card.c-green  .cheat-key { color: var(--promql); }
+  .cheat-card.c-yellow .cheat-key { color: var(--accent); }
+  .cheat-card.c-red    .cheat-key { color: var(--accent3); }
+  .cheat-card.c-purple .cheat-key { color: var(--accent4); }
   code {
     font-family: 'Space Mono', monospace;
     background: var(--surface2);
