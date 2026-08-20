@@ -403,9 +403,9 @@
 
   /* checklist dos planos de estudo (CSS do day é stripado na injeção) */
   .checklist { list-style: none; margin: 6pt 0 6pt 14pt; }
-  .checklist li { padding: 4pt 0 4pt 22pt; position: relative; font-size: 12.5px; border-bottom: 1px dashed var(--border); }
+  .checklist li { padding: 4pt 0 4pt 22pt; position: relative; font-size: 12.5px; font-weight: 600; border-bottom: 1px dashed var(--border); }
   .checklist li:last-child { border-bottom: none; }
-  .checklist li::before { content: '☐'; position: absolute; left: 2pt; font-size: 13px; color: var(--muted); }
+  .checklist li::before { content: '▸'; position: absolute; left: 2pt; font-size: 13px; color: var(--accent); }
 
   .explanation {
     margin-top: 14px; padding: 12px;
