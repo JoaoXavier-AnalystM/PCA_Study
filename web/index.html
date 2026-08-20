@@ -475,6 +475,15 @@
   #dayStudyContent .box.danger .box-title { color: var(--accent3); }
   #dayStudyContent .box.dark  { border-left-color: #e8ff47; background: var(--surface2); }
   #dayStudyContent .box.dark .box-title { color: #e8ff47; }
+  /* tema claro: gradiente escuro fixo + texto claro = ilegível — re-escopo p/ tokens */
+  [data-theme="light"] #dayStudyContent .cover-band {
+    background: linear-gradient(135deg, #eef1f6 0%, #ffffff 55%, #f6e7e2 100%);
+  }
+  [data-theme="light"] #dayStudyContent .cover-band .badge {
+    background: var(--accent); color: #ffffff; border-color: var(--accent);
+  }
+  [data-theme="light"] #dayStudyContent .box.dark { border-left-color: #b3a14a; }
+  [data-theme="light"] #dayStudyContent .box.dark .box-title { color: #6d5c00; }
   #dayStudyContent table {
     width: 100%; border-collapse: collapse; margin: 12px 0;
     font-size: 12.5px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
