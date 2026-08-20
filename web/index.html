@@ -49,6 +49,25 @@
   h1, h2, h3, h4, .hero-badge, .brand-title, .section-kicker {
     font-family: 'Syne', sans-serif;
   }
+  /* padrão tipográfico de títulos — pesos e tracking consistentes */
+  h1 { font-weight: 800; letter-spacing: -0.3px; }
+  h2 { font-weight: 700; letter-spacing: 0.2px; }
+  h3 { font-weight: 600; }
+  /* título de tópico: barra lateral de contexto + respiro */
+  .section h2 {
+    border-left: 3px solid var(--accent);
+    padding-left: 12px;
+    margin-bottom: 14px;
+  }
+  .promql-section h2 {
+    border-left-color: var(--promql);
+    font-size: 1.05rem;
+  }
+  .promql-section h2.mono-title {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
 
   /* NAV — fixed left sidebar */
   nav {
@@ -474,13 +493,17 @@
   .promql-section { margin-bottom: 32px; }
   .promql-section h2 { color: var(--promql); margin-bottom: 16px; }
   .cmd-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 12px;
+    /* masonry — cards de alturas variadas sem esticar */
+    columns: 3 320px;
+    column-gap: 12px;
   }
+  @media (max-width: 1100px) { .cmd-grid { columns: 2 300px; } }
+  @media (max-width: 620px)  { .cmd-grid { columns: 1; } }
   .cmd-card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 10px; padding: 14px;
+    break-inside: avoid; margin-bottom: 12px;
+    box-shadow: var(--shadow);
   }
   .cmd-card .cmd-code {
     font-family: 'Space Mono', monospace;
@@ -1359,7 +1382,7 @@
 
   <!-- OVER_TIME -->
   <div class="promql-section">
-    <h2>&lt;aggregation&gt;_over_time()</h2>
+    <h2 class="mono-title">&lt;aggregation&gt;_over_time()</h2>
     <p style="color:var(--muted);font-size:12px;margin-bottom:14px;">Funções que agregam <strong>todos os pontos</strong> de um range vector em um único valor por série. Retornam <strong>instant vector</strong>.</p>
     <div class="cmd-grid">
 
