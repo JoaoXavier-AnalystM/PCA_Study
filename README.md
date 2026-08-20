@@ -102,6 +102,47 @@ O site reúne materiais de estudo, anotações e recursos voltados para a certif
 
 ---
 
+## 🐳 Containers
+
+Dois containers na VPS, um por ambiente:
+
+| Ambiente | Container | Porta host | Deploy |
+|----------|-----------|-----------|--------|
+| Prod | `pca-study-prod` | `127.0.0.1:8081` | push em `main` (`deploy-prod.yml`) |
+| Dev | `pca-study-dev` | `127.0.0.1:8082` | push em `dev` (`deploy-dev.yml`) |
+
+```bash
+# prod
+docker compose up -d --build
+
+# dev
+docker compose -f docker-compose.dev.yml up -d --build
+```
+
+O nginx do host faz proxy para os dois containers (domínio prod → `8081`, domínio dev → `8082`).
+
+**Setup único na VPS** — server blocks do nginx host:
+
+```nginx
+# prod (pca-study.joaoxavier.app.br)
+location / {
+    proxy_pass http://127.0.0.1:8081;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+}
+
+# dev (domínio de homologação)
+location / {
+    proxy_pass http://127.0.0.1:8082;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+}
+```
+
+Rollback prod: `docker tag pca-study-prod:previous pca-study-prod:latest && docker compose up -d` (imagem anterior é preservada a cada deploy).
+
+---
+
 ## 📖 Referências
 
 - 📘 Prometheus – Documentação oficial  
