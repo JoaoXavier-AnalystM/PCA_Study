@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PCA Guia</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap');
 
   :root, [data-theme="dark"] {
     /* tons azul-slate desaturados (não preto puro) — dark ≠ cores invertidas */
@@ -42,8 +42,12 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Syne', sans-serif;
+    /* corpo em Inter (leitura longa); Syne reservada p/ títulos display */
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     min-height: 100vh;
+  }
+  h1, h2, h3, h4, .hero-badge, .brand-title, .section-kicker {
+    font-family: 'Syne', sans-serif;
   }
 
   /* NAV — fixed left sidebar */
@@ -99,8 +103,8 @@
   }
   .nav-brand-title span { color: var(--accent); }
   .nav-brand-sub {
-    font-family: 'Space Mono', monospace; font-size: 9px;
-    color: var(--muted); margin-top: 2px; letter-spacing: 1px;
+    font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 600;
+    color: var(--accent); margin-top: 2px; letter-spacing: 1px;
   }
   /* collapse toggle */
   .nav-toggle {
@@ -126,31 +130,16 @@
   [data-theme="light"] .theme-icon-light { display: inline; }
   nav.collapsed .nav-theme-btn { font-size: 12px; padding: 6px; margin: 8px auto; border-radius: 50%; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; }
   nav.collapsed .nav-spacer { display: none; }
-  /* hamburger icon — 3 bars */
-  .nav-toggle-icon {
-    display: flex; flex-direction: column; gap: 4px; width: 16px;
+  /* chevron de recolher — « aberto, » recolhido */
+  .nav-toggle-chev {
+    font-family: 'Space Mono', monospace;
+    font-size: 15px; line-height: 1;
+    display: inline-block; transition: transform .25s ease;
   }
-  .nav-toggle-icon span {
-    display: block; height: 2px; background: currentColor;
-    border-radius: 1px; transition: all .25s ease;
-    transform-origin: center;
-  }
-  /* expanded → « left chevron (click to collapse) */
-  .nav-toggle-icon span:nth-child(1) {
-    transform: translateY(6px) rotate(-45deg); width: 65%;
-  }
-  .nav-toggle-icon span:nth-child(2) {
-    transform: scaleX(0); opacity: 0;
-  }
-  .nav-toggle-icon span:nth-child(3) {
-    transform: translateY(-6px) rotate(45deg); width: 65%;
-  }
-  /* collapsed → ☰ hamburger (click to expand) */
-  nav.collapsed .nav-toggle-icon span:nth-child(1),
-  nav.collapsed .nav-toggle-icon span:nth-child(2),
-  nav.collapsed .nav-toggle-icon span:nth-child(3) {
-    transform: none; width: 100%; opacity: 1;
-  }
+  .nav-toggle-chev::before { content: '«'; }
+  nav.collapsed .nav-toggle-chev::before { content: '»'; }
+  .nav-toggle:hover .nav-toggle-chev { transform: translateX(-2px); }
+  nav.collapsed .nav-toggle:hover .nav-toggle-chev { transform: translateX(2px); }
 
   :focus-visible {
     outline: 2px solid var(--accent);
@@ -714,9 +703,7 @@
 
 <nav aria-label="Navegação principal" id="sidebar">
   <button class="nav-toggle" onclick="toggleSidebar()" aria-label="Recolher menu" title="Recolher menu">
-    <span class="nav-toggle-icon">
-      <span></span><span></span><span></span>
-    </span>
+    <span class="nav-toggle-chev" aria-hidden="true"></span>
   </button>
   <div class="nav-brand">
     <div class="nav-brand-logo">
