@@ -6,3 +6,9 @@ services:
     restart: unless-stopped
     ports:
       - "0.0.0.0:8081:80"
+    # nginx estático é leve — limites evitam que o container coma a VM
+    # (campos standalone do compose v2; deploy.resources só valeria em Swarm)
+    cpus: "0.5"
+    mem_limit: 256M
+    memswap_limit: 256M
+    pids_limit: 128

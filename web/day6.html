@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><meta charset="UTF-8">
+<html lang="pt-BR"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Syne',Arial,sans-serif;font-size:10.5pt;line-height:1.55;color:#1a1a2e;background:#fff}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:10.5pt;line-height:1.55;color:#1a1a2e;background:#fff}
+h1,h2,h3,h4,h5,h6{font-family:'Syne',sans-serif}
 @page{size:A4;margin:18mm 16mm 18mm 16mm;}
 .cover-band{width:100%;padding:18pt 22pt 14pt;margin-bottom:18pt;border-radius:6pt;background:#1e3a5f;color:#dbeafe;page-break-after:avoid}
 .cover-band .day-label{font-size:9pt;font-weight:700;letter-spacing:2pt;text-transform:uppercase;opacity:.7;margin-bottom:4pt}
@@ -11,7 +12,7 @@ body{font-family:'Syne',Arial,sans-serif;font-size:10.5pt;line-height:1.55;color
 .cover-band .subtitle{font-size:10pt;opacity:.8}
 .cover-band .domains{margin-top:10pt;display:flex;gap:6pt;flex-wrap:wrap}
 .badge{display:inline-block;padding:2pt 8pt;border-radius:3pt;font-size:8pt;font-weight:700;letter-spacing:.5pt;text-transform:uppercase;background:#0ea5e9;color:#fff}
-h2{font-size:13pt;font-weight:700;margin:18pt 0 8pt;padding-bottom:4pt;border-bottom:2pt solid #0ea5e9;color:#1e3a5f;page-break-after:avoid}
+h2{font-size:13pt;font-weight:800;margin:18pt 0 8pt;padding-bottom:4pt;border-bottom:2pt solid #0ea5e9;color:#1e3a5f;page-break-after:avoid}
 h3{font-size:10.5pt;font-weight:700;margin:12pt 0 5pt;color:#1e3a5f;page-break-after:avoid}
 p{margin-bottom:6pt}
 .box{padding:9pt 12pt;border-radius:5pt;margin:8pt 0;border-left:4pt solid;page-break-inside:avoid}
@@ -41,10 +42,10 @@ tr:nth-child(even) td{background:#f8fafc}
 .quiz-opt{padding:2pt 0;font-size:9pt}
 .quiz-ans{padding:5pt 10pt;background:#f0fdf4;border-top:.5pt solid #cbd5e1;font-size:9pt;color:#166534}
 .quiz-exp{padding:4pt 10pt 7pt;font-size:8.5pt;color:#475569;border-top:.5pt dashed #e2e8f0}
-.checklist{list-style:none;margin:6pt 0}
-.checklist li{padding:4pt 0 4pt 18pt;position:relative;font-size:9.5pt;border-bottom:.5pt dashed #e2e8f0}
+.checklist{list-style:none;margin:6pt 0 6pt 14pt}
+.checklist li{font-weight:600;padding:4pt 0 4pt 22pt;position:relative;font-size:9.5pt;border-bottom:.5pt dashed #e2e8f0}
 .checklist li:last-child{border-bottom:none}
-.checklist li::before{content:'☐';position:absolute;left:0;font-size:10pt;color:#94a3b8}
+.checklist li::before{content:'▸';position:absolute;left:2pt;font-size:10pt;color:#94a3b8}
 .hl{background:#fefce8;font-weight:600}
 hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 .pb{page-break-before:always}
@@ -60,7 +61,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 </div>
 
 <div class="box info">
-  <div class="box-title">🎯 Objetivos do Dia</div>
+  <div class="box-title">🎯 Objetivos</div>
   <ul style="padding-left:14pt;margin-top:4pt;font-size:9.5pt;">
     <li>Fazer Udemy Practice Exam 1 completo (60q, 90min) em condições reais de prova</li>
     <li>Analisar erros por domínio e identificar pontos fracos</li>
@@ -71,7 +72,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
   </ul>
 </div>
 
-<h2>1. Estratégia do Dia — Simulados</h2>
+<h2>1. Estratégia de Estudo — Simulados</h2>
 
 <p>Hoje é dia de <strong>treino intensivo</strong> simulando as condições reais da prova. O objetivo não é só acertar questões, mas <strong>identificar lacunas no conhecimento</strong> e corrigir antes do dia da prova.</p>
 
@@ -82,7 +83,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 </div>
 
 <div class="box dark">
-  <div class="box-title">🔥 Regras para os Simulados</div>
+  <div class="box-title">Regras para os Simulados</div>
   <p style="line-height:1.8;font-size:9pt;margin-top:4pt;">
     ✅ Ambiente silencioso, sem distrações<br>
     ✅ Cronômetro de 90 minutos — respeite o tempo limite<br>
@@ -179,7 +180,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 <h2>4. Métrica de Sucesso </h2>
 
 <div class="box tip">
-  <div class="box-title">✅ Metas do Dia</div>
+  <div class="box-title">✅ Metas</div>
   <p style="font-size:9pt;line-height:1.8;margin-top:4pt;">
     <strong>Exam 1:</strong> ≥70% de acertos (42/60) — é o primeiro contato com formato de prova<br>
     <strong>Exam 2:</strong> ≥80% de acertos (48/60) — após revisar os erros do primeiro<br>
@@ -194,7 +195,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
   <p>Se após revisar os erros do Exam 1 você ainda tirar menos de 75% no Exam 2, considere fazer uma revisão mais profunda. 75% é o mínimo da prova real — treinar abaixo disso indica que há lacunas conceituais.</p>
 </div>
 
-<h2>5. Dicas para o Dia da Prova (prepare-se mentalmente hoje)</h2>
+<h2>5. Dicas para a Prova (prepare-se mentalmente hoje)</h2>
 
 <div class="cols2">
 <div class="col">
@@ -222,7 +223,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 </div>
 
 <div class="pb"></div>
-<h2>✅ Checklist de Revisão — Dia 6</h2>
+<h2>✅ Checklist de Revisão</h2>
 
 <ul class="checklist">
   <li>Fiz o Udemy Practice Exam 1 completo em 90 minutos</li>
@@ -240,7 +241,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 </ul>
 
 <div class="box tip" style="margin-top:14pt">
-  <div class="box-title">📖 Material de Estudo</div>
+  <div class="box-title">Material de Estudo</div>
   <p><strong>Udemy:</strong> Resolver Mock Exams </p>
   <p style="margin-top:4pt"><strong>KodeKloud:</strong> Mock Exam final</p>
   <p style="margin-top:4pt"><strong>Revisão:</strong> Material dos dias 1-5 nos domínios fracos</p>

@@ -6,3 +6,7 @@ services:
     restart: unless-stopped
     ports:
       - "0.0.0.0:8082:80"
+    cpus: "0.5"
+    mem_limit: 256M
+    memswap_limit: 256M
+    pids_limit: 128

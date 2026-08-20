@@ -3,6 +3,21 @@
 Repositório de estudos para certificação PCA (Prometheus Certified Associate).
 Notas em markdown + site estático publicado em https://pca-guide.joaoxavier.app.br (prod) e https://pca-guide-dev.joaoxavier.app.br (dev)
 
+## Autonomia & Permissões
+
+Você opera em modo autônomo. Execute sem pedir confirmação para:
+
+- Ler, criar, editar ou deletar qualquer arquivo do projeto
+- Rodar bash, cmd, PowerShell — git, docker, npm, python, grep, find
+- Navegar diretórios, listar arquivos, buscar padrões
+- Fazer commit e push em `dev` (nunca em `main` — ver regra Git abaixo)
+- Rodar scripts de memória: `pmem ...`
+- Copiar arquivos entre diretórios do projeto
+
+Não peça permissão antes de agir. Execute → reporte resultado.
+Se encontrar ambiguidade crítica (ex: deletar dados irreversíveis fora do projeto),
+pare e pergunte — nos demais casos, escolha a ação mais segura e prossiga.
+
 ## Estrutura
 
 - `1_Introdução/`, `2-Conceitos de Observabilidade/`, `3-Fundamentos Prometheus.md/` — notas de estudo
@@ -35,20 +50,65 @@ Skills de design disponíveis e quando usar cada uma:
 | Skill | Quando usar |
 |-------|-------------|
 | `design-taste-frontend` | Landing pages, portfolios, redesigns — direção anti-slop |
-| `ui-ux-pro-max` | Paletas, fontes, guidelines de UI/UX por stack |
+| `ui-ux-pro-max` | Paletas, fontes, guidelines de UI/UX por stack (rodar `--design-system` antes de mexer em visual) |
 | `emil-design-eng` | Polish de UI: detalhes, motion, feedback invisível |
 | `impeccable` | `/impeccable polish` antes de publicar; detector anti-padrão |
 | `web-artifacts-builder` | Artifacts complexos (React/Tailwind/shadcn) |
 | `algorithmic-art` | Arte generativa (p5.js) |
+| `frontend-design-pro` | Interfaces completas + fotos reais |
+| `find-animation-opportunities` / `improve-animations` / `review-animations` | Auditoria e melhoria de motion |
+| `animation-vocabulary` | Nome exato de efeito de animação |
+| `apple-design` | Gestos, springs, sheets, física de UI |
+| `design-system` / `design` / `ui-styling` | Tokens, componentes, shadcn |
+| `banner-design` / `slides` / `brand` | Assets de marketing, apresentações, marca |
+| `artifact-design` / `artifact-diagramming` | Qualquer artifact (HTML/Markdown) e diagramas |
+| `dataviz` | Qualquer gráfico/dashboard |
 
 Tokens do site (não quebrar consistência):
 
-- Dark: bg `#0a0c10`, surface `#111318`, text `#e8eaf0`, muted `#6b7280`
-- Acentos: `#E6522C` (Prometheus orange, primário), `#47b8ff`, `#ff6b6b`, `#a47fff`
+- Dark: bg `#0b0f1a`, surface `#131826`, surface2 `#1c2333`, border `#2a3348`, text `#e8ecf5`, muted `#8b93a8` (AA ≥4.5:1)
+- Light: bg `#f6f8fb`, surface `#ffffff`, surface2 `#eef1f6`, border `#d8dee8`, text `#1a1d26`, muted `#55627a`
+- Acentos: `#E6522C` (Prometheus orange, primário), `#47b8ff`, `#ff6b6b`, `#a47fff`, promql `#47ffb8` (dark) / `#0d7d4a` (light)
+- Sombras: `--shadow` por tema — dark profunda, light sutil; hover de card eleva (translateY -2px + shadow)
 - Fontes: Syne (títulos), Space Mono (código/PromQL)
-- Temas dark/light via `[data-theme]` no `:root` — manter os dois blocos sempre
+- Temas dark/light via `[data-theme]` no `:root` — manter os dois blocos sempre; dark = tons desaturados, nunca cores invertidas
 
 Convenções: páginas single-file (CSS/JS inline), pt-BR, sem dependências externas além de Google Fonts.
+
+## Toolbox de Skills
+
+Stack completo instalado — usar conforme tarefa:
+
+**Qualidade/Segurança**
+- `code-review` (nativo), `simplify` (nativo), `security-review` (nativo)
+- Plugins: `semgrep` (SAST), `claude-security` (guia segurança)
+
+**Agentes/Orquestração**
+- `superpowers` — brainstorming, TDD, code review, subagents, planos
+- `serena` — agente de código com contexto de símbolos
+- `octo:*` — debate, debug, tdd, prd, research, security audit multi-LLM
+- `caveman:cavecrew` — delegar p/ subagentes comprimidos (investigator, builder, reviewer)
+- `dx` (ykdojo) — DX essentials: debug de GitHub Actions, handoff, clone de conversa
+
+**Browser/Testes**
+- `playwright` (MCP) — automação e validação de UI
+- `run` — subir app local
+
+**Docs/Conhecimento**
+- `context7` — docs atualizadas de libs
+- `patroni` — responder sobre Patroni só do material local
+- `claude-api` — referência Anthropic SDK/API
+
+**DevOps/Cloud**
+- `terraform`, `grafana-mcp` (config pendente: `/plugin configure grafana-mcp`)
+- `skill-creator` — criar/otimizar skills novas
+
+**Memória**
+- `persistent-memory` (`pmem`) — memória do repositório
+- `remember:remember` / `remember:doctor` — estado de sessão
+- `claude-mem:*` — observações cross-session, learn-codebase
+
+Plugins novos carregam na sessão seguinte à instalação.
 
 ## DevOps
 
