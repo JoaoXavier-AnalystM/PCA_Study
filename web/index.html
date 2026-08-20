@@ -475,6 +475,15 @@
   #dayStudyContent .box.danger .box-title { color: var(--accent3); }
   #dayStudyContent .box.dark  { border-left-color: #e8ff47; background: var(--surface2); }
   #dayStudyContent .box.dark .box-title { color: #e8ff47; }
+  /* tema claro: gradiente escuro fixo + texto claro = ilegível — re-escopo p/ tokens */
+  [data-theme="light"] #dayStudyContent .cover-band {
+    background: linear-gradient(135deg, #eef1f6 0%, #ffffff 55%, #f6e7e2 100%);
+  }
+  [data-theme="light"] #dayStudyContent .cover-band .badge {
+    background: var(--accent); color: #ffffff; border-color: var(--accent);
+  }
+  [data-theme="light"] #dayStudyContent .box.dark { border-left-color: #b3a14a; }
+  [data-theme="light"] #dayStudyContent .box.dark .box-title { color: #6d5c00; }
   #dayStudyContent table {
     width: 100%; border-collapse: collapse; margin: 12px 0;
     font-size: 12.5px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
@@ -1696,21 +1705,28 @@
     <div class="about-card">
       <h3>Curso oficial LFS241</h3>
       <p>Self-paced, 8–10 horas, 24 capítulos com labs práticos — da introdução à observabilidade até Prometheus em Kubernetes, HA, alerting e storage.</p>
+      <p style="margin-top:8px;"><a class="btn-outline" style="text-decoration:none;font-size:12px;" href="https://training.linuxfoundation.org/certification/lfs241-pca/" target="_blank" rel="noopener">Registro oficial (Linux Foundation)</a></p>
     </div>
     <div class="about-card">
       <h3>Currículo open source</h3>
       <p>O currículo usado para criar o exame é público — este guia segue exatamente a distribuição de domínios dele.</p>
+      <p style="margin-top:8px;"><a class="btn-outline" style="text-decoration:none;font-size:12px;" href="https://github.com/cncf/curriculum" target="_blank" rel="noopener">Currículo open source</a></p>
     </div>
     <div class="about-card">
       <h3>Candidate Handbook</h3>
       <p>Regras do exame, agendamento, retake e FAQ oficial da Linux Foundation. Ler antes de marcar a prova.</p>
+      <p style="margin-top:8px;"><a class="btn-outline" style="text-decoration:none;font-size:12px;" href="https://www.cncf.io/training/certification/pca/" target="_blank" rel="noopener">Página CNCF</a></p>
     </div>
-  </div>
-
-  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;">
-    <a class="btn-outline" style="text-decoration:none;font-size:12px;" href="https://training.linuxfoundation.org/certification/lfs241-pca/" target="_blank" rel="noopener">Registro oficial (Linux Foundation)</a>
-    <a class="btn-outline" style="text-decoration:none;font-size:12px;" href="https://www.cncf.io/training/certification/pca/" target="_blank" rel="noopener">Página CNCF</a>
-    <a class="btn-outline" style="text-decoration:none;font-size:12px;" href="https://github.com/cncf/curriculum" target="_blank" rel="noopener">Currículo open source</a>
+    <div class="about-card">
+      <h3>KodeKloud — PCA</h3>
+      <p>Curso hands-on com labs práticos e simulados focados no exame — boa opção além do LFS241.</p>
+      <p style="margin-top:8px;"><a class="btn-outline" style="text-decoration:none;font-size:12px;" href="https://learn.kodekloud.com/learn/courses/prometheus-certified-associate-pca" target="_blank" rel="noopener">Abrir curso</a></p>
+    </div>
+    <div class="about-card">
+      <h3>YetMike — practice PCA</h3>
+      <p>Simulados gratuitos estilo PCA com questões comentadas — excelente para treinar antes da prova.</p>
+      <p style="margin-top:8px;"><a class="btn-outline" style="text-decoration:none;font-size:12px;" href="https://yetmike.com/practice/pca" target="_blank" rel="noopener">Abrir simulados</a></p>
+    </div>
   </div>
 </div>
 
