@@ -1,0 +1,88 @@
+name: Deploy PCA Study (Dev)
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  validate-and-deploy-dev:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate HTML exists
+        run: |
+          test -f web/index.html
+
+      - name: Validate HTML structure
+        run: |
+          grep -q "<html" web/index.html
+          grep -q "</html>" web/index.html
+          grep -q "<body" web/index.html
+          grep -q "</body>" web/index.html
+
+      - name: Check HTML size
+        run: |
+          SIZE=$(wc -c < web/index.html)
+
+          echo "HTML size: $SIZE bytes"
+
+          if [ "$SIZE" -lt 100 ]; then
+            echo "HTML file too small"
+            exit 1
+          fi
+
+      - name: Create target directory
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            mkdir -p /var/www/pca-study-dev
+
+      - name: Deploy files to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "Dockerfile,deploy,docker-compose.dev.yml,web"
+          target: "/var/www/pca-study-dev"
+
+      - name: Build and run dev container
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /var/www/pca-study-dev
+
+            docker compose -f docker-compose.dev.yml build --pull
+            docker compose -f docker-compose.dev.yml up -d
+            docker image prune -f
+
+      - name: Health Check
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            for i in 1 2 3 4 5; do
+              STATUS=$(curl -o /dev/null -s -w "%{http_code}" http://localhost:8082)
+              echo "Attempt $i - HTTP Status: $STATUS"
+              [ "$STATUS" -eq 200 ] && exit 0
+              sleep 2
+            done
+
+            echo "Health check failed"
+            exit 1
+
+      - name: Deployment Success
+        run: |
+          echo "Dev deploy completed successfully"

@@ -1,0 +1,8 @@
+services:
+  pca-study:
+    build: .
+    image: pca-study-prod:latest
+    container_name: pca-study-prod
+    restart: unless-stopped
+    ports:
+      - "0.0.0.0:8081:80"

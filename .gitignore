@@ -1,0 +1,21 @@
+# Config local / secrets
+.claude/
+
+# Memória de sessão local
+.remember/
+
+# Arquivos de trabalho do impeccable
+.impeccable/
+
+# Logs e temporários
+*.log
+logs/
+tmp/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc

@@ -1,4 +1,4 @@
-name: Deploy PCA Study
+name: Deploy PCA Study (Prod)
 
 on:
   push:
@@ -67,26 +67,22 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          source: "web/*"
+          source: "Dockerfile,deploy,docker-compose.yml,web"
           target: "/var/www/pca-study"
 
-      - name: Validate nginx config
+      - name: Build and run container
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            nginx -t
+            cd /var/www/pca-study
 
-      - name: Reload nginx
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            systemctl restart nginx
+            docker tag pca-study-prod:latest pca-study-prod:previous 2>/dev/null || true
+            docker compose build --pull
+            docker compose up -d
+            docker image prune -f
 
       - name: Health Check
         uses: appleboy/ssh-action@v1.0.3
@@ -95,14 +91,15 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            STATUS=$(curl -o /dev/null -s -w "%{http_code}" http://localhost:8080)
+            for i in 1 2 3 4 5; do
+              STATUS=$(curl -o /dev/null -s -w "%{http_code}" http://localhost:8081)
+              echo "Attempt $i - HTTP Status: $STATUS"
+              [ "$STATUS" -eq 200 ] && exit 0
+              sleep 2
+            done
 
-            echo "HTTP Status: $STATUS"
-
-            if [ "$STATUS" -ne 200 ]; then
-              echo "Health check failed"
-              exit 1
-            fi
+            echo "Health check failed"
+            exit 1
 
       - name: Deployment Success
         run: |
