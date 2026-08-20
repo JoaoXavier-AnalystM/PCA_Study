@@ -20,9 +20,8 @@ pare e pergunte — nos demais casos, escolha a ação mais segura e prossiga.
 
 ## Estrutura
 
-- `1_Introdução/`, `2-Conceitos de Observabilidade/`, `3-Fundamentos Prometheus.md/` — notas de estudo
-- `web/` — site estático (index + day1–day7, single-file HTML, CSS/JS inline, zero framework)
-- `docs/` — cópia independente do index (não sincronizar automaticamente com `web/`)
+- `notas/` — notas de estudo em markdown (01-Introducao, 02-Conceitos-de-Observabilidade, 03-Fundamentos-Prometheus)
+- `web/` — site estático (index + day1–day7, single-file HTML, CSS/JS inline, zero framework) — única fonte do site; `docs/` descontinuado
 - `deploy/` — nginx.conf do container
 - `PCA_Curriculum.pdf` — currículo oficial do exame
 
