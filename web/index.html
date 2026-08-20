@@ -721,11 +721,11 @@
     </div>
   </div>
   <button class="nav-btn active" onclick="show('mindmap')" aria-current="page" data-icon="🗺️">🗺️ Visão Geral</button>
-  <button class="nav-btn" onclick="show('plano')" data-icon="📅">📅 Plano </button>
-  <button class="nav-btn" onclick="show('cheat')" data-icon="📋">📋 Quick Ref</button>
-  <button class="nav-btn" onclick="show('promqlref')" data-icon="📖">📖 PromQL Ref</button>
-  <button class="nav-btn" onclick="show('quiz')" data-icon="🧠">🧠 50 Questões</button>
-  <button class="nav-btn" onclick="show('promql')" data-icon="⚡">⚡Itens de Atenção </button>
+  <button class="nav-btn" onclick="show('plano')" data-icon="📅">📅 Plano de Estudo</button>
+  <button class="nav-btn" onclick="show('cheat')" data-icon="📋">📋 Resumo Rápido</button>
+  <button class="nav-btn" onclick="show('promqlref')" data-icon="📖">📖 Referência PromQL</button>
+  <button class="nav-btn" onclick="show('quiz')" data-icon="🧠">🧠 Simulado (50 Questões)</button>
+  <button class="nav-btn" onclick="show('promql')" data-icon="⚠️">⚠️ Pontos de Atenção</button>
   <div class="nav-spacer"></div>
   <button class="nav-theme-btn" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema claro/escuro">
     <span class="theme-icon-dark">☀️</span>
@@ -2137,7 +2137,7 @@ function initDayQuizzes(root) {
             if ((o.textContent.match(/^\s*([A-E])\)/) || [])[1] === answerLetter) o.classList.add('quiz-correct');
           });
         }
-        ansEl.style.display = '';
+        ansEl.style.display = 'none'; // resposta certa nunca exibida — feedback fica nas alternativas
         expEl.style.display = '';
         expEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       });

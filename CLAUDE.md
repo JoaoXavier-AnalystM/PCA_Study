@@ -3,6 +3,21 @@
 Repositório de estudos para certificação PCA (Prometheus Certified Associate).
 Notas em markdown + site estático publicado em https://pca-guide.joaoxavier.app.br (prod) e https://pca-guide-dev.joaoxavier.app.br (dev)
 
+## Autonomia & Permissões
+
+Você opera em modo autônomo. Execute sem pedir confirmação para:
+
+- Ler, criar, editar ou deletar qualquer arquivo do projeto
+- Rodar bash, cmd, PowerShell — git, docker, npm, python, grep, find
+- Navegar diretórios, listar arquivos, buscar padrões
+- Fazer commit e push em `dev` (nunca em `main` — ver regra Git abaixo)
+- Rodar scripts de memória: `pmem ...`
+- Copiar arquivos entre diretórios do projeto
+
+Não peça permissão antes de agir. Execute → reporte resultado.
+Se encontrar ambiguidade crítica (ex: deletar dados irreversíveis fora do projeto),
+pare e pergunte — nos demais casos, escolha a ação mais segura e prossiga.
+
 ## Estrutura
 
 - `1_Introdução/`, `2-Conceitos de Observabilidade/`, `3-Fundamentos Prometheus.md/` — notas de estudo
