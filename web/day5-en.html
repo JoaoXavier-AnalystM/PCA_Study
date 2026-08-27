@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:10.5pt;line-height:1.55;color:#1a1a2e;background:#fff}
+h1,h2,h3,h4,h5,h6{font-family:'Bricolage Grotesque','Syne',sans-serif}
+@page{size:A4;margin:18mm 16mm 18mm 16mm;}
+.cover-band{width:100%;padding:18pt 22pt 14pt;margin-bottom:18pt;border-radius:6pt;background:#4a1942;color:#fae8ff;page-break-after:avoid}
+.cover-band .day-label{font-size:9pt;font-weight:700;letter-spacing:2pt;text-transform:uppercase;opacity:.7;margin-bottom:4pt}
+.cover-band h1{font-size:22pt;font-weight:700;line-height:1.2;margin-bottom:6pt}
+.cover-band .subtitle{font-size:10pt;opacity:.8}
+.cover-band .domains{margin-top:10pt;display:flex;gap:6pt;flex-wrap:wrap}
+.badge{display:inline-block;padding:2pt 8pt;border-radius:3pt;font-size:8pt;font-weight:700;letter-spacing:.5pt;text-transform:uppercase;background:#a855f7;color:#fff}
+h2{font-size:13pt;font-weight:800;margin:18pt 0 8pt;padding-bottom:4pt;border-bottom:2pt solid #a855f7;color:#4a1942;page-break-after:avoid}
+h3{font-size:10.5pt;font-weight:700;margin:12pt 0 5pt;color:#4a1942;page-break-after:avoid}
+p{margin-bottom:6pt}
+.box{padding:9pt 12pt;border-radius:5pt;margin:8pt 0;border-left:4pt solid;page-break-inside:avoid}
+.box.info{background:#eff6ff;border-color:#3b82f6}
+.box.warn{background:#fffbeb;border-color:#f59e0b}
+.box.tip{background:#f0fdf4;border-color:#22c55e}
+.box.danger{background:#fff1f2;border-color:#ef4444}
+.box.dark{background:#2e1065;border-color:#a855f7;color:#fae8ff}
+.box .box-title{font-size:8.5pt;font-weight:700;letter-spacing:1pt;text-transform:uppercase;margin-bottom:4pt}
+code{font-family:'Space Mono','Courier New',monospace;font-size:8.5pt;background:#f1f5f9;padding:1pt 4pt;border-radius:2pt;color:#0f172a}
+pre{font-family:'Space Mono','Courier New',monospace;font-size:8pt;background:#0f172a;color:#e2e8f0;padding:10pt 12pt;border-radius:5pt;margin:7pt 0;white-space:pre-wrap;word-break:break-all;line-height:1.6;page-break-inside:avoid}
+table{width:100%;border-collapse:collapse;margin:8pt 0;font-size:9.5pt;page-break-inside:avoid}
+th{background:#4a1942;color:#fae8ff;padding:5pt 8pt;font-weight:600;text-align:left;font-size:9pt}
+td{padding:5pt 8pt;border-bottom:.5pt solid #e2e8f0;vertical-align:top}
+tr:nth-child(even) td{background:#f8fafc}
+.kv-grid{display:table;width:100%;border:.5pt solid #e2e8f0;border-radius:5pt;margin:8pt 0;overflow:hidden;page-break-inside:avoid}
+.kv-row{display:table-row}
+.kv-row:nth-child(even) .kv-k,.kv-row:nth-child(even) .kv-v{background:#f8fafc}
+.kv-k{display:table-cell;padding:5pt 10pt;font-weight:600;font-size:9pt;color:#475569;width:35%;border-bottom:.5pt solid #e2e8f0;vertical-align:middle}
+.kv-v{display:table-cell;padding:5pt 10pt;font-size:9pt;border-bottom:.5pt solid #e2e8f0;vertical-align:middle}
+.cols2{display:table;width:100%;margin:6pt 0}
+.col{display:table-cell;width:50%;padding-right:10pt;vertical-align:top}
+.col:last-child{padding-right:0;padding-left:4pt}
+.quiz-block{border:.5pt solid #cbd5e1;border-radius:5pt;margin:7pt 0;page-break-inside:avoid;overflow:hidden}
+.quiz-q{padding:7pt 10pt;font-weight:600;font-size:9.5pt;background:#f8fafc;border-bottom:.5pt solid #cbd5e1}
+.quiz-opts{padding:6pt 10pt}
+.quiz-opt{padding:2pt 0;font-size:9pt}
+.quiz-ans{padding:5pt 10pt;background:#f0fdf4;border-top:.5pt solid #cbd5e1;font-size:9pt;color:#166534}
+.quiz-exp{padding:4pt 10pt 7pt;font-size:8.5pt;color:#475569;border-top:.5pt dashed #e2e8f0}
+.checklist{list-style:none;margin:6pt 0 6pt 14pt}
+.checklist li{font-weight:600;padding:4pt 0 4pt 22pt;position:relative;font-size:9.5pt;border-bottom:.5pt dashed #e2e8f0}
+.checklist li:last-child{border-bottom:none}
+.checklist li::before{content:'▸';position:absolute;left:2pt;font-size:10pt;color:#94a3b8}
+.hl{background:#fefce8;font-weight:600}
+hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
+.pb{page-break-before:always}
+@media screen and (max-width:600px){body{font-size:10pt}.cols2,.col{display:block;width:100%;padding:0}table,.kv-grid{display:block;overflow-x:auto}}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style></head><body>
+
+<div class="cover-band">
+  <h1>Alerting, Alertmanager &amp; Dashboarding</h1>
+  <div class="subtitle">Complete alerting rules, alert states, Alertmanager routing/grouping/silences/inhibition and Grafana</div>
+  <div class="domains">
+    <span class="badge">Alerting &amp; Dashboarding 18%</span>
+  </div>
+</div>
+
+<div class="box info">
+  <div class="box-title">Objectives</div>
+  <ul style="padding-left:14pt;margin-top:4pt;font-size:9.5pt;">
+    <li>Create complete alerting rules with all fields</li>
+    <li>Master the 3 states: inactive, pending, firing</li>
+    <li>Configure routing, grouping, silences and inhibition in Alertmanager</li>
+    <li>Understand the essential difference between silence and inhibition</li>
+    <li>Set up Grafana with a Prometheus datasource</li>
+    <li>Use variables and templates in Grafana dashboards</li>
+  </ul>
+</div>
+
+<h2>1. Alerting Rules - Complete Structure</h2>
+
+<pre>
+groups:
+  - name: http_alerts
+    interval: 1m               # optional override of evaluation_interval
+    rules:
+      - alert: HighErrorRate
+        expr: |
+          sum(rate(http_requests_total{status=~"5.."}[5m]))
+          / sum(rate(http_requests_total[5m])) > 0.05
+        for: 5m                # time in pending before firing
+        labels:
+          severity: critical   # used for routing in Alertmanager
+          team: backend
+        annotations:           # human-readable, not for routing
+          summary: "Taxa de erro alta: {{ $labels.job }}"
+          description: "Error rate: {{ $value | humanizePercentage }}"
+          runbook_url: "https://wiki/runbooks/high-error-rate"
+
+      - alert: InstanceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.instance }} down"
+
+      - alert: DiskWillFillIn4Hours
+        expr: predict_linear(node_filesystem_avail_bytes[1h], 4*3600) &lt; 0
+        for: 15m
+        labels:
+          severity: warning
+</pre>
+
+<div class="box dark">
+  <div class="box-title">Fields - What the Exam Tests</div>
+  <p style="font-size:9pt;line-height:1.9;margin-top:4pt;">
+    <strong>alert:</strong> unique alert name<br>
+    <strong>expr:</strong> PromQL expression - when it returns data, the alert fires<br>
+    <strong>for:</strong> minimum time in pending to avoid false positives<br>
+    <strong>labels:</strong> added to the alert - used for ROUTING<br>
+    <strong>annotations:</strong> readable info - summary, description, runbook - NOT used for routing
+  </p>
+</div>
+
+<h2>2. Alert States</h2>
+
+<table>
+  <tr><th>State</th><th>When it happens</th><th>Visible in Alertmanager?</th></tr>
+  <tr><td><strong>inactive</strong></td><td>Expression returns 0 or empty - condition not met</td><td>No</td></tr>
+  <tr class="hl"><td><strong>pending</strong></td><td>Condition met, but still within the "for" window</td><td>No</td></tr>
+  <tr><td><strong>firing</strong></td><td>Condition met for longer than "for" - alert sent</td><td>Yes</td></tr>
+</table>
+
+<div class="cols2">
+<div class="col">
+<h3>Transition flow</h3>
+<pre style="font-size:7.5pt;">
+inactive --[cond OK]--> pending
+pending  --[for elapsed]--> firing
+firing   --[cond fails]--> inactive
+
+Without the "for" field:
+inactive --[cond OK]--> firing (direct)
+</pre>
+</div>
+<div class="col">
+<h3>Query for active alerts</h3>
+<pre>
+# See alerts in firing
+ALERTS{alertstate="firing"}
+
+# See alerts in pending
+ALERTS{alertstate="pending"}
+
+# All alerts
+ALERTS
+</pre>
+</div>
+</div>
+
+<div class="box warn">
+  <p>Without <code>for:</code>, the alert goes from <strong>inactive straight to firing</strong> on the first scrape that meets the condition. Always use <code>for:</code> to avoid alerts on momentary spikes.</p>
+</div>
+
+<h2>3. Alertmanager - Complete Configuration</h2>
+
+<pre>
+# alertmanager.yml
+global:
+  resolve_timeout: 5m
+
+route:
+  group_by: ['alertname', 'cluster']  # labels used to group alerts
+  group_wait: 30s       # wait before sending the FIRST notification of the group
+  group_interval: 5m    # interval between updates of the same group
+  repeat_interval: 4h   # resend of unresolved alerts
+  receiver: 'slack-default'
+
+  routes:
+    - match:
+        severity: critical
+      receiver: pagerduty
+      continue: false
+
+    - match_re:
+        service: ^(db|cache)$
+      receiver: dba-team
+      group_wait: 10s     # override for this route
+
+receivers:
+  - name: 'slack-default'
+    slack_configs:
+      - api_url: 'https://hooks.slack.com/services/...'
+        channel: '#alerts'
+        title: '{{ .CommonLabels.alertname }}'
+
+  - name: 'pagerduty'
+    pagerduty_configs:
+      - service_key: 'YOUR_KEY'
+
+  - name: 'dba-team'
+    email_configs:
+      - to: 'dba@company.com'
+        from: 'alerts@company.com'
+        smarthost: 'smtp.company.com:587'
+
+inhibit_rules:
+  - source_match:
+      severity: 'critical'    # if this one is firing...
+    target_match:
+      severity: 'warning'     # ...suppresses these
+    equal: ['alertname', 'cluster']  # with these labels equal
+</pre>
+
+<h2>4. Alertmanager Timing - Frequently Tested</h2>
+
+<table>
+  <tr><th>Field</th><th>What it controls</th><th>Default</th></tr>
+  <tr class="hl"><td><code>group_wait</code></td><td>Wait before sending the FIRST notification of a new group of alerts</td><td>30s</td></tr>
+  <tr><td><code>group_interval</code></td><td>Minimum interval between notifications of the SAME group (updates)</td><td>5m</td></tr>
+  <tr><td><code>repeat_interval</code></td><td>How long to wait before REPEATING an already notified, unresolved alert</td><td>4h</td></tr>
+  <tr><td><code>resolve_timeout</code></td><td>Time to mark an alert as resolved after the condition stops</td><td>5m</td></tr>
+</table>
+
+<h2>5. Silence vs Inhibition</h2>
+
+<div class="cols2">
+<div class="col">
+<h3>Silence - Manual Mute</h3>
+<div class="box warn" style="margin-top:0">
+  <p><strong>What it is:</strong> Temporary manual suppression of alerts.</p>
+  <p style="margin-top:6pt"><strong>How to create:</strong> Via the Alertmanager UI or API. Defines label matchers + a time period.</p>
+  <p style="margin-top:6pt"><strong>When to use:</strong> Maintenance window, planned deploy, known false positive.</p>
+  <p style="margin-top:6pt"><strong>Configuration:</strong> Via the interface - not stored in a YAML file.</p>
+</div>
+</div>
+<div class="col">
+<h3>Inhibition - Automatic Suppression</h3>
+<div class="box danger" style="margin-top:0">
+  <p><strong>What it is:</strong> A rule that automatically suppresses alerts when another alert is active.</p>
+  <p style="margin-top:6pt"><strong>Example:</strong> Host down suppresses all app alerts on that host - root cause already known.</p>
+  <p style="margin-top:6pt"><strong>When to use:</strong> Avoid spam from secondary alerts when there is a root cause.</p>
+  <p style="margin-top:6pt"><strong>Configuration:</strong> In the alertmanager.yml file, the <code>inhibit_rules</code> field.</p>
+</div>
+</div>
+</div>
+
+<table>
+  <tr><th>Aspect</th><th>Silence</th><th>Inhibition</th></tr>
+  <tr><td>Type</td><td>Manual, for a period</td><td>Automatic, based on another alert</td></tr>
+  <tr><td>Configuration</td><td>UI / API (not in YAML)</td><td>alertmanager.yml</td></tr>
+  <tr><td>Activation</td><td>A human chooses when to silence</td><td>Automatic when source_match is firing</td></tr>
+  <tr><td>Use case</td><td>Maintenance window</td><td>Host down suppresses app alerts</td></tr>
+</table>
+
+<h2>6. Grafana - Prometheus Integration</h2>
+
+<div class="kv-grid">
+  <div class="kv-row"><div class="kv-k">Default port</div><div class="kv-v"><code>:3000</code></div></div>
+  <div class="kv-row"><div class="kv-k">Datasource</div><div class="kv-v">Configure in Configuration > Data Sources > Add Prometheus > URL http://prometheus:9090</div></div>
+  <div class="kv-row"><div class="kv-k">Panels</div><div class="kv-v">Each panel uses a PromQL query as its data source</div></div>
+  <div class="kv-row"><div class="kv-k">Variables</div><div class="kv-v">Template variables allow dynamic filters by job, instance, etc</div></div>
+  <div class="kv-row"><div class="kv-k">Grafana alerts</div><div class="kv-v">Grafana can also create alerts independent of the Prometheus Alertmanager</div></div>
+</div>
+
+<pre>
+# Example PromQL queries in Grafana
+
+# CPU usage per instance ($instance variable)
+100 - (avg(rate(node_cpu_seconds_total{mode="idle", instance="$instance"}[5m])) * 100)
+
+# p99 latency with job variable
+histogram_quantile(0.99,
+  sum(rate(http_request_duration_seconds_bucket{job="$job"}[5m])) by (le)
+)
+
+# Error rate with visual threshold
+sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
+/ sum(rate(http_requests_total{job="$job"}[5m]))
+</pre>
+
+<div class="box tip">
+  <div class="box-title">Variables in Grafana</div>
+  <p>Create variables in Dashboard Settings > Variables. The "Query" type lets you populate the list with label values from Prometheus. Example: the query <code>label_values(up, job)</code> populates a dropdown with all monitored jobs.</p>
+</div>
+
+<div class="pb"></div>
+<h2>Review Questions</h2>
+
+<div class="quiz-block">
+  <div class="quiz-q">Q1. What is the state of an alert whose condition was met but the "for: 10m" field has not expired yet?</div>
+  <div class="quiz-opts">
+    <div class="quiz-opt">A) firing - it is already active</div>
+    <div class="quiz-opt">B) inactive - it is not a real alert yet</div>
+    <div class="quiz-opt">C) pending - condition active but waiting for the "for" to confirm</div>
+    <div class="quiz-opt">D) warning - intermediate state</div>
+  </div>
+  <div class="quiz-ans">Answer: C</div>
+  <div class="quiz-exp">pending: condition met but within the "for" window. After "for" expires, it goes to firing. Without a "for" field, it goes straight from inactive to firing.</div>
+</div>
+
+<div class="quiz-block">
+  <div class="quiz-q">Q2. What is the difference between "labels" and "annotations" in an alerting rule?</div>
+  <div class="quiz-opts">
+    <div class="quiz-opt">A) They are equivalent - just different names</div>
+    <div class="quiz-opt">B) labels are used for routing in Alertmanager; annotations are human-readable information</div>
+    <div class="quiz-opt">C) annotations are used for routing; labels are descriptive</div>
+    <div class="quiz-opt">D) labels live in Prometheus; annotations live in Grafana</div>
+  </div>
+  <div class="quiz-ans">Answer: B</div>
+  <div class="quiz-exp">labels: added to the alert and used by Alertmanager for routing (match/match_re in routes). annotations: textual information for humans such as summary, description and runbook_url - they do NOT take part in routing.</div>
+</div>
+
+<div class="quiz-block">
+  <div class="quiz-q">Q3. What does the "group_wait: 30s" field do in Alertmanager?</div>
+  <div class="quiz-opts">
+    <div class="quiz-opt">A) Waits 30s before resending already notified alerts</div>
+    <div class="quiz-opt">B) Waits 30s before sending the first notification of a new group of alerts</div>
+    <div class="quiz-opt">C) Waits 30s before evaluating the alerting rules</div>
+    <div class="quiz-opt">D) It is the timeout for the receiver to respond</div>
+  </div>
+  <div class="quiz-ans">Answer: B</div>
+  <div class="quiz-exp">group_wait defines how long Alertmanager waits to collect alerts from the same group before sending the FIRST notification. It allows grouping alerts that arrive in a burst right after an incident.</div>
+</div>
+
+<div class="quiz-block">
+  <div class="quiz-q">Q4. What is the main difference between Silence and Inhibition in Alertmanager?</div>
+  <div class="quiz-opts">
+    <div class="quiz-opt">A) Silence is permanent; Inhibition is temporary</div>
+    <div class="quiz-opt">B) Silence is manual suppression for a period; Inhibition is automatic suppression based on another active alert</div>
+    <div class="quiz-opt">C) Silence works by labels; Inhibition works by time</div>
+    <div class="quiz-opt">D) They are identical - just different names in the UI</div>
+  </div>
+  <div class="quiz-ans">Answer: B</div>
+  <div class="quiz-exp">Silence: a human creates it manually via UI/API for a period (e.g. maintenance). Inhibition: a rule in alertmanager.yml that automatically suppresses "child" alerts when a "parent" alert is firing (e.g. host down suppresses the app alerts on that host).</div>
+</div>
+
+<div class="quiz-block">
+  <div class="quiz-q">Q5. How do you configure Grafana to use Prometheus data?</div>
+  <div class="quiz-opts">
+    <div class="quiz-opt">A) Import prometheus.yml directly into Grafana</div>
+    <div class="quiz-opt">B) Configure a Prometheus Data Source with the server URL and use PromQL in the panels</div>
+    <div class="quiz-opt">C) Install the node_exporter plugin in Grafana</div>
+    <div class="quiz-opt">D) Connect via SSH to the Prometheus server</div>
+  </div>
+  <div class="quiz-ans">Answer: B</div>
+  <div class="quiz-exp">In Grafana: Configuration > Data Sources > Add data source > Prometheus > URL http://prometheus:9090. Then, in each panel, write PromQL queries to visualize the data.</div>
+</div>
+
+<div class="quiz-block">
+  <div class="quiz-q">Q6. What does the "continue: false" field do in an Alertmanager route?</div>
+  <div class="quiz-opts">
+    <div class="quiz-opt">A) Stops Alertmanager from processing new alerts</div>
+    <div class="quiz-opt">B) After matching this route, the alert is NOT evaluated by the following routes</div>
+    <div class="quiz-opt">C) Prevents the alert from transitioning to firing</div>
+    <div class="quiz-opt">D) Disables repeat_interval for this receiver</div>
+  </div>
+  <div class="quiz-ans">Answer: B</div>
+  <div class="quiz-exp">By default, an alert that matches a sub-route stops being evaluated by the next ones. "continue: true" does the opposite - it lets the alert keep being evaluated by subsequent routes even after a match.</div>
+</div>
+
+<div class="quiz-block">
+  <div class="quiz-q">Q7. Which Alertmanager field defines the interval for REPEATING alerts that are still active and have already been notified?</div>
+  <div class="quiz-opts">
+    <div class="quiz-opt">A) group_interval</div>
+    <div class="quiz-opt">B) group_wait</div>
+    <div class="quiz-opt">C) repeat_interval</div>
+    <div class="quiz-opt">D) resend_delay</div>
+  </div>
+  <div class="quiz-ans">Answer: C</div>
+  <div class="quiz-exp">repeat_interval: how long to wait before resending the notification of an alert that is still firing and has already been notified. Avoids spam for persistent alerts. Default: 4h.</div>
+</div>
+
+<div class="quiz-block">
+  <div class="quiz-q">Q8. What is "group_by" in Alertmanager and how does it work?</div>
+  <div class="quiz-opts">
+    <div class="quiz-opt">A) Defines which receivers get which alerts</div>
+    <div class="quiz-opt">B) Defines the labels used to group alerts into a single notification</div>
+    <div class="quiz-opt">C) Groups alerts by severity automatically</div>
+    <div class="quiz-opt">D) Defines the priority order of alerts</div>
+  </div>
+  <div class="quiz-ans">Answer: B</div>
+  <div class="quiz-exp">group_by: ['alertname', 'cluster'] - alerts with the same values in these labels are grouped and sent together in one notification. Reduces noise when multiple alerts of the same type fire at the same time.</div>
+</div>
+
+<div class="pb"></div>
+<h2>Review Checklist</h2>
+<ul class="checklist">
+  <li>I can write a complete alerting rule with alert, expr, for, labels and annotations</li>
+  <li>I understand the 3 states: inactive, pending, firing and the transitions between them</li>
+  <li>I know that without "for:" the alert goes straight from inactive to firing</li>
+  <li>I can tell labels (routing) apart from annotations (human information)</li>
+  <li>I can configure an alertmanager.yml with routes and receivers</li>
+  <li>I know the 4 timing fields: group_wait, group_interval, repeat_interval, resolve_timeout</li>
+  <li>I understand Silence (manual, by period) vs Inhibition (automatic, by rule)</li>
+  <li>I can configure inhibit_rules with source_match, target_match and equal</li>
+  <li>I can configure Grafana with a Prometheus datasource</li>
+  <li>I can use template variables in Grafana with label_values()</li>
+  <li>I got at least 6 of the 8 review questions right</li>
+</ul>
+
+<div class="box tip" style="margin-top:14pt">
+  <div class="box-title">Study Material for Today</div>
+  <p><strong>LFS241:</strong> Chapters 13 (Alerting Rules), 14 (Alertmanager), 16 (Grafana)</p>
+  <p style="margin-top:4pt"><strong>KodeKloud:</strong> <a href="https://learn.kodekloud.com/learn/courses/prometheus-certified-associate-pca" target="_blank" rel="noopener">Alerting and Dashboarding module</a><br>
+    <strong>YetMike:</strong> <a href="https://yetmike.com/practice/pca" target="_blank" rel="noopener">PCA-style mock exams</a></p>
+  <p style="margin-top:4pt"><strong>Practice:</strong> Configure an alerting rule and watch the alert move through the 3 states</p>
+</div>
+
+</body></html>

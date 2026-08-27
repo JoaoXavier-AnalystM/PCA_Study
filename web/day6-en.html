@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:10.5pt;line-height:1.55;color:#1a1a2e;background:#fff}
+h1,h2,h3,h4,h5,h6{font-family:'Bricolage Grotesque','Syne',sans-serif}
+@page{size:A4;margin:18mm 16mm 18mm 16mm;}
+.cover-band{width:100%;padding:18pt 22pt 14pt;margin-bottom:18pt;border-radius:6pt;background:#1e3a5f;color:#dbeafe;page-break-after:avoid}
+.cover-band .day-label{font-size:9pt;font-weight:700;letter-spacing:2pt;text-transform:uppercase;opacity:.7;margin-bottom:4pt}
+.cover-band h1{font-size:22pt;font-weight:700;line-height:1.2;margin-bottom:6pt}
+.cover-band .subtitle{font-size:10pt;opacity:.8}
+.cover-band .domains{margin-top:10pt;display:flex;gap:6pt;flex-wrap:wrap}
+.badge{display:inline-block;padding:2pt 8pt;border-radius:3pt;font-size:8pt;font-weight:700;letter-spacing:.5pt;text-transform:uppercase;background:#0ea5e9;color:#fff}
+h2{font-size:13pt;font-weight:800;margin:18pt 0 8pt;padding-bottom:4pt;border-bottom:2pt solid #0ea5e9;color:#1e3a5f;page-break-after:avoid}
+h3{font-size:10.5pt;font-weight:700;margin:12pt 0 5pt;color:#1e3a5f;page-break-after:avoid}
+p{margin-bottom:6pt}
+.box{padding:9pt 12pt;border-radius:5pt;margin:8pt 0;border-left:4pt solid;page-break-inside:avoid}
+.box.info{background:#eff6ff;border-color:#3b82f6}
+.box.warn{background:#fffbeb;border-color:#f59e0b}
+.box.tip{background:#f0fdf4;border-color:#22c55e}
+.box.danger{background:#fff1f2;border-color:#ef4444}
+.box.dark{background:#0c4a6e;border-color:#0ea5e9;color:#e0f2fe}
+.box .box-title{font-size:8.5pt;font-weight:700;letter-spacing:1pt;text-transform:uppercase;margin-bottom:4pt}
+code{font-family:'Space Mono','Courier New',monospace;font-size:8.5pt;background:#f1f5f9;padding:1pt 4pt;border-radius:2pt;color:#0f172a}
+pre{font-family:'Space Mono','Courier New',monospace;font-size:8pt;background:#0f172a;color:#e2e8f0;padding:10pt 12pt;border-radius:5pt;margin:7pt 0;white-space:pre-wrap;word-break:break-all;line-height:1.6;page-break-inside:avoid}
+table{width:100%;border-collapse:collapse;margin:8pt 0;font-size:9.5pt;page-break-inside:avoid}
+th{background:#1e3a5f;color:#dbeafe;padding:5pt 8pt;font-weight:600;text-align:left;font-size:9pt}
+td{padding:5pt 8pt;border-bottom:.5pt solid #e2e8f0;vertical-align:top}
+tr:nth-child(even) td{background:#f8fafc}
+.kv-grid{display:table;width:100%;border:.5pt solid #e2e8f0;border-radius:5pt;margin:8pt 0;overflow:hidden;page-break-inside:avoid}
+.kv-row{display:table-row}
+.kv-row:nth-child(even) .kv-k,.kv-row:nth-child(even) .kv-v{background:#f8fafc}
+.kv-k{display:table-cell;padding:5pt 10pt;font-weight:600;font-size:9pt;color:#475569;width:35%;border-bottom:.5pt solid #e2e8f0;vertical-align:middle}
+.kv-v{display:table-cell;padding:5pt 10pt;font-size:9pt;border-bottom:.5pt solid #e2e8f0;vertical-align:middle}
+.cols2{display:table;width:100%;margin:6pt 0}
+.col{display:table-cell;width:50%;padding-right:10pt;vertical-align:top}
+.col:last-child{padding-right:0;padding-left:4pt}
+.quiz-block{border:.5pt solid #cbd5e1;border-radius:5pt;margin:7pt 0;page-break-inside:avoid;overflow:hidden}
+.quiz-q{padding:7pt 10pt;font-weight:600;font-size:9.5pt;background:#f8fafc;border-bottom:.5pt solid #cbd5e1}
+.quiz-opts{padding:6pt 10pt}
+.quiz-opt{padding:2pt 0;font-size:9pt}
+.quiz-ans{padding:5pt 10pt;background:#f0fdf4;border-top:.5pt solid #cbd5e1;font-size:9pt;color:#166534}
+.quiz-exp{padding:4pt 10pt 7pt;font-size:8.5pt;color:#475569;border-top:.5pt dashed #e2e8f0}
+.checklist{list-style:none;margin:6pt 0 6pt 14pt}
+.checklist li{font-weight:600;padding:4pt 0 4pt 22pt;position:relative;font-size:9.5pt;border-bottom:.5pt dashed #e2e8f0}
+.checklist li:last-child{border-bottom:none}
+.checklist li::before{content:'▸';position:absolute;left:2pt;font-size:10pt;color:#94a3b8}
+.hl{background:#fefce8;font-weight:600}
+hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
+.pb{page-break-before:always}
+@media screen and (max-width:600px){body{font-size:10pt}.cols2,.col{display:block;width:100%;padding:0}table,.kv-grid{display:block;overflow-x:auto}}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style></head><body>
+
+<div class="cover-band">
+  <h1>Complete Mock Exams + Intensive Review</h1>
+  <div class="subtitle">Practice exams, mistake analysis by domain, and focused review of weak points</div>
+  <div class="domains">
+    <span class="badge">Mock Exams + Review</span>
+  </div>
+</div>
+
+<div class="box info">
+  <div class="box-title">🎯 Objectives</div>
+  <ul style="padding-left:14pt;margin-top:4pt;font-size:9.5pt;">
+    <li>Take the full Udemy Practice Exam 1 (60q, 90min) under real exam conditions</li>
+    <li>Analyze mistakes by domain and identify weak points</li>
+    <li>Take Udemy Practice Exam 2 focusing on the domains with the most mistakes</li>
+    <li>Review the Cheat Sheet + the top PromQL list</li>
+    <li>Take the <a href="https://learn.kodekloud.com/learn/courses/prometheus-certified-associate-pca" target="_blank" rel="noopener">final KodeKloud Mock Exam</a></li>
+    <li>Score at least 80% on the mock exam questions</li>
+  </ul>
+</div>
+
+<h2>1. Study Strategy - Mock Exams</h2>
+
+<p>Today is <strong>intensive training</strong> day, simulating real exam conditions. The goal is not just to get questions right, but to <strong>identify knowledge gaps</strong> and fix them before exam day.</p>
+
+<div class="kv-grid">
+  <div class="kv-row"><div class="kv-k">Morning (3-4h)</div><div class="kv-v">Udemy Practice Exam 1 (60q, 90min) + detailed mistake analysis</div></div>
+  <div class="kv-row"><div class="kv-k">Afternoon (3-4h)</div><div class="kv-v">Review weak domains + Udemy Practice Exam 2</div></div>
+  <div class="kv-row"><div class="kv-k">Evening (2h)</div><div class="kv-v">KodeKloud Mock Exam + Cheat Sheet review</div></div>
+</div>
+
+<div class="box dark">
+  <div class="box-title">Mock Exam Rules</div>
+  <p style="line-height:1.8;font-size:9pt;margin-top:4pt;">
+    ✅ Quiet environment, no distractions<br>
+    ✅ 90-minute timer - respect the time limit<br>
+    ✅ Flag uncertain questions to review at the end (like in the real exam)<br>
+    ✅ Do not consult materials during the mock exam<br>
+    ✅ After finishing, analyze ALL mistakes before the next mock exam<br>
+    ❌ Do not memorize answers - understand the concept behind each question
+  </p>
+</div>
+
+<h2>2. How to Analyze Mistakes - Systematic Method</h2>
+
+<p>After each mock exam, <strong>do not jump straight to the next one</strong>. Use this method:</p>
+
+<table>
+  <tr><th>Step</th><th>What to do</th><th>Goal</th></tr>
+  <tr><td>1. Classify mistakes</td><td>Split the mistakes by domain: PromQL, Fundamentals, Observability, Alerting, Instrumentation</td><td>Identify which domain needs more study</td></tr>
+  <tr><td>2. Conceptual error vs careless mistake</td><td>Tell apart: "didn't know the concept" vs "read it wrong" vs "forgot a detail"</td><td>Know whether you need to review or just pay more attention</td></tr>
+  <tr class="hl"><td>3. Focused review</td><td>For each conceptual mistake, go back to that day's material and study the topic</td><td>Fix real knowledge gaps</td></tr>
+  <tr><td>4. Create mental flashcards</td><td>For concepts you got wrong, create a mnemonic or an example to cement them</td><td>Active memorization</td></tr>
+  <tr><td>5. Redo the question</td><td>1 hour later, try to solve the question again without looking at the answer</td><td>Validate that you understood the concept</td></tr>
+</table>
+
+<div class="box warn">
+  <div class="box-title">⚠️ Common Traps in Mock Exams</div>
+  <p style="font-size:9pt;line-height:1.7;">
+    <strong>1. Mixing up rate() and irate()</strong> - rate() uses the whole window; irate() only the last 2 points<br>
+    <strong>2. Forgetting the "le" label in histogram_quantile()</strong> - it always needs to be in the by()<br>
+    <strong>3. Swapping delta() and increase()</strong> - delta() is for gauges; increase() is for counters<br>
+    <strong>4. Mixing up by() and without()</strong> - by() keeps; without() removes<br>
+    <strong>5. Getting the ports wrong</strong> - 9090, 9091, 9093, 9100, 3000 (memorize NOW)<br>
+    <strong>6. Naming convention</strong> - _total for counters, _seconds for time, always snake_case<br>
+    <strong>7. Silence vs Inhibition</strong> - silence is manual; inhibition is automatic via rule<br>
+    <strong>8. Labels vs Annotations</strong> - labels for routing; annotations for humans
+  </p>
+</div>
+
+<h2>3. Quick Review Checklist - Use Before Each Mock Exam</h2>
+
+<div class="cols2">
+<div class="col">
+<h3>PromQL (28% of the exam)</h3>
+<ul class="checklist">
+  <li>rate() for counters, delta() for gauges</li>
+  <li>histogram_quantile() always with the "le" label</li>
+  <li>by() keeps labels; without() removes</li>
+  <li>Regex in =~ is anchored (implicit ^ and $)</li>
+  <li>absent() returns 1 if the metric is missing</li>
+  <li>predict_linear() for predictive alerts</li>
+  <li>group_left/right for many-to-one joins</li>
+</ul>
+
+<h3>Fundamentals (20%)</h3>
+<ul class="checklist">
+  <li>Ports: 9090, 9091, 9093, 9100, 3000</li>
+  <li>Counter only goes up; Gauge goes up and down</li>
+  <li>Histogram: _bucket, _sum, _count</li>
+  <li>Histogram vs Summary: server vs client</li>
+  <li>Naming: namespace_subsystem_name_unit</li>
+  <li>High cardinality = problem (user_id is forbidden)</li>
+</ul>
+</div>
+<div class="col">
+<h3>Observability (18%)</h3>
+<ul class="checklist">
+  <li>SLI = measured metric; SLO = target; SLA = contract</li>
+  <li>Error Budget = 100% - SLO</li>
+  <li>Pull = Prometheus scrapes; Push = Pushgateway</li>
+  <li>Metrics vs Logs vs Traces (when to use each)</li>
+  <li>Service Discovery: K8s, Consul, EC2, file</li>
+</ul>
+
+<h3>Alerting (18%)</h3>
+<ul class="checklist">
+  <li>3 states: inactive, pending, firing</li>
+  <li>for: time in pending before firing</li>
+  <li>labels = routing; annotations = info</li>
+  <li>group_wait, group_interval, repeat_interval</li>
+  <li>Silence = manual; Inhibition = automatic</li>
+</ul>
+
+<h3>Instrumentation (16%)</h3>
+<ul class="checklist">
+  <li>Official client libraries: Go, Java, Python, Ruby</li>
+  <li>Node Exporter = host OS; cAdvisor = containers</li>
+  <li>Blackbox = external probes (HTTP, TCP, ICMP)</li>
+  <li>Pushgateway = short batch jobs</li>
+  <li>relabel_configs = before scrape; metric_relabel = after</li>
+</ul>
+</div>
+</div>
+
+
+<h2>4. Success Metric </h2>
+
+<div class="box tip">
+  <div class="box-title">✅ Goals</div>
+  <p style="font-size:9pt;line-height:1.8;margin-top:4pt;">
+    <strong>Exam 1:</strong> ≥70% correct (42/60) - your first contact with the exam format<br>
+    <strong>Exam 2:</strong> ≥80% correct (48/60) - after reviewing the first exam's mistakes<br>
+    <strong>KodeKloud:</strong> <a href="https://learn.kodekloud.com/learn/courses/prometheus-certified-associate-pca" target="_blank" rel="noopener">≥85% correct (51/60)</a> - with confidence already established<br>
+    <strong>PromQL:</strong> 90%+ on PromQL questions (it is the highest-weight domain: 28%)<br>
+    <strong>Analysis:</strong> Have written down ALL the concepts you got wrong to review tomorrow
+  </p>
+</div>
+
+<div class="box danger">
+  <div class="box-title">🚨 If You Don't Reach 75% on Exam 2</div>
+  <p>If, after reviewing Exam 1's mistakes, you still score below 75% on Exam 2, consider a deeper review. 75% is the passing minimum on the real exam - scoring below that in practice indicates conceptual gaps.</p>
+</div>
+
+<h2>5. Exam Tips (get mentally ready today)</h2>
+
+<div class="cols2">
+<div class="col">
+<h3>Before the exam</h3>
+<ul style="font-size:9pt;padding-left:14pt;">
+  <li>Check camera, microphone and internet 1 day before</li>
+  <li>Clear the desk - only water and ID allowed</li>
+  <li>Close all browser tabs except the exam</li>
+  <li>Tell family/roommates not to interrupt</li>
+  <li>Go to the bathroom before starting</li>
+  <li>Review the Cheat Sheet 30min before (not during)</li>
+</ul>
+</div>
+<div class="col">
+<h3>During the exam</h3>
+<ul style="font-size:9pt;padding-left:14pt;">
+  <li>Read the ENTIRE question before answering</li>
+  <li>Flag uncertain questions to review</li>
+  <li>Don't get stuck - if you don't know it, flag and move on</li>
+  <li>Manage time: ~90 seconds per question</li>
+  <li>Review flagged questions in the last 15min</li>
+  <li>Don't change answers on a hunch - trust your first instinct</li>
+</ul>
+</div>
+</div>
+
+<div class="pb"></div>
+<h2>✅ Review Checklist</h2>
+
+<ul class="checklist">
+  <li>I took the full Udemy Practice Exam 1 in 90 minutes</li>
+  <li>I analyzed ALL Exam 1 mistakes and identified gaps</li>
+  <li>I reviewed the domains where I had more than 20% mistakes</li>
+  <li>I took Udemy Practice Exam 2 and improved my score by at least 10%</li>
+  <li>I took the KodeKloud Mock Exam</li>
+  <li>I reviewed the full Cheat Sheet</li>
+  <li>I reviewed the top PromQL list (most tested functions)</li>
+  <li>I wrote down the concepts I still need to review tomorrow</li>
+  <li>I scored at least 75% on Exam 2</li>
+  <li>I got 90%+ of PromQL questions right on the last mock exam</li>
+  <li>I memorized the ports: 9090, 9091, 9093, 9100, 3000</li>
+  <li>I am confident for tomorrow's exam</li>
+</ul>
+
+<div class="box tip" style="margin-top:14pt">
+  <div class="box-title">Study Material</div>
+  <p><strong>Udemy:</strong> Solve Mock Exams </p>
+  <p style="margin-top:4pt"><strong>KodeKloud:</strong> <a href="https://learn.kodekloud.com/learn/courses/prometheus-certified-associate-pca" target="_blank" rel="noopener">Final Mock Exam</a><br>
+    <strong>YetMike:</strong> <a href="https://yetmike.com/practice/pca" target="_blank" rel="noopener">PCA-style mock exams</a></p>
+  <p style="margin-top:4pt"><strong>Review:</strong> Days 1-5 material in the weak domains</p>
+
+</div>
+
+</body></html>
