@@ -73,7 +73,7 @@
   nav {
     position: fixed; top: 0; left: 0; z-index: 100;
     width: 230px; height: 100vh;
-    background: rgba(10,12,16,0.98);
+    background: var(--surface);
     backdrop-filter: blur(12px);
     border-right: 1px solid var(--border);
     display: flex; flex-direction: column; gap: 2px;
@@ -99,7 +99,7 @@
     border-left: 3px solid transparent; transition: all .2s;
     text-transform: uppercase; letter-spacing: 1px;
   }
-  .nav-btn:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+  .nav-btn:hover { color: var(--text); background: var(--surface2); }
   .nav-btn.active {
     color: var(--accent);
     border-left-color: var(--accent);
@@ -505,7 +505,7 @@
   }
   #dayStudyContent .kv-v { display: table-cell; padding: 7px 12px; font-size: 12.5px; border-bottom: 1px solid var(--border); vertical-align: middle; }
   #dayStudyContent .cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 10px 0; }
-  @media (max-width: 700px) { #dayStudyContent .cols2 { flex-direction: column; } }
+  @media (max-width: 700px) { #dayStudyContent .cols2 { grid-template-columns: 1fr; } }
   #dayStudyContent h3 { color: var(--accent2); margin-top: 16px; }
   #dayStudyContent .hl { background: rgba(230,82,44,.08); font-weight: 700; }
 
@@ -606,6 +606,11 @@
   .domain-card.d-alert .domain-card-pct { background: #3a1e1e; color: var(--accent3); }
   .domain-card.d-inst    { border-top: 3px solid var(--accent); }
   .domain-card.d-inst .domain-card-pct { background: #2a2a1e; color: var(--accent); }
+  [data-theme="light"] .domain-card.d-promql .domain-card-pct { background: #ddf3e8; color: #0d7d4a; }
+  [data-theme="light"] .domain-card.d-fund .domain-card-pct { background: #dcebf8; color: #14699b; }
+  [data-theme="light"] .domain-card.d-obs .domain-card-pct { background: #ece3f9; color: #6d3ae0; }
+  [data-theme="light"] .domain-card.d-alert .domain-card-pct { background: #fbe3e3; color: #b33535; }
+  [data-theme="light"] .domain-card.d-inst .domain-card-pct { background: #f7ecd9; color: #9a5415; }
 
   /* ======= PROMQL ======= */
   .promql-section { margin-bottom: 32px; }
