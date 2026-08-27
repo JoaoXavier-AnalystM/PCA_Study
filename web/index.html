@@ -544,7 +544,7 @@
     text-transform: uppercase;
   }
   .filter-btn:hover, .filter-btn.active { color: var(--accent); border-color: var(--accent); }
-  .quiz-lang { display: flex; align-items: center; gap: 0; margin: 10px 0 4px; flex-wrap: wrap; }
+  .quiz-lang { display: flex; align-items: center; gap: 0; margin: 0 0 6px; flex-wrap: wrap; justify-content: flex-end; }
   .lang-btn {
     background: var(--surface); border: 1px solid var(--border); border-right: none;
     padding: 5px 16px; font-family: 'Space Mono', monospace; font-size: 10.5px;
@@ -553,7 +553,6 @@
   .lang-btn:first-of-type { border-radius: 6px 0 0 6px; }
   .lang-btn:last-of-type { border-radius: 0 6px 6px 0; border-right: 1px solid var(--border); }
   .lang-btn:hover, .lang-btn.active { color: var(--accent); border-color: var(--accent); background: var(--surface2); }
-  .lang-hint { margin-left: 10px; font-size: 11px; color: var(--muted); }
 
   /* ======= VISÃO GERAL DOS DOMÍNIOS ======= */
   .domains-grid {
@@ -1620,6 +1619,10 @@
       <p style="color:var(--muted);font-size:13px;margin-top:4px;" id="quizSub">Clique na alternativa para responder · Veja a explicação logo abaixo</p>
     </div>
     <div>
+      <div class="quiz-lang" role="group" aria-label="Idioma">
+        <button class="lang-btn active" id="langPt" onclick="setQuizLang('pt')">PT</button>
+        <button class="lang-btn" id="langEn" onclick="setQuizLang('en')">EN</button>
+      </div>
       <div class="quiz-score" id="scoreDisplay">Score: 0/0</div>
       <div class="quiz-progress" id="progressDisplay" style="text-align:right;font-size:11px;color:var(--muted)"></div>
     </div>
@@ -1632,12 +1635,6 @@
     <button class="filter-btn" onclick="filterQuiz('Observability')">Observability</button>
     <button class="filter-btn" onclick="filterQuiz('Alerting')">Alerting</button>
     <button class="filter-btn" id="fBtnInst" onclick="filterQuiz('Instrumentação')">Instrumentação</button>
-  </div>
-
-  <div class="quiz-lang" role="group" aria-label="Idioma">
-    <button class="lang-btn active" id="langPt" onclick="setQuizLang('pt')">Português</button>
-    <button class="lang-btn" id="langEn" onclick="setQuizLang('en')">English</button>
-    <span class="lang-hint" id="langHint">Idioma da prova: inglês · treine nas duas</span>
   </div>
 
   <div id="quizContainer"></div>
@@ -2280,8 +2277,8 @@ let total = 0;
 let quizLang = 'pt';
 
 const L = {
-  pt: { title:'50 Questões Estilo PCA', sub:'Clique na alternativa para responder · Veja a explicação logo abaixo', all:'Todas (50)', fund:'Fundamentos', inst:'Instrumentação', reset:'🔄 Reiniciar Quiz', hint:'Idioma da prova: inglês · treine nas duas', ariaOk:'Correto', ariaNo:'Incorreto' },
-  en: { title:'50 PCA-Style Questions', sub:'Click an option to answer · Explanation below', all:'All (50)', fund:'Fundamentals', inst:'Instrumentation', reset:'🔄 Restart Quiz', hint:'Exam language: English · practice in both', ariaOk:'Correct', ariaNo:'Incorrect', domains:{Observability:'Observability',Fundamentos:'Fundamentals',PromQL:'PromQL',Alerting:'Alerting',Instrumentação:'Instrumentation'} }
+  pt: { title:'50 Questões Estilo PCA', sub:'Clique na alternativa para responder · Veja a explicação logo abaixo', all:'Todas (50)', fund:'Fundamentos', inst:'Instrumentação', reset:'🔄 Reiniciar Quiz', ariaOk:'Correto', ariaNo:'Incorreto' },
+  en: { title:'50 PCA-Style Questions', sub:'Click an option to answer · Explanation below', all:'All (50)', fund:'Fundamentals', inst:'Instrumentation', reset:'🔄 Restart Quiz', ariaOk:'Correct', ariaNo:'Incorrect', domains:{Observability:'Observability',Fundamentos:'Fundamentals',PromQL:'PromQL',Alerting:'Alerting',Instrumentação:'Instrumentation'} }
 };
 
 function applyLangUI() {
@@ -2292,7 +2289,6 @@ function applyLangUI() {
   document.getElementById('fBtnFund').textContent = t.fund;
   document.getElementById('fBtnInst').textContent = t.inst;
   document.getElementById('resetBtn').textContent = t.reset;
-  document.getElementById('langHint').textContent = t.hint;
   document.getElementById('langPt').classList.toggle('active', quizLang === 'pt');
   document.getElementById('langEn').classList.toggle('active', quizLang === 'en');
 }
