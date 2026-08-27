@@ -72,7 +72,7 @@ rate(http_requests_total[5m])
 
 Este projeto serve como:
 
-* guia de estudos para PCA
+* Guia de estudos para PCA
 
 ---
 
@@ -91,42 +91,16 @@ Os principais tópicos cobrados incluem:
 * Kubernetes Monitoring
 
 ---
-
 ## 🌐 Acesso ao Projeto
 
-O conteúdo deste projeto está disponível online:
+O **PCA Study Guide** está disponível online em dois ambientes:
 
-🔗 https://pca-guide.joaoxavier.app.br/ (prod) · https://pca-guide-dev.joaoxavier.app.br/ (dev)
+- 🚀 **Produção:** [pca-guide.joaoxavier.app.br](https://pca-guide.joaoxavier.app.br/)
+- 🧪 **Desenvolvimento:** [pca-guide-dev.joaoxavier.app.br](https://pca-guide-dev.joaoxavier.app.br/)
 
-O site reúne materiais de estudo, anotações e recursos voltados para a certificação Prometheus Certified Associate (PCA).
+O projeto reúne materiais de estudo, anotações técnicas, exemplos e recursos práticos voltados à preparação para a certificação **Prometheus Certified Associate (PCA)**.
 
----
-
-## 🐳 Containers
-
-Dois containers na VPS, um por ambiente:
-
-| Ambiente | Domínio | Container | Porta host | Deploy |
-|----------|---------|-----------|-----------|--------|
-| Prod | `pca-guide.joaoxavier.app.br` | `pca-study-prod` | `127.0.0.1:8081` | push em `main` (`deploy-prod.yml`) |
-| Dev | `pca-guide-dev.joaoxavier.app.br` | `pca-study-dev` | `127.0.0.1:8082` | push em `dev` (`deploy-dev.yml`) |
-
-```bash
-# prod
-docker compose up -d --build
-
-# dev
-docker compose -f docker-compose.dev.yml up -d --build
-```
-
-O nginx do host faz proxy para os dois containers (domínio prod → `8081`, domínio dev → `8082`).
-
-**Setup único na VPS** — config completa do nginx host pronta em [`deploy/nginx-vps.conf`](deploy/nginx-vps.conf) (server blocks prod/dev com TLS e redirect HTTP→HTTPS). Copiar para `/etc/nginx/conf.d/pca-study.conf`, ajustar caminhos dos certificados e rodar `nginx -t && systemctl reload nginx`.
-
-Certificados (uma vez): `certbot certonly --webroot -w /var/www/certbot -d pca-guide.joaoxavier.app.br -d pca-guide-dev.joaoxavier.app.br`
-
-Rollback prod: `docker tag pca-study-prod:previous pca-study-prod:latest && docker compose up -d` (imagem anterior é preservada a cada deploy).
-
+> O ambiente de **produção** contém a versão estável do guia, enquanto o ambiente de **desenvolvimento** pode conter funcionalidades, conteúdos e alterações ainda em validação.
 ---
 
 ## 📖 Referências
