@@ -76,7 +76,7 @@
     background: var(--surface);
     backdrop-filter: blur(12px);
     border-right: 1px solid var(--border);
-    display: flex; flex-direction: column; gap: 2px;
+    display: flex; flex-direction: column; justify-content: center; gap: 2px;
     padding: 16px 0 20px 0;
     transition: width .25s ease;
   }
@@ -101,18 +101,17 @@
   }
   .nav-btn:hover { color: var(--text); background: var(--surface2); }
   /* grupo de navegação centralizado entre a marca (topo) e os controles (fundo) */
-  .nav-spacer, .nav-spacer-top { flex: 1; }
   .nav-btn.active {
     color: var(--accent);
     border-left-color: var(--accent);
     background: rgba(230, 82, 44, 0.08);
     font-weight: 700;
   }
-  /* sidebar brand */
+  /* sidebar brand — fixa no topo, fora do fluxo centralizado */
   .nav-brand {
-    padding: 0 16px 16px 16px;
+    position: absolute; top: 0; left: 0; right: 0;
+    padding: 16px 16px 12px 16px;
     border-bottom: 1px solid var(--border);
-    margin-bottom: 8px;
   }
   .nav-brand-logo {
     display: flex; align-items: center; gap: 10px;
@@ -129,17 +128,20 @@
   }
   /* collapse toggle */
   .nav-toggle {
+    position: absolute; top: 12px; right: 12px;
     display: flex; align-items: center; justify-content: center;
     width: 32px; height: 32px;
     background: var(--surface2); border: 1px solid var(--border);
     border-radius: 8px; cursor: pointer;
     color: var(--muted); transition: all .2s;
-    margin-bottom: 10px; align-self: flex-end; margin-right: 12px;
   }
   .nav-toggle:hover { color: var(--text); border-color: var(--accent); background: var(--surface); }
   /* theme toggle */
-  .nav-lang { display: flex; justify-content: center; margin: 0 16px 8px; }
-  nav.collapsed .nav-lang { flex-direction: column; align-items: center; gap: 6px; margin: 0 auto 8px; }
+  .nav-lang {
+    position: absolute; bottom: 76px; left: 0; right: 0;
+    display: flex; justify-content: center; margin: 0;
+  }
+  nav.collapsed .nav-lang { flex-direction: column; align-items: center; gap: 6px; margin: 0; }
   nav.collapsed .lang-btn {
     width: 34px; height: 34px; padding: 0; font-size: 10px;
     display: flex; align-items: center; justify-content: center;
@@ -148,16 +150,17 @@
   nav.collapsed .lang-btn:first-of-type,
   nav.collapsed .lang-btn:last-of-type { border-radius: 50%; }
   .nav-theme-btn {
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
     background: none; border: 1px solid var(--border);
     border-radius: 8px; padding: 8px 12px; cursor: pointer;
     color: var(--muted); transition: all .2s;
-    font-size: 14px; margin: 8px 16px; text-align: center;
+    font-size: 14px; text-align: center;
   }
   .nav-theme-btn:hover { color: var(--text); border-color: var(--accent); background: var(--surface2); }
   .theme-icon-dark, .theme-icon-light { display: none; }
   [data-theme="dark"] .theme-icon-dark { display: inline; }
   [data-theme="light"] .theme-icon-light { display: inline; }
-  nav.collapsed .nav-theme-btn { font-size: 12px; padding: 6px; margin: 8px auto; border-radius: 50%; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; }
+  nav.collapsed .nav-theme-btn { font-size: 12px; padding: 6px; border-radius: 50%; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; }
   /* chevron de recolher - « aberto, » recolhido */
   .nav-toggle-chev {
     font-family: 'Space Mono', monospace;
@@ -839,7 +842,7 @@
   @media (max-width: 600px) {
     nav {
       position: relative; width: 100%; height: auto;
-      flex-direction: row; padding: 8px 0;
+      flex-direction: row; justify-content: flex-start; padding: 8px 0;
       overflow-x: auto; border-right: none;
       border-bottom: 1px solid var(--border);
     }
@@ -849,10 +852,9 @@
     nav.collapsed .nav-btn { font-size: 10px; padding: 10px 14px; }
     nav.collapsed .nav-btn::before { content: none; }
     .nav-btn { border-left: none; border-bottom: 2px solid transparent; padding: 10px 14px; font-size: 10px; }
-    .nav-spacer-top { display: none; }
     .nav-btn.active { border-left: none; border-bottom-color: var(--accent); }
-    .nav-theme-btn { position: sticky; right: 8px; margin-left: auto; flex-shrink: 0; }
-    .nav-spacer { display: none; }
+    .nav-lang { position: static; margin: 0; }
+    .nav-theme-btn { position: sticky; left: auto; bottom: auto; right: 8px; margin-left: auto; flex-shrink: 0; transform: none; }
     .section { margin-left: 0; padding: 24px 16px; }
     nav.collapsed ~ .section { margin-left: 0; }
     .hero { text-align: left; }
@@ -882,7 +884,6 @@
       </div>
     </div>
   </div>
-  <div class="nav-spacer-top"></div>
   <button class="nav-btn active" onclick="show('about')" aria-current="page" data-icon="🎓" data-i18n="nav.about">🎓 Sobre a Certificação</button>
   <button class="nav-btn" onclick="show('mindmap')" data-icon="🗺️" data-i18n="nav.mindmap">🗺️ Visão Geral</button>
   <button class="nav-btn" onclick="show('plano')" data-icon="📅" data-i18n="nav.plano">📅 Trilha de Estudo</button>
@@ -890,7 +891,6 @@
   <button class="nav-btn" onclick="show('promqlref')" data-icon="📖" data-i18n="nav.promqlref">📖 Referência PromQL</button>
   <button class="nav-btn" onclick="show('quiz')" data-icon="🧠" data-i18n="nav.quiz">🧠 Simulado</button>
   <button class="nav-btn" onclick="show('promql')" data-icon="⚠️" data-i18n="nav.promql">⚠️ Pontos de Atenção</button>
-  <div class="nav-spacer"></div>
   <div class="nav-lang" role="group" aria-label="Idioma">
     <button class="lang-btn active" id="navLangPt" onclick="setSiteLang('pt')">PT</button>
     <button class="lang-btn" id="navLangEn" onclick="setSiteLang('en')">EN</button>
