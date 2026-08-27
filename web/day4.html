@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8">
+<html lang="pt-BR"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -50,7 +50,7 @@ tr:nth-child(even) td{background:#f8fafc}
 hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 .pb{page-break-before:always}
 .avoid{page-break-inside:avoid}
-@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+@media screen and (max-width:600px){body{font-size:10pt}.cols2,.col{display:block;width:100%;padding:0}table,.kv-grid{display:block;overflow-x:auto}}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style></head><body>
 
 <div class="cover-band">
@@ -134,7 +134,7 @@ start_http_server(8000)
 <!-- ═══════════════════════════════════════════════════════ -->
 <h2>2. Naming Convention para Métricas</h2>
 
-<p>Seguir a naming convention é fundamental para consistência e é cobrado na prova.</p>
+<p>Seguir a naming convention é cobrado na prova e mantém as métricas consistentes.</p>
 
 <div class="kv-grid">
   <div class="kv-row"><div class="kv-k">Formato geral</div><div class="kv-v"><code>namespace_subsystem_name_unit</code> em snake_case</div></div>
@@ -450,8 +450,8 @@ scrape_configs:
 <div class="box tip" style="margin-top:14pt">
   <div class="box-title">Material de Estudo para Hoje</div>
   <p><strong>LFS241:</strong> Capítulos 7 (Host Metrics), 8 (Containers), 9 (Instrumenting Code), 10 (Exporters), 12 (Relabeling), 13 (Service Discovery)</p>
-  <p style="margin-top:4pt"><strong>KodeKloud:</strong> <a href="https://learn.kodekloud.com/learn/courses/prometheus-certified-associate-pca" target="_blank" rel="noopener" style="color:#2563eb;">Módulo Exporters e Service Discovery</a><br>
-    <strong>YetMike:</strong> <a href="https://yetmike.com/practice/pca" target="_blank" rel="noopener" style="color:#2563eb;">Simulados estilo PCA</a></p>
+  <p style="margin-top:4pt"><strong>KodeKloud:</strong> <a href="https://learn.kodekloud.com/learn/courses/prometheus-certified-associate-pca" target="_blank" rel="noopener">Módulo Exporters e Service Discovery</a><br>
+    <strong>YetMike:</strong> <a href="https://yetmike.com/practice/pca" target="_blank" rel="noopener">Simulados estilo PCA</a></p>
   <p style="margin-top:4pt"><strong>Prática:</strong> Instale Node Exporter e observe as métricas em /metrics</p>
 </div>
 

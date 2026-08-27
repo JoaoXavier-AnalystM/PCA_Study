@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8">
+<html lang="pt-BR"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -49,7 +49,7 @@ tr:nth-child(even) td{background:#f8fafc}
 .hl{background:#fefce8;font-weight:600}
 hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 .pb{page-break-before:always}
-@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+@media screen and (max-width:600px){body{font-size:10pt}.cols2,.col{display:block;width:100%;padding:0}table,.kv-grid{display:block;overflow-x:auto}}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style></head><body>
 
 <div class="cover-band">
@@ -66,7 +66,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
     <li>Criar alerting rules completas com todos os campos</li>
     <li>Dominar os 3 estados: inactive, pending, firing</li>
     <li>Configurar routing, grouping, silences e inhibition no Alertmanager</li>
-    <li>Entender a diferença crucial entre silence e inhibition</li>
+    <li>Entender a diferença essencial entre silence e inhibition</li>
     <li>Configurar Grafana com datasource Prometheus</li>
     <li>Usar variáveis e templates em dashboards Grafana</li>
   </ul>
@@ -398,8 +398,8 @@ sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
 <div class="box tip" style="margin-top:14pt">
   <div class="box-title">Material de Estudo para Hoje</div>
   <p><strong>LFS241:</strong> Capitulos 13 (Alerting Rules), 14 (Alertmanager), 16 (Grafana)</p>
-  <p style="margin-top:4pt"><strong>KodeKloud:</strong> <a href="https://learn.kodekloud.com/learn/courses/prometheus-certified-associate-pca" target="_blank" rel="noopener" style="color:#2563eb;">Modulo Alerting e Dashboarding</a><br>
-    <strong>YetMike:</strong> <a href="https://yetmike.com/practice/pca" target="_blank" rel="noopener" style="color:#2563eb;">Simulados estilo PCA</a></p>
+  <p style="margin-top:4pt"><strong>KodeKloud:</strong> <a href="https://learn.kodekloud.com/learn/courses/prometheus-certified-associate-pca" target="_blank" rel="noopener">Modulo Alerting e Dashboarding</a><br>
+    <strong>YetMike:</strong> <a href="https://yetmike.com/practice/pca" target="_blank" rel="noopener">Simulados estilo PCA</a></p>
   <p style="margin-top:4pt"><strong>Pratica:</strong> Configure uma alerting rule e veja o alerta transitar pelos 3 estados</p>
 </div>
 

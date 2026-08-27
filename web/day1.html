@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8">
+<html lang="pt-BR"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -52,7 +52,7 @@ tr:nth-child(even) td{background:#f8fafc}
 hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 .pb{page-break-before:always}
 .avoid{page-break-inside:avoid}
-@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+@media screen and (max-width:600px){body{font-size:10pt}.cols2,.col{display:block;width:100%;padding:0}table,.kv-grid{display:block;overflow-x:auto}}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style></head><body>
 
 <div class="cover-band">
@@ -80,7 +80,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 <!-- ═══════════════════════════════════════════════════════ -->
 <h2>1. Os Três Pilares da Observabilidade</h2>
 
-<p>Observabilidade é a capacidade de entender o estado interno de um sistema a partir de suas saídas externas. Os três pilares são complementares — não substitutos.</p>
+<p>Observabilidade é a capacidade de entender o estado interno de um sistema a partir de suas saídas externas. Os três pilares são complementares, não substitutos.</p>
 
 <table>
   <tr><th>Pilar</th><th>O que é</th><th>Formato</th><th>Melhor para</th><th>Exemplo</th></tr>
@@ -176,7 +176,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 
 <div class="cols2">
 <div class="col">
-<h3>Histogram vs Summary — Diferença Crucial</h3>
+<h3>Histogram vs Summary: Diferença essencial</h3>
 <div class="kv-grid">
   <div class="kv-row"><div class="kv-k">Cálculo do percentil</div><div class="kv-v"><strong>Histogram:</strong> servidor (Prometheus)<br><strong>Summary:</strong> cliente (aplicação)</div></div>
   <div class="kv-row"><div class="kv-k">Agregação multi-instância</div><div class="kv-v"><strong>Histogram:</strong> ✅ possível<br><strong>Summary:</strong> ❌ não possível</div></div>
@@ -421,7 +421,7 @@ scrape_configs:
   <li>Memoricei as portas: 9090, 9091, 9093, 9100, 3000</li>
   <li>Conheço os componentes da arquitetura: Prometheus, TSDB, Exporters, Alertmanager</li>
   <li>Sei diferenciar Counter, Gauge, Histogram e Summary</li>
-  <li>Entendo a diferença crucial entre Histogram e Summary (server-side vs client-side)</li>
+  <li>Entendo a diferença essencial entre Histogram e Summary (server-side vs client-side)</li>
   <li>Conheço o formato de exposição de métricas (# HELP, # TYPE, samples)</li>
   <li>Sei as limitações do Prometheus e as soluções para long-term storage</li>
   <li>Conheço os tipos de Service Discovery disponíveis</li>
@@ -433,8 +433,8 @@ scrape_configs:
 <div class="box tip" style="margin-top:14pt">
   <div class="box-title">Material de Estudo para Hoje</div>
   <p><strong>LFS241:</strong> Capítulos 2 (Observability), 3 (Intro Prometheus) e 4 (Setup)</p>
-  <p style="margin-top:4pt"><strong>KodeKloud:</strong> <a href="https://learn.kodekloud.com/learn/courses/prometheus-certified-associate-pca" target="_blank" rel="noopener" style="color:#2563eb;">Módulos 1-2 (Observability Fundamentals + Prometheus Architecture)</a><br>
-    <strong>YetMike:</strong> <a href="https://yetmike.com/practice/pca" target="_blank" rel="noopener" style="color:#2563eb;">Simulados estilo PCA</a></p>
+  <p style="margin-top:4pt"><strong>KodeKloud:</strong> <a href="https://learn.kodekloud.com/learn/courses/prometheus-certified-associate-pca" target="_blank" rel="noopener">Módulos 1-2 (Observability Fundamentals + Prometheus Architecture)</a><br>
+    <strong>YetMike:</strong> <a href="https://yetmike.com/practice/pca" target="_blank" rel="noopener">Simulados estilo PCA</a></p>
   <p style="margin-top:4pt"><strong>Docs:</strong> prometheus.io/docs/concepts/data_model/ e /metric_types/</p>
 </div>
 

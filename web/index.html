@@ -198,8 +198,13 @@
   .tag-obs { background: #2a1e3a; color: var(--accent4); }
   .tag-alert { background: #3a1e1e; color: var(--accent3); }
   .tag-inst { background: #2a2a1e; color: var(--accent); }
+  [data-theme="light"] .tag-promql { background: #ddf3e8; color: #0d7d4a; }
+  [data-theme="light"] .tag-fund { background: #dcebf8; color: #14699b; }
+  [data-theme="light"] .tag-obs { background: #ece3f9; color: #6d3ae0; }
+  [data-theme="light"] .tag-alert { background: #fbe3e3; color: #b33535; }
+  [data-theme="light"] .tag-inst { background: #f7ecd9; color: #9a5415; }
 
-  /* ======= PLANO DE ESTUDOS ======= */
+  /* ======= TRILHA DE ESTUDOS ======= */
   .week-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
@@ -253,25 +258,6 @@
     font-family: 'Space Mono', monospace; line-height: 1.6;
   }
   .day-source .title { font-weight: 700; color: var(--text); margin-bottom: 3px; font-size: 10px; text-transform: uppercase; letter-spacing: .5px; }
-  .exam-info {
-    display: grid; grid-template-columns: repeat(5, 1fr);
-    gap: 10px; margin-bottom: 32px;
-  }
-  .exam-stat {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 10px; padding: 18px 12px;
-    text-align: center; border-top: 3px solid var(--accent);
-  }
-  .exam-stat:nth-child(1) { border-top-color: var(--accent2); }
-  .exam-stat:nth-child(2) { border-top-color: var(--accent4); }
-  .exam-stat:nth-child(3) { border-top-color: var(--accent3); }
-  .exam-stat:nth-child(4) { border-top-color: var(--promql); }
-  .exam-stat:nth-child(5) { border-top-color: var(--accent); }
-  .exam-stat .val { font-size: 1.7rem; font-weight: 800; color: var(--text); }
-  .exam-stat .lbl { font-size: 10px; color: var(--muted); margin-top: 4px; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: .5px; }
-  @media (max-width: 768px) { .exam-info { grid-template-columns: repeat(3, 1fr); } }
-  @media (max-width: 450px) { .exam-info { grid-template-columns: repeat(2, 1fr); } }
-
   /* ======= CHEAT SHEET ======= */
   .cheat-grid {
     /* masonry: alturas naturais, sem esticar card na linha do grid */
@@ -396,7 +382,7 @@
   }
   .question-text {
     font-size: 15px; font-weight: 600; margin-bottom: 20px;
-    line-height: 1.5;
+    line-height: 1.5; overflow-wrap: anywhere;
   }
   .options { display: flex; flex-direction: column; gap: 8px; }
   .option-btn {
@@ -405,6 +391,7 @@
     cursor: pointer; text-align: left; font-family: 'Syne', sans-serif;
     font-size: 13px; color: var(--text); transition: all .15s;
     display: flex; gap: 10px; align-items: flex-start;
+    overflow-wrap: anywhere;
   }
   .option-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
   .option-btn.correct { background: #1a3d2e; border-color: var(--promql); color: var(--promql); }
@@ -428,12 +415,19 @@
   .quiz-block { border: 1px solid var(--border); border-radius: 8px; margin: 10px 0; overflow: hidden; background: var(--surface); }
   .quiz-q { padding: 10px 14px; font-weight: 600; background: var(--surface2); border-bottom: 1px solid var(--border); }
   .quiz-opts { padding: 8px 14px; display: flex; flex-direction: column; gap: 4px; }
-  .quiz-opt { padding: 6px 8px; border-radius: 6px; font-size: 13px; }
+  .quiz-opt { padding: 6px 8px; border-radius: 6px; font-size: 13px; overflow-wrap: anywhere; }
   .quiz-block:not([data-answered="1"]) .quiz-opt:hover { background: var(--surface2); cursor: pointer; }
   .quiz-opt.quiz-correct { background: #1a3d2e; color: var(--promql); }
   .quiz-opt.quiz-wrong { background: #3a1e1e; color: var(--accent3); }
   .quiz-ans { padding: 8px 14px; background: #14351f; border-top: 1px solid var(--border); color: var(--promql); font-size: 13px; }
   .quiz-exp { padding: 8px 14px; color: var(--muted); font-size: 12.5px; border-top: 1px dashed var(--border); }
+  /* tema claro: fundos claros + texto escuro (AA ≥4.5:1) */
+  [data-theme="light"] .option-btn.correct,
+  [data-theme="light"] .option-btn.reveal { background: #e2f7ec; border-color: #0d7d4a; color: #0d7d4a; }
+  [data-theme="light"] .option-btn.wrong { background: #fde8e8; border-color: #b33535; color: #b33535; }
+  [data-theme="light"] .quiz-opt.quiz-correct { background: #e2f7ec; color: #0d7d4a; }
+  [data-theme="light"] .quiz-opt.quiz-wrong { background: #fde8e8; color: #b33535; }
+  [data-theme="light"] .quiz-ans { background: #e2f7ec; color: #0d7d4a; }
 
   /* checklist dos planos de estudo (CSS do day é stripado na injeção) */
   .checklist { list-style: none; margin: 6pt 0 6pt 14pt; }
@@ -485,8 +479,9 @@
   [data-theme="light"] #dayStudyContent .box.dark { border-left-color: #b3a14a; }
   [data-theme="light"] #dayStudyContent .box.dark .box-title { color: #6d5c00; }
   #dayStudyContent table {
-    width: 100%; border-collapse: collapse; margin: 12px 0;
-    font-size: 12.5px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+    display: block; overflow-x: auto; width: 100%;
+    border-collapse: collapse; margin: 12px 0;
+    font-size: 12.5px; border: 1px solid var(--border); border-radius: 8px;
   }
   #dayStudyContent th {
     background: var(--surface2); color: var(--text);
@@ -501,7 +496,7 @@
     border: 1px solid var(--border); border-radius: 8px;
     padding: 12px 14px; margin: 10px 0; white-space: pre-wrap; word-break: break-all;
   }
-  #dayStudyContent .kv-grid { display: table; width: 100%; border: 1px solid var(--border); border-radius: 8px; margin: 10px 0; overflow: hidden; }
+  #dayStudyContent .kv-grid { display: block; overflow-x: auto; width: 100%; border: 1px solid var(--border); border-radius: 8px; margin: 10px 0; }
   #dayStudyContent .kv-row { display: table-row; }
   #dayStudyContent .kv-k {
     display: table-cell; padding: 7px 12px; font-weight: 700; font-size: 11px;
@@ -510,7 +505,7 @@
   }
   #dayStudyContent .kv-v { display: table-cell; padding: 7px 12px; font-size: 12.5px; border-bottom: 1px solid var(--border); vertical-align: middle; }
   #dayStudyContent .cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 10px 0; }
-  @media (max-width: 700px) { #dayStudyContent .cols2 { grid-template-columns: 1fr; } }
+  @media (max-width: 700px) { #dayStudyContent .cols2 { flex-direction: column; } }
   #dayStudyContent h3 { color: var(--accent2); margin-top: 16px; }
   #dayStudyContent .hl { background: rgba(230,82,44,.08); font-weight: 700; }
 
@@ -779,7 +774,8 @@
     page-break-inside: avoid;
   }
   .day-study-content table {
-    width: 100%; border-collapse: collapse; margin: 10px 0;
+    display: block; overflow-x: auto; width: 100%;
+    border-collapse: collapse; margin: 10px 0;
     font-size: 13px; page-break-inside: avoid;
   }
   .day-study-content th {
@@ -792,8 +788,8 @@
   }
   .day-study-content tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
   .day-study-content .kv-grid {
-    display: table; width: 100%; border: 1px solid var(--border);
-    border-radius: 6px; margin: 10px 0; overflow: hidden;
+    display: block; overflow-x: auto; width: 100%; border: 1px solid var(--border);
+    border-radius: 6px; margin: 10px 0;
     page-break-inside: avoid;
   }
   .day-study-content .kv-row { display: table-row; }
@@ -841,6 +837,8 @@
     nav.collapsed .nav-btn::before { content: none; }
     .nav-btn { border-left: none; border-bottom: 2px solid transparent; padding: 10px 14px; font-size: 10px; }
     .nav-btn.active { border-left: none; border-bottom-color: var(--accent); }
+    .nav-theme-btn { position: sticky; right: 8px; margin-left: auto; flex-shrink: 0; }
+    .nav-spacer { display: none; }
     .section { margin-left: 0; padding: 24px 16px; }
     nav.collapsed ~ .section { margin-left: 0; }
     .hero { text-align: left; }
@@ -863,7 +861,7 @@
   </button>
   <div class="nav-brand" onclick="show('about')" title="Sobre a certificação" style="cursor:pointer;">
     <div class="nav-brand-logo">
-      <img class="nav-brand-badge" src="https://training.linuxfoundation.org/wp-content/uploads/2022/04/Training_Badge_Prometheus_V2-2-300x300.png" alt="PCA Badge" loading="eager">
+      <img class="nav-brand-badge" src="pca-badge.png" alt="PCA Badge" loading="eager">
       <div>
         <div class="nav-brand-title nav-brand-logo-text">PCA</div>
         <div class="nav-brand-sub nav-brand-logo-text">Prometheus Certified Associate</div>
@@ -872,7 +870,7 @@
   </div>
   <button class="nav-btn active" onclick="show('about')" aria-current="page" data-icon="🎓">🎓 Sobre a Certificação</button>
   <button class="nav-btn" onclick="show('mindmap')" data-icon="🗺️">🗺️ Visão Geral</button>
-  <button class="nav-btn" onclick="show('plano')" data-icon="📅">📅 Plano de Estudo</button>
+  <button class="nav-btn" onclick="show('plano')" data-icon="📅">📅 Trilha de Estudo</button>
   <button class="nav-btn" onclick="show('cheat')" data-icon="📋">📋 Resumo Rápido</button>
   <button class="nav-btn" onclick="show('promqlref')" data-icon="📖">📖 Referência PromQL</button>
   <button class="nav-btn" onclick="show('quiz')" data-icon="🧠">🧠 Simulado (50 Questões)</button>
@@ -885,25 +883,24 @@
 </nav>
 
 <!-- ============================================================ -->
-<!--  PLANO DE ESTUDOS                                            -->
+<!--  TRILHA DE ESTUDOS                                            -->
 <!-- ============================================================ -->
 <div id="plano" class="section">
   <div class="hero">
     <div class="hero-body">
       <div class="hero-badge">PROMETHEUS CERTIFIED ASSOCIATE</div>
       <h1>Trilha de Estudos</h1>
-      <p>7 tópicos essenciais para a certificação PCA</p>
     </div>
     <img class="hero-badge-img" src="https://training.linuxfoundation.org/wp-content/uploads/2022/04/Training_Badge_Prometheus_V2-2-300x300.png" alt="PCA Badge">
   </div>
 
   <h2>Distribuição de Domínios</h2>
   <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px;">
-    <div class="tag tag-promql">PromQL 28%</div>
-    <div class="tag tag-fund">Fundamentos 20%</div>
-    <div class="tag tag-obs">Observability 18%</div>
-    <div class="tag tag-alert">Alerting & Dash 18%</div>
-    <div class="tag tag-inst">Instrumentação 16%</div>
+    <div class="tag tag-promql">PromQL</div>
+    <div class="tag tag-fund">Fundamentos</div>
+    <div class="tag tag-obs">Observability</div>
+    <div class="tag tag-alert">Alerting & Dashboards</div>
+    <div class="tag tag-inst">Instrumentação</div>
   </div>
 
   <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
@@ -1298,7 +1295,7 @@
     </div>
 
     <!-- ===== LIMITAÇÕES ===== -->
-    <div class="cheat-card c-green">
+    <div class="cheat-card c-blue">
       <h3><span class="tag tag-fund">Fundamentos</span> ⚠️ Limitações do Prometheus</h3>
       <div class="cheat-item"><span class="cheat-key">Não é ideal para</span><span class="cheat-val">Logs, eventos, 100% precisão</span></div>
       <div class="cheat-item"><span class="cheat-key">Long-term storage</span><span class="cheat-val">Thanos, Cortex, VictoriaMetrics (remote_write)</span></div>
@@ -2107,7 +2104,6 @@ function toggleTheme() {
 applyTheme(getTheme());
 
 function show(id) {
-  window.scrollTo({ top: 0, behavior: 'instant' });
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => {
     b.classList.remove('active');
@@ -2125,6 +2121,8 @@ function show(id) {
 // ============================================================
 // DAY STUDY NAVIGATION
 // ============================================================
+let dayReqSeq = 0;
+
 function loadDayStudy(dayNum) {
   const container = document.getElementById('dayStudyContainer');
   const content = document.getElementById('dayStudyContent');
@@ -2145,9 +2143,11 @@ function loadDayStudy(dayNum) {
   content.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted)">Carregando...</div>';
   container.style.display = 'block';
 
+  const reqId = ++dayReqSeq;
   fetch('day' + dayNum + '.html')
     .then(r => r.text())
     .then(html => {
+      if (reqId !== dayReqSeq) return; // clique mais recente em outro dia — descarta resposta antiga
       // extract body content and strip the style/script blocks
       var bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
       var body = bodyMatch ? bodyMatch[1] : html;
@@ -2159,17 +2159,20 @@ function loadDayStudy(dayNum) {
       // wrap in a div with scoped class
       content.innerHTML = body;
       initDayQuizzes(content);
+      // marca como revisado só depois que o conteúdo carregou
+      let visited;
+      try { visited = JSON.parse(localStorage.getItem('pca_visited_days') || '[]'); }
+      catch (e) { visited = []; }
+      if (!visited.includes(dayNum)) {
+        visited.push(dayNum);
+        localStorage.setItem('pca_visited_days', JSON.stringify(visited));
+      }
+      markVisitedDays(visited);
     })
     .catch(function() {
+      if (reqId !== dayReqSeq) return;
       content.innerHTML = '<div style="text-align:center;padding:40px;color:var(--accent3)">Erro ao carregar conteúdo.</div>';
     });
-
-  const visited = JSON.parse(localStorage.getItem('pca_visited_days') || '[]');
-  if (!visited.includes(dayNum)) {
-    visited.push(dayNum);
-    localStorage.setItem('pca_visited_days', JSON.stringify(visited));
-  }
-  markVisitedDays(visited);
 
   setTimeout(() => {
     container.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -2273,7 +2276,7 @@ let quizLang = 'pt';
 
 const L = {
   pt: { title:'50 Questões Estilo PCA', sub:'Clique na alternativa para responder · Veja a explicação logo abaixo', all:'Todas (50)', fund:'Fundamentos', inst:'Instrumentação', reset:'🔄 Reiniciar Quiz', hint:'Idioma da prova: inglês · treine nas duas', ariaOk:'Correto', ariaNo:'Incorreto' },
-  en: { title:'50 PCA-Style Questions', sub:'Click an option to answer · Explanation below', all:'All (50)', fund:'Fundamentals', inst:'Instrumentation', reset:'🔄 Restart Quiz', hint:'Exam language: English · practice in both', ariaOk:'Correct', ariaNo:'Incorrect' }
+  en: { title:'50 PCA-Style Questions', sub:'Click an option to answer · Explanation below', all:'All (50)', fund:'Fundamentals', inst:'Instrumentation', reset:'🔄 Restart Quiz', hint:'Exam language: English · practice in both', ariaOk:'Correct', ariaNo:'Incorrect', domains:{Observability:'Observability',Fundamentos:'Fundamentals',PromQL:'PromQL',Alerting:'Alerting',Instrumentação:'Instrumentation'} }
 };
 
 function applyLangUI() {
@@ -2302,13 +2305,17 @@ function setQuizLang(lang) {
   const savedTotal = localStorage.getItem('pca_quiz_total');
   const savedLang = localStorage.getItem('pca_quiz_lang');
   if (savedAnswered) {
-    const parsed = JSON.parse(savedAnswered);
-    Object.assign(answered, parsed);
-    score = parseInt(savedScore || '0', 10);
-    total = parseInt(savedTotal || '0', 10);
+    try {
+      const parsed = JSON.parse(savedAnswered);
+      Object.assign(answered, parsed);
+      score = parseInt(savedScore || '0', 10);
+      total = parseInt(savedTotal || '0', 10);
+    } catch (e) { /* storage corrompido — recomeça do zero */ }
   }
   if (savedLang === 'en') quizLang = 'en';
-  const visitedDays = JSON.parse(localStorage.getItem('pca_visited_days') || '[]');
+  let visitedDays = [];
+  try { visitedDays = JSON.parse(localStorage.getItem('pca_visited_days') || '[]'); }
+  catch (e) { visitedDays = []; }
   if (visitedDays.length > 0) {
     setTimeout(() => markVisitedDays(visitedDays), 0);
   }
@@ -2317,7 +2324,7 @@ function setQuizLang(lang) {
 
 function filterQuiz(domain) {
   currentFilter = domain;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#quiz .filter-btn').forEach(b => b.classList.remove('active'));
   event.target.classList.add('active');
   renderQuiz();
 }
@@ -2340,10 +2347,11 @@ function renderQuiz() {
 
     const card = document.createElement('div');
     card.className = 'question-card';
+    const qDomain = en && L.en.domains[q.domain] ? L.en.domains[q.domain] : q.domain;
     card.innerHTML = `
       <div class="question-num">
         <span>Q${i+1}</span>
-        <span class="tag tag-${domainTag(q.domain)}">${q.domain}</span>
+        <span class="tag tag-${domainTag(q.domain)}">${qDomain}</span>
       </div>
       <div class="question-text">${qText}</div>
       <div class="options">
@@ -2408,7 +2416,10 @@ function initDayQuizzes(root) {
     const expEl = block.querySelector('.quiz-exp');
     if (!ansEl || !expEl) return;
     const answerLetter = (ansEl.textContent.match(/Resposta:\s*([A-E])/i) || [])[1];
-    if (!answerLetter) return;
+    if (!answerLetter) {
+      console.warn('Quiz de day page ignorado — formato de resposta não reconhecido em:', (block.textContent || '').slice(0, 80));
+      return;
+    }
     ansEl.style.display = 'none';
     expEl.style.display = 'none';
     block.querySelectorAll('.quiz-opt').forEach(opt => {
@@ -2432,12 +2443,13 @@ function initDayQuizzes(root) {
 }
 
 function updateScore() {
-  document.getElementById('scoreDisplay').textContent = `Score: ${score}/${total}`;
+  const en = quizLang === 'en';
+  document.getElementById('scoreDisplay').textContent = en ? `Score: ${score}/${total}` : `Pontuação: ${score}/${total}`;
   const pct = total > 0 ? Math.round(score/total*100) : 0;
-  document.getElementById('progressDisplay').textContent = total > 0 ? `${pct}% correto` : '';
+  document.getElementById('progressDisplay').textContent = total > 0 ? (en ? `${pct}% correct` : `${pct}% correto`) : '';
   const final = document.getElementById('finalScore');
   if (total === questions.length) {
-    final.textContent = `Resultado final: ${score}/${questions.length} (${pct}%)`;
+    final.textContent = en ? `Final result: ${score}/${questions.length} (${pct}%)` : `Resultado final: ${score}/${questions.length} (${pct}%)`;
     final.style.color = pct >= 75 ? 'var(--promql)' : 'var(--accent3)';
   }
 }
