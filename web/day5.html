@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8">
+<html lang="pt-BR"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:10.5pt;line-height:1.55;color:#1a1a2e;background:#fff}
-h1,h2,h3,h4,h5,h6{font-family:'Syne',sans-serif}
+h1,h2,h3,h4,h5,h6{font-family:'Bricolage Grotesque','Syne',sans-serif}
 @page{size:A4;margin:18mm 16mm 18mm 16mm;}
 .cover-band{width:100%;padding:18pt 22pt 14pt;margin-bottom:18pt;border-radius:6pt;background:#4a1942;color:#fae8ff;page-break-after:avoid}
 .cover-band .day-label{font-size:9pt;font-weight:700;letter-spacing:2pt;text-transform:uppercase;opacity:.7;margin-bottom:4pt}
@@ -49,7 +49,7 @@ tr:nth-child(even) td{background:#f8fafc}
 .hl{background:#fefce8;font-weight:600}
 hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 .pb{page-break-before:always}
-@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+@media screen and (max-width:600px){body{font-size:10pt}.cols2,.col{display:block;width:100%;padding:0}table,.kv-grid{display:block;overflow-x:auto}}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style></head><body>
 
 <div class="cover-band">
@@ -66,13 +66,13 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
     <li>Criar alerting rules completas com todos os campos</li>
     <li>Dominar os 3 estados: inactive, pending, firing</li>
     <li>Configurar routing, grouping, silences e inhibition no Alertmanager</li>
-    <li>Entender a diferença crucial entre silence e inhibition</li>
+    <li>Entender a diferença essencial entre silence e inhibition</li>
     <li>Configurar Grafana com datasource Prometheus</li>
     <li>Usar variáveis e templates em dashboards Grafana</li>
   </ul>
 </div>
 
-<h2>1. Alerting Rules — Estrutura Completa</h2>
+<h2>1. Alerting Rules - Estrutura Completa</h2>
 
 <pre>
 groups:
@@ -108,13 +108,13 @@ groups:
 </pre>
 
 <div class="box dark">
-  <div class="box-title">Campos — O que cai na prova</div>
+  <div class="box-title">Campos - O que cai na prova</div>
   <p style="font-size:9pt;line-height:1.9;margin-top:4pt;">
     <strong>alert:</strong> nome unico do alerta<br>
-    <strong>expr:</strong> expressao PromQL — quando retorna dados, ativa o alerta<br>
+    <strong>expr:</strong> expressao PromQL - quando retorna dados, ativa o alerta<br>
     <strong>for:</strong> tempo minimo em pending para evitar falsos positivos<br>
-    <strong>labels:</strong> adicionados ao alerta — usados para ROTEAMENTO<br>
-    <strong>annotations:</strong> info legivel — summary, description, runbook — NAO usado para rotear
+    <strong>labels:</strong> adicionados ao alerta - usados para ROTEAMENTO<br>
+    <strong>annotations:</strong> info legivel - summary, description, runbook - NAO usado para rotear
   </p>
 </div>
 
@@ -122,9 +122,9 @@ groups:
 
 <table>
   <tr><th>Estado</th><th>Quando ocorre</th><th>Visivel no Alertmanager?</th></tr>
-  <tr><td><strong>inactive</strong></td><td>Expressao retorna 0 ou vazia — condicao nao satisfeita</td><td>Nao</td></tr>
+  <tr><td><strong>inactive</strong></td><td>Expressao retorna 0 ou vazia - condicao nao satisfeita</td><td>Nao</td></tr>
   <tr class="hl"><td><strong>pending</strong></td><td>Condicao satisfeita, mas ainda dentro do tempo do campo "for"</td><td>Nao</td></tr>
-  <tr><td><strong>firing</strong></td><td>Condicao satisfeita por mais tempo que o "for" — alerta enviado</td><td>Sim</td></tr>
+  <tr><td><strong>firing</strong></td><td>Condicao satisfeita por mais tempo que o "for" - alerta enviado</td><td>Sim</td></tr>
 </table>
 
 <div class="cols2">
@@ -158,7 +158,7 @@ ALERTS
   <p>Sem <code>for:</code>, o alerta vai de <strong>inactive diretamente para firing</strong> no primeiro scrape que satisfizer a condicao. Sempre use <code>for:</code> para evitar alertas em picos momentaneos.</p>
 </div>
 
-<h2>3. Alertmanager — Configuracao Completa</h2>
+<h2>3. Alertmanager - Configuracao Completa</h2>
 
 <pre>
 # alertmanager.yml
@@ -208,7 +208,7 @@ inhibit_rules:
     equal: ['alertname', 'cluster']  # com estes labels iguais
 </pre>
 
-<h2>4. Timing do Alertmanager — Muito Cobrado</h2>
+<h2>4. Timing do Alertmanager - Muito Cobrado</h2>
 
 <table>
   <tr><th>Campo</th><th>O que controla</th><th>Padrao</th></tr>
@@ -222,19 +222,19 @@ inhibit_rules:
 
 <div class="cols2">
 <div class="col">
-<h3>Silence — Mute Manual</h3>
+<h3>Silence - Mute Manual</h3>
 <div class="box warn" style="margin-top:0">
   <p><strong>O que e:</strong> Supressao manual temporaria de alertas.</p>
   <p style="margin-top:6pt"><strong>Como criar:</strong> Via UI do Alertmanager ou API. Define matchers de labels + periodo de tempo.</p>
   <p style="margin-top:6pt"><strong>Quando usar:</strong> Maintenance window, deploy planejado, falso positivo conhecido.</p>
-  <p style="margin-top:6pt"><strong>Configuracao:</strong> Via interface — nao fica em arquivo YAML.</p>
+  <p style="margin-top:6pt"><strong>Configuracao:</strong> Via interface - nao fica em arquivo YAML.</p>
 </div>
 </div>
 <div class="col">
-<h3>Inhibition — Supressao Automatica</h3>
+<h3>Inhibition - Supressao Automatica</h3>
 <div class="box danger" style="margin-top:0">
   <p><strong>O que e:</strong> Regra que suprime alertas automaticamente quando outro alerta esta ativo.</p>
-  <p style="margin-top:6pt"><strong>Exemplo:</strong> Host down suprime todos os alertas de apps nesse host — causa raiz ja conhecida.</p>
+  <p style="margin-top:6pt"><strong>Exemplo:</strong> Host down suprime todos os alertas de apps nesse host - causa raiz ja conhecida.</p>
   <p style="margin-top:6pt"><strong>Quando usar:</strong> Evitar spam de alertas secundarios quando ha uma causa raiz.</p>
   <p style="margin-top:6pt"><strong>Configuracao:</strong> No arquivo alertmanager.yml, campo <code>inhibit_rules</code>.</p>
 </div>
@@ -249,7 +249,7 @@ inhibit_rules:
   <tr><td>Caso de uso</td><td>Maintenance window</td><td>Host down suprime alertas de app</td></tr>
 </table>
 
-<h2>6. Grafana — Integracao com Prometheus</h2>
+<h2>6. Grafana - Integracao com Prometheus</h2>
 
 <div class="kv-grid">
   <div class="kv-row"><div class="kv-k">Porta padrao</div><div class="kv-v"><code>:3000</code></div></div>
@@ -286,10 +286,10 @@ sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
 <div class="quiz-block">
   <div class="quiz-q">Q1. Qual o estado de um alerta cuja condicao foi satisfeita mas o campo "for: 10m" ainda nao expirou?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) firing — ja esta ativo</div>
-    <div class="quiz-opt">B) inactive — ainda nao e um alerta real</div>
-    <div class="quiz-opt">C) pending — condicao ativa mas aguardando confirmacao do "for"</div>
-    <div class="quiz-opt">D) warning — estado intermediario</div>
+    <div class="quiz-opt">A) firing - ja esta ativo</div>
+    <div class="quiz-opt">B) inactive - ainda nao e um alerta real</div>
+    <div class="quiz-opt">C) pending - condicao ativa mas aguardando confirmacao do "for"</div>
+    <div class="quiz-opt">D) warning - estado intermediario</div>
   </div>
   <div class="quiz-ans">Resposta: C</div>
   <div class="quiz-exp">pending: condicao satisfeita mas dentro do tempo do "for". Apos o "for" expirar, vai para firing. Sem campo "for", vai direto de inactive para firing.</div>
@@ -298,13 +298,13 @@ sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
 <div class="quiz-block">
   <div class="quiz-q">Q2. Qual a diferenca entre "labels" e "annotations" em uma alerting rule?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Sao equivalentes — apenas nomes diferentes</div>
+    <div class="quiz-opt">A) Sao equivalentes - apenas nomes diferentes</div>
     <div class="quiz-opt">B) labels sao usados para roteamento no Alertmanager; annotations sao informacoes legiveis por humanos</div>
     <div class="quiz-opt">C) annotations sao usados para roteamento; labels sao descritivos</div>
     <div class="quiz-opt">D) labels ficam no Prometheus; annotations ficam no Grafana</div>
   </div>
   <div class="quiz-ans">Resposta: B</div>
-  <div class="quiz-exp">labels: adicionados ao alerta e usados pelo Alertmanager para routing (match/match_re nas routes). annotations: informacoes textuais para humanos como summary, description e runbook_url — NAO participam do roteamento.</div>
+  <div class="quiz-exp">labels: adicionados ao alerta e usados pelo Alertmanager para routing (match/match_re nas routes). annotations: informacoes textuais para humanos como summary, description e runbook_url - NAO participam do roteamento.</div>
 </div>
 
 <div class="quiz-block">
@@ -325,7 +325,7 @@ sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
     <div class="quiz-opt">A) Silence e permanente; Inhibition e temporario</div>
     <div class="quiz-opt">B) Silence e supressao manual por periodo; Inhibition e supressao automatica baseada em outro alerta ativo</div>
     <div class="quiz-opt">C) Silence funciona por labels; Inhibition funciona por tempo</div>
-    <div class="quiz-opt">D) Sao identicos — apenas nomes diferentes na UI</div>
+    <div class="quiz-opt">D) Sao identicos - apenas nomes diferentes na UI</div>
   </div>
   <div class="quiz-ans">Resposta: B</div>
   <div class="quiz-exp">Silence: humano cria manualmente via UI/API para um periodo (ex: maintenance). Inhibition: regra no alertmanager.yml que suprime automaticamente alertas "filhos" quando um alerta "pai" esta firing (ex: host down suprime alertas das apps nesse host).</div>
@@ -352,7 +352,7 @@ sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
     <div class="quiz-opt">D) Desabilita o repeat_interval para este receiver</div>
   </div>
   <div class="quiz-ans">Resposta: B</div>
-  <div class="quiz-exp">Por padrao, um alerta que faz match em uma sub-route para de ser avaliado nas proximas. "continue: true" faz o contrario — permite que o alerta continue sendo avaliado nas routes subsequentes mesmo apos um match.</div>
+  <div class="quiz-exp">Por padrao, um alerta que faz match em uma sub-route para de ser avaliado nas proximas. "continue: true" faz o contrario - permite que o alerta continue sendo avaliado nas routes subsequentes mesmo apos um match.</div>
 </div>
 
 <div class="quiz-block">
@@ -376,7 +376,7 @@ sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
     <div class="quiz-opt">D) Define a ordem de prioridade dos alertas</div>
   </div>
   <div class="quiz-ans">Resposta: B</div>
-  <div class="quiz-exp">group_by: ['alertname', 'cluster'] — alertas com os mesmos valores nesses labels sao agrupados e enviados juntos em uma notificacao. Reduz ruido quando multiplos alertas do mesmo tipo disparam ao mesmo tempo.</div>
+  <div class="quiz-exp">group_by: ['alertname', 'cluster'] - alertas com os mesmos valores nesses labels sao agrupados e enviados juntos em uma notificacao. Reduz ruido quando multiplos alertas do mesmo tipo disparam ao mesmo tempo.</div>
 </div>
 
 <div class="pb"></div>
@@ -398,8 +398,8 @@ sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
 <div class="box tip" style="margin-top:14pt">
   <div class="box-title">Material de Estudo para Hoje</div>
   <p><strong>LFS241:</strong> Capitulos 13 (Alerting Rules), 14 (Alertmanager), 16 (Grafana)</p>
-  <p style="margin-top:4pt"><strong>KodeKloud:</strong> <a href="https://learn.kodekloud.com/learn/courses/prometheus-certified-associate-pca" target="_blank" rel="noopener" style="color:#2563eb;">Modulo Alerting e Dashboarding</a><br>
-    <strong>YetMike:</strong> <a href="https://yetmike.com/practice/pca" target="_blank" rel="noopener" style="color:#2563eb;">Simulados estilo PCA</a></p>
+  <p style="margin-top:4pt"><strong>KodeKloud:</strong> <a href="https://learn.kodekloud.com/learn/courses/prometheus-certified-associate-pca" target="_blank" rel="noopener">Modulo Alerting e Dashboarding</a><br>
+    <strong>YetMike:</strong> <a href="https://yetmike.com/practice/pca" target="_blank" rel="noopener">Simulados estilo PCA</a></p>
   <p style="margin-top:4pt"><strong>Pratica:</strong> Configure uma alerting rule e veja o alerta transitar pelos 3 estados</p>
 </div>
 

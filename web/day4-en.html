@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:10.5pt;line-height:1.55;color:#1a1a2e;background:#fff}
+h1,h2,h3,h4,h5,h6{font-family:'Bricolage Grotesque','Syne',sans-serif}
+@page{size:A4;margin:18mm 16mm 18mm 16mm;}
+.cover-band{width:100%;padding:18pt 22pt 14pt;margin-bottom:18pt;border-radius:6pt;background:#7c2d12;color:#ffedd5;page-break-after:avoid}
+.cover-band .day-label{font-size:9pt;font-weight:700;letter-spacing:2pt;text-transform:uppercase;opacity:.7;margin-bottom:4pt}
+.cover-band h1{font-size:22pt;font-weight:700;line-height:1.2;margin-bottom:6pt}
+.cover-band .subtitle{font-size:10pt;opacity:.8}
+.cover-band .domains{margin-top:10pt;display:flex;gap:6pt;flex-wrap:wrap}
+.badge{display:inline-block;padding:2pt 8pt;border-radius:3pt;font-size:8pt;font-weight:700;letter-spacing:.5pt;text-transform:uppercase;background:#f97316;color:#fff}
+h2{font-size:13pt;font-weight:800;margin:18pt 0 8pt;padding-bottom:4pt;border-bottom:2pt solid #f97316;color:#7c2d12;page-break-after:avoid}
+h3{font-size:10.5pt;font-weight:700;margin:12pt 0 5pt;color:#7c2d12;page-break-after:avoid}
+p{margin-bottom:6pt}
+.box{padding:9pt 12pt;border-radius:5pt;margin:8pt 0;border-left:4pt solid;page-break-inside:avoid}
+.box.info{background:#eff6ff;border-color:#3b82f6}
+.box.warn{background:#fffbeb;border-color:#f59e0b}
+.box.tip{background:#f0fdf4;border-color:#22c55e}
+.box.danger{background:#fff1f2;border-color:#ef4444}
+.box.dark{background:#1c0a00;border-color:#f97316;color:#ffedd5}
+.box .box-title{font-size:8.5pt;font-weight:700;letter-spacing:1pt;text-transform:uppercase;margin-bottom:4pt}
+code{font-family:'Space Mono','Courier New',monospace;font-size:8.5pt;background:#f1f5f9;padding:1pt 4pt;border-radius:2pt;color:#0f172a}
+pre{font-family:'Space Mono','Courier New',monospace;font-size:8pt;background:#0f172a;color:#e2e8f0;padding:10pt 12pt;border-radius:5pt;margin:7pt 0;white-space:pre-wrap;word-break:break-all;line-height:1.6;page-break-inside:avoid}
+table{width:100%;border-collapse:collapse;margin:8pt 0;font-size:9.5pt;page-break-inside:avoid}
+th{background:#7c2d12;color:#ffedd5;padding:5pt 8pt;font-weight:600;text-align:left;font-size:9pt}
+td{padding:5pt 8pt;border-bottom:.5pt solid #e2e8f0;vertical-align:top}
+tr:nth-child(even) td{background:#f8fafc}
+.kv-grid{display:table;width:100%;border:.5pt solid #e2e8f0;border-radius:5pt;margin:8pt 0;overflow:hidden;page-break-inside:avoid}
+.kv-row{display:table-row}
+.kv-row:nth-child(even) .kv-k,.kv-row:nth-child(even) .kv-v{background:#f8fafc}
+.kv-k{display:table-cell;padding:5pt 10pt;font-weight:600;font-size:9pt;color:#475569;width:35%;border-bottom:.5pt solid #e2e8f0;vertical-align:middle}
+.kv-v{display:table-cell;padding:5pt 10pt;font-size:9pt;border-bottom:.5pt solid #e2e8f0;vertical-align:middle}
+.cols2{display:table;width:100%;margin:6pt 0}
+.col{display:table-cell;width:50%;padding-right:10pt;vertical-align:top}
+.col:last-child{padding-right:0;padding-left:4pt}
+.quiz-block{border:.5pt solid #cbd5e1;border-radius:5pt;margin:7pt 0;page-break-inside:avoid;overflow:hidden}
+.quiz-q{padding:7pt 10pt;font-weight:600;font-size:9.5pt;background:#f8fafc;border-bottom:.5pt solid #cbd5e1}
+.quiz-opts{padding:6pt 10pt}
+.quiz-opt{padding:2pt 0;font-size:9pt}
+.quiz-ans{padding:5pt 10pt;background:#f0fdf4;border-top:.5pt solid #cbd5e1;font-size:9pt;color:#166534}
+.quiz-exp{padding:4pt 10pt 7pt;font-size:8.5pt;color:#475569;border-top:.5pt dashed #e2e8f0}
+.checklist{list-style:none;margin:6pt 0 6pt 14pt}
+.checklist li{font-weight:600;padding:4pt 0 4pt 22pt;position:relative;font-size:9.5pt;border-bottom:.5pt dashed #e2e8f0}
+.checklist li:last-child{border-bottom:none}
+.checklist li::before{content:'▸';position:absolute;left:2pt;font-size:10pt;color:#94a3b8}
+.hl{background:#fefce8;font-weight:600}
+hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
+.pb{page-break-before:always}
+.avoid{page-break-inside:avoid}
+@media screen and (max-width:600px){body{font-size:10pt}.cols2,.col{display:block;width:100%;padding:0}table,.kv-grid{display:block;overflow-x:auto}}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style></head><body>
+
+<div class="cover-band">
+  <h1>Instrumentation & Exporters</h1>
+  <div class="subtitle">Client libraries, exposing custom metrics, the main exporters, and service discovery with relabeling</div>
+  <div class="domains">
+    <span class="badge">Instrumentation 16%</span>
+  </div>
+</div>
+
+<div class="box info avoid">
+  <div class="box-title">🎯 Objectives</div>
+  <ul style="padding-left:14pt;margin-top:4pt;font-size:9.5pt;">
+    <li>Understand client libraries and how to instrument an application</li>
+    <li>Know the main exporters: Node, cAdvisor, Blackbox, Pushgateway</li>
+    <li>Master naming conventions for custom metrics</li>
+    <li>Understand service discovery and how relabeling works</li>
+    <li>Know when to use each type of exporter</li>
+  </ul>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2>1. Client Libraries - Instrumenting Your Application</h2>
+
+<p>Client libraries let your application expose metrics directly in the Prometheus format through a <code>/metrics</code> endpoint.</p>
+
+<table>
+  <tr><th>Language</th><th>Official Library</th><th>Status</th></tr>
+  <tr><td><strong>Go</strong></td><td>github.com/prometheus/client_golang</td><td>✅ Official (Prometheus's language)</td></tr>
+  <tr><td><strong>Java/JVM</strong></td><td>io.prometheus:simpleclient</td><td>✅ Official</td></tr>
+  <tr><td><strong>Python</strong></td><td>prometheus-client (pip)</td><td>✅ Official</td></tr>
+  <tr><td><strong>Ruby</strong></td><td>prometheus-client (gem)</td><td>✅ Official</td></tr>
+  <tr><td>PHP</td><td>Several third-party options</td><td>⚠️ Not official</td></tr>
+  <tr><td>Rust, .NET, etc.</td><td>Community</td><td>⚠️ Not official</td></tr>
+</table>
+
+<div class="box dark">
+  <div class="box-title">For the Exam</div>
+  <p>The 4 languages with <strong>official</strong> client libraries are: <strong>Go, Java, Python and Ruby</strong>. PHP and others are not official.</p>
+</div>
+
+<h3>Python instrumentation example</h3>
+<pre>
+from prometheus_client import Counter, Gauge, Histogram, start_http_server
+import time
+
+# Counter - only increases
+REQUEST_COUNT = Counter(
+    'http_requests_total',
+    'Total de requisições HTTP',
+    ['method', 'endpoint', 'status_code']  # labels
+)
+
+# Gauge - goes up and down
+ACTIVE_CONNECTIONS = Gauge(
+    'active_connections',
+    'Número atual de conexões ativas'
+)
+
+# Histogram - distributes into buckets
+REQUEST_LATENCY = Histogram(
+    'http_request_duration_seconds',
+    'Latência das requisições HTTP',
+    buckets=[0.01, 0.05, 0.1, 0.5, 1.0, 5.0]  # le values
+)
+
+# Usage
+REQUEST_COUNT.labels(method='GET', endpoint='/api', status_code='200').inc()
+ACTIVE_CONNECTIONS.set(42)
+ACTIVE_CONNECTIONS.inc()      # +1
+ACTIVE_CONNECTIONS.dec()      # -1
+
+with REQUEST_LATENCY.time():  # measures time automatically
+    do_request()
+
+# Start the metrics server on port 8000
+start_http_server(8000)
+# Access: http://localhost:8000/metrics
+</pre>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2>2. Naming Convention for Metrics</h2>
+
+<p>Following the naming convention is tested on the exam and keeps metrics consistent.</p>
+
+<div class="kv-grid">
+  <div class="kv-row"><div class="kv-k">General format</div><div class="kv-v"><code>namespace_subsystem_name_unit</code> in snake_case</div></div>
+  <div class="kv-row"><div class="kv-k">namespace</div><div class="kv-v">Application or company name. E.g., <code>myapp</code>, <code>http</code>, <code>node</code></div></div>
+  <div class="kv-row"><div class="kv-k">subsystem</div><div class="kv-v">Internal component. E.g., <code>database</code>, <code>cache</code>, <code>api</code></div></div>
+  <div class="kv-row"><div class="kv-k">name</div><div class="kv-v">What is being measured. E.g., <code>requests</code>, <code>errors</code></div></div>
+  <div class="kv-row"><div class="kv-k">unit</div><div class="kv-v">Unit of measurement. E.g., <code>seconds</code>, <code>bytes</code>, <code>total</code></div></div>
+</div>
+
+<table>
+  <tr><th>Suffix</th><th>Type</th><th>Example</th><th>Never use</th></tr>
+  <tr class="hl"><td><code>_total</code></td><td>Counter</td><td><code>http_requests_total</code></td><td><code>_count</code> (reserved for Histogram)</td></tr>
+  <tr><td><code>_seconds</code></td><td>Duration</td><td><code>http_request_duration_seconds</code></td><td><code>_ms</code>, <code>_secs</code> (use SI)</td></tr>
+  <tr><td><code>_bytes</code></td><td>Size</td><td><code>http_response_size_bytes</code></td><td><code>_kb</code>, <code>_mb</code></td></tr>
+  <tr><td><code>_ratio</code></td><td>Ratio</td><td><code>disk_usage_ratio</code></td><td>Percentage (use 0-1)</td></tr>
+  <tr><td><code>_info</code></td><td>Gauge for metadata</td><td><code>process_info</code></td><td>Mixing with real metrics</td></tr>
+</table>
+
+<div class="box danger">
+  <div class="box-title">🚫 Naming Mistakes</div>
+  <p>❌ <code>latencyMs</code> → ✅ <code>http_request_duration_seconds</code><br>
+  ❌ <code>cpu_percent</code> → ✅ <code>cpu_utilization_ratio</code> (0-1) or no suffix<br>
+  ❌ <code>requests</code> → ✅ <code>http_requests_total</code> (always a descriptive prefix)<br>
+  ❌ <code>http_request_duration_ms</code> → ✅ use seconds (SI unit)</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2>3. Main Exporters</h2>
+
+<h3>Node Exporter - Host Metrics</h3>
+<div class="kv-grid">
+  <div class="kv-row"><div class="kv-k">Port</div><div class="kv-v"><code>:9100</code></div></div>
+  <div class="kv-row"><div class="kv-k">Collects</div><div class="kv-v">CPU, memory, disk, network, filesystem, OS processes</div></div>
+  <div class="kv-row"><div class="kv-k">Where it runs</div><div class="kv-v">Directly on the host (not in a container) for kernel access</div></div>
+  <div class="kv-row"><div class="kv-k">Main metrics</div><div class="kv-v"><code>node_cpu_seconds_total</code>, <code>node_memory_MemAvailable_bytes</code>, <code>node_filesystem_avail_bytes</code>, <code>node_network_receive_bytes_total</code></div></div>
+</div>
+
+<pre>
+# CPU usage by mode (idle, user, system, iowait...)
+node_cpu_seconds_total{cpu="0", mode="idle"}
+
+# CPU usage %
+100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+
+# Available memory in MB
+node_memory_MemAvailable_bytes / 1024 / 1024
+
+# Free disk %
+node_filesystem_avail_bytes / node_filesystem_size_bytes * 100
+</pre>
+
+<h3>cAdvisor - Container Metrics</h3>
+<div class="kv-grid">
+  <div class="kv-row"><div class="kv-k">Port</div><div class="kv-v"><code>:8080</code></div></div>
+  <div class="kv-row"><div class="kv-k">Collects</div><div class="kv-v">CPU, memory, network and I/O of each Docker/Kubernetes container</div></div>
+  <div class="kv-row"><div class="kv-k">In Kubernetes</div><div class="kv-v">Already integrated into the kubelet - no separate install needed</div></div>
+  <div class="kv-row"><div class="kv-k">Main metrics</div><div class="kv-v"><code>container_cpu_usage_seconds_total</code>, <code>container_memory_usage_bytes</code>, <code>container_network_receive_bytes_total</code></div></div>
+</div>
+
+<h3>Blackbox Exporter - External Monitoring</h3>
+<div class="kv-grid">
+  <div class="kv-row"><div class="kv-k">Function</div><div class="kv-v">Probes endpoints like an external user: HTTP, TCP, ICMP, DNS</div></div>
+  <div class="kv-row"><div class="kv-k">Use cases</div><div class="kv-v">Check availability, verify SSL expiration, test connectivity</div></div>
+  <div class="kv-row"><div class="kv-k">Differentiator</div><div class="kv-v">Tests from the outside - complements the application's internal metrics</div></div>
+</div>
+
+<pre>
+# prometheus.yml - Blackbox Exporter configuration
+scrape_configs:
+  - job_name: 'blackbox'
+    metrics_path: /probe        # blackbox's special endpoint
+    params:
+      module: [http_2xx]        # which module to use
+    static_configs:
+      - targets:
+          - https://example.com
+          - https://api.myapp.com/health
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox-exporter:9115  # exporter address
+</pre>
+
+<h3>Pushgateway - For Batch Jobs</h3>
+<div class="kv-grid">
+  <div class="kv-row"><div class="kv-k">Port</div><div class="kv-v"><code>:9091</code></div></div>
+  <div class="kv-row"><div class="kv-k">Function</div><div class="kv-v">Buffer for jobs that finish before the next scrape</div></div>
+  <div class="kv-row"><div class="kv-k">Push API</div><div class="kv-v"><code>PUT /metrics/job/{jobname}/instance/{instance}</code></div></div>
+  <div class="kv-row"><div class="kv-k">Delete API</div><div class="kv-v"><code>DELETE /metrics/job/{jobname}</code></div></div>
+  <div class="kv-row"><div class="kv-k">Persistence</div><div class="kv-v">Metrics stay until manually deleted - they do not expire</div></div>
+  <div class="kv-row"><div class="kv-k">When NOT to use</div><div class="kv-v">For long-running services - use direct scraping</div></div>
+</div>
+
+<pre>
+# Example: batch job pushes and deletes its metrics when done (shell)
+# Push the metrics
+echo "batch_job_duration_seconds 12.5" | \
+  curl --data-binary @- http://pushgateway:9091/metrics/job/backup_job/instance/server1
+
+# Push with multiple metrics
+cat << EOF | curl --data-binary @- http://pushgateway:9091/metrics/job/my_batch
+# TYPE batch_job_duration_seconds gauge
+batch_job_duration_seconds 42.0
+# TYPE batch_job_records_processed_total counter
+batch_job_records_processed_total 1500
+EOF
+
+# Delete after completion (IMPORTANT!)
+curl -X DELETE http://pushgateway:9091/metrics/job/backup_job/instance/server1
+</pre>
+
+<table>
+  <tr><th>Exporter</th><th>Port</th><th>Monitors</th><th>Typical use case</th></tr>
+  <tr class="hl"><td>Node Exporter</td><td>:9100</td><td>Host OS</td><td>Server CPU, RAM, disk, network</td></tr>
+  <tr><td>cAdvisor</td><td>:8080</td><td>Containers</td><td>Resources of each container/pod</td></tr>
+  <tr><td>Blackbox</td><td>:9115</td><td>External endpoints</td><td>HTTP health, SSL, TCP connectivity</td></tr>
+  <tr><td>Pushgateway</td><td>:9091</td><td>Batch jobs</td><td>Cron jobs, backup scripts</td></tr>
+  <tr><td>kube-state-metrics</td><td>:8080</td><td>K8s state</td><td>Pods, deployments, replicasets</td></tr>
+  <tr><td>mysqld_exporter</td><td>:9104</td><td>MySQL</td><td>Queries, connections, locks</td></tr>
+  <tr><td>redis_exporter</td><td>:9121</td><td>Redis</td><td>Hit rate, memory, commands/s</td></tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<h2>4. Service Discovery and Relabeling</h2>
+
+<h3>How Service Discovery works in Kubernetes</h3>
+<pre>
+scrape_configs:
+  - job_name: 'kubernetes-pods'
+    kubernetes_sd_configs:
+      - role: pod              # discovers all pods
+    relabel_configs:
+      # Keeps only pods with the prometheus.io/scrape: "true" annotation
+      - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+        action: keep
+        regex: "true"
+      # Uses the port from the prometheus.io/port annotation
+      - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_port]
+        action: replace
+        target_label: __address__
+        regex: (.+)
+        replacement: $1
+      # Copies the namespace name as a label
+      - source_labels: [__meta_kubernetes_namespace]
+        target_label: namespace
+      # Copies the pod name as a label
+      - source_labels: [__meta_kubernetes_pod_name]
+        target_label: pod
+</pre>
+
+<h3>Relabeling actions</h3>
+<div class="kv-grid">
+  <div class="kv-row"><div class="kv-k"><code>keep</code></div><div class="kv-v">Keeps series where the regex matches. Drops the rest.</div></div>
+  <div class="kv-row"><div class="kv-k"><code>drop</code></div><div class="kv-v">Removes series where the regex matches.</div></div>
+  <div class="kv-row"><div class="kv-k"><code>replace</code></div><div class="kv-v">Replaces the value of a label (default action).</div></div>
+  <div class="kv-row"><div class="kv-k"><code>labelmap</code></div><div class="kv-v">Maps labels by regex - copies several at once.</div></div>
+  <div class="kv-row"><div class="kv-k"><code>labeldrop</code></div><div class="kv-v">Removes labels that match the regex.</div></div>
+  <div class="kv-row"><div class="kv-k"><code>labelkeep</code></div><div class="kv-v">Keeps only labels that match the regex.</div></div>
+</div>
+
+<div class="box info">
+  <div class="box-title">Special Service Discovery Labels (__meta_*)</div>
+  <p>When SD discovers targets, it creates temporary labels prefixed with <code>__meta_</code>. These labels exist only during relabeling and are discarded afterwards. Use <code>source_labels</code> to read them and <code>target_label</code> to copy them as permanent labels.</p>
+</div>
+
+<h3>relabel_configs vs metric_relabel_configs</h3>
+<table>
+  <tr><th>Configuration</th><th>When it runs</th><th>What it affects</th></tr>
+  <tr><td><code>relabel_configs</code></td><td>Before scraping - filters targets</td><td>Which targets will be scraped</td></tr>
+  <tr><td><code>metric_relabel_configs</code></td><td>After scraping - filters metrics</td><td>Which series will be stored</td></tr>
+</table>
+
+<pre>
+scrape_configs:
+  - job_name: 'myapp'
+    static_configs:
+      - targets: ['app:8080']
+    # Runs BEFORE scraping - filters targets
+    relabel_configs:
+      - source_labels: [__address__]
+        regex: '.*:8080'
+        action: keep
+
+    # Runs AFTER scraping - filters received metrics
+    metric_relabel_configs:
+      - source_labels: [__name__]
+        regex: 'go_.*'          # drops internal Go runtime metrics
+        action: drop
+</pre>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="pb"></div>
+<h2>Review Questions</h2>
+
+<div class="quiz-block">
+  <div class="quiz-q">Q1. Which exporter collects CPU, memory and disk metrics from the host operating system?</div>
+  <div class="quiz-opts">
+    <div class="quiz-opt">A) cAdvisor</div>
+    <div class="quiz-opt">B) Blackbox Exporter</div>
+    <div class="quiz-opt">C) Node Exporter (:9100)</div>
+    <div class="quiz-opt">D) Pushgateway</div>
+  </div>
+  <div class="quiz-ans">✅ Answer: C</div>
+  <div class="quiz-exp">Node Exporter runs on the host (not in a container) and exposes OS metrics: CPU, memory, disk, network, filesystem. Default port :9100.</div>
+</div>
+
+<div class="quiz-block">
+  <div class="quiz-q">Q2. Which language does NOT have an official Prometheus client library?</div>
+  <div class="quiz-opts">
+    <div class="quiz-opt">A) Go</div>
+    <div class="quiz-opt">B) Python</div>
+    <div class="quiz-opt">C) PHP</div>
+    <div class="quiz-opt">D) Ruby</div>
+  </div>
+  <div class="quiz-ans">✅ Answer: C</div>
+  <div class="quiz-exp">The 4 official client libraries are: Go, Java/JVM, Python and Ruby. PHP has no official library - only third-party implementations exist.</div>
+</div>
+
+<div class="quiz-block">
+  <div class="quiz-q">Q3. What is the correct name for a metric that counts the total number of database errors?</div>
+  <div class="quiz-opts">
+    <div class="quiz-opt">A) dbErrors</div>
+    <div class="quiz-opt">B) database_error_count</div>
+    <div class="quiz-opt">C) myapp_database_errors_total</div>
+    <div class="quiz-opt">D) MYAPP.DATABASE.ERRORS.TOTAL</div>
+  </div>
+  <div class="quiz-ans">✅ Answer: C</div>
+  <div class="quiz-exp">Naming convention: namespace_subsystem_name_unit in snake_case. Counters use the _total suffix. myapp = namespace, database = subsystem, errors = name, total = counter suffix.</div>
+</div>
+
+<div class="quiz-block">
+  <div class="quiz-q">Q4. What happens to metrics in the Pushgateway when the batch job that pushed them finishes?</div>
+  <div class="quiz-opts">
+    <div class="quiz-opt">A) They are automatically deleted after the configured TTL</div>
+    <div class="quiz-opt">B) They remain available until explicitly deleted via the API or a restart</div>
+    <div class="quiz-opt">C) They are sent to Prometheus immediately and then deleted</div>
+    <div class="quiz-opt">D) They expire after Prometheus's next scrape</div>
+  </div>
+  <div class="quiz-ans">✅ Answer: B</div>
+  <div class="quiz-exp">The Pushgateway persists metrics indefinitely. The batch job MUST delete its metrics when done (DELETE /metrics/job/{job}) - otherwise Prometheus will keep seeing "stale" metrics from a job that already finished.</div>
+</div>
+
+<div class="quiz-block">
+  <div class="quiz-q">Q5. What is the difference between relabel_configs and metric_relabel_configs?</div>
+  <div class="quiz-opts">
+    <div class="quiz-opt">A) relabel_configs is for Kubernetes; metric_relabel_configs is for static_configs</div>
+    <div class="quiz-opt">B) relabel_configs runs before scraping (filters targets); metric_relabel_configs runs after (filters metrics)</div>
+    <div class="quiz-opt">C) They are equivalent - just different names</div>
+    <div class="quiz-opt">D) metric_relabel_configs only works with regex</div>
+  </div>
+  <div class="quiz-ans">✅ Answer: B</div>
+  <div class="quiz-exp">relabel_configs: runs before scraping to decide which targets will be scraped. metric_relabel_configs: runs after scraping to filter or transform the received metrics before storing them.</div>
+</div>
+
+<div class="quiz-block">
+  <div class="quiz-q">Q6. What is the Blackbox Exporter for?</div>
+  <div class="quiz-opts">
+    <div class="quiz-opt">A) To monitor "black box" applications without source code access</div>
+    <div class="quiz-opt">B) To run external HTTP, TCP, ICMP probes - checking availability like an external user</div>
+    <div class="quiz-opt">C) To encrypt metrics in transit</div>
+    <div class="quiz-opt">D) To replace Node Exporter in containerized environments</div>
+  </div>
+  <div class="quiz-ans">✅ Answer: B</div>
+  <div class="quiz-exp">Blackbox Exporter checks endpoints externally: it makes HTTP requests, connects over TCP, pings via ICMP. It complements internal metrics - while the app reports internal metrics, Blackbox tests whether it is reachable from the outside.</div>
+</div>
+
+<div class="quiz-block">
+  <div class="quiz-q">Q7. Which relabeling action KEEPS only targets with a specific annotation?</div>
+  <div class="quiz-opts">
+    <div class="quiz-opt">A) action: filter</div>
+    <div class="quiz-opt">B) action: keep</div>
+    <div class="quiz-opt">C) action: include</div>
+    <div class="quiz-opt">D) action: allow</div>
+  </div>
+  <div class="quiz-ans">✅ Answer: B</div>
+  <div class="quiz-exp">action: keep keeps targets where the source_label matches the regex, dropping all others. It is the opposite of action: drop, which removes the ones that match.</div>
+</div>
+
+<div class="quiz-block">
+  <div class="quiz-q">Q8. Which exporter is recommended for monitoring pod metrics in Kubernetes with no extra installation?</div>
+  <div class="quiz-opts">
+    <div class="quiz-opt">A) Node Exporter</div>
+    <div class="quiz-opt">B) cAdvisor (already integrated into the kubelet)</div>
+    <div class="quiz-opt">C) Blackbox Exporter</div>
+    <div class="quiz-opt">D) kube-state-metrics</div>
+  </div>
+  <div class="quiz-ans">✅ Answer: B</div>
+  <div class="quiz-exp">cAdvisor is integrated into the Kubernetes kubelet - already available on every node with no extra install. It exposes CPU, memory and network metrics for each container. kube-state-metrics exposes the state of K8s objects (replicas, health), not resource metrics.</div>
+</div>
+
+<!-- CHECKLIST -->
+<div class="pb"></div>
+<h2>✅ Review Checklist</h2>
+
+<ul class="checklist">
+  <li>I know the 4 languages with official client libraries: Go, Java, Python, Ruby</li>
+  <li>I can identify and use Counter, Gauge, Histogram and Summary when instrumenting</li>
+  <li>I master the naming convention: namespace_subsystem_name_unit in snake_case</li>
+  <li>I know the correct suffixes: _total (counter), _seconds, _bytes, _ratio</li>
+  <li>I know Node Exporter (:9100) and its main metrics</li>
+  <li>I know cAdvisor (:8080) and that it is integrated into the K8s kubelet</li>
+  <li>I understand Blackbox Exporter for external probes (HTTP, TCP, ICMP)</li>
+  <li>I know when to use the Pushgateway and that metrics persist until a manual DELETE</li>
+  <li>I understand relabel_configs (before scraping) vs metric_relabel_configs (after)</li>
+  <li>I know the relabeling actions: keep, drop, replace, labelmap, labeldrop</li>
+  <li>I know __meta_* labels are temporary and exist only during relabeling</li>
+  <li>I got at least 6 of the 8 review questions right</li>
+</ul>
+
+<div class="box tip" style="margin-top:14pt">
+  <div class="box-title">Study Material for Today</div>
+  <p><strong>LFS241:</strong> Chapters 7 (Host Metrics), 8 (Containers), 9 (Instrumenting Code), 10 (Exporters), 12 (Relabeling), 13 (Service Discovery)</p>
+  <p style="margin-top:4pt"><strong>KodeKloud:</strong> <a href="https://learn.kodekloud.com/learn/courses/prometheus-certified-associate-pca" target="_blank" rel="noopener">Exporters and Service Discovery Module</a><br>
+    <strong>YetMike:</strong> <a href="https://yetmike.com/practice/pca" target="_blank" rel="noopener">PCA-style practice exams</a></p>
+  <p style="margin-top:4pt"><strong>Practice:</strong> Install Node Exporter and check the metrics at /metrics</p>
+</div>
+
+</body></html>

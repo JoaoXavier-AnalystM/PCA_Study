@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8">
+<html lang="pt-BR"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:10.5pt;line-height:1.55;color:#1a1a2e;background:#fff}
-h1,h2,h3,h4,h5,h6{font-family:'Syne',sans-serif}
+h1,h2,h3,h4,h5,h6{font-family:'Bricolage Grotesque','Syne',sans-serif}
 @page{size:A4;margin:18mm 16mm 18mm 16mm;}
 .cover-band{width:100%;padding:18pt 22pt 14pt;margin-bottom:18pt;border-radius:6pt;background:#14532d;color:#dcfce7;page-break-after:avoid}
 .cover-band .day-label{font-size:9pt;font-weight:700;letter-spacing:2pt;text-transform:uppercase;opacity:.7;margin-bottom:4pt}
@@ -51,11 +51,11 @@ tr:nth-child(even) td{background:#f8fafc}
 hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 .pb{page-break-before:always}
 .avoid{page-break-inside:avoid}
-@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+@media screen and (max-width:600px){body{font-size:10pt}.cols2,.col{display:block;width:100%;padding:0}table,.kv-grid{display:block;overflow-x:auto}}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style></head><body>
 
 <div class="cover-band">
-  <h1>PromQL Básico — Seletores, Funções e Agregações</h1>
+  <h1>PromQL Básico - Seletores, Funções e Agregações</h1>
   <div class="subtitle">Domine a linguagem de query do Prometheus: selecionar dados, calcular taxas e agregar métricas</div>
   <div class="domains">
     <span class="badge">PromQL 28%</span>
@@ -65,7 +65,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 <div class="box info avoid">
   <div class="box-title">🎯 Objetivos</div>
   <ul style="padding-left:14pt;margin-top:4pt;font-size:9.5pt;">
-    <li>Dominar instant vectors e range vectors — a base de tudo em PromQL</li>
+    <li>Dominar instant vectors e range vectors - a base de tudo em PromQL</li>
     <li>Usar label matchers: =, !=, =~, !~ com regex correta</li>
     <li>Aplicar rate(), irate(), increase() e delta() nos contextos corretos</li>
     <li>Agregar métricas com sum(), avg(), count(), min(), max(), topk(), bottomk()</li>
@@ -89,7 +89,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 
 <div class="box dark">
   <div class="box-title">Regra Essencial</div>
-  <p>Funções como <code>rate()</code>, <code>irate()</code>, <code>increase()</code> e <code>delta()</code> <strong>requerem Range Vector</strong> como entrada — nunca Instant Vector.</p>
+  <p>Funções como <code>rate()</code>, <code>irate()</code>, <code>increase()</code> e <code>delta()</code> <strong>requerem Range Vector</strong> como entrada - nunca Instant Vector.</p>
   <p style="margin-top:6pt;font-family:'Space Mono',monospace;font-size:9pt;">
     ✅ rate(http_requests_total[5m])     ← range vector [5m]<br>
     ❌ rate(http_requests_total)          ← erro: sem janela temporal
@@ -97,7 +97,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<h2>2. Label Matchers — Filtrando Séries</h2>
+<h2>2. Label Matchers - Filtrando Séries</h2>
 
 <p>Os label matchers permitem selecionar exatamente quais time series você quer consultar:</p>
 
@@ -131,7 +131,7 @@ http_requests_total{status!~"2.."}
 </pre>
 </div>
 <div class="col">
-<h3>Regex em PromQL — Atenção!</h3>
+<h3>Regex em PromQL - Atenção!</h3>
 <div class="box warn" style="margin-top:0">
   <p style="font-size:9pt;">A regex no Prometheus é <strong>sempre ancorada</strong> (implica ^ e $ no início e fim). Então:</p>
   <p style="font-family:'Space Mono',monospace;font-size:8.5pt;margin-top:6pt;">
@@ -150,9 +150,9 @@ http_requests_total{status!~"2.."}
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<h2>3. Funções de Taxa — As Mais Cobradas na Prova</h2>
+<h2>3. Funções de Taxa - As Mais Cobradas na Prova</h2>
 
-<h3>rate() — A função mais importante</h3>
+<h3>rate() - A função mais importante</h3>
 <p><code>rate(counter[window])</code> calcula a taxa média por segundo de um counter no período especificado, ajustando automaticamente para resets.</p>
 
 <pre>
@@ -166,7 +166,7 @@ rate(http_errors_total[10m])
 rate(node_network_receive_bytes_total[1h])
 </pre>
 
-<h3>irate() — Taxa instantânea</h3>
+<h3>irate() - Taxa instantânea</h3>
 <p><code>irate(counter[window])</code> usa apenas os 2 últimos pontos do range para calcular a taxa. Mais reativo, mais "nervoso" que rate().</p>
 
 <pre>
@@ -175,7 +175,7 @@ irate(http_requests_total[5m])
 # Nota: o [5m] ainda é necessário para lookup, mas só usa os 2 últimos pontos
 </pre>
 
-<h3>increase() — Incremento total</h3>
+<h3>increase() - Incremento total</h3>
 <p><code>increase(counter[window])</code> retorna o incremento total do counter no período. Equivale a <code>rate() * window</code>. Pode não ser inteiro (extrapola).</p>
 
 <pre>
@@ -186,7 +186,7 @@ increase(http_requests_total[1h])
 increase(http_errors_total[24h])
 </pre>
 
-<h3>delta() — Diferença de Gauge</h3>
+<h3>delta() - Diferença de Gauge</h3>
 <p><code>delta(gauge[window])</code> calcula a diferença entre o primeiro e o último valor de um Gauge. Use para gauges, não counters.</p>
 
 <pre>
@@ -206,10 +206,10 @@ delta(node_memory_MemAvailable_bytes[30m])
 </table>
 
 <div class="box danger">
-  <div class="box-title">🚫 Erros Clássicos — Muito cobrados na prova</div>
-  <p><strong>NÃO use rate() com Gauge</strong> — rate() espera um counter que só sobe.<br>
-  <strong>NÃO use delta() com Counter</strong> — delta() não lida com resets de counter.<br>
-  <strong>rate() detecta resets automaticamente</strong> — se o counter foi de 100→0→50, rate() entende que houve reset e calcula corretamente.</p>
+  <div class="box-title">🚫 Erros Clássicos - Muito cobrados na prova</div>
+  <p><strong>NÃO use rate() com Gauge</strong> - rate() espera um counter que só sobe.<br>
+  <strong>NÃO use delta() com Counter</strong> - delta() não lida com resets de counter.<br>
+  <strong>rate() detecta resets automaticamente</strong> - se o counter foi de 100→0→50, rate() entende que houve reset e calcula corretamente.</p>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ -->
@@ -231,13 +231,13 @@ delta(node_memory_MemAvailable_bytes[30m])
 </table>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<h2>5. by() e without() — Controlando Dimensões</h2>
+<h2>5. by() e without() - Controlando Dimensões</h2>
 
 <div class="cols2">
 <div class="col">
-<h3>by() — Mantém labels especificados</h3>
+<h3>by() - Mantém labels especificados</h3>
 <pre>
-# Soma por job — agrupa por job, descarta outros labels
+# Soma por job - agrupa por job, descarta outros labels
 sum(http_requests_total) by (job)
 
 # Média de CPU por instância e job
@@ -251,12 +251,12 @@ sum(http_errors_total) by (status_code, method)
 </div>
 </div>
 <div class="col">
-<h3>without() — Remove labels especificados</h3>
+<h3>without() - Remove labels especificados</h3>
 <pre>
 # Remove apenas o label pod, mantém os demais
 sum(http_requests_total) without (pod)
 
-# Remove instância — soma por todo o resto
+# Remove instância - soma por todo o resto
 sum(rate(errors[5m])) without (instance)
 
 # Remove múltiplos labels ruidosos
@@ -269,7 +269,7 @@ sum(metric) without (pod, uid, container_id)
 </div>
 
 <div class="box tip">
-  <div class="box-title">💡 by() vs without() — Como escolher</div>
+  <div class="box-title">💡 by() vs without() - Como escolher</div>
   Use <strong>by()</strong> quando souber exatamente quais labels quer manter (mais explícito, mais seguro).<br>
   Use <strong>without()</strong> quando quiser remover apenas alguns labels específicos que atrapalham a agregação (ex: container_id que muda frequentemente).
 </div>
@@ -302,11 +302,11 @@ node_filesystem_avail_bytes / node_filesystem_size_bytes < 0.1
 </pre>
 
 <div class="box info">
-  <p>Operadores de comparação em PromQL <strong>filtram séries</strong> — retornam apenas as séries que satisfazem a condição, não um booleano. Para booleano, use o modificador <code>bool</code>: <code>metric > bool 80</code></p>
+  <p>Operadores de comparação em PromQL <strong>filtram séries</strong> - retornam apenas as séries que satisfazem a condição, não um booleano. Para booleano, use o modificador <code>bool</code>: <code>metric > bool 80</code></p>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<h2>7. Offset Modifier — Comparando com o Passado</h2>
+<h2>7. Offset Modifier - Comparando com o Passado</h2>
 
 <pre>
 # Valor de uma semana atrás
@@ -325,7 +325,7 @@ rate(http_requests_total[5m]) / rate(http_requests_total[5m] offset 1h)
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<h2>8. Queries Completas — Exemplos Práticos</h2>
+<h2>8. Queries Completas - Exemplos Práticos</h2>
 
 <pre>
 # ── Error rate total (proporção de erros 5xx) ──────────────────
@@ -368,7 +368,7 @@ sum(increase(http_requests_total[1m])) by (job)
     <div class="quiz-opt">D) delta(http_requests_total[5m])</div>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
-  <div class="quiz-exp">irate() usa apenas os 2 últimos pontos da janela para calcular a taxa — é mais reativo a mudanças bruscas. rate() usa todos os pontos da janela para uma taxa mais suavizada.</div>
+  <div class="quiz-exp">irate() usa apenas os 2 últimos pontos da janela para calcular a taxa - é mais reativo a mudanças bruscas. rate() usa todos os pontos da janela para uma taxa mais suavizada.</div>
 </div>
 
 <div class="quiz-block">
@@ -398,7 +398,7 @@ sum(increase(http_requests_total[1m])) by (job)
 <div class="quiz-block">
   <div class="quiz-q">Q4. Qual a diferença entre <code>sum by (job)</code> e <code>sum without (pod)</code>?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) São equivalentes — apenas sintaxes diferentes para a mesma operação</div>
+    <div class="quiz-opt">A) São equivalentes - apenas sintaxes diferentes para a mesma operação</div>
     <div class="quiz-opt">B) by(job) mantém APENAS o label job; without(pod) mantém todos os labels EXCETO pod</div>
     <div class="quiz-opt">C) by(job) soma; without(pod) subtrai</div>
     <div class="quiz-opt">D) without() só funciona com labels de infraestrutura</div>
@@ -416,7 +416,7 @@ sum(increase(http_requests_total[1m])) by (job)
     <div class="quiz-opt">D) delta(errors_total[24h])</div>
   </div>
   <div class="quiz-ans">✅ Resposta: C</div>
-  <div class="quiz-exp">increase() retorna o incremento total de um counter no período — exatamente o que queremos. rate() daria taxa/segundo. delta() é para gauges. sum() sem janela temporal não considera o histórico de 24h.</div>
+  <div class="quiz-exp">increase() retorna o incremento total de um counter no período - exatamente o que queremos. rate() daria taxa/segundo. delta() é para gauges. sum() sem janela temporal não considera o histórico de 24h.</div>
 </div>
 
 <div class="quiz-block">
@@ -440,7 +440,7 @@ sum(increase(http_requests_total[1m])) by (job)
     <div class="quiz-opt">D) Normaliza a métrica removendo outliers</div>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
-  <div class="quiz-exp">offset permite "voltar no tempo" — por exemplo, rate(metric[5m] offset 1h) retorna a taxa de 1 hora atrás. Útil para comparar comportamento atual com histórico.</div>
+  <div class="quiz-exp">offset permite "voltar no tempo" - por exemplo, rate(metric[5m] offset 1h) retorna a taxa de 1 hora atrás. Útil para comparar comportamento atual com histórico.</div>
 </div>
 
 <div class="quiz-block">
@@ -452,7 +452,7 @@ sum(increase(http_requests_total[1m])) by (job)
     <div class="quiz-opt">D) Converte os valores para booleano automaticamente</div>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
-  <div class="quiz-exp">Operadores de comparação em PromQL filtram séries — retornam apenas as séries onde a condição é verdadeira, com seus valores originais. Para obter 0/1 booleano, use o modificador bool: metric > bool 0.8.</div>
+  <div class="quiz-exp">Operadores de comparação em PromQL filtram séries - retornam apenas as séries onde a condição é verdadeira, com seus valores originais. Para obter 0/1 booleano, use o modificador bool: metric > bool 0.8.</div>
 </div>
 
 <!-- CHECKLIST -->
@@ -478,8 +478,8 @@ sum(increase(http_requests_total[1m])) by (job)
 <div class="box tip" style="margin-top:14pt">
   <div class="box-title">Material de Estudo para Hoje</div>
   <p><strong>LFS241:</strong> Capítulo 5 (Basic Querying)</p>
-  <p style="margin-top:4pt"><strong>KodeKloud:</strong> <a href="https://learn.kodekloud.com/learn/courses/prometheus-certified-associate-pca" target="_blank" rel="noopener" style="color:#2563eb;">Módulo PromQL Básico</a><br>
-    <strong>YetMike:</strong> <a href="https://yetmike.com/practice/pca" target="_blank" rel="noopener" style="color:#2563eb;">Simulados estilo PCA</a></p>
+  <p style="margin-top:4pt"><strong>KodeKloud:</strong> <a href="https://learn.kodekloud.com/learn/courses/prometheus-certified-associate-pca" target="_blank" rel="noopener">Módulo PromQL Básico</a><br>
+    <strong>YetMike:</strong> <a href="https://yetmike.com/practice/pca" target="_blank" rel="noopener">Simulados estilo PCA</a></p>
   <p style="margin-top:4pt"><strong>Prática:</strong> Abra o Prometheus UI em localhost:9090 e execute todas as queries deste material</p>
   <p style="margin-top:4pt"><strong>Docs:</strong> prometheus.io/docs/prometheus/latest/querying/basics/</p>
 </div>
