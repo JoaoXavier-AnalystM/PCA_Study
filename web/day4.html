@@ -73,7 +73,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<h2>1. Client Libraries — Instrumentando sua Aplicação</h2>
+<h2>1. Client Libraries - Instrumentando sua Aplicação</h2>
 
 <p>Client libraries permitem que sua aplicação exponha métricas diretamente no formato Prometheus através de um endpoint <code>/metrics</code>.</p>
 
@@ -97,20 +97,20 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 from prometheus_client import Counter, Gauge, Histogram, start_http_server
 import time
 
-# Counter — só sobe
+# Counter - só sobe
 REQUEST_COUNT = Counter(
     'http_requests_total',
     'Total de requisições HTTP',
     ['method', 'endpoint', 'status_code']  # labels
 )
 
-# Gauge — sobe e desce
+# Gauge - sobe e desce
 ACTIVE_CONNECTIONS = Gauge(
     'active_connections',
     'Número atual de conexões ativas'
 )
 
-# Histogram — distribui em buckets
+# Histogram - distribui em buckets
 REQUEST_LATENCY = Histogram(
     'http_request_duration_seconds',
     'Latência das requisições HTTP',
@@ -164,7 +164,7 @@ start_http_server(8000)
 <!-- ═══════════════════════════════════════════════════════ -->
 <h2>3. Principais Exporters</h2>
 
-<h3>Node Exporter — Métricas de Host</h3>
+<h3>Node Exporter - Métricas de Host</h3>
 <div class="kv-grid">
   <div class="kv-row"><div class="kv-k">Porta</div><div class="kv-v"><code>:9100</code></div></div>
   <div class="kv-row"><div class="kv-k">Coleta</div><div class="kv-v">CPU, memória, disco, rede, filesystem, processos do sistema operacional</div></div>
@@ -186,23 +186,23 @@ node_memory_MemAvailable_bytes / 1024 / 1024
 node_filesystem_avail_bytes / node_filesystem_size_bytes * 100
 </pre>
 
-<h3>cAdvisor — Métricas de Containers</h3>
+<h3>cAdvisor - Métricas de Containers</h3>
 <div class="kv-grid">
   <div class="kv-row"><div class="kv-k">Porta</div><div class="kv-v"><code>:8080</code></div></div>
   <div class="kv-row"><div class="kv-k">Coleta</div><div class="kv-v">CPU, memória, rede e I/O de cada container Docker/Kubernetes</div></div>
-  <div class="kv-row"><div class="kv-k">No Kubernetes</div><div class="kv-v">Já integrado ao kubelet — não precisa instalar separadamente</div></div>
+  <div class="kv-row"><div class="kv-k">No Kubernetes</div><div class="kv-v">Já integrado ao kubelet - não precisa instalar separadamente</div></div>
   <div class="kv-row"><div class="kv-k">Métricas principais</div><div class="kv-v"><code>container_cpu_usage_seconds_total</code>, <code>container_memory_usage_bytes</code>, <code>container_network_receive_bytes_total</code></div></div>
 </div>
 
-<h3>Blackbox Exporter — Monitoramento Externo</h3>
+<h3>Blackbox Exporter - Monitoramento Externo</h3>
 <div class="kv-grid">
   <div class="kv-row"><div class="kv-k">Função</div><div class="kv-v">Faz probes de endpoints como um usuário externo: HTTP, TCP, ICMP, DNS</div></div>
   <div class="kv-row"><div class="kv-k">Casos de uso</div><div class="kv-v">Verificar disponibilidade, checar SSL expiration, testar conectividade</div></div>
-  <div class="kv-row"><div class="kv-k">Diferencial</div><div class="kv-v">Testa de fora — complementa métricas internas da aplicação</div></div>
+  <div class="kv-row"><div class="kv-k">Diferencial</div><div class="kv-v">Testa de fora - complementa métricas internas da aplicação</div></div>
 </div>
 
 <pre>
-# prometheus.yml — configuração do Blackbox Exporter
+# prometheus.yml - configuração do Blackbox Exporter
 scrape_configs:
   - job_name: 'blackbox'
     metrics_path: /probe        # endpoint especial do blackbox
@@ -221,14 +221,14 @@ scrape_configs:
         replacement: blackbox-exporter:9115  # endereço do exporter
 </pre>
 
-<h3>Pushgateway — Para Batch Jobs</h3>
+<h3>Pushgateway - Para Batch Jobs</h3>
 <div class="kv-grid">
   <div class="kv-row"><div class="kv-k">Porta</div><div class="kv-v"><code>:9091</code></div></div>
   <div class="kv-row"><div class="kv-k">Função</div><div class="kv-v">Buffer para jobs que terminam antes do próximo scrape</div></div>
   <div class="kv-row"><div class="kv-k">API Push</div><div class="kv-v"><code>PUT /metrics/job/{jobname}/instance/{instance}</code></div></div>
   <div class="kv-row"><div class="kv-k">API Delete</div><div class="kv-v"><code>DELETE /metrics/job/{jobname}</code></div></div>
-  <div class="kv-row"><div class="kv-k">Persistência</div><div class="kv-v">Métricas ficam até serem deletadas manualmente — não expiram</div></div>
-  <div class="kv-row"><div class="kv-k">Quando NÃO usar</div><div class="kv-v">Para serviços de longa duração — use scrape direto</div></div>
+  <div class="kv-row"><div class="kv-k">Persistência</div><div class="kv-v">Métricas ficam até serem deletadas manualmente - não expiram</div></div>
+  <div class="kv-row"><div class="kv-k">Quando NÃO usar</div><div class="kv-v">Para serviços de longa duração - use scrape direto</div></div>
 </div>
 
 <pre>
@@ -293,7 +293,7 @@ scrape_configs:
   <div class="kv-row"><div class="kv-k"><code>keep</code></div><div class="kv-v">Mantém séries onde o regex faz match. Descarta o resto.</div></div>
   <div class="kv-row"><div class="kv-k"><code>drop</code></div><div class="kv-v">Remove séries onde o regex faz match.</div></div>
   <div class="kv-row"><div class="kv-k"><code>replace</code></div><div class="kv-v">Substitui o valor de um label (ação padrão).</div></div>
-  <div class="kv-row"><div class="kv-k"><code>labelmap</code></div><div class="kv-v">Mapeia labels por regex — copia múltiplos de uma vez.</div></div>
+  <div class="kv-row"><div class="kv-k"><code>labelmap</code></div><div class="kv-v">Mapeia labels por regex - copia múltiplos de uma vez.</div></div>
   <div class="kv-row"><div class="kv-k"><code>labeldrop</code></div><div class="kv-v">Remove labels que fazem match do regex.</div></div>
   <div class="kv-row"><div class="kv-k"><code>labelkeep</code></div><div class="kv-v">Mantém apenas labels que fazem match do regex.</div></div>
 </div>
@@ -306,8 +306,8 @@ scrape_configs:
 <h3>relabel_configs vs metric_relabel_configs</h3>
 <table>
   <tr><th>Configuração</th><th>Quando executa</th><th>O que afeta</th></tr>
-  <tr><td><code>relabel_configs</code></td><td>Antes do scrape — filtra targets</td><td>Quais targets serão scrapados</td></tr>
-  <tr><td><code>metric_relabel_configs</code></td><td>Após o scrape — filtra métricas</td><td>Quais séries serão armazenadas</td></tr>
+  <tr><td><code>relabel_configs</code></td><td>Antes do scrape - filtra targets</td><td>Quais targets serão scrapados</td></tr>
+  <tr><td><code>metric_relabel_configs</code></td><td>Após o scrape - filtra métricas</td><td>Quais séries serão armazenadas</td></tr>
 </table>
 
 <pre>
@@ -315,13 +315,13 @@ scrape_configs:
   - job_name: 'myapp'
     static_configs:
       - targets: ['app:8080']
-    # Executado ANTES do scrape — filtra targets
+    # Executado ANTES do scrape - filtra targets
     relabel_configs:
       - source_labels: [__address__]
         regex: '.*:8080'
         action: keep
 
-    # Executado APÓS o scrape — filtra métricas recebidas
+    # Executado APÓS o scrape - filtra métricas recebidas
     metric_relabel_configs:
       - source_labels: [__name__]
         regex: 'go_.*'          # descarta métricas internas do Go runtime
@@ -353,7 +353,7 @@ scrape_configs:
     <div class="quiz-opt">D) Ruby</div>
   </div>
   <div class="quiz-ans">✅ Resposta: C</div>
-  <div class="quiz-exp">As 4 client libraries oficiais são: Go, Java/JVM, Python e Ruby. PHP não tem biblioteca oficial — existem apenas implementações de terceiros.</div>
+  <div class="quiz-exp">As 4 client libraries oficiais são: Go, Java/JVM, Python e Ruby. PHP não tem biblioteca oficial - existem apenas implementações de terceiros.</div>
 </div>
 
 <div class="quiz-block">
@@ -377,7 +377,7 @@ scrape_configs:
     <div class="quiz-opt">D) Expiram após o próximo scrape do Prometheus</div>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
-  <div class="quiz-exp">Pushgateway persiste métricas indefinidamente. O batch job DEVE deletar suas métricas após terminar (DELETE /metrics/job/{job}) — caso contrário, o Prometheus continuará vendo métricas "velhas" de um job que já terminou.</div>
+  <div class="quiz-exp">Pushgateway persiste métricas indefinidamente. O batch job DEVE deletar suas métricas após terminar (DELETE /metrics/job/{job}) - caso contrário, o Prometheus continuará vendo métricas "velhas" de um job que já terminou.</div>
 </div>
 
 <div class="quiz-block">
@@ -385,7 +385,7 @@ scrape_configs:
   <div class="quiz-opts">
     <div class="quiz-opt">A) relabel_configs é para Kubernetes; metric_relabel_configs é para static_configs</div>
     <div class="quiz-opt">B) relabel_configs executa antes do scrape (filtra targets); metric_relabel_configs executa após (filtra métricas)</div>
-    <div class="quiz-opt">C) São equivalentes — apenas nomes diferentes</div>
+    <div class="quiz-opt">C) São equivalentes - apenas nomes diferentes</div>
     <div class="quiz-opt">D) metric_relabel_configs só funciona com regex</div>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
@@ -396,12 +396,12 @@ scrape_configs:
   <div class="quiz-q">Q6. Para que serve o Blackbox Exporter?</div>
   <div class="quiz-opts">
     <div class="quiz-opt">A) Para monitorar aplicações "black box" sem acesso ao código fonte</div>
-    <div class="quiz-opt">B) Para fazer probes externos de HTTP, TCP, ICMP — verificando disponibilidade como um usuário externo</div>
+    <div class="quiz-opt">B) Para fazer probes externos de HTTP, TCP, ICMP - verificando disponibilidade como um usuário externo</div>
     <div class="quiz-opt">C) Para criptografar métricas em trânsito</div>
     <div class="quiz-opt">D) Para substituir o Node Exporter em ambientes containerizados</div>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
-  <div class="quiz-exp">Blackbox Exporter verifica endpoints externamente: faz requisições HTTP, conecta via TCP, faz ping ICMP. Complementa métricas internas — enquanto a app reporta métricas internas, o Blackbox testa se está acessível de fora.</div>
+  <div class="quiz-exp">Blackbox Exporter verifica endpoints externamente: faz requisições HTTP, conecta via TCP, faz ping ICMP. Complementa métricas internas - enquanto a app reporta métricas internas, o Blackbox testa se está acessível de fora.</div>
 </div>
 
 <div class="quiz-block">
@@ -425,7 +425,7 @@ scrape_configs:
     <div class="quiz-opt">D) kube-state-metrics</div>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
-  <div class="quiz-exp">cAdvisor é integrado ao kubelet do Kubernetes — já está disponível em cada nó sem instalação extra. Expõe métricas de CPU, memória e rede de cada container. kube-state-metrics expõe estado dos objetos K8s (replicas, health), não métricas de recursos.</div>
+  <div class="quiz-exp">cAdvisor é integrado ao kubelet do Kubernetes - já está disponível em cada nó sem instalação extra. Expõe métricas de CPU, memória e rede de cada container. kube-state-metrics expõe estado dos objetos K8s (replicas, health), não métricas de recursos.</div>
 </div>
 
 <!-- CHECKLIST -->

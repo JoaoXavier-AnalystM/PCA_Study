@@ -54,7 +54,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 </style></head><body>
 
 <div class="cover-band">
-  <h1>PromQL Avançado — Histogramas, Joins e Recording Rules</h1>
+  <h1>PromQL Avançado - Histogramas, Joins e Recording Rules</h1>
   <div class="subtitle">histogram_quantile, operadores binários, matching entre séries, predict_linear e recording rules</div>
   <div class="domains">
     <span class="badge">PromQL 28%</span>
@@ -75,7 +75,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<h2>1. histogram_quantile() — Percentis de Latência</h2>
+<h2>1. histogram_quantile() - Percentis de Latência</h2>
 
 <p>Esta é a função mais complexa do PromQL e muito cobrada na prova. Permite calcular percentis (p50, p90, p99) a partir dos buckets de um Histogram.</p>
 
@@ -132,25 +132,25 @@ histogram_quantile(0.99,
 
 <p>Quando operamos sobre dois vetores com labels diferentes, precisamos especificar como fazer o match.</p>
 
-<h3>on() e ignoring() — Controlando quais labels usar no match</h3>
+<h3>on() e ignoring() - Controlando quais labels usar no match</h3>
 
 <pre>
 # Erro: as métricas têm labels diferentes
 method_code:http_errors:rate5m{method="get", code="500"} 24
 method:http_requests:rate5m{method="get"}               600
 
-# on() — usa APENAS os labels listados para fazer o match
+# on() - usa APENAS os labels listados para fazer o match
 method_code:http_errors:rate5m
 / on(method)
 method:http_requests:rate5m
 
-# ignoring() — IGNORA os labels listados no match
+# ignoring() - IGNORA os labels listados no match
 method_code:http_errors:rate5m
 / ignoring(code)
 method:http_requests:rate5m
 </pre>
 
-<h3>group_left() e group_right() — Joins Many-to-One</h3>
+<h3>group_left() e group_right() - Joins Many-to-One</h3>
 
 <p>Quando um lado tem mais séries que o outro, precisamos especificar qual lado "domina":</p>
 
@@ -173,7 +173,7 @@ container_cpu_usage{pod="api-1"} * on(pod) group_left(cluster) pod_info{pod="api
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<h2>3. predict_linear() — Alertas Preditivos</h2>
+<h2>3. predict_linear() - Alertas Preditivos</h2>
 
 <p>Projeta o valor futuro de um gauge usando regressão linear sobre o histórico recente.</p>
 
@@ -204,7 +204,7 @@ predict_linear(node_memory_MemAvailable_bytes[2h], 6 * 3600) < 0
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<h2>4. absent() — Alertar Quando Métricas Somem</h2>
+<h2>4. absent() - Alertar Quando Métricas Somem</h2>
 
 <p>Retorna um vetor com valor 1 se a expressão não produz nenhuma série. Essencial para "alerta de ausência".</p>
 
@@ -261,7 +261,7 @@ absent(http_requests_total{env="production"})
 </div>
 </div>
 
-<h3>label_replace() — Exemplo prático</h3>
+<h3>label_replace() - Exemplo prático</h3>
 <pre>
 # Cria label "short_instance" tirando a porta do "instance"
 label_replace(
@@ -274,7 +274,7 @@ label_replace(
 </pre>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<h2>6. Recording Rules — Pré-computação de Queries</h2>
+<h2>6. Recording Rules - Pré-computação de Queries</h2>
 
 <p>Recording Rules avaliam uma expressão PromQL em intervalos regulares e armazenam o resultado como uma nova métrica. Essencial para queries pesadas usadas em vários dashboards/alertas.</p>
 
@@ -333,7 +333,7 @@ rule_files:
 </pre>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<h2>7. Subqueries — Queries dentro de Queries</h2>
+<h2>7. Subqueries - Queries dentro de Queries</h2>
 
 <pre>
 # Sintaxe: expr[range:resolution]
@@ -366,7 +366,7 @@ max_over_time(
     <div class="quiz-opt">D) p99(http_request_duration_seconds[5m])</div>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
-  <div class="quiz-exp">histogram_quantile(φ, b) — φ é o quantil entre 0 e 1 (não 0-100!), e b deve ser os buckets com rate(). Usa _bucket como sufixo, não a métrica base.</div>
+  <div class="quiz-exp">histogram_quantile(φ, b) - φ é o quantil entre 0 e 1 (não 0-100!), e b deve ser os buckets com rate(). Usa _bucket como sufixo, não a métrica base.</div>
 </div>
 
 <div class="quiz-block">
@@ -402,7 +402,7 @@ max_over_time(
     <div class="quiz-opt">D) O valor atual da métrica up para o job api</div>
   </div>
   <div class="quiz-ans">✅ Resposta: C</div>
-  <div class="quiz-exp">absent() retorna um vetor com valor 1 apenas se a série NÃO existe. Se a série existe (job está monitorado), absent() retorna um vetor vazio — nenhum dado. Isso significa: a alerting rule não dispara quando o job existe.</div>
+  <div class="quiz-exp">absent() retorna um vetor com valor 1 apenas se a série NÃO existe. Se a série existe (job está monitorado), absent() retorna um vetor vazio - nenhum dado. Isso significa: a alerting rule não dispara quando o job existe.</div>
 </div>
 
 <div class="quiz-block">
@@ -438,7 +438,7 @@ max_over_time(
     <div class="quiz-opt">D) Recording Rules seguem a naming convention level:metric:operations</div>
   </div>
   <div class="quiz-ans">✅ Resposta: C</div>
-  <div class="quiz-exp">INCORRETA: Recording Rules são avaliadas periodicamente (conforme evaluation_interval) e armazenadas no TSDB, independente de haver consultas. Quando um dashboard as consulta, os dados já estão pré-calculados — por isso são mais rápidas.</div>
+  <div class="quiz-exp">INCORRETA: Recording Rules são avaliadas periodicamente (conforme evaluation_interval) e armazenadas no TSDB, independente de haver consultas. Quando um dashboard as consulta, os dados já estão pré-calculados - por isso são mais rápidas.</div>
 </div>
 
 <div class="quiz-block">
