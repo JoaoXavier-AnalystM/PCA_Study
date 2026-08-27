@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PCA Guia</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Bricolage+Grotesque:wght@400;500;600;700;800&display=swap');
 
   :root, [data-theme="dark"] {
     /* tons azul-slate desaturados (não preto puro) - dark ≠ cores invertidas */
@@ -42,12 +42,12 @@
   body {
     background: var(--bg);
     color: var(--text);
-    /* corpo em Inter (leitura longa); Syne reservada p/ títulos display */
+    /* corpo em Inter (leitura longa); Bricolage Grotesque p/ títulos display */
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     min-height: 100vh;
   }
   h1, h2, h3, h4, .hero-badge, .brand-title, .section-kicker {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Bricolage Grotesque', 'Syne', sans-serif;
   }
   /* padrão tipográfico de títulos - pesos e tracking consistentes */
   h1 { font-weight: 800; letter-spacing: -0.3px; }
@@ -117,7 +117,7 @@
   }
   .nav-brand-badge { width: 36px; height: 36px; border-radius: 6px; flex-shrink: 0; }
   .nav-brand-title {
-    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 14px;
+    font-family: 'Bricolage Grotesque', 'Syne', sans-serif; font-weight: 800; font-size: 14px;
     color: var(--text); letter-spacing: 0.5px;
   }
   .nav-brand-title span { color: var(--accent); }
@@ -388,7 +388,7 @@
   .option-btn {
     background: var(--surface2); border: 1px solid var(--border);
     border-radius: 8px; padding: 12px 16px;
-    cursor: pointer; text-align: left; font-family: 'Syne', sans-serif;
+    cursor: pointer; text-align: left; font-family: 'Inter', sans-serif;
     font-size: 13px; color: var(--text); transition: all .15s;
     display: flex; gap: 10px; align-items: flex-start;
     overflow-wrap: anywhere;
@@ -524,14 +524,14 @@
   .btn {
     background: var(--accent); color: #0a0c10;
     border: none; border-radius: 8px; padding: 10px 22px;
-    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px;
+    font-family: 'Bricolage Grotesque', 'Syne', sans-serif; font-weight: 700; font-size: 13px;
     cursor: pointer; transition: opacity .2s;
   }
   .btn:hover { opacity: .85; }
   .btn-outline {
     background: none; border: 1px solid var(--border); color: var(--text);
     border-radius: 8px; padding: 10px 22px;
-    font-family: 'Syne', sans-serif; font-weight: 600; font-size: 13px;
+    font-family: 'Bricolage Grotesque', 'Syne', sans-serif; font-weight: 600; font-size: 13px;
     cursor: pointer; transition: all .2s;
   }
   .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
@@ -655,7 +655,7 @@
     position: fixed; bottom: 24px; right: 24px;
     background: var(--accent); color: #0a0c10;
     border: none; border-radius: 50px; padding: 12px 20px;
-    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-family: 'Bricolage Grotesque', 'Syne', sans-serif; font-weight: 700;
     font-size: 12px; cursor: pointer; z-index: 200;
     box-shadow: 0 4px 20px rgba(232,255,71,.3);
   }
@@ -703,7 +703,7 @@
     border: none;
     border-radius: 6px;
     padding: 8px 16px;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Bricolage Grotesque', 'Syne', sans-serif;
     font-weight: 700;
     font-size: 12px;
     cursor: pointer;
@@ -877,7 +877,7 @@
   <button class="nav-btn" onclick="show('plano')" data-icon="📅">📅 Trilha de Estudo</button>
   <button class="nav-btn" onclick="show('cheat')" data-icon="📋">📋 Resumo Rápido</button>
   <button class="nav-btn" onclick="show('promqlref')" data-icon="📖">📖 Referência PromQL</button>
-  <button class="nav-btn" onclick="show('quiz')" data-icon="🧠">🧠 Simulado (50 Questões)</button>
+  <button class="nav-btn" onclick="show('quiz')" data-icon="🧠">🧠 Simulado</button>
   <button class="nav-btn" onclick="show('promql')" data-icon="⚠️">⚠️ Pontos de Atenção</button>
   <div class="nav-spacer"></div>
   <button class="nav-theme-btn" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema claro/escuro">
