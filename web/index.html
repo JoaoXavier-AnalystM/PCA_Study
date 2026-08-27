@@ -384,9 +384,6 @@
     font-size: 15px; font-weight: 600; margin-bottom: 20px;
     line-height: 1.5; overflow-wrap: anywhere;
   }
-  .q-en { color: var(--muted); font-weight: 400; font-size: 13px; margin-top: 6px; }
-  .opt-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-  .opt-en { color: var(--muted); font-size: 11.5px; font-weight: 400; }
   .options { display: flex; flex-direction: column; gap: 8px; }
   .option-btn {
     background: var(--surface2); border: 1px solid var(--border);
@@ -2280,8 +2277,8 @@ let total = 0;
 let quizLang = 'pt';
 
 const L = {
-  pt: { title:'Questões PCA', sub:'Clique na alternativa para responder · Veja a explicação logo abaixo', all:'Todas (50)', fund:'Fundamentos', inst:'Instrumentação', reset:'🔄 Reiniciar Quiz', ariaOk:'Correto', ariaNo:'Incorreto' },
-  en: { title:'PCA Questions', sub:'Click an option to answer · Explanation below', all:'All (50)', fund:'Fundamentals', inst:'Instrumentation', reset:'🔄 Restart Quiz', ariaOk:'Correct', ariaNo:'Incorrect', domains:{Observability:'Observability',Fundamentos:'Fundamentals',PromQL:'PromQL',Alerting:'Alerting',Instrumentação:'Instrumentation'} }
+  pt: { title:'50 Questões Estilo PCA', sub:'Clique na alternativa para responder · Veja a explicação logo abaixo', all:'Todas (50)', fund:'Fundamentos', inst:'Instrumentação', reset:'🔄 Reiniciar Quiz', ariaOk:'Correto', ariaNo:'Incorreto' },
+  en: { title:'50 PCA-Style Questions', sub:'Click an option to answer · Explanation below', all:'All (50)', fund:'Fundamentals', inst:'Instrumentation', reset:'🔄 Restart Quiz', ariaOk:'Correct', ariaNo:'Incorrect', domains:{Observability:'Observability',Fundamentos:'Fundamentals',PromQL:'PromQL',Alerting:'Alerting',Instrumentação:'Instrumentation'} }
 };
 
 function applyLangUI() {
@@ -2343,6 +2340,9 @@ function renderQuiz() {
     const globalIdx = questions.indexOf(q);
     const letters = ['A','B','C','D'];
     const isAnswered = answered[globalIdx] !== undefined;
+    const qText = en && q.qe ? q.qe : q.q;
+    const qOpts = en && q.optse ? q.optse : q.opts;
+    const qExp = en && q.expe ? q.expe : q.exp;
     const ariaOk = en ? L.en.ariaOk : L.pt.ariaOk;
     const ariaNo = en ? L.en.ariaNo : L.pt.ariaNo;
 
@@ -2354,9 +2354,9 @@ function renderQuiz() {
         <span>Q${i+1}</span>
         <span class="tag tag-${domainTag(q.domain)}">${qDomain}</span>
       </div>
-      <div class="question-text">${q.q}${q.qe ? `<div class="q-en">${q.qe}</div>` : ''}</div>
+      <div class="question-text">${qText}</div>
       <div class="options">
-        ${q.opts.map((opt, j) => {
+        ${qOpts.map((opt, j) => {
           let cls = 'option-btn';
           let indicator = '';
           if (isAnswered) {
@@ -2365,13 +2365,13 @@ function renderQuiz() {
           }
           return `<button class="${cls}" ${isAnswered?'disabled':''} onclick="answer(${globalIdx}, ${j})">
             <span class="option-letter">${letters[j]}</span>
-            <span class="opt-text"><span>${opt}</span>${q.optse ? `<span class="opt-en">${q.optse[j]}</span>` : ''}</span>
+            <span>${opt}</span>
             ${indicator}
           </button>`;
         }).join('')}
       </div>
       <div class="explanation ${isAnswered?'show':''}" id="exp-${globalIdx}">
-        ${q.exp}${q.expe ? `<div class="q-en">${q.expe}</div>` : ''}
+        ${qExp}
       </div>
     `;
     container.appendChild(card);
