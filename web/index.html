@@ -100,6 +100,8 @@
     text-transform: uppercase; letter-spacing: 1px;
   }
   .nav-btn:hover { color: var(--text); background: var(--surface2); }
+  /* grupo de navegação centralizado entre a marca (topo) e os controles (fundo) */
+  .nav-btn:first-of-type { margin-top: auto; }
   .nav-btn.active {
     color: var(--accent);
     border-left-color: var(--accent);
@@ -138,7 +140,14 @@
   /* theme toggle */
   .nav-spacer { flex: 1; }
   .nav-lang { display: flex; justify-content: center; margin: 0 16px 8px; }
-  nav.collapsed .nav-lang { flex-direction: column; margin: 0 auto 8px; }
+  nav.collapsed .nav-lang { flex-direction: column; align-items: center; gap: 6px; margin: 0 auto 8px; }
+  nav.collapsed .lang-btn {
+    width: 34px; height: 34px; padding: 0; font-size: 10px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; border: 1px solid var(--border);
+  }
+  nav.collapsed .lang-btn:first-of-type,
+  nav.collapsed .lang-btn:last-of-type { border-radius: 50%; }
   .nav-theme-btn {
     background: none; border: 1px solid var(--border);
     border-radius: 8px; padding: 8px 12px; cursor: pointer;
@@ -842,6 +851,7 @@
     nav.collapsed .nav-btn { font-size: 10px; padding: 10px 14px; }
     nav.collapsed .nav-btn::before { content: none; }
     .nav-btn { border-left: none; border-bottom: 2px solid transparent; padding: 10px 14px; font-size: 10px; }
+    .nav-btn:first-of-type { margin-top: 0; }
     .nav-btn.active { border-left: none; border-bottom-color: var(--accent); }
     .nav-theme-btn { position: sticky; right: 8px; margin-left: auto; flex-shrink: 0; }
     .nav-spacer { display: none; }
@@ -2272,12 +2282,13 @@ let answered = {};
 let currentFilter = 'all';
 let score = 0;
 let total = 0;
-let siteLang = localStorage.getItem('pca_lang') || localStorage.getItem('pca_quiz_lang') || 'pt';
+let siteLang = localStorage.getItem('pca_lang') || 'pt';
+let quizLang = localStorage.getItem('pca_quiz_lang') || 'pt';
 let currentDay = 0;
 
 const L = {
-  pt: { title:'50 Questões Estilo PCA', sub:'Clique na alternativa para responder · Veja a explicação logo abaixo', all:'Todas (50)', fund:'Fundamentos', inst:'Instrumentação', reset:'🔄 Reiniciar Quiz', ariaOk:'Correto', ariaNo:'Incorreto' },
-  en: { title:'50 PCA-Style Questions', sub:'Click an option to answer · Explanation below', all:'All (50)', fund:'Fundamentals', inst:'Instrumentation', reset:'🔄 Restart Quiz', ariaOk:'Correct', ariaNo:'Incorrect', domains:{Observability:'Observability',Fundamentos:'Fundamentals',PromQL:'PromQL',Alerting:'Alerting',Instrumentação:'Instrumentation'} }
+  pt: { title:'Questões Estilo PCA', sub:'Clique na alternativa para responder · Veja a explicação logo abaixo', all:'Todas (50)', fund:'Fundamentos', inst:'Instrumentação', reset:'🔄 Reiniciar Quiz', ariaOk:'Correto', ariaNo:'Incorreto' },
+  en: { title:'PCA-Style Questions', sub:'Click an option to answer · Explanation below', all:'All (50)', fund:'Fundamentals', inst:'Instrumentation', reset:'🔄 Restart Quiz', ariaOk:'Correct', ariaNo:'Incorrect', domains:{Observability:'Observability',Fundamentos:'Fundamentals',PromQL:'PromQL',Alerting:'Alerting',Instrumentação:'Instrumentation'} }
 };
 
 const I18N = {
@@ -3363,31 +3374,43 @@ const I18N = {
   }
 };
 
-function applyLangUI() {
-  const t = L[siteLang] || L.pt;
+function applySiteLangUI() {
+  const isPt = siteLang === 'pt';
+  ['navLangPt'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.toggle('active', isPt); });
+  ['navLangEn'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.toggle('active', !isPt); });
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    const v = (I18N[siteLang] && I18N[siteLang][k]) || I18N.pt[k];
+    if (v !== undefined) el.textContent = v;
+  });
+}
+
+function applyQuizLangUI() {
+  const t = L[quizLang] || L.pt;
   document.getElementById('quizTitle').textContent = t.title;
   document.getElementById('quizSub').textContent = t.sub;
   document.getElementById('fBtnAll').textContent = t.all;
   document.getElementById('fBtnFund').textContent = t.fund;
   document.getElementById('fBtnInst').textContent = t.inst;
   document.getElementById('resetBtn').textContent = t.reset;
-  const isPt = siteLang === 'pt';
-  ['langPt', 'navLangPt'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.toggle('active', isPt); });
-  ['langEn', 'navLangEn'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.toggle('active', !isPt); });
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const k = el.getAttribute('data-i18n');
-    const v = (I18N[siteLang] && I18N[siteLang][k]) || I18N.pt[k];
-    if (v !== undefined) el.textContent = v;
-  });
+  const isPt = quizLang === 'pt';
+  ['langPt'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.toggle('active', isPt); });
+  ['langEn'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.toggle('active', !isPt); });
   updateScore();
 }
 
 function setSiteLang(lang) {
   siteLang = lang;
   localStorage.setItem('pca_lang', lang);
-  applyLangUI();
-  renderQuiz();
+  applySiteLangUI();
   if (typeof currentDay !== 'undefined' && currentDay) loadDayStudy(currentDay);
+}
+
+function setQuizLang(lang) {
+  quizLang = lang;
+  localStorage.setItem('pca_quiz_lang', lang);
+  applyQuizLangUI();
+  renderQuiz();
 }
 
 (function initFromStorage() {
@@ -3408,7 +3431,8 @@ function setSiteLang(lang) {
   if (visitedDays.length > 0) {
     setTimeout(() => markVisitedDays(visitedDays), 0);
   }
-  applyLangUI();
+  applySiteLangUI();
+  applyQuizLangUI();
 })();
 
 function filterQuiz(domain) {
@@ -3421,7 +3445,7 @@ function filterQuiz(domain) {
 function renderQuiz() {
   const container = document.getElementById('quizContainer');
   const filtered = currentFilter === 'all' ? questions : questions.filter(q => q.domain === currentFilter);
-  const en = siteLang === 'en';
+  const en = quizLang === 'en';
 
   container.innerHTML = '';
   filtered.forEach((q, i) => {
@@ -3532,7 +3556,7 @@ function initDayQuizzes(root) {
 }
 
 function updateScore() {
-  const en = siteLang === 'en';
+  const en = quizLang === 'en';
   document.getElementById('scoreDisplay').textContent = en ? `Score: ${score}/${total}` : `Pontuação: ${score}/${total}`;
   const pct = total > 0 ? Math.round(score/total*100) : 0;
   document.getElementById('progressDisplay').textContent = total > 0 ? (en ? `${pct}% correct` : `${pct}% correto`) : '';
