@@ -873,7 +873,7 @@
   <button class="nav-toggle" onclick="toggleSidebar()" aria-label="Recolher menu" title="Recolher menu">
     <span class="nav-toggle-chev" aria-hidden="true"></span>
   </button>
-  <div class="nav-brand" onclick="show('about')" title="Sobre a certificação" style="cursor:pointer;">
+  <div class="nav-brand" role="button" tabindex="0" onclick="show('about')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();show('about')}" title="Sobre a certificação" style="cursor:pointer;">
     <div class="nav-brand-logo">
       <img class="nav-brand-badge" src="pca-badge.png" alt="PCA Badge" loading="eager">
       <div>
@@ -954,7 +954,7 @@
           <div class="title" data-i18n="src.title">Referências:</div>
           <div data-i18n="day1.s1">LFS241 Cap. 2, 3 e 4</div>
           <div data-i18n="day1.s2">KodeKloud Módulo 1-2</div>
-          <div><a href="https://prometheus.io/docs/introduction/overview/ "target="_blank"> Prometheus Docs</a></div>
+          <div><a href="https://prometheus.io/docs/introduction/overview/" target="_blank"> Prometheus Docs</a></div>
         </div>
     </div>
   </div>
@@ -984,7 +984,7 @@
           <div class="title" data-i18n="src.title">Referências:</div>
           <div data-i18n="day2.s1">LFS241 Cap. 5</div>
           <div data-i18n="day2.s2">KodeKloud PromQL Básico</div>
-          <div><a href="https://prometheus.io/docs/introduction/overview/ "target="_blank"> Prometheus Docs</a></div>
+          <div><a href="https://prometheus.io/docs/introduction/overview/" target="_blank"> Prometheus Docs</a></div>
         </div>
       </div>
     </div>
@@ -1014,7 +1014,7 @@
           <div class="title" data-i18n="src.title">Referências:</div>
           <div data-i18n="day3.s1">LFS241 Cap. 11</div>
           <div data-i18n="day3.s2">KodeKloud PromQL Avançado</div>
-          <div><a href="https://prometheus.io/docs/introduction/overview/ "target="_blank"> Prometheus Docs</a></div>
+          <div><a href="https://prometheus.io/docs/introduction/overview/" target="_blank"> Prometheus Docs</a></div>
         </div>
       </div>
     </div>
@@ -1044,7 +1044,7 @@
           <div class="title" data-i18n="src.title">Referências:</div>
           <div data-i18n="day4.s1">LFS241 Cap. 7, 8, 9, 10 </div>
           <div>KodeKloud Exporters</div>
-          <div><a href="https://prometheus.io/docs/introduction/overview/ "target="_blank"> Prometheus Docs</a></div>
+          <div><a href="https://prometheus.io/docs/introduction/overview/" target="_blank"> Prometheus Docs</a></div>
         </div>
       </div>
     </div>
@@ -1074,7 +1074,7 @@
           <div class="title" data-i18n="src.title">Referências:</div>
           <div data-i18n="day5.s1">LFS241 Cap. 13, 16</div>
           <div>KodeKloud Alerting</div>
-          <div><a href="https://prometheus.io/docs/introduction/overview/ "target="_blank"> Prometheus Docs</a></div>
+          <div><a href="https://prometheus.io/docs/introduction/overview/" target="_blank"> Prometheus Docs</a></div>
         </div>
       </div>
     </div>
@@ -1152,12 +1152,12 @@
   </div>
 
   <div class="filter-bar" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px;">
-    <button class="filter-btn active" onclick="filterCheats('all')" data-i18n="cheat.f.1">TODOS</button>
-    <button class="filter-btn" onclick="filterCheats('obs')" data-i18n="cheat.f.2">Observability</button>
-    <button class="filter-btn" onclick="filterCheats('fund')" data-i18n="cheat.f.3">Fundamentos</button>
-    <button class="filter-btn" onclick="filterCheats('promql')" data-i18n="cheat.f.4">PromQL</button>
-    <button class="filter-btn" onclick="filterCheats('inst')" data-i18n="cheat.f.5">Instrumentação</button>
-    <button class="filter-btn" onclick="filterCheats('alert')" data-i18n="cheat.f.6">Alerting &amp; Dash</button>
+    <button class="filter-btn active" onclick="filterCheats('all', event)" data-i18n="cheat.f.1">TODOS</button>
+    <button class="filter-btn" onclick="filterCheats('obs', event)" data-i18n="cheat.f.2">Observability</button>
+    <button class="filter-btn" onclick="filterCheats('fund', event)" data-i18n="cheat.f.3">Fundamentos</button>
+    <button class="filter-btn" onclick="filterCheats('promql', event)" data-i18n="cheat.f.4">PromQL</button>
+    <button class="filter-btn" onclick="filterCheats('inst', event)" data-i18n="cheat.f.5">Instrumentação</button>
+    <button class="filter-btn" onclick="filterCheats('alert', event)" data-i18n="cheat.f.6">Alerting &amp; Dash</button>
   </div>
 
   <div class="cheat-grid">
@@ -1644,12 +1644,12 @@
   </div>
 
   <div class="filter-row">
-    <button class="filter-btn active" id="fBtnAll" onclick="filterQuiz('all')">Todas (50)</button>
-    <button class="filter-btn" onclick="filterQuiz('PromQL')">PromQL</button>
-    <button class="filter-btn" id="fBtnFund" onclick="filterQuiz('Fundamentos')">Fundamentos</button>
-    <button class="filter-btn" onclick="filterQuiz('Observability')">Observability</button>
-    <button class="filter-btn" onclick="filterQuiz('Alerting')">Alerting</button>
-    <button class="filter-btn" id="fBtnInst" onclick="filterQuiz('Instrumentação')">Instrumentação</button>
+    <button class="filter-btn active" id="fBtnAll" onclick="filterQuiz('all', event)">Todas (50)</button>
+    <button class="filter-btn" onclick="filterQuiz('PromQL', event)">PromQL</button>
+    <button class="filter-btn" id="fBtnFund" onclick="filterQuiz('Fundamentos', event)">Fundamentos</button>
+    <button class="filter-btn" onclick="filterQuiz('Observability', event)">Observability</button>
+    <button class="filter-btn" onclick="filterQuiz('Alerting', event)">Alerting</button>
+    <button class="filter-btn" id="fBtnInst" onclick="filterQuiz('Instrumentação', event)">Instrumentação</button>
   </div>
 
   <div id="quizContainer"></div>
@@ -2151,6 +2151,14 @@ function loadDayStudy(dayNum) {
   title.textContent = dayNames[dayNum];
   content.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted)">' + (siteLang === 'en' ? 'Loading...' : 'Carregando...') + '</div>';
   container.style.display = 'block';
+
+  // abertura direta do arquivo (file://) não consegue carregar os dias via fetch
+  if (location.protocol === 'file:') {
+    content.innerHTML = '<div style="text-align:center;padding:40px;color:var(--accent3)">' + (siteLang === 'en'
+      ? 'Day content needs an HTTP server - browsers block loading local files. Run <code>python -m http.server</code> inside the web folder, or <code>docker compose up</code>.'
+      : 'Conteúdo do dia precisa de servidor HTTP - navegador bloqueia carregamento de arquivo local. Rode <code>python -m http.server</code> na pasta web, ou <code>docker compose up</code>.') + '</div>';
+    return;
+  }
 
   const reqId = ++dayReqSeq;
   fetch('day' + dayNum + (siteLang === 'en' ? '-en' : '') + '.html')
@@ -3434,10 +3442,10 @@ function setQuizLang(lang) {
   applyQuizLangUI();
 })();
 
-function filterQuiz(domain) {
+function filterQuiz(domain, ev) {
   currentFilter = domain;
   document.querySelectorAll('#quiz .filter-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
+  (ev || window.event).target.classList.add('active');
   renderQuiz();
 }
 
@@ -3510,9 +3518,9 @@ function answer(idx, chosen) {
 }
 
 // filtro do Resumo Rápido por domínio (consistente com filtros do quiz)
-function filterCheats(domain) {
+function filterCheats(domain, ev) {
   document.querySelectorAll('#cheat .filter-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
+  (ev || window.event).target.classList.add('active');
   document.querySelectorAll('#cheat .cheat-card').forEach(card => {
     const tag = card.querySelector('h3 .tag');
     const m = tag ? tag.className.match(/tag-(obs|fund|promql|inst|alert)/) : null;
