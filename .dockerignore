@@ -2,6 +2,8 @@
 .github
 .remember
 .claude
+.impeccable
+.playwright-mcp
 docs
 *.md
 PCA_Curriculum.pdf
