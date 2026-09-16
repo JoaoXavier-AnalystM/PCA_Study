@@ -1,6 +1,8 @@
 services:
   pca-study:
-    build: .
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
     image: pca-study-prod:latest
     container_name: pca-study-prod
     restart: unless-stopped
