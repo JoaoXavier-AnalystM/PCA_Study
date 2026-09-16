@@ -40,18 +40,6 @@ jobs:
             exit 1
           fi
 
-      - name: Backup current version
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            mkdir -p /var/www/backups
-
-            cp /var/www/pca-study/index.html \
-            /var/www/backups/index-$(date +%F-%H-%M-%S).html || true
-
       - name: Create target directory
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -67,7 +55,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          source: "Dockerfile,deploy,docker-compose.yml,web"
+          source: "deploy,web"
           target: "/var/www/pca-study"
 
       - name: Build and run container
@@ -80,8 +68,8 @@ jobs:
             cd /var/www/pca-study
 
             docker tag pca-study-prod:latest pca-study-prod:previous 2>/dev/null || true
-            docker compose build --pull
-            docker compose up -d
+            docker compose -f deploy/docker-compose.yml build --pull
+            docker compose -f deploy/docker-compose.yml up -d
             docker image prune -f
 
       - name: Health Check
