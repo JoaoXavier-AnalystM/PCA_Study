@@ -45,6 +45,7 @@
     /* corpo em Inter (leitura longa); Bricolage Grotesque p/ títulos display */
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     min-height: 100vh;
+    overflow-x: hidden;
   }
   h1, h2, h3, h4, .hero-badge, .brand-title, .section-kicker {
     font-family: 'Bricolage Grotesque', 'Syne', sans-serif;
@@ -73,8 +74,7 @@
   nav {
     position: fixed; top: 0; left: 0; z-index: 100;
     width: 248px; height: 100vh;
-    background: linear-gradient(180deg, rgba(71, 184, 255, 0.06), transparent 28%), var(--surface);
-    backdrop-filter: blur(12px);
+    background: var(--surface);
     border-right: 1px solid var(--border);
     display: flex; flex-direction: column;
     padding: 14px 10px 16px;
@@ -85,6 +85,13 @@
   nav.collapsed { width: 68px; padding-inline: 8px; }
   nav.collapsed .nav-btn { padding: 12px 0; justify-content: center; font-size: 0; }
   nav.collapsed .nav-btn::before { content: none; }
+  nav.collapsed .nav-btn-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; color: var(--muted);
+    font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700;
+    letter-spacing: .02em;
+  }
+  nav.collapsed .nav-btn.active .nav-btn-icon { color: var(--accent); }
   nav.collapsed .nav-btn-label { display: none; }
   nav.collapsed .nav-header { padding-inline: 0; }
   nav.collapsed .nav-brand { padding: 0; }
@@ -95,22 +102,21 @@
   nav.collapsed .nav-brand-badge { width: 32px; height: 32px; }
   nav.collapsed .nav-toggle { margin: 0 auto 14px; }
   nav.collapsed .nav-section-label,
-  nav.collapsed .nav-status,
   nav.collapsed .nav-theme-text { display: none; }
   nav.collapsed .nav-links { padding-bottom: 10px; }
+  nav button { -webkit-tap-highlight-color: transparent; }
 
   .nav-btn {
     display: flex; align-items: center; width: 100%;
     background: transparent; border: 1px solid transparent; color: var(--muted);
-    font-family: 'Space Mono', monospace; font-size: 11px;
-    padding: 11px 12px; cursor: pointer;
+    font-family: 'Inter', system-ui, sans-serif; font-size: 12px; font-weight: 600;
+    padding: 10px 12px; cursor: pointer;
     text-align: left; white-space: nowrap;
-    border-left: 3px solid transparent; border-radius: 10px;
+    border-left: 3px solid transparent; border-radius: 8px;
     transition: color .18s ease, background-color .18s ease, border-color .18s ease, transform .18s ease;
-    text-transform: uppercase; letter-spacing: 1px;
     touch-action: manipulation;
   }
-  .nav-btn-icon { flex: 0 0 auto; font-size: 14px; line-height: 1; }
+  .nav-btn-icon { display: none; }
   .nav-btn-label { min-width: 0; }
   .nav-btn:hover { color: var(--text); background: var(--surface2); border-color: var(--border); transform: translateX(2px); }
   /* grupo de navegação centralizado entre a marca (topo) e os controles (fundo) */
@@ -125,12 +131,8 @@
   .nav-btn.active {
     color: var(--text);
     border-left-color: var(--accent);
-    background: linear-gradient(90deg, rgba(230, 82, 44, 0.17), rgba(230, 82, 44, 0.04));
-    border-top-color: rgba(230, 82, 44, 0.28);
-    border-right-color: rgba(230, 82, 44, 0.28);
-    border-bottom-color: rgba(230, 82, 44, 0.28);
+    background: var(--surface2);
     font-weight: 700;
-    box-shadow: inset 0 0 18px rgba(230, 82, 44, 0.08);
   }
   /* sidebar brand */
   .nav-header {
@@ -148,7 +150,7 @@
   .nav-brand-logo > span:last-child { display: flex; flex-direction: column; min-width: 0; }
   .nav-brand-badge {
     width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
-    box-shadow: 0 0 0 3px rgba(230, 82, 44, 0.1), 0 8px 20px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 0 0 2px rgba(230, 82, 44, 0.12);
   }
   .nav-brand-title {
     font-family: 'Bricolage Grotesque', 'Syne', sans-serif; font-weight: 800; font-size: 14px;
@@ -173,26 +175,16 @@
   .nav-toggle:hover { color: var(--text); border-color: var(--accent); background: var(--surface); }
   /* theme toggle */
   .nav-footer { padding-top: 12px; border-top: 1px solid var(--border); }
-  .nav-status {
-    display: flex; align-items: center; gap: 8px;
-    padding: 0 10px 10px;
-    color: var(--muted); font-family: 'Space Mono', monospace;
-    font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
-  }
-  .nav-status-dot {
-    width: 6px; height: 6px; flex: 0 0 6px; border-radius: 50%;
-    background: var(--promql); box-shadow: 0 0 0 4px rgba(54, 211, 153, 0.1), 0 0 12px rgba(54, 211, 153, 0.5);
-  }
   .nav-lang { display: flex; gap: 6px; margin: 0 10px 8px; }
-  .lang-btn {
+  .nav-lang .lang-btn {
     flex: 1; padding: 7px 10px; color: var(--muted);
     background: var(--surface2); border: 1px solid var(--border); border-radius: 7px;
     font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700;
     cursor: pointer; transition: color .18s ease, background-color .18s ease, border-color .18s ease;
     touch-action: manipulation;
   }
-  .lang-btn:hover { color: var(--text); border-color: var(--accent2); }
-  .lang-btn.active { color: var(--text); border-color: var(--accent); background: rgba(230, 82, 44, 0.12); }
+  .nav-lang .lang-btn:hover { color: var(--text); border-color: var(--accent2); }
+  .nav-lang .lang-btn.active { color: var(--text); border-color: var(--accent); background: rgba(230, 82, 44, 0.12); }
   nav.collapsed .nav-footer { padding-top: 4px; border-top: 0; }
   nav.collapsed .nav-lang { flex-direction: column; align-items: center; gap: 6px; margin: 0 0 8px; }
   nav.collapsed .lang-btn {
@@ -212,9 +204,16 @@
     touch-action: manipulation;
   }
   .nav-theme-btn:hover { color: var(--text); border-color: var(--accent); background: var(--surface2); }
-  .theme-icon-dark, .theme-icon-light { display: none; }
-  [data-theme="dark"] .theme-icon-dark { display: inline; }
-  [data-theme="light"] .theme-icon-light { display: inline; }
+  .theme-icon-dark, .theme-icon-light {
+    display: none; width: 13px; height: 13px; border: 1px solid currentColor;
+    border-radius: 50%; flex: 0 0 13px; font-size: 0;
+  }
+  [data-theme="dark"] .theme-icon-dark {
+    display: inline-block; background: linear-gradient(135deg, currentColor 0 50%, transparent 50%);
+  }
+  [data-theme="light"] .theme-icon-light {
+    display: inline-block; background: linear-gradient(135deg, transparent 0 50%, currentColor 50%);
+  }
   nav.collapsed .nav-theme-btn { font-size: 12px; padding: 6px; margin: 8px auto 0; border-radius: 50%; width: 34px; height: 34px; }
   /* chevron de recolher - « aberto, » recolhido */
   .nav-toggle-chev {
@@ -286,7 +285,7 @@
     border: 1px solid var(--border);
     border-left: 3px solid var(--border);
     border-radius: 0 10px 10px 0; overflow: hidden;
-    transition: all .2s;
+    transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease;
     cursor: pointer;
     box-shadow: var(--shadow);
   }
@@ -460,7 +459,8 @@
     background: var(--surface2); border: 1px solid var(--border);
     border-radius: 8px; padding: 12px 16px;
     cursor: pointer; text-align: left; font-family: 'Inter', sans-serif;
-    font-size: 13px; color: var(--text); transition: all .15s;
+    font-size: 13px; color: var(--text);
+    transition: color .15s ease, background-color .15s ease, border-color .15s ease, transform .15s ease;
     display: flex; gap: 10px; align-items: flex-start;
     overflow-wrap: anywhere;
   }
@@ -604,7 +604,7 @@
     background: none; border: 1px solid var(--border); color: var(--text);
     border-radius: 8px; padding: 10px 22px;
     font-family: 'Bricolage Grotesque', 'Syne', sans-serif; font-weight: 600; font-size: 13px;
-    cursor: pointer; transition: all .2s;
+    cursor: pointer; transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease;
   }
   .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
   .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
@@ -612,7 +612,8 @@
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 6px; padding: 6px 14px;
     font-family: 'Space Mono', monospace; font-size: 10px;
-    cursor: pointer; color: var(--muted); transition: all .2s;
+    cursor: pointer; color: var(--muted);
+    transition: color .2s ease, background-color .2s ease, border-color .2s ease;
     text-transform: uppercase;
   }
   .filter-btn:hover, .filter-btn.active { color: var(--accent); border-color: var(--accent); }
@@ -620,7 +621,8 @@
   .lang-btn {
     background: var(--surface); border: 1px solid var(--border); border-right: none;
     padding: 5px 16px; font-family: 'Space Mono', monospace; font-size: 10.5px;
-    cursor: pointer; color: var(--muted); transition: all .2s; text-transform: uppercase; letter-spacing: .5px;
+    cursor: pointer; color: var(--muted);
+    transition: color .2s ease, background-color .2s ease, border-color .2s ease; text-transform: uppercase; letter-spacing: .5px;
   }
   .lang-btn:first-of-type { border-radius: 6px 0 0 6px; }
   .lang-btn:last-of-type { border-radius: 0 6px 6px 0; border-right: 1px solid var(--border); }
@@ -899,10 +901,10 @@
     .section { margin-left: 210px; padding: 24px 20px; }
     nav.collapsed ~ .section { margin-left: 56px; }
   }
-  @media (max-width: 600px) {
+  @media (max-width: 767px) {
     nav {
       position: relative; width: 100%; height: auto;
-      flex-direction: row; padding: 8px;
+      flex-direction: row; align-items: center; padding: 8px;
       overflow-x: auto; border-right: none;
       border-bottom: 1px solid var(--border);
       background: var(--surface);
@@ -911,14 +913,18 @@
     .nav-header { display: none; }
     .nav-brand { display: none; }
     .nav-toggle { display: none; }
-    .nav-section-label, .nav-status { display: none; }
+    .nav-section-label { display: none; }
     .nav-links, .nav-footer { display: contents; }
     nav.collapsed .nav-btn { font-size: 10px; padding: 10px 14px; }
     nav.collapsed .nav-btn::before { content: none; }
+    nav.collapsed .nav-btn { justify-content: flex-start; }
+    nav.collapsed .nav-btn-icon { display: none; }
+    nav.collapsed .nav-btn-label { display: inline; }
     .nav-btn { width: auto; flex: 0 0 auto; border-left: none; border-bottom: 2px solid transparent; border-radius: 7px; padding: 10px 14px; font-size: 10px; }
     .nav-spacer-top { display: none; }
     .nav-btn.active { border-left: none; border-bottom-color: var(--accent); }
-    .nav-lang { flex: 0 0 auto; margin: 0 0 0 8px; }
+    .nav-lang, nav.collapsed .nav-lang { flex-direction: row; align-items: center; flex: 0 0 auto; gap: 6px; margin: 0 0 0 8px; }
+    nav.collapsed .lang-btn { width: auto; height: auto; padding: 7px 9px; border-radius: 7px; }
     .lang-btn { flex: 0 0 auto; padding: 7px 9px; }
     .nav-theme-btn { position: sticky; right: 8px; margin-left: auto; flex: 0 0 auto; width: auto; }
     .nav-theme-text { display: none; }
@@ -946,7 +952,7 @@
     </button>
     <button class="nav-brand" type="button" onclick="show('about')" title="Sobre a certificação">
       <span class="nav-brand-logo">
-        <img class="nav-brand-badge" src="pca-badge.png" alt="PCA Badge" loading="eager">
+        <img class="nav-brand-badge" src="pca-badge.png" alt="PCA Badge" width="40" height="40" loading="eager">
         <span>
           <span class="nav-brand-title nav-brand-logo-text">PCA</span>
           <span class="nav-brand-sub nav-brand-logo-text">Prometheus Certified Associate</span>
@@ -957,27 +963,26 @@
   <div class="nav-spacer-top"></div>
   <div class="nav-section-label" data-i18n="nav.learn">GUIA</div>
   <div class="nav-links">
-    <button class="nav-btn active" type="button" onclick="show('about')" aria-current="page" data-icon="🎓"><span class="nav-btn-icon" aria-hidden="true">🎓</span><span class="nav-btn-label" data-i18n="nav.about">Sobre a Certificação</span></button>
-    <button class="nav-btn" type="button" onclick="show('mindmap')" data-icon="🗺️"><span class="nav-btn-icon" aria-hidden="true">🗺️</span><span class="nav-btn-label" data-i18n="nav.mindmap">Visão Geral</span></button>
-    <button class="nav-btn" type="button" onclick="show('plano')" data-icon="📅"><span class="nav-btn-icon" aria-hidden="true">📅</span><span class="nav-btn-label" data-i18n="nav.plano">Trilha de Estudo</span></button>
-    <button class="nav-btn" type="button" onclick="show('cheat')" data-icon="📋"><span class="nav-btn-icon" aria-hidden="true">📋</span><span class="nav-btn-label" data-i18n="nav.cheat">Resumo Rápido</span></button>
-    <button class="nav-btn" type="button" onclick="show('promqlref')" data-icon="📖"><span class="nav-btn-icon" aria-hidden="true">📖</span><span class="nav-btn-label" data-i18n="nav.promqlref">Referência PromQL</span></button>
+    <button class="nav-btn active" type="button" onclick="show('about')" aria-current="page"><span class="nav-btn-icon" aria-hidden="true">01</span><span class="nav-btn-label" data-i18n="nav.about">Sobre a Certificação</span></button>
+    <button class="nav-btn" type="button" onclick="show('mindmap')"><span class="nav-btn-icon" aria-hidden="true">02</span><span class="nav-btn-label" data-i18n="nav.mindmap">Visão Geral</span></button>
+    <button class="nav-btn" type="button" onclick="show('plano')"><span class="nav-btn-icon" aria-hidden="true">03</span><span class="nav-btn-label" data-i18n="nav.plano">Trilha de Estudo</span></button>
+    <button class="nav-btn" type="button" onclick="show('cheat')"><span class="nav-btn-icon" aria-hidden="true">04</span><span class="nav-btn-label" data-i18n="nav.cheat">Resumo Rápido</span></button>
+    <button class="nav-btn" type="button" onclick="show('promqlref')"><span class="nav-btn-icon" aria-hidden="true">05</span><span class="nav-btn-label" data-i18n="nav.promqlref">Referência PromQL</span></button>
   </div>
   <div class="nav-section-label" data-i18n="nav.practice">PRÁTICA</div>
   <div class="nav-links">
-    <button class="nav-btn" type="button" onclick="show('quiz')" data-icon="🧠"><span class="nav-btn-icon" aria-hidden="true">🧠</span><span class="nav-btn-label" data-i18n="nav.quiz">Simulado</span></button>
-    <button class="nav-btn" type="button" onclick="show('promql')" data-icon="⚠️"><span class="nav-btn-icon" aria-hidden="true">⚠️</span><span class="nav-btn-label" data-i18n="nav.promql">Pontos de Atenção</span></button>
+    <button class="nav-btn" type="button" onclick="show('quiz')"><span class="nav-btn-icon" aria-hidden="true">06</span><span class="nav-btn-label" data-i18n="nav.quiz">Simulado</span></button>
+    <button class="nav-btn" type="button" onclick="show('promql')"><span class="nav-btn-icon" aria-hidden="true">07</span><span class="nav-btn-label" data-i18n="nav.promql">Pontos de Atenção</span></button>
   </div>
   <div class="nav-spacer"></div>
   <div class="nav-footer">
-    <div class="nav-status nav-logo-text"><span class="nav-status-dot" aria-hidden="true"></span><span data-i18n="nav.status">GUIA PRONTO</span></div>
     <div class="nav-lang" role="group" aria-label="Idioma">
       <button class="lang-btn active" type="button" id="navLangPt" onclick="setSiteLang('pt')" aria-pressed="true">PT</button>
       <button class="lang-btn" type="button" id="navLangEn" onclick="setSiteLang('en')" aria-pressed="false">EN</button>
     </div>
     <button class="nav-theme-btn" type="button" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema claro/escuro">
-      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
-      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="theme-icon-dark" aria-hidden="true"></span>
+      <span class="theme-icon-light" aria-hidden="true"></span>
       <span class="nav-theme-text" data-i18n="nav.theme">Alternar tema</span>
     </button>
   </div>
@@ -3501,7 +3506,6 @@ const I18N = {
 
 I18N.pt['nav.learn'] = 'GUIA';
 I18N.pt['nav.practice'] = 'PRÁTICA';
-I18N.pt['nav.status'] = 'GUIA PRONTO';
 I18N.pt['nav.theme'] = 'Alternar tema';
 I18N.pt['nav.about'] = 'Sobre a Certificação';
 I18N.pt['nav.mindmap'] = 'Visão Geral';
@@ -3512,7 +3516,6 @@ I18N.pt['nav.quiz'] = 'Simulado';
 I18N.pt['nav.promql'] = 'Pontos de Atenção';
 I18N.en['nav.learn'] = 'STUDY';
 I18N.en['nav.practice'] = 'PRACTICE';
-I18N.en['nav.status'] = 'READY TO STUDY';
 I18N.en['nav.theme'] = 'Toggle theme';
 I18N.en['nav.about'] = 'About the Certification';
 I18N.en['nav.mindmap'] = 'Overview';
