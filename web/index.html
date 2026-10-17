@@ -72,58 +72,91 @@
   /* NAV - fixed left sidebar */
   nav {
     position: fixed; top: 0; left: 0; z-index: 100;
-    width: 230px; height: 100vh;
-    background: var(--surface);
+    width: 248px; height: 100vh;
+    background: linear-gradient(180deg, rgba(71, 184, 255, 0.06), transparent 28%), var(--surface);
     backdrop-filter: blur(12px);
     border-right: 1px solid var(--border);
-    display: flex; flex-direction: column; gap: 2px;
-    padding: 16px 0 20px 0;
-    transition: width .25s ease;
+    display: flex; flex-direction: column;
+    padding: 14px 10px 16px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    transition: width .25s ease, background-color .2s ease, border-color .2s ease;
   }
-  nav.collapsed { width: 56px; }
-  nav.collapsed .nav-btn { padding: 12px 0; text-align: center; font-size: 0; }
-  nav.collapsed .nav-btn::before { font-size: 16px; content: attr(data-icon); }
-  nav.collapsed .nav-brand { padding: 0 8px 12px 8px; }
+  nav.collapsed { width: 68px; padding-inline: 8px; }
+  nav.collapsed .nav-btn { padding: 12px 0; justify-content: center; font-size: 0; }
+  nav.collapsed .nav-btn::before { content: none; }
+  nav.collapsed .nav-btn-label { display: none; }
+  nav.collapsed .nav-header { padding-inline: 0; }
+  nav.collapsed .nav-brand { padding: 0; }
   nav.collapsed .nav-brand-logo { justify-content: center; }
   nav.collapsed .nav-brand-title,
   nav.collapsed .nav-brand-sub,
   nav.collapsed .nav-brand-logo-text { display: none; }
   nav.collapsed .nav-brand-badge { width: 32px; height: 32px; }
-  nav.collapsed .nav-toggle { align-self: center; margin: 0 auto 8px auto; }
+  nav.collapsed .nav-toggle { margin: 0 auto 14px; }
+  nav.collapsed .nav-section-label,
+  nav.collapsed .nav-status,
+  nav.collapsed .nav-theme-text { display: none; }
+  nav.collapsed .nav-links { padding-bottom: 10px; }
 
   .nav-btn {
-    background: none; border: none; color: var(--muted);
+    display: flex; align-items: center; width: 100%;
+    background: transparent; border: 1px solid transparent; color: var(--muted);
     font-family: 'Space Mono', monospace; font-size: 11px;
-    padding: 14px 16px; cursor: pointer;
+    padding: 11px 12px; cursor: pointer;
     text-align: left; white-space: nowrap;
-    border-left: 3px solid transparent; transition: all .2s;
+    border-left: 3px solid transparent; border-radius: 10px;
+    transition: color .18s ease, background-color .18s ease, border-color .18s ease, transform .18s ease;
     text-transform: uppercase; letter-spacing: 1px;
+    touch-action: manipulation;
   }
-  .nav-btn:hover { color: var(--text); background: var(--surface2); }
+  .nav-btn-icon { flex: 0 0 auto; font-size: 14px; line-height: 1; }
+  .nav-btn-label { min-width: 0; }
+  .nav-btn:hover { color: var(--text); background: var(--surface2); border-color: var(--border); transform: translateX(2px); }
   /* grupo de navegação centralizado entre a marca (topo) e os controles (fundo) */
-  .nav-spacer, .nav-spacer-top { flex: 1; }
+  .nav-spacer-top { flex: 0 0 14px; }
+  .nav-spacer { flex: 1; }
+  .nav-section-label {
+    padding: 0 10px 7px; color: var(--muted); opacity: .78;
+    font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700;
+    letter-spacing: 1.8px; text-transform: uppercase;
+  }
+  .nav-links { display: grid; gap: 4px; padding-bottom: 18px; }
   .nav-btn.active {
-    color: var(--accent);
+    color: var(--text);
     border-left-color: var(--accent);
-    background: rgba(230, 82, 44, 0.08);
+    background: linear-gradient(90deg, rgba(230, 82, 44, 0.17), rgba(230, 82, 44, 0.04));
+    border-top-color: rgba(230, 82, 44, 0.28);
+    border-right-color: rgba(230, 82, 44, 0.28);
+    border-bottom-color: rgba(230, 82, 44, 0.28);
     font-weight: 700;
+    box-shadow: inset 0 0 18px rgba(230, 82, 44, 0.08);
   }
   /* sidebar brand */
-  .nav-brand {
-    padding: 0 16px 16px 16px;
+  .nav-header {
+    padding: 0 6px 18px;
     border-bottom: 1px solid var(--border);
-    margin-bottom: 8px;
+  }
+  .nav-brand {
+    display: block; width: 100%; padding: 0;
+    background: transparent; border: 0; color: inherit;
+    text-align: left; cursor: pointer; touch-action: manipulation;
   }
   .nav-brand-logo {
     display: flex; align-items: center; gap: 10px;
   }
-  .nav-brand-badge { width: 36px; height: 36px; border-radius: 6px; flex-shrink: 0; }
+  .nav-brand-logo > span:last-child { display: flex; flex-direction: column; min-width: 0; }
+  .nav-brand-badge {
+    width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+    box-shadow: 0 0 0 3px rgba(230, 82, 44, 0.1), 0 8px 20px rgba(0, 0, 0, 0.18);
+  }
   .nav-brand-title {
     font-family: 'Bricolage Grotesque', 'Syne', sans-serif; font-weight: 800; font-size: 14px;
     color: var(--text); letter-spacing: 0.5px;
   }
   .nav-brand-title span { color: var(--accent); }
   .nav-brand-sub {
+    display: block;
     font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 600;
     color: var(--accent); margin-top: 2px; letter-spacing: 1px;
   }
@@ -133,13 +166,35 @@
     width: 32px; height: 32px;
     background: var(--surface2); border: 1px solid var(--border);
     border-radius: 8px; cursor: pointer;
-    color: var(--muted); transition: all .2s;
-    margin-bottom: 10px; align-self: flex-end; margin-right: 12px;
+    color: var(--muted);
+    transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease;
+    margin: 0 0 14px auto; touch-action: manipulation;
   }
   .nav-toggle:hover { color: var(--text); border-color: var(--accent); background: var(--surface); }
   /* theme toggle */
-  .nav-lang { display: flex; justify-content: center; margin: 0 16px 8px; }
-  nav.collapsed .nav-lang { flex-direction: column; align-items: center; gap: 6px; margin: 0 auto 8px; }
+  .nav-footer { padding-top: 12px; border-top: 1px solid var(--border); }
+  .nav-status {
+    display: flex; align-items: center; gap: 8px;
+    padding: 0 10px 10px;
+    color: var(--muted); font-family: 'Space Mono', monospace;
+    font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  }
+  .nav-status-dot {
+    width: 6px; height: 6px; flex: 0 0 6px; border-radius: 50%;
+    background: var(--promql); box-shadow: 0 0 0 4px rgba(54, 211, 153, 0.1), 0 0 12px rgba(54, 211, 153, 0.5);
+  }
+  .nav-lang { display: flex; gap: 6px; margin: 0 10px 8px; }
+  .lang-btn {
+    flex: 1; padding: 7px 10px; color: var(--muted);
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 7px;
+    font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700;
+    cursor: pointer; transition: color .18s ease, background-color .18s ease, border-color .18s ease;
+    touch-action: manipulation;
+  }
+  .lang-btn:hover { color: var(--text); border-color: var(--accent2); }
+  .lang-btn.active { color: var(--text); border-color: var(--accent); background: rgba(230, 82, 44, 0.12); }
+  nav.collapsed .nav-footer { padding-top: 4px; border-top: 0; }
+  nav.collapsed .nav-lang { flex-direction: column; align-items: center; gap: 6px; margin: 0 0 8px; }
   nav.collapsed .lang-btn {
     width: 34px; height: 34px; padding: 0; font-size: 10px;
     display: flex; align-items: center; justify-content: center;
@@ -148,16 +203,19 @@
   nav.collapsed .lang-btn:first-of-type,
   nav.collapsed .lang-btn:last-of-type { border-radius: 50%; }
   .nav-theme-btn {
-    background: none; border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: calc(100% - 20px); margin: 0 10px;
+    background: transparent; border: 1px solid var(--border);
     border-radius: 8px; padding: 8px 12px; cursor: pointer;
-    color: var(--muted); transition: all .2s;
-    font-size: 14px; margin: 8px 16px; text-align: center;
+    color: var(--muted); font-size: 12px; font-family: 'Space Mono', monospace;
+    transition: color .2s ease, background-color .2s ease, border-color .2s ease;
+    touch-action: manipulation;
   }
   .nav-theme-btn:hover { color: var(--text); border-color: var(--accent); background: var(--surface2); }
   .theme-icon-dark, .theme-icon-light { display: none; }
   [data-theme="dark"] .theme-icon-dark { display: inline; }
   [data-theme="light"] .theme-icon-light { display: inline; }
-  nav.collapsed .nav-theme-btn { font-size: 12px; padding: 6px; margin: 8px auto; border-radius: 50%; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; }
+  nav.collapsed .nav-theme-btn { font-size: 12px; padding: 6px; margin: 8px auto 0; border-radius: 50%; width: 34px; height: 34px; }
   /* chevron de recolher - « aberto, » recolhido */
   .nav-toggle-chev {
     font-family: 'Space Mono', monospace;
@@ -168,6 +226,10 @@
   nav.collapsed .nav-toggle-chev::before { content: '»'; }
   .nav-toggle:hover .nav-toggle-chev { transform: translateX(-2px); }
   nav.collapsed .nav-toggle:hover .nav-toggle-chev { transform: translateX(2px); }
+
+  @media (prefers-reduced-motion: reduce) {
+    nav, nav *, .section { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+  }
 
   :focus-visible {
     outline: 2px solid var(--accent);
@@ -188,10 +250,10 @@
   }
 
   /* SECTIONS - fill space right of sidebar */
-  .section { display: none; padding: 32px 40px; margin-left: 230px; transition: margin-left .25s ease; }
+  .section { display: none; padding: 32px 40px; margin-left: 248px; transition: margin-left .25s ease; }
   .section.active { display: block; animation: sectionIn .18s ease; }
   @keyframes sectionIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-  nav.collapsed ~ .section { margin-left: 56px; }
+  nav.collapsed ~ .section { margin-left: 68px; }
 
   h1 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; }
   h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 16px; }
@@ -832,27 +894,34 @@
   .day-study-content a { color: var(--accent2); }
 
   @media (max-width: 768px) {
-    nav { width: 200px; }
-    nav.collapsed { width: 50px; }
-    .section { margin-left: 200px; padding: 24px 20px; }
-    nav.collapsed ~ .section { margin-left: 50px; }
+    nav { width: 210px; }
+    nav.collapsed { width: 56px; }
+    .section { margin-left: 210px; padding: 24px 20px; }
+    nav.collapsed ~ .section { margin-left: 56px; }
   }
   @media (max-width: 600px) {
     nav {
       position: relative; width: 100%; height: auto;
-      flex-direction: row; padding: 8px 0;
+      flex-direction: row; padding: 8px;
       overflow-x: auto; border-right: none;
       border-bottom: 1px solid var(--border);
+      background: var(--surface);
     }
     nav.collapsed { width: 100%; }
+    .nav-header { display: none; }
     .nav-brand { display: none; }
     .nav-toggle { display: none; }
+    .nav-section-label, .nav-status { display: none; }
+    .nav-links, .nav-footer { display: contents; }
     nav.collapsed .nav-btn { font-size: 10px; padding: 10px 14px; }
     nav.collapsed .nav-btn::before { content: none; }
-    .nav-btn { border-left: none; border-bottom: 2px solid transparent; padding: 10px 14px; font-size: 10px; }
+    .nav-btn { width: auto; flex: 0 0 auto; border-left: none; border-bottom: 2px solid transparent; border-radius: 7px; padding: 10px 14px; font-size: 10px; }
     .nav-spacer-top { display: none; }
     .nav-btn.active { border-left: none; border-bottom-color: var(--accent); }
-    .nav-theme-btn { position: sticky; right: 8px; margin-left: auto; flex-shrink: 0; }
+    .nav-lang { flex: 0 0 auto; margin: 0 0 0 8px; }
+    .lang-btn { flex: 0 0 auto; padding: 7px 9px; }
+    .nav-theme-btn { position: sticky; right: 8px; margin-left: auto; flex: 0 0 auto; width: auto; }
+    .nav-theme-text { display: none; }
     .nav-spacer { display: none; }
     .section { margin-left: 0; padding: 24px 16px; }
     nav.collapsed ~ .section { margin-left: 0; }
@@ -871,35 +940,47 @@
 <body>
 
 <nav aria-label="Navegação principal" id="sidebar">
-  <button class="nav-toggle" onclick="toggleSidebar()" aria-label="Recolher menu" title="Recolher menu">
-    <span class="nav-toggle-chev" aria-hidden="true"></span>
-  </button>
-  <div class="nav-brand" role="button" tabindex="0" onclick="show('about')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();show('about')}" title="Sobre a certificação" style="cursor:pointer;">
-    <div class="nav-brand-logo">
-      <img class="nav-brand-badge" src="pca-badge.png" alt="PCA Badge" loading="eager">
-      <div>
-        <div class="nav-brand-title nav-brand-logo-text">PCA</div>
-        <div class="nav-brand-sub nav-brand-logo-text">Prometheus Certified Associate</div>
-      </div>
-    </div>
+  <div class="nav-header">
+    <button class="nav-toggle" type="button" onclick="toggleSidebar()" aria-expanded="true" aria-controls="sidebar" aria-label="Recolher menu" title="Recolher menu">
+      <span class="nav-toggle-chev" aria-hidden="true"></span>
+    </button>
+    <button class="nav-brand" type="button" onclick="show('about')" title="Sobre a certificação">
+      <span class="nav-brand-logo">
+        <img class="nav-brand-badge" src="pca-badge.png" alt="PCA Badge" loading="eager">
+        <span>
+          <span class="nav-brand-title nav-brand-logo-text">PCA</span>
+          <span class="nav-brand-sub nav-brand-logo-text">Prometheus Certified Associate</span>
+        </span>
+      </span>
+    </button>
   </div>
   <div class="nav-spacer-top"></div>
-  <button class="nav-btn active" onclick="show('about')" aria-current="page" data-icon="🎓" data-i18n="nav.about">🎓 Sobre a Certificação</button>
-  <button class="nav-btn" onclick="show('mindmap')" data-icon="🗺️" data-i18n="nav.mindmap">🗺️ Visão Geral</button>
-  <button class="nav-btn" onclick="show('plano')" data-icon="📅" data-i18n="nav.plano">📅 Trilha de Estudo</button>
-  <button class="nav-btn" onclick="show('cheat')" data-icon="📋" data-i18n="nav.cheat">📋 Resumo Rápido</button>
-  <button class="nav-btn" onclick="show('promqlref')" data-icon="📖" data-i18n="nav.promqlref">📖 Referência PromQL</button>
-  <button class="nav-btn" onclick="show('quiz')" data-icon="🧠" data-i18n="nav.quiz">🧠 Simulado</button>
-  <button class="nav-btn" onclick="show('promql')" data-icon="⚠️" data-i18n="nav.promql">⚠️ Pontos de Atenção</button>
-  <div class="nav-spacer"></div>
-  <div class="nav-lang" role="group" aria-label="Idioma">
-    <button class="lang-btn active" id="navLangPt" onclick="setSiteLang('pt')">PT</button>
-    <button class="lang-btn" id="navLangEn" onclick="setSiteLang('en')">EN</button>
+  <div class="nav-section-label" data-i18n="nav.learn">GUIA</div>
+  <div class="nav-links">
+    <button class="nav-btn active" type="button" onclick="show('about')" aria-current="page" data-icon="🎓"><span class="nav-btn-icon" aria-hidden="true">🎓</span><span class="nav-btn-label" data-i18n="nav.about">Sobre a Certificação</span></button>
+    <button class="nav-btn" type="button" onclick="show('mindmap')" data-icon="🗺️"><span class="nav-btn-icon" aria-hidden="true">🗺️</span><span class="nav-btn-label" data-i18n="nav.mindmap">Visão Geral</span></button>
+    <button class="nav-btn" type="button" onclick="show('plano')" data-icon="📅"><span class="nav-btn-icon" aria-hidden="true">📅</span><span class="nav-btn-label" data-i18n="nav.plano">Trilha de Estudo</span></button>
+    <button class="nav-btn" type="button" onclick="show('cheat')" data-icon="📋"><span class="nav-btn-icon" aria-hidden="true">📋</span><span class="nav-btn-label" data-i18n="nav.cheat">Resumo Rápido</span></button>
+    <button class="nav-btn" type="button" onclick="show('promqlref')" data-icon="📖"><span class="nav-btn-icon" aria-hidden="true">📖</span><span class="nav-btn-label" data-i18n="nav.promqlref">Referência PromQL</span></button>
   </div>
-  <button class="nav-theme-btn" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema claro/escuro">
-    <span class="theme-icon-dark">☀️</span>
-    <span class="theme-icon-light">🌙</span>
-  </button>
+  <div class="nav-section-label" data-i18n="nav.practice">PRÁTICA</div>
+  <div class="nav-links">
+    <button class="nav-btn" type="button" onclick="show('quiz')" data-icon="🧠"><span class="nav-btn-icon" aria-hidden="true">🧠</span><span class="nav-btn-label" data-i18n="nav.quiz">Simulado</span></button>
+    <button class="nav-btn" type="button" onclick="show('promql')" data-icon="⚠️"><span class="nav-btn-icon" aria-hidden="true">⚠️</span><span class="nav-btn-label" data-i18n="nav.promql">Pontos de Atenção</span></button>
+  </div>
+  <div class="nav-spacer"></div>
+  <div class="nav-footer">
+    <div class="nav-status nav-logo-text"><span class="nav-status-dot" aria-hidden="true"></span><span data-i18n="nav.status">GUIA PRONTO</span></div>
+    <div class="nav-lang" role="group" aria-label="Idioma">
+      <button class="lang-btn active" type="button" id="navLangPt" onclick="setSiteLang('pt')" aria-pressed="true">PT</button>
+      <button class="lang-btn" type="button" id="navLangEn" onclick="setSiteLang('en')" aria-pressed="false">EN</button>
+    </div>
+    <button class="nav-theme-btn" type="button" onclick="toggleTheme()" aria-label="Alternar tema" title="Alternar tema claro/escuro">
+      <span class="theme-icon-dark" aria-hidden="true">☀️</span>
+      <span class="theme-icon-light" aria-hidden="true">🌙</span>
+      <span class="nav-theme-text" data-i18n="nav.theme">Alternar tema</span>
+    </button>
+  </div>
 </nav>
 
 <!-- ============================================================ -->
@@ -2091,6 +2172,32 @@ function toggleSidebar() {
   const nav = document.getElementById('sidebar');
   nav.classList.toggle('collapsed');
   localStorage.setItem('pca_sidebar_collapsed', nav.classList.contains('collapsed'));
+  updateSidebarLabels();
+}
+
+function updateSidebarLabels() {
+  const nav = document.getElementById('sidebar');
+  const isPt = typeof siteLang === 'undefined' || siteLang === 'pt';
+  const collapsed = nav && nav.classList.contains('collapsed');
+  const toggle = nav && nav.querySelector('.nav-toggle');
+  if (toggle) {
+    const label = isPt ? (collapsed ? 'Expandir menu' : 'Recolher menu') : (collapsed ? 'Expand menu' : 'Collapse menu');
+    toggle.setAttribute('aria-expanded', String(!collapsed));
+    toggle.setAttribute('aria-label', label);
+    toggle.title = label;
+  }
+  const brand = nav && nav.querySelector('.nav-brand');
+  if (brand) {
+    const brandLabel = isPt ? 'Sobre a certificação' : 'About the certification';
+    brand.title = brandLabel;
+    brand.setAttribute('aria-label', brandLabel);
+  }
+  if (nav) {
+    nav.querySelectorAll('.nav-btn').forEach(button => {
+      const label = button.querySelector('.nav-btn-label');
+      if (label) button.setAttribute('aria-label', label.textContent.trim());
+    });
+  }
 }
 
 (function initSidebar() {
@@ -3392,13 +3499,38 @@ const I18N = {
   }
 };
 
+I18N.pt['nav.learn'] = 'GUIA';
+I18N.pt['nav.practice'] = 'PRÁTICA';
+I18N.pt['nav.status'] = 'GUIA PRONTO';
+I18N.pt['nav.theme'] = 'Alternar tema';
+I18N.pt['nav.about'] = 'Sobre a Certificação';
+I18N.pt['nav.mindmap'] = 'Visão Geral';
+I18N.pt['nav.plano'] = 'Trilha de Estudo';
+I18N.pt['nav.cheat'] = 'Resumo Rápido';
+I18N.pt['nav.promqlref'] = 'Referência PromQL';
+I18N.pt['nav.quiz'] = 'Simulado';
+I18N.pt['nav.promql'] = 'Pontos de Atenção';
+I18N.en['nav.learn'] = 'STUDY';
+I18N.en['nav.practice'] = 'PRACTICE';
+I18N.en['nav.status'] = 'READY TO STUDY';
+I18N.en['nav.theme'] = 'Toggle theme';
+I18N.en['nav.about'] = 'About the Certification';
+I18N.en['nav.mindmap'] = 'Overview';
+I18N.en['nav.plano'] = 'Study Track';
+I18N.en['nav.cheat'] = 'Cheat Sheet';
+I18N.en['nav.promqlref'] = 'PromQL Reference';
+I18N.en['nav.quiz'] = 'Mock Exam';
+I18N.en['nav.promql'] = 'Watch Out';
+
 function applySiteLangUI() {
   const isPt = siteLang === 'pt';
   document.documentElement.lang = isPt ? 'pt-BR' : 'en';
-  ['navLangPt'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.toggle('active', isPt); });
-  ['navLangEn'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.toggle('active', !isPt); });
+  ['navLangPt'].forEach(id => { const el = document.getElementById(id); if (el) { el.classList.toggle('active', isPt); el.setAttribute('aria-pressed', String(isPt)); } });
+  ['navLangEn'].forEach(id => { const el = document.getElementById(id); if (el) { el.classList.toggle('active', !isPt); el.setAttribute('aria-pressed', String(!isPt)); } });
   const languageGroup = document.querySelector('.nav-lang');
   if (languageGroup) languageGroup.setAttribute('aria-label', isPt ? 'Idioma' : 'Language');
+  const sidebar = document.getElementById('sidebar');
+  if (sidebar) sidebar.setAttribute('aria-label', isPt ? 'Navegação principal' : 'Main navigation');
   const themeButton = document.querySelector('.nav-theme-btn');
   if (themeButton) {
     themeButton.setAttribute('aria-label', isPt ? 'Alternar tema' : 'Toggle theme');
@@ -3409,6 +3541,7 @@ function applySiteLangUI() {
     const v = (I18N[siteLang] && I18N[siteLang][k]) || I18N.pt[k];
     if (v !== undefined) el.textContent = v;
   });
+  updateSidebarLabels();
 }
 
 function applyQuizLangUI() {
