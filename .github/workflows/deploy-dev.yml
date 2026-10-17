@@ -7,11 +7,11 @@ on:
 
 jobs:
   validate-and-deploy-dev:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Validate HTML exists
         run: |
@@ -36,7 +36,7 @@ jobs:
           fi
 
       - name: Create target directory
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
@@ -45,7 +45,7 @@ jobs:
             mkdir -p /var/www/pca-study-dev
 
       - name: Deploy files to VPS
-        uses: appleboy/scp-action@v0.1.7
+        uses: appleboy/scp-action@v1.0.0
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
@@ -54,7 +54,7 @@ jobs:
           target: "/var/www/pca-study-dev"
 
       - name: Build and run dev container
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
@@ -70,7 +70,7 @@ jobs:
             docker image prune -f
 
       - name: Health Check
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
