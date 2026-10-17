@@ -60,10 +60,12 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
+            set -e
             cd /var/www/pca-study-dev
 
             docker compose -f deploy/docker-compose.dev.yml build --pull
-            docker compose -f deploy/docker-compose.dev.yml up -d
+            docker compose -f deploy/docker-compose.dev.yml down --remove-orphans
+            docker compose -f deploy/docker-compose.dev.yml up -d --force-recreate
             docker image prune -f
 
       - name: Health Check
