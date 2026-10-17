@@ -426,6 +426,7 @@
   .quiz-opts { padding: 8px 14px; display: flex; flex-direction: column; gap: 4px; }
   .quiz-opt { padding: 6px 8px; border-radius: 6px; font-size: 13px; overflow-wrap: anywhere; }
   .quiz-block:not([data-answered="1"]) .quiz-opt:hover { background: var(--surface2); cursor: pointer; }
+  .quiz-opt:focus-visible { outline: 2px solid var(--accent2); outline-offset: 2px; }
   .quiz-opt.quiz-correct { background: #1a3d2e; color: var(--promql); }
   .quiz-opt.quiz-wrong { background: #3a1e1e; color: var(--accent3); }
   .quiz-ans { padding: 8px 14px; background: #14351f; border-top: 1px solid var(--border); color: var(--promql); font-size: 13px; }
@@ -932,7 +933,7 @@
       <div class="day-header">
         <div>
           <div class="day-number" data-i18n="day1.num">TÓPICO 01</div>
-          <div class="day-label">Observability + Fundamentos</div>
+          <div class="day-label" data-i18n="day1.label">Observability + Fundamentos</div>
         </div>
         <div class="day-pct">18%+20%</div>
       </div>
@@ -954,7 +955,7 @@
           <div class="title" data-i18n="src.title">Referências:</div>
           <div data-i18n="day1.s1">LFS241 Cap. 2, 3 e 4</div>
           <div data-i18n="day1.s2">KodeKloud Módulo 1-2</div>
-          <div><a href="https://prometheus.io/docs/introduction/overview/" target="_blank"> Prometheus Docs</a></div>
+          <div><a href="https://prometheus.io/docs/introduction/overview/" target="_blank" rel="noopener"> Prometheus Docs</a></div>
         </div>
     </div>
   </div>
@@ -984,7 +985,7 @@
           <div class="title" data-i18n="src.title">Referências:</div>
           <div data-i18n="day2.s1">LFS241 Cap. 5</div>
           <div data-i18n="day2.s2">KodeKloud PromQL Básico</div>
-          <div><a href="https://prometheus.io/docs/introduction/overview/" target="_blank"> Prometheus Docs</a></div>
+          <div><a href="https://prometheus.io/docs/introduction/overview/" target="_blank" rel="noopener"> Prometheus Docs</a></div>
         </div>
       </div>
     </div>
@@ -1014,7 +1015,7 @@
           <div class="title" data-i18n="src.title">Referências:</div>
           <div data-i18n="day3.s1">LFS241 Cap. 11</div>
           <div data-i18n="day3.s2">KodeKloud PromQL Avançado</div>
-          <div><a href="https://prometheus.io/docs/introduction/overview/" target="_blank"> Prometheus Docs</a></div>
+          <div><a href="https://prometheus.io/docs/introduction/overview/" target="_blank" rel="noopener"> Prometheus Docs</a></div>
         </div>
       </div>
     </div>
@@ -1023,7 +1024,7 @@
       <div class="day-header">
         <div>
           <div class="day-number" data-i18n="day4.num">TÓPICO 04</div>
-          <div class="day-label">Instrumentação & Exporters</div>
+          <div class="day-label" data-i18n="day4.label">Instrumentação & Exporters</div>
         </div>
         <div class="day-pct">16%</div>
       </div>
@@ -1044,7 +1045,7 @@
           <div class="title" data-i18n="src.title">Referências:</div>
           <div data-i18n="day4.s1">LFS241 Cap. 7, 8, 9, 10 </div>
           <div>KodeKloud Exporters</div>
-          <div><a href="https://prometheus.io/docs/introduction/overview/" target="_blank"> Prometheus Docs</a></div>
+          <div><a href="https://prometheus.io/docs/introduction/overview/" target="_blank" rel="noopener"> Prometheus Docs</a></div>
         </div>
       </div>
     </div>
@@ -1053,7 +1054,7 @@
       <div class="day-header">
         <div>
           <div class="day-number" data-i18n="day5.num">TÓPICO 05</div>
-          <div class="day-label">Alerting & Dashboarding</div>
+          <div class="day-label" data-i18n="day5.label">Alerting & Dashboarding</div>
         </div>
         <div class="day-pct">18%</div>
       </div>
@@ -1074,7 +1075,7 @@
           <div class="title" data-i18n="src.title">Referências:</div>
           <div data-i18n="day5.s1">LFS241 Cap. 13, 16</div>
           <div>KodeKloud Alerting</div>
-          <div><a href="https://prometheus.io/docs/introduction/overview/" target="_blank"> Prometheus Docs</a></div>
+          <div><a href="https://prometheus.io/docs/introduction/overview/" target="_blank" rel="noopener"> Prometheus Docs</a></div>
         </div>
       </div>
     </div>
@@ -2306,10 +2307,13 @@ const I18N = {
     'tag.fund': 'Fundamentos', 'tag.inst': 'Instrumentação',
     'src.title': 'Referências:', visitedBadge: '✓ Revisado',
     'dayStudy.title': 'Estudo do Tópico', 'dayStudy.back': '← Voltar ao Plano',
+    'day1.label': 'Observability + Fundamentos',
     'day1.num': 'TÓPICO 01', 'day1.t1': 'Métricas, Logs e Traces (diferenças e quando usar)', 'day1.t2': 'Push vs Pull - como Prometheus coleta dados', 'day1.t3': 'SLI, SLO, SLA - definições e exemplos', 'day1.t4': 'Arquitetura do Prometheus (server, TSDB, exporters, pushgateway)', 'day1.t6': 'Formato de exposição de métricas (text/OpenMetrics)', 'day1.t7': 'Limitações do Prometheus', 'day1.s1': 'LFS241 Cap. 2, 3 e 4', 'day1.s2': 'KodeKloud Módulo 1-2',
     'day2.num': 'TÓPICO 02', 'day2.label': 'PromQL Básico', 'day2.t1': 'Tipos de métricas: Counter, Gauge, Histogram, Summary', 'day2.t2': 'Seletores: instant vectors, range vectors, offset', 'day2.t4': 'Agregadores: sum, avg, min, max, count, topk, bottomk', 'day2.t5': 'Filtros por label: =, !=, =~, !~', 'day2.t6': 'by() e without() em agregações', 'day2.t7': 'Praticar no Prometheus Expression Browser', 'day2.s1': 'LFS241 Cap. 5', 'day2.s2': 'KodeKloud PromQL Básico',
     'day3.num': 'TÓPICO 03', 'day3.label': 'PromQL Avançado', 'day3.t1': 'histogram_quantile() e uso com Histogramas', 'day3.t2': 'Operadores binários: +, -, *, /, %, ^', 'day3.t5': 'Subqueries e funções de timestamp', 'day3.t6': 'Recording Rules - quando e como usar', 'day3.t7': 'Resolver 20 questões do Udemy Practice Exam', 'day3.s1': 'LFS241 Cap. 11', 'day3.s2': 'KodeKloud PromQL Avançado',
+    'day4.label': 'Instrumentação & Exporters',
     'day4.num': 'TÓPICO 04', 'day4.t2': 'Como expor métricas via /metrics endpoint', 'day4.t5': 'Pushgateway - batch jobs e casos de uso', 'day4.t7': 'Relabeling com relabel_configs', 'day4.s1': 'LFS241 Cap. 7, 8, 9, 10 ',
+    'day5.label': 'Alerting & Dashboarding',
     'day5.num': 'TÓPICO 05', 'day5.t2': 'Estados de alerta: pending, firing, inactive', 'day5.t4': 'Inibição e deduplicação de alertas', 'day5.t5': 'Grafana: datasources, painéis, variáveis, PromQL', 'day5.t7': 'Praticar configuração de alertas simples', 'day5.s1': 'LFS241 Cap. 13, 16',
     'day6.num': 'TÓPICO 06', 'day6.label': 'Simulado Completo + Revisão', 'day6.tag': 'Todos os Domínios', 'day6.t1': 'Udemy Practice Exam 1 completo (60 questões, 90min)', 'day6.t2': 'Analisar erros por domínio e revisar pontos fracos', 'day6.t3': 'Udemy Practice Exam 2 (foco nos erros do dia)', 'day6.t4': 'Revisar: Cheat Sheet + lista de PromQL',
     'day7.num': 'TÓPICO 07', 'day7.label': 'Revisão Rápida + Exam Day', 'day7.pct': 'PROVA', 'day7.t1': 'Revisar Cheat Sheet pela manhã (30min)', 'day7.t2': 'Revisar lista de PromQL e funções mais cobradas', 'day7.t3': 'Não estudar conteúdo novo - só revisar', 'day7.t4': 'Descansar 1h antes da prova', 'day7.t5': 'Checar ambiente: câmera, internet, ID, quarto limpo', 'day7.t6': 'Marcar questões duvidosas para revisar no final', 'day7.tip': 'Dica: você tem 90s por questão - não trave!',
@@ -2846,10 +2850,13 @@ const I18N = {
     'tag.fund': 'Fundamentals', 'tag.inst': 'Instrumentation',
     'src.title': 'References:', visitedBadge: '✓ Reviewed',
     'dayStudy.title': 'Topic Study', 'dayStudy.back': '← Back to Study Plan',
+    'day1.label': 'Observability + Fundamentals',
     'day1.num': 'TOPIC 01', 'day1.t1': 'Metrics, Logs and Traces (differences and when to use)', 'day1.t2': 'Push vs Pull - how Prometheus collects data', 'day1.t3': 'SLI, SLO, SLA - definitions and examples', 'day1.t4': 'Prometheus architecture (server, TSDB, exporters, pushgateway)', 'day1.t6': 'Metric exposition format (text/OpenMetrics)', 'day1.t7': 'Prometheus limitations', 'day1.s1': 'LFS241 Ch. 2, 3 and 4', 'day1.s2': 'KodeKloud Module 1-2',
     'day2.num': 'TOPIC 02', 'day2.label': 'PromQL Basics', 'day2.t1': 'Metric types: Counter, Gauge, Histogram, Summary', 'day2.t2': 'Selectors: instant vectors, range vectors, offset', 'day2.t4': 'Aggregators: sum, avg, min, max, count, topk, bottomk', 'day2.t5': 'Label filters: =, !=, =~, !~', 'day2.t6': 'by() and without() in aggregations', 'day2.t7': 'Practice in the Prometheus Expression Browser', 'day2.s1': 'LFS241 Ch. 5', 'day2.s2': 'KodeKloud PromQL Basics',
     'day3.num': 'TOPIC 03', 'day3.label': 'Advanced PromQL', 'day3.t1': 'histogram_quantile() and how to use it with Histograms', 'day3.t2': 'Binary operators: +, -, *, /, %, ^', 'day3.t5': 'Subqueries and timestamp functions', 'day3.t6': 'Recording Rules - when and how to use them', 'day3.t7': 'Solve 20 questions from the Udemy Practice Exam', 'day3.s1': 'LFS241 Ch. 11', 'day3.s2': 'KodeKloud Advanced PromQL',
+    'day4.label': 'Instrumentation & Exporters',
     'day4.num': 'TOPIC 04', 'day4.t2': 'How to expose metrics via the /metrics endpoint', 'day4.t5': 'Pushgateway - batch jobs and use cases', 'day4.t7': 'Relabeling with relabel_configs', 'day4.s1': 'LFS241 Ch. 7, 8, 9, 10 ',
+    'day5.label': 'Alerting & Dashboarding',
     'day5.num': 'TOPIC 05', 'day5.t2': 'Alert states: pending, firing, inactive', 'day5.t4': 'Alert inhibition and deduplication', 'day5.t5': 'Grafana: datasources, panels, variables, PromQL', 'day5.t7': 'Practice configuring simple alerts', 'day5.s1': 'LFS241 Ch. 13, 16',
     'day6.num': 'TOPIC 06', 'day6.label': 'Full Mock Exam + Review', 'day6.tag': 'All Domains', 'day6.t1': 'Udemy Practice Exam 1 complete (60 questions, 90min)', 'day6.t2': 'Analyze mistakes by domain and review weak spots', 'day6.t3': 'Udemy Practice Exam 2 (focus on today\'s mistakes)', 'day6.t4': 'Review: Cheat Sheet + PromQL list',
     'day7.num': 'TOPIC 07', 'day7.label': 'Quick Review + Exam Day', 'day7.pct': 'EXAM', 'day7.t1': 'Review the Cheat Sheet in the morning (30min)', 'day7.t2': 'Review the PromQL list and most-tested functions', 'day7.t3': 'No new content - review only', 'day7.t4': 'Rest 1h before the exam', 'day7.t5': 'Check environment: camera, internet, ID, clean room', 'day7.t6': 'Flag doubtful questions to revisit at the end', 'day7.tip': 'Tip: you have 90s per question - don\'t get stuck!',
@@ -3407,8 +3414,9 @@ function applyQuizLangUI() {
 }
 
 function setSiteLang(lang) {
-  siteLang = lang;
+  siteLang = lang === 'en' ? 'en' : 'pt';
   localStorage.setItem('pca_lang', lang);
+  document.documentElement.lang = siteLang === 'en' ? 'en' : 'pt-BR';
   applySiteLangUI();
   if (typeof currentDay !== 'undefined' && currentDay) loadDayStudy(currentDay);
 }
@@ -3438,6 +3446,7 @@ function setQuizLang(lang) {
   if (visitedDays.length > 0) {
     setTimeout(() => markVisitedDays(visitedDays), 0);
   }
+  document.documentElement.lang = siteLang === 'en' ? 'en' : 'pt-BR';
   applySiteLangUI();
   applyQuizLangUI();
 })();
@@ -3543,6 +3552,8 @@ function initDayQuizzes(root) {
     ansEl.style.display = 'none';
     expEl.style.display = 'none';
     block.querySelectorAll('.quiz-opt').forEach(opt => {
+      opt.setAttribute('role', 'button');
+      opt.setAttribute('tabindex', '0');
       opt.addEventListener('click', () => {
         if (block.dataset.answered) return;
         block.dataset.answered = '1';
@@ -3557,6 +3568,12 @@ function initDayQuizzes(root) {
         ansEl.style.display = 'none'; // resposta certa nunca exibida - feedback fica nas alternativas
         expEl.style.display = '';
         expEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+      opt.addEventListener('keydown', ev => {
+        if (ev.key === 'Enter' || ev.key === ' ') {
+          ev.preventDefault();
+          opt.click();
+        }
       });
     });
   });
