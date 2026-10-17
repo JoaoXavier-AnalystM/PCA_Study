@@ -400,54 +400,6 @@
   }
   .about-card h2, .about-card h3 { font-size: 13px; margin-bottom: 10px; color: var(--accent); }
   .about-card p { font-size: 13px; color: var(--text); line-height: 1.6; }
-  .about-hero {
-    margin-bottom: 28px; padding: 30px 32px;
-    border: 1px solid var(--border); border-left: 3px solid var(--accent);
-    border-radius: 12px; background: var(--surface); box-shadow: var(--shadow);
-  }
-  .about-hero .hero-body { max-width: 760px; }
-  .about-hero h1 { margin-top: 14px; margin-bottom: 8px; }
-  .about-hero-intro {
-    max-width: 68ch; margin-top: 0; color: var(--muted);
-    font-size: 13.5px; line-height: 1.65;
-  }
-  .about-overview {
-    display: grid; grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: 16px; margin: 18px 0 30px;
-  }
-  .about-overview .about-card {
-    display: flex; flex-direction: column; min-height: 190px;
-  }
-  .about-overview .about-card:nth-child(1) { grid-column: span 7; }
-  .about-overview .about-card:nth-child(2) { grid-column: span 5; background: var(--surface2); }
-  .about-overview .about-card:nth-child(3) { grid-column: span 5; background: var(--surface2); }
-  .about-overview .about-card:nth-child(4) { grid-column: span 7; }
-  .about-overview .about-card:nth-child(1),
-  .about-overview .about-card:nth-child(4) { border-top: 2px solid var(--accent); }
-  .about-domains-grid {
-    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 12px; margin: 14px 0 30px;
-  }
-  .about-domain-card {
-    min-height: 148px; padding: 16px; display: flex; flex-direction: column; gap: 12px;
-    border: 1px solid var(--border); border-top: 2px solid var(--border);
-    border-radius: 10px; background: var(--surface); box-shadow: var(--shadow);
-  }
-  .about-domain-card--featured {
-    grid-column: span 2; border-top-color: var(--accent);
-    background: linear-gradient(145deg, var(--surface), rgba(230, 82, 44, .08));
-  }
-  .about-domain-card:nth-child(4),
-  .about-domain-card:nth-child(5) { grid-column: span 2; }
-  .about-domain-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-  .about-domain-index {
-    color: var(--muted); font-family: 'Space Mono', monospace;
-    font-size: 10px; letter-spacing: .08em;
-  }
-  .about-domain-card strong {
-    color: var(--accent); font-family: 'Space Mono', monospace; font-size: 16px;
-  }
-  .about-domain-card p { margin-top: auto; font-size: 12px; line-height: 1.55; }
   .prep-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
@@ -488,6 +440,18 @@
     content: '▸'; position: absolute; left: 0; color: var(--accent);
     font-weight: 700;
   }
+  .about-table {
+    width: 100%; border-collapse: collapse; margin: 12px 0 20px;
+    font-size: 13px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+  }
+  .about-table th {
+    background: var(--surface2); color: var(--text);
+    padding: 10px 14px; text-align: left; font-size: 11px;
+    text-transform: uppercase; letter-spacing: .6px;
+  }
+  .about-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+  .about-table tr:last-child td { border-bottom: none; }
+  .about-table td strong { color: var(--accent); font-family: 'Space Mono', monospace; }
   code {
     font-family: 'Space Mono', monospace;
     background: var(--surface2);
@@ -965,16 +929,6 @@
   .day-study-content .quiz-block .opts { color: var(--muted); font-size: 12px; }
   .day-study-content a { color: var(--accent2); }
 
-  @media (max-width: 1000px) {
-    .about-overview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .about-overview .about-card:nth-child(1),
-    .about-overview .about-card:nth-child(2),
-    .about-overview .about-card:nth-child(3),
-    .about-overview .about-card:nth-child(4) { grid-column: auto; }
-    .about-domains-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .about-domain-card--featured { grid-column: span 2; }
-  }
-
   @media (max-width: 768px) {
     nav { width: 210px; }
     nav.collapsed { width: 56px; }
@@ -1017,17 +971,6 @@
     nav.collapsed ~ .section { margin-left: 0; }
     .hero { text-align: left; }
     .hero h1 { font-size: 1.8rem; }
-    .about-hero { padding: 22px 20px; margin-bottom: 22px; }
-    .about-overview { grid-template-columns: 1fr; gap: 12px; margin-bottom: 24px; }
-    .about-overview .about-card,
-    .about-overview .about-card:nth-child(1),
-    .about-overview .about-card:nth-child(2),
-    .about-overview .about-card:nth-child(3),
-    .about-overview .about-card:nth-child(4) { grid-column: auto; min-height: 0; }
-    .about-domains-grid { grid-template-columns: 1fr; gap: 12px; }
-    .about-domain-card--featured,
-    .about-domain-card:nth-child(4),
-    .about-domain-card:nth-child(5) { grid-column: auto; }
     .prep-grid { grid-template-columns: 1fr; gap: 12px; }
     .prep-grid .about-card,
     .prep-grid .about-card:first-child { grid-column: auto; min-height: 0; padding: 16px; }
@@ -1850,15 +1793,15 @@
 <!--  VISÃO GERAL DOS DOMÍNIOS                                    -->
 <!-- ============================================================ -->
 <div id="about" class="section active">
-  <div class="hero about-hero">
+  <div class="hero" style="padding-bottom:24px;margin-bottom:24px;">
     <div class="hero-body">
       <div class="hero-badge" data-i18n="about.badge">SOBRE A CERTIFICAÇÃO</div>
       <h1>Prometheus Certified <span>Associate</span></h1>
-      <p class="about-hero-intro" data-i18n="about.intro">Certificação pré-profissional da CNCF e Linux Foundation que valida fundamentos de observabilidade e uso do Prometheus - o toolkit open source de monitoramento e alerting.</p>
+      <p data-i18n="about.intro" style="color:var(--muted);font-size:13.5px;max-width:640px;margin-top:8px;">Certificação pré-profissional da CNCF e Linux Foundation que valida fundamentos de observabilidade e uso do Prometheus - o toolkit open source de monitoramento e alerting.</p>
     </div>
   </div>
 
-  <div class="about-overview">
+  <div class="about-grid">
     <div class="about-card">
       <h2 data-i18n="about.what.h">O que é</h2>
       <p data-i18n="about.what.p">Exame online proctorado de múltipla escolha que atesta capacidade de monitorar aplicações e infraestrutura cloud native com Prometheus: coleta de métricas, PromQL, alertas e dashboards.</p>
@@ -1891,28 +1834,15 @@
   </div>
 
   <h2 data-i18n="about.domains">Domínios do exame</h2>
-  <div class="about-domains-grid" role="list">
-    <article class="about-domain-card" role="listitem">
-      <div class="about-domain-top"><span class="about-domain-index" aria-hidden="true">01</span><strong>18%</strong></div>
-      <p data-i18n="about.d1">Observability Concepts: metrics, logs, tracing, push vs pull, SLOs</p>
-    </article>
-    <article class="about-domain-card" role="listitem">
-      <div class="about-domain-top"><span class="about-domain-index" aria-hidden="true">02</span><strong>20%</strong></div>
-      <p data-i18n="about.d2">Prometheus Fundamentals: architecture, configuration, data model</p>
-    </article>
-    <article class="about-domain-card about-domain-card--featured" role="listitem">
-      <div class="about-domain-top"><span class="about-domain-index" aria-hidden="true">03</span><strong>28%</strong></div>
-      <p data-i18n="about.d3">PromQL: data selection, rates, aggregations, histograms</p>
-    </article>
-    <article class="about-domain-card" role="listitem">
-      <div class="about-domain-top"><span class="about-domain-index" aria-hidden="true">04</span><strong>16%</strong></div>
-      <p data-i18n="about.d4">Instrumentation and Exporters: client libraries, metrics</p>
-    </article>
-    <article class="about-domain-card" role="listitem">
-      <div class="about-domain-top"><span class="about-domain-index" aria-hidden="true">05</span><strong>18%</strong></div>
-      <p data-i18n="about.d5">Alerting and Dashboarding: alert rules, Alertmanager, dashboards</p>
-    </article>
-  </div>
+  <table class="about-table">
+    <tr><th data-i18n="about.th1">Domínio</th><th data-i18n="about.th2">Peso</th></tr>
+    <tr><td data-i18n="about.d1">Observability Concepts - métricas, logs, tracing, push vs pull, SLOs</td><td><strong>18%</strong></td></tr>
+    <tr><td data-i18n="about.d2">Prometheus Fundamentals - arquitetura, configuração, data model</td><td><strong>20%</strong></td></tr>
+    <tr><td data-i18n="about.d3">PromQL - seleção de dados, rates, agregações, histogramas</td><td><strong>28%</strong></td></tr>
+    <tr><td data-i18n="about.d4">Instrumentation and Exporters - client libraries, métricas</td><td><strong>16%</strong></td></tr>
+    <tr><td data-i18n="about.d5">Alerting &amp; Dashboarding - regras de alerta, Alertmanager, dashboards</td><td><strong>18%</strong></td></tr>
+  </table>
+
   <h2 data-i18n="about.prep">Como se preparar</h2>
   <div class="about-grid prep-grid">
     <div class="about-card">
@@ -2543,7 +2473,7 @@ const I18N = {
     'day5.num': 'TÓPICO 05', 'day5.t2': 'Estados de alerta: pending, firing, inactive', 'day5.t4': 'Inibição e deduplicação de alertas', 'day5.t5': 'Grafana: datasources, painéis, variáveis, PromQL', 'day5.t7': 'Praticar configuração de alertas simples', 'day5.s1': 'LFS241 Cap. 13, 16',
     'day6.num': 'TÓPICO 06', 'day6.label': 'Simulado Completo + Revisão', 'day6.tag': 'Todos os Domínios', 'day6.t1': 'Udemy Practice Exam 1 completo (60 questões, 90min)', 'day6.t2': 'Analisar erros por domínio e revisar pontos fracos', 'day6.t3': 'Udemy Practice Exam 2 (foco nos erros do dia)', 'day6.t4': 'Revisar: Cheat Sheet + lista de PromQL',
     'day7.num': 'TÓPICO 07', 'day7.label': 'Revisão Rápida + Exam Day', 'day7.pct': 'PROVA', 'day7.t1': 'Revisar Cheat Sheet pela manhã (30min)', 'day7.t2': 'Revisar lista de PromQL e funções mais cobradas', 'day7.t3': 'Não estudar conteúdo novo - só revisar', 'day7.t4': 'Descansar 1h antes da prova', 'day7.t5': 'Checar ambiente: câmera, internet, ID, quarto limpo', 'day7.t6': 'Marcar questões duvidosas para revisar no final', 'day7.tip': 'Dica: você tem 90s por questão - não trave!',
-    'about.what.h': 'O que é', 'about.what.p': 'Exame online proctorado de múltipla escolha que atesta capacidade de monitorar aplicações e infraestrutura cloud native com Prometheus: coleta de métricas, PromQL, alertas e dashboards.', 'about.who.h': 'Para quem é', 'about.who.p': 'Engenheiros, desenvolvedores, sysadmins, SREs e profissionais de plataforma com interesse em observabilidade. Sem pré-requisitos - ajuda ter base de containers e Kubernetes.', 'about.details.h': 'Detalhes do exame', 'about.details.1': 'Online, proctorado, múltipla escolha', 'about.details.2': '60 questões · 90 minutos', 'about.details.3': 'Nota mínima: 75%', 'about.details.4': 'Validade: 2 anos', 'about.details.5': 'US$ 250 · 1 retake incluído', 'about.details.6': 'Certificado PDF + badge digital', 'about.certs.h': 'O que atesta', 'about.certs.1': 'Arquitetura e componentes do Prometheus', 'about.certs.2': 'Coleta de métricas via exporters', 'about.certs.3': 'PromQL básico e avançado', 'about.certs.4': 'Regras de alerta e Alertmanager', 'about.certs.5': 'Boas práticas em ambientes Kubernetes', 'about.domains': 'Domínios do exame', 'about.th1': 'Domínio', 'about.th2': 'Peso', 'about.d1': 'Observability Concepts: métricas, logs, tracing, push vs pull, SLOs', 'about.d2': 'Prometheus Fundamentals: arquitetura, configuração, modelo de dados', 'about.d3': 'PromQL: seleção de dados, rates, agregações, histogramas', 'about.d4': 'Instrumentation and Exporters: bibliotecas de cliente, métricas', 'about.d5': 'Alerting & Dashboarding: regras de alerta, Alertmanager, dashboards', 'about.prep': 'Como se preparar', 'about.lfs241.p': 'Curso autoguiado com 8 a 10 horas de conteúdo e 24 capítulos de laboratórios práticos. O programa vai da introdução à observabilidade ao uso do Prometheus em Kubernetes, incluindo alta disponibilidade, alertas e armazenamento.', 'about.lfs241.btn': 'Registro oficial (Linux Foundation)', 'about.curriculum.p': 'O currículo usado na criação do exame é público. Este guia segue exatamente sua distribuição de domínios.', 'about.curriculum.btn': 'Currículo open source', 'about.handbook.p': 'Reúne regras do exame, agendamento, retake e o FAQ oficial da Linux Foundation. Consulte antes de marcar a prova.', 'about.handbook.btn': 'Página CNCF', 'about.kodekloud.p': 'Curso prático, com laboratórios e simulados focados no exame. Uma boa opção complementar ao LFS241.', 'about.kodekloud.btn': 'Abrir curso', 'about.yetmike.p': 'Simulados gratuitos no estilo PCA, com questões comentadas. Excelente para treinar antes da prova.', 'about.yetmike.btn': 'Abrir simulados',
+    'about.what.h': 'O que é', 'about.what.p': 'Exame online proctorado de múltipla escolha que atesta capacidade de monitorar aplicações e infraestrutura cloud native com Prometheus: coleta de métricas, PromQL, alertas e dashboards.', 'about.who.h': 'Para quem é', 'about.who.p': 'Engenheiros, desenvolvedores, sysadmins, SREs e profissionais de plataforma com interesse em observabilidade. Sem pré-requisitos - ajuda ter base de containers e Kubernetes.', 'about.details.h': 'Detalhes do exame', 'about.details.1': 'Online, proctorado, múltipla escolha', 'about.details.2': '60 questões · 90 minutos', 'about.details.3': 'Nota mínima: 75%', 'about.details.4': 'Validade: 2 anos', 'about.details.5': 'US$ 250 · 1 retake incluído', 'about.details.6': 'Certificado PDF + badge digital', 'about.certs.h': 'O que atesta', 'about.certs.1': 'Arquitetura e componentes do Prometheus', 'about.certs.2': 'Coleta de métricas via exporters', 'about.certs.3': 'PromQL básico e avançado', 'about.certs.4': 'Regras de alerta e Alertmanager', 'about.certs.5': 'Boas práticas em ambientes Kubernetes', 'about.domains': 'Domínios do exame', 'about.th1': 'Domínio', 'about.th2': 'Peso', 'about.d1': 'Observability Concepts - métricas, logs, tracing, push vs pull, SLOs', 'about.d2': 'Prometheus Fundamentals - arquitetura, configuração, data model', 'about.d3': 'PromQL - seleção de dados, rates, agregações, histogramas', 'about.d4': 'Instrumentation and Exporters - client libraries, métricas', 'about.d5': 'Alerting & Dashboarding - regras de alerta, Alertmanager, dashboards', 'about.prep': 'Como se preparar', 'about.lfs241.p': 'Curso autoguiado com 8 a 10 horas de conteúdo e 24 capítulos de laboratórios práticos. O programa vai da introdução à observabilidade ao uso do Prometheus em Kubernetes, incluindo alta disponibilidade, alertas e armazenamento.', 'about.lfs241.btn': 'Registro oficial (Linux Foundation)', 'about.curriculum.p': 'O currículo usado na criação do exame é público. Este guia segue exatamente sua distribuição de domínios.', 'about.curriculum.btn': 'Currículo open source', 'about.handbook.p': 'Reúne regras do exame, agendamento, retake e o FAQ oficial da Linux Foundation. Consulte antes de marcar a prova.', 'about.handbook.btn': 'Página CNCF', 'about.kodekloud.p': 'Curso prático, com laboratórios e simulados focados no exame. Uma boa opção complementar ao LFS241.', 'about.kodekloud.btn': 'Abrir curso', 'about.yetmike.p': 'Simulados gratuitos no estilo PCA, com questões comentadas. Excelente para treinar antes da prova.', 'about.yetmike.btn': 'Abrir simulados',
     'cheat.badge': 'QUICK REF',
     'cheat.h1.a': 'PCA Quick ',
     'cheat.h1.b': 'Reference',
@@ -3088,7 +3018,7 @@ const I18N = {
     'day5.num': 'TOPIC 05', 'day5.t2': 'Alert states: pending, firing, inactive', 'day5.t4': 'Alert inhibition and deduplication', 'day5.t5': 'Grafana: datasources, panels, variables, PromQL', 'day5.t7': 'Practice configuring simple alerts', 'day5.s1': 'LFS241 Ch. 13, 16',
     'day6.num': 'TOPIC 06', 'day6.label': 'Full Mock Exam + Review', 'day6.tag': 'All Domains', 'day6.t1': 'Udemy Practice Exam 1 complete (60 questions, 90min)', 'day6.t2': 'Analyze mistakes by domain and review weak spots', 'day6.t3': 'Udemy Practice Exam 2 (focus on today\'s mistakes)', 'day6.t4': 'Review: Cheat Sheet + PromQL list',
     'day7.num': 'TOPIC 07', 'day7.label': 'Quick Review + Exam Day', 'day7.pct': 'EXAM', 'day7.t1': 'Review the Cheat Sheet in the morning (30min)', 'day7.t2': 'Review the PromQL list and most-tested functions', 'day7.t3': 'No new content - review only', 'day7.t4': 'Rest 1h before the exam', 'day7.t5': 'Check environment: camera, internet, ID, clean room', 'day7.t6': 'Flag doubtful questions to revisit at the end', 'day7.tip': 'Tip: you have 90s per question - don\'t get stuck!',
-    'about.what.h': 'What it is', 'about.what.p': 'Proctored online multiple-choice exam that certifies the ability to monitor cloud native applications and infrastructure with Prometheus: metric collection, PromQL, alerting and dashboards.', 'about.who.h': 'Who it\'s for', 'about.who.p': 'Engineers, developers, sysadmins, SREs and platform professionals interested in observability. No prerequisites - container and Kubernetes basics help.', 'about.details.h': 'Exam details', 'about.details.1': 'Online, proctored, multiple choice', 'about.details.2': '60 questions · 90 minutes', 'about.details.3': 'Passing score: 75%', 'about.details.4': 'Validity: 2 years', 'about.details.5': 'US$ 250 · 1 retake included', 'about.details.6': 'PDF certificate + digital badge', 'about.certs.h': 'What it certifies', 'about.certs.1': 'Prometheus architecture and components', 'about.certs.2': 'Metric collection via exporters', 'about.certs.3': 'Basic and advanced PromQL', 'about.certs.4': 'Alerting rules and Alertmanager', 'about.certs.5': 'Best practices in Kubernetes environments', 'about.domains': 'Exam domains', 'about.th1': 'Domain', 'about.th2': 'Weight', 'about.d1': 'Observability Concepts: metrics, logs, tracing, push vs pull, SLOs', 'about.d2': 'Prometheus Fundamentals: architecture, configuration, data model', 'about.d3': 'PromQL: data selection, rates, aggregations, histograms', 'about.d4': 'Instrumentation and Exporters: client libraries, metrics', 'about.d5': 'Alerting & Dashboarding: alerting rules, Alertmanager, dashboards', 'about.prep': 'How to prepare', 'about.lfs241.p': 'Self-paced course with 8 to 10 hours of content and 24 hands-on chapters. It covers observability fundamentals through Prometheus on Kubernetes, including high availability, alerting, and storage.', 'about.lfs241.btn': 'Official registration (Linux Foundation)', 'about.curriculum.p': 'The curriculum used to build the exam is public. This guide follows its domain distribution exactly.', 'about.curriculum.btn': 'Open source curriculum', 'about.handbook.p': 'Exam rules, scheduling, retake, and the official Linux Foundation FAQ. Review it before booking the exam.', 'about.handbook.btn': 'CNCF page', 'about.kodekloud.p': 'Hands-on course with practical labs and exam-focused mock tests. A good complement to LFS241.', 'about.kodekloud.btn': 'Open course', 'about.yetmike.p': 'Free PCA-style mock exams with commented questions. Excellent preparation before the exam.', 'about.yetmike.btn': 'Open practice exams',
+    'about.what.h': 'What it is', 'about.what.p': 'Proctored online multiple-choice exam that certifies the ability to monitor cloud native applications and infrastructure with Prometheus: metric collection, PromQL, alerting and dashboards.', 'about.who.h': 'Who it\'s for', 'about.who.p': 'Engineers, developers, sysadmins, SREs and platform professionals interested in observability. No prerequisites - container and Kubernetes basics help.', 'about.details.h': 'Exam details', 'about.details.1': 'Online, proctored, multiple choice', 'about.details.2': '60 questions · 90 minutes', 'about.details.3': 'Passing score: 75%', 'about.details.4': 'Validity: 2 years', 'about.details.5': 'US$ 250 · 1 retake included', 'about.details.6': 'PDF certificate + digital badge', 'about.certs.h': 'What it certifies', 'about.certs.1': 'Prometheus architecture and components', 'about.certs.2': 'Metric collection via exporters', 'about.certs.3': 'Basic and advanced PromQL', 'about.certs.4': 'Alerting rules and Alertmanager', 'about.certs.5': 'Best practices in Kubernetes environments', 'about.domains': 'Exam domains', 'about.th1': 'Domain', 'about.th2': 'Weight', 'about.d1': 'Observability Concepts - metrics, logs, tracing, push vs pull, SLOs', 'about.d2': 'Prometheus Fundamentals - architecture, configuration, data model', 'about.d3': 'PromQL - data selection, rates, aggregations, histograms', 'about.d4': 'Instrumentation and Exporters - client libraries, metrics', 'about.d5': 'Alerting & Dashboarding - alerting rules, Alertmanager, dashboards', 'about.prep': 'How to prepare', 'about.lfs241.p': 'Self-paced course with 8 to 10 hours of content and 24 hands-on chapters. It covers observability fundamentals through Prometheus on Kubernetes, including high availability, alerting, and storage.', 'about.lfs241.btn': 'Official registration (Linux Foundation)', 'about.curriculum.p': 'The curriculum used to build the exam is public. This guide follows its domain distribution exactly.', 'about.curriculum.btn': 'Open source curriculum', 'about.handbook.p': 'Exam rules, scheduling, retake, and the official Linux Foundation FAQ. Review it before booking the exam.', 'about.handbook.btn': 'CNCF page', 'about.kodekloud.p': 'Hands-on course with practical labs and exam-focused mock tests. A good complement to LFS241.', 'about.kodekloud.btn': 'Open course', 'about.yetmike.p': 'Free PCA-style mock exams with commented questions. Excellent preparation before the exam.', 'about.yetmike.btn': 'Open practice exams',
     'cheat.badge': 'QUICK REF',
     'cheat.h1.a': 'PCA Quick ',
     'cheat.h1.b': 'Reference',
