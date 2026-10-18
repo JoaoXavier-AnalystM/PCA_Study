@@ -19,6 +19,27 @@ O objetivo é fornecer uma base sólida sobre:
 
 ---
 
+## Desenvolvimento
+
+- Instruções compartilhadas: [AGENTS.md](AGENTS.md)
+- Escopo do produto: [PRODUCT.md](PRODUCT.md)
+- Onboarding local: [docs/onboarding.md](docs/onboarding.md)
+- Arquitetura: [docs/architecture.md](docs/architecture.md)
+- Qualidade e regressões: [docs/quality.md](docs/quality.md)
+- Evidências de setup: [docs/setup.md](docs/setup.md)
+
+Servidor local:
+
+```powershell
+python -m http.server 8080 --directory web
+```
+
+Regressões:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File tests/qa-regressions.ps1 -Case all
+```
+
 ## 🚀 O que você encontrará neste repositório
 
 ### 📖 Fundamentos
