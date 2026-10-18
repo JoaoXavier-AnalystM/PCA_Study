@@ -5,6 +5,8 @@
 | Check | Command | Proves |
 |---|---|---|
 | Full browser regression | `powershell.exe -NoProfile -ExecutionPolicy Bypass -File tests/qa-regressions.ps1 -Case all` | Local HTTP loading, PT/EN localization, quiz score, heading hierarchy, landmarks, native controls, keyboard focus and feedback |
+| Reduced-motion regression | `powershell.exe -NoProfile -ExecutionPolicy Bypass -File tests/qa-quiz-reduced-motion.ps1` | Normal/reduced scroll behavior and PT/EN quiz feedback labels |
+| Nginx header contract | `powershell.exe -NoProfile -ExecutionPolicy Bypass -File tests/qa-nginx-security-headers.ps1` | Security headers, gzip/cache preservation and optional `nginx -t` |
 | Scoped regression | Same command with `-Case issue1`, `issue2`, `issue3` or `issue4` | One focused contract |
 | HTML/container validation | GitHub Actions deploy workflows | File presence, basic HTML structure, size, container startup and VPS health endpoint |
 | Manual UI QA | `agent-browser` against local dev server | Navigation, responsive layout, console, network and accessibility tree evidence |

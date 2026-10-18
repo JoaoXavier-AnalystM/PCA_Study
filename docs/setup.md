@@ -23,6 +23,9 @@
 | Project docs | Added `PRODUCT.md` and five `docs/` records | Project | Configured; facts based on repository inspection |
 | Parallel-wave rule | Added `.claude/rules/parallel-subagent-driven-development.md` | Claude project | Configured; disjoint files/resources and coordinator-owned commits |
 | Browser QA | Reused `agent-browser` and existing PowerShell suite | Global/project | Validated; `-Case all` passed on 2026-10-18 |
+| Focused agents | Two supervised Codex workers with disjoint file ownership | Orca run `run_25d6dd5647b7` | Validated; both settled `succeeded`, terminals released, no commits by workers |
+| Reduced motion | Updated shared study quiz and added focused regression | Project | Validated; normal/reduced PT/EN paths pass |
+| Nginx headers | Added conservative response headers and config contract test | Project | Validated; focused test passes; `nginx -t` skipped because executable unavailable |
 | Memory | Added `MEMORY.md` and `memory/project-context.md` | Project | Configured; lightweight index, no external vault |
 | RTK | Not installed or observed in this client | Machine | Pending; no installation needed for current small task |
 | Context7 | Not executed in this adoption | Client | Pending; official project/toolkit sources used instead |
@@ -52,6 +55,6 @@ Created `PRODUCT.md`, `AGENTS.md`, `CLAUDE.md`, `docs/architecture.md`, `docs/de
 
 ## Pending work and next delivery
 
-- Create focused agents only after toolkit foundation is integrated and current diff is reviewed.
-- Suggested first improvements: reduced-motion behavior in shared study quiz and safe Nginx security-header coverage, each with isolated files and checks.
+- Agent wave completed: reduced-motion behavior and safe Nginx security-header coverage are implemented and verified.
+- Review next: inspect accumulated pre-existing web/test changes before any broad content or layout wave.
 - Re-run setup against a fresh toolkit revision when instructions, client integrations or project boundaries change.
