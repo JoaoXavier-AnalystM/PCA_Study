@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="pt-BR"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>PCA Guia — Dia 1: Observabilidade e Fundamentos do Prometheus</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -41,7 +41,10 @@ tr:nth-child(even) td{background:#f8fafc}
 .quiz-block{border:.5pt solid #cbd5e1;border-radius:5pt;margin:7pt 0;page-break-inside:avoid;overflow:hidden}
 .quiz-q{padding:7pt 10pt;font-weight:600;font-size:9.5pt;background:#f8fafc;border-bottom:.5pt solid #cbd5e1}
 .quiz-opts{padding:6pt 10pt}
-.quiz-opt{padding:2pt 0;font-size:9pt}
+.quiz-opt{display:block;width:100%;padding:2pt 0;border:0;background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer;font-size:9pt}
+.quiz-opt:focus-visible{outline:2px solid #2563eb;outline-offset:2pt;border-radius:2pt}
+.quiz-opt.quiz-correct{background:#dcfce7;color:#166534}
+.quiz-opt.quiz-wrong{background:#fee2e2;color:#b91c1c}
 .quiz-ans{padding:5pt 10pt;background:#f0fdf4;border-top:.5pt solid #cbd5e1;font-size:9pt;color:#166534}
 .quiz-exp{padding:4pt 10pt 7pt;font-size:8.5pt;color:#475569;border-top:.5pt dashed #e2e8f0}
 .checklist{list-style:none;margin:6pt 0 6pt 14pt}
@@ -54,6 +57,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 .avoid{page-break-inside:avoid}
 @media screen and (max-width:600px){body{font-size:10pt}.cols2,.col{display:block;width:100%;padding:0}table,.kv-grid{display:block;overflow-x:auto}}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style></head><body>
+<main>
 
 <div class="cover-band">
   <h1>Observability Concepts + Prometheus Fundamentals</h1>
@@ -315,10 +319,10 @@ scrape_configs:
 <div class="quiz-block">
   <div class="quiz-q">Q1. Qual pilar de observabilidade é mais adequado para rastrear uma requisição lenta atravessando 6 microsserviços?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Métricas - por serem mais eficientes para análise de latência</div>
-    <div class="quiz-opt">B) Logs - pois cada serviço registra o evento com timestamp</div>
-    <div class="quiz-opt">C) Traces (rastreamento distribuído) com spans</div>
-    <div class="quiz-opt">D) Alertas - porque identificam o problema automaticamente</div>
+    <button type="button" class="quiz-opt">A) Métricas - por serem mais eficientes para análise de latência</button>
+    <button type="button" class="quiz-opt">B) Logs - pois cada serviço registra o evento com timestamp</button>
+    <button type="button" class="quiz-opt">C) Traces (rastreamento distribuído) com spans</button>
+    <button type="button" class="quiz-opt">D) Alertas - porque identificam o problema automaticamente</button>
   </div>
   <div class="quiz-ans">✅ Resposta: C</div>
   <div class="quiz-exp">Distributed Tracing com spans é exatamente feito para esse cenário: rastrear o caminho completo de uma requisição através de múltiplos serviços, mostrando onde ocorreu o gargalo. Ferramentas: Jaeger, Zipkin, OpenTelemetry.</div>
@@ -327,10 +331,10 @@ scrape_configs:
 <div class="quiz-block">
   <div class="quiz-q">Q2. Uma empresa tem SLO de 99,9% de disponibilidade mensal. Quanto tempo de downtime é permitido?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) 0 minutos - 99,9% significa praticamente disponível sempre</div>
-    <div class="quiz-opt">B) Aproximadamente 43,8 minutos por mês (0,1% do tempo)</div>
-    <div class="quiz-opt">C) 1 hora por mês exatamente</div>
-    <div class="quiz-opt">D) Depende do SLA com o cliente</div>
+    <button type="button" class="quiz-opt">A) 0 minutos - 99,9% significa praticamente disponível sempre</button>
+    <button type="button" class="quiz-opt">B) Aproximadamente 43,8 minutos por mês (0,1% do tempo)</button>
+    <button type="button" class="quiz-opt">C) 1 hora por mês exatamente</button>
+    <button type="button" class="quiz-opt">D) Depende do SLA com o cliente</button>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
   <div class="quiz-exp">Error Budget = 100% − 99,9% = 0,1%. Em um mês com 30 dias = 43.200 minutos × 0,001 = ~43,2 minutos. Este é o "orçamento de erros" disponível antes de violar o SLO.</div>
@@ -339,10 +343,10 @@ scrape_configs:
 <div class="quiz-block">
   <div class="quiz-q">Q3. Por que o Prometheus usa o modelo Pull em vez de Push por padrão?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Pull é mais seguro pois o firewall não precisa permitir conexões de entrada</div>
-    <div class="quiz-opt">B) Pull permite ao Prometheus controlar a frequência e detectar targets down (up=0)</div>
-    <div class="quiz-opt">C) Push não é suportado em nenhuma situação no Prometheus</div>
-    <div class="quiz-opt">D) Pull é mais eficiente em termos de rede</div>
+    <button type="button" class="quiz-opt">A) Pull é mais seguro pois o firewall não precisa permitir conexões de entrada</button>
+    <button type="button" class="quiz-opt">B) Pull permite ao Prometheus controlar a frequência e detectar targets down (up=0)</button>
+    <button type="button" class="quiz-opt">C) Push não é suportado em nenhuma situação no Prometheus</button>
+    <button type="button" class="quiz-opt">D) Pull é mais eficiente em termos de rede</button>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
   <div class="quiz-exp">Com Pull, o Prometheus controla o timing do scrape e sabe exatamente quando um target parou de responder (gerando up=0). Com Push, se o agente para de enviar, não há forma simples de saber se é intencional ou falha.</div>
@@ -351,10 +355,10 @@ scrape_configs:
 <div class="quiz-block">
   <div class="quiz-q">Q4. Qual tipo de métrica é correto para medir o número atual de conexões abertas em um banco de dados?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Counter - pois conta o número de conexões</div>
-    <div class="quiz-opt">B) Summary - para calcular percentis de conexões</div>
-    <div class="quiz-opt">C) Gauge - pois o valor sobe e desce conforme conexões abrem e fecham</div>
-    <div class="quiz-opt">D) Histogram - para distribuir conexões por faixa de tempo</div>
+    <button type="button" class="quiz-opt">A) Counter - pois conta o número de conexões</button>
+    <button type="button" class="quiz-opt">B) Summary - para calcular percentis de conexões</button>
+    <button type="button" class="quiz-opt">C) Gauge - pois o valor sobe e desce conforme conexões abrem e fecham</button>
+    <button type="button" class="quiz-opt">D) Histogram - para distribuir conexões por faixa de tempo</button>
   </div>
   <div class="quiz-ans">✅ Resposta: C</div>
   <div class="quiz-exp">Gauge é para valores que sobem E descem. Conexões ativas aumentam quando novas conexões são estabelecidas e diminuem quando fechadas. Counter só sobe - seria correto para "total de conexões já abertas".</div>
@@ -363,10 +367,10 @@ scrape_configs:
 <div class="quiz-block">
   <div class="quiz-q">Q5. Qual a principal vantagem do Histogram sobre o Summary para medir latência?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Histogram é mais preciso - calcula percentis exatos</div>
-    <div class="quiz-opt">B) Histogram permite agregação entre múltiplas instâncias via histogram_quantile()</div>
-    <div class="quiz-opt">C) Histogram usa menos memória que Summary</div>
-    <div class="quiz-opt">D) Summary não suporta percentis acima de p90</div>
+    <button type="button" class="quiz-opt">A) Histogram é mais preciso - calcula percentis exatos</button>
+    <button type="button" class="quiz-opt">B) Histogram permite agregação entre múltiplas instâncias via histogram_quantile()</button>
+    <button type="button" class="quiz-opt">C) Histogram usa menos memória que Summary</button>
+    <button type="button" class="quiz-opt">D) Summary não suporta percentis acima de p90</button>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
   <div class="quiz-exp">Histogram armazena buckets no Prometheus e calcula percentis no servidor - por isso é possível agregar buckets de múltiplas instâncias antes de calcular o quantil. Summary calcula percentis no cliente da aplicação, impossibilitando agregação posterior.</div>
@@ -375,10 +379,10 @@ scrape_configs:
 <div class="quiz-block">
   <div class="quiz-q">Q6. Qual label seria problemático usar em uma métrica do Prometheus?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) <code>method="GET"</code></div>
-    <div class="quiz-opt">B) <code>status_code="200"</code></div>
-    <div class="quiz-opt">C) <code>user_id="usr_abc123"</code></div>
-    <div class="quiz-opt">D) <code>region="us-east-1"</code></div>
+    <button type="button" class="quiz-opt">A) <code>method="GET"</code></button>
+    <button type="button" class="quiz-opt">B) <code>status_code="200"</code></button>
+    <button type="button" class="quiz-opt">C) <code>user_id="usr_abc123"</code></button>
+    <button type="button" class="quiz-opt">D) <code>region="us-east-1"</code></button>
   </div>
   <div class="quiz-ans">✅ Resposta: C</div>
   <div class="quiz-exp">user_id tem altíssima cardinality - pode ter milhões de valores únicos. Cada combinação de labels = 1 time series. Isso criaria milhões de séries, sobrecarregando o TSDB. Labels devem ter cardinality baixa e previsível.</div>
@@ -387,10 +391,10 @@ scrape_configs:
 <div class="quiz-block">
   <div class="quiz-q">Q7. Um batch job termina em 10 segundos, mas o scrape_interval é 15s. Qual solução usar?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Reduzir o scrape_interval para 5s</div>
-    <div class="quiz-opt">B) Usar o Pushgateway - o job faz push antes de terminar</div>
-    <div class="quiz-opt">C) Adicionar um sleep de 5s no final do job</div>
-    <div class="quiz-opt">D) Não é possível monitorar jobs de curta duração com Prometheus</div>
+    <button type="button" class="quiz-opt">A) Reduzir o scrape_interval para 5s</button>
+    <button type="button" class="quiz-opt">B) Usar o Pushgateway - o job faz push antes de terminar</button>
+    <button type="button" class="quiz-opt">C) Adicionar um sleep de 5s no final do job</button>
+    <button type="button" class="quiz-opt">D) Não é possível monitorar jobs de curta duração com Prometheus</button>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
   <div class="quiz-exp">Pushgateway existe exatamente para batch jobs que terminam antes do próximo scrape. O job faz push das métricas (status, duração, resultado) para o Pushgateway, que fica disponível para o Prometheus scrapar indefinidamente.</div>
@@ -399,10 +403,10 @@ scrape_configs:
 <div class="quiz-block">
   <div class="quiz-q">Q8. Qual o arquivo de configuração principal do Prometheus e qual campo define o intervalo de scrape padrão?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) <code>config.yaml</code>, campo <code>interval</code></div>
-    <div class="quiz-opt">B) <code>prometheus.yml</code>, campo <code>scrape_interval</code> dentro de <code>global:</code></div>
-    <div class="quiz-opt">C) <code>prometheus.conf</code>, campo <code>collection_interval</code></div>
-    <div class="quiz-opt">D) <code>prometheus.yml</code>, campo <code>evaluation_interval</code></div>
+    <button type="button" class="quiz-opt">A) <code>config.yaml</code>, campo <code>interval</code></button>
+    <button type="button" class="quiz-opt">B) <code>prometheus.yml</code>, campo <code>scrape_interval</code> dentro de <code>global:</code></button>
+    <button type="button" class="quiz-opt">C) <code>prometheus.conf</code>, campo <code>collection_interval</code></button>
+    <button type="button" class="quiz-opt">D) <code>prometheus.yml</code>, campo <code>evaluation_interval</code></button>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
   <div class="quiz-exp">O arquivo é <code>prometheus.yml</code>. O campo <code>scrape_interval</code> dentro de <code>global:</code> define o intervalo padrão de coleta. <code>evaluation_interval</code> define com que frequência as REGRAS (alerting/recording) são avaliadas - diferente do scrape!</div>
@@ -438,4 +442,6 @@ scrape_configs:
   <p style="margin-top:4pt"><strong>Docs:</strong> prometheus.io/docs/concepts/data_model/ e /metric_types/</p>
 </div>
 
+</main>
+<script src="day-quiz.js"></script>
 </body></html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>PCA Guide — Day 3: Advanced PromQL</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -39,7 +39,10 @@ tr:nth-child(even) td{background:#f8fafc}
 .quiz-block{border:.5pt solid #cbd5e1;border-radius:5pt;margin:7pt 0;page-break-inside:avoid;overflow:hidden}
 .quiz-q{padding:7pt 10pt;font-weight:600;font-size:9.5pt;background:#f8fafc;border-bottom:.5pt solid #cbd5e1}
 .quiz-opts{padding:6pt 10pt}
-.quiz-opt{padding:2pt 0;font-size:9pt}
+.quiz-opt{display:block;width:100%;padding:2pt 0;border:0;background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer;font-size:9pt}
+.quiz-opt:focus-visible{outline:2px solid #2563eb;outline-offset:2pt;border-radius:2pt}
+.quiz-opt.quiz-correct{background:#dcfce7;color:#166534}
+.quiz-opt.quiz-wrong{background:#fee2e2;color:#b91c1c}
 .quiz-ans{padding:5pt 10pt;background:#f0fdf4;border-top:.5pt solid #cbd5e1;font-size:9pt;color:#166534}
 .quiz-exp{padding:4pt 10pt 7pt;font-size:8.5pt;color:#475569;border-top:.5pt dashed #e2e8f0}
 .checklist{list-style:none;margin:6pt 0 6pt 14pt}
@@ -52,6 +55,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 .avoid{page-break-inside:avoid}
 @media screen and (max-width:600px){body{font-size:10pt}.cols2,.col{display:block;width:100%;padding:0}table,.kv-grid{display:block;overflow-x:auto}}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style></head><body>
+<main>
 
 <div class="cover-band">
   <h1>Advanced PromQL - Histograms, Joins and Recording Rules</h1>
@@ -360,10 +364,10 @@ max_over_time(
 <div class="quiz-block">
   <div class="quiz-q">Q1. What is the correct query for computing the 99th latency percentile using a Histogram?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) quantile(0.99, http_request_duration_seconds)</div>
-    <div class="quiz-opt">B) histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m]))</div>
-    <div class="quiz-opt">C) histogram_quantile(99, rate(http_request_duration_seconds_bucket[5m]))</div>
-    <div class="quiz-opt">D) p99(http_request_duration_seconds[5m])</div>
+    <button type="button" class="quiz-opt">A) quantile(0.99, http_request_duration_seconds)</button>
+    <button type="button" class="quiz-opt">B) histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m]))</button>
+    <button type="button" class="quiz-opt">C) histogram_quantile(99, rate(http_request_duration_seconds_bucket[5m]))</button>
+    <button type="button" class="quiz-opt">D) p99(http_request_duration_seconds[5m])</button>
   </div>
   <div class="quiz-ans">✅ Answer: B</div>
   <div class="quiz-exp">histogram_quantile(φ, b) - φ is the quantile between 0 and 1 (not 0-100!), and b must be the buckets with rate(). It uses the _bucket suffix, not the base metric.</div>
@@ -372,10 +376,10 @@ max_over_time(
 <div class="quiz-block">
   <div class="quiz-q">Q2. When aggregating Histogram buckets with sum() for use in histogram_quantile(), which label must you keep?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) job</div>
-    <div class="quiz-opt">B) instance</div>
-    <div class="quiz-opt">C) le</div>
-    <div class="quiz-opt">D) handler</div>
+    <button type="button" class="quiz-opt">A) job</button>
+    <button type="button" class="quiz-opt">B) instance</button>
+    <button type="button" class="quiz-opt">C) le</button>
+    <button type="button" class="quiz-opt">D) handler</button>
   </div>
   <div class="quiz-ans">✅ Answer: C</div>
   <div class="quiz-exp">The "le" (less than or equal) label defines each bucket's upper bound. Without it, histogram_quantile() cannot identify the buckets and the calculation comes out wrong. Always: sum by (le, ...) when aggregating buckets.</div>
@@ -384,10 +388,10 @@ max_over_time(
 <div class="quiz-block">
   <div class="quiz-q">Q3. What does the query <code>predict_linear(node_filesystem_avail_bytes[1h], 4*3600) &lt; 0</code> do?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Alerts if the disk has less than 4 hours of uptime</div>
-    <div class="quiz-opt">B) Computes the average free space over the last hour</div>
-    <div class="quiz-opt">C) Alerts if, based on the last hour's trend, the disk will fill up in less than 4 hours</div>
-    <div class="quiz-opt">D) Checks if the disk filled up in the last 4 seconds</div>
+    <button type="button" class="quiz-opt">A) Alerts if the disk has less than 4 hours of uptime</button>
+    <button type="button" class="quiz-opt">B) Computes the average free space over the last hour</button>
+    <button type="button" class="quiz-opt">C) Alerts if, based on the last hour's trend, the disk will fill up in less than 4 hours</button>
+    <button type="button" class="quiz-opt">D) Checks if the disk filled up in the last 4 seconds</button>
   </div>
   <div class="quiz-ans">✅ Answer: C</div>
   <div class="quiz-exp">predict_linear(v, t) projects the value of v t seconds from now. If the projection is negative, the available space will reach zero before t. 4*3600 = 4 hours in seconds.</div>
@@ -396,10 +400,10 @@ max_over_time(
 <div class="quiz-block">
   <div class="quiz-q">Q4. What does absent(up{job="api"}) return when the "api" job is being monitored normally?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) 0 (zero)</div>
-    <div class="quiz-opt">B) 1 (one)</div>
-    <div class="quiz-opt">C) An empty vector (no data)</div>
-    <div class="quiz-opt">D) The current value of the up metric for the api job</div>
+    <button type="button" class="quiz-opt">A) 0 (zero)</button>
+    <button type="button" class="quiz-opt">B) 1 (one)</button>
+    <button type="button" class="quiz-opt">C) An empty vector (no data)</button>
+    <button type="button" class="quiz-opt">D) The current value of the up metric for the api job</button>
   </div>
   <div class="quiz-ans">✅ Answer: C</div>
   <div class="quiz-exp">absent() returns a vector with value 1 only if the series does NOT exist. If the series exists (the job is monitored), absent() returns an empty vector - no data. This means: the alerting rule does not fire when the job exists.</div>
@@ -408,10 +412,10 @@ max_over_time(
 <div class="quiz-block">
   <div class="quiz-q">Q5. What is the correct naming format for a Recording Rule that computes the HTTP request rate per job?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) http_requests_rate_5m_by_job</div>
-    <div class="quiz-opt">B) job:http_requests:rate5m</div>
-    <div class="quiz-opt">C) job_http_requests_rate5m</div>
-    <div class="quiz-opt">D) recording:http_requests_total:rate</div>
+    <button type="button" class="quiz-opt">A) http_requests_rate_5m_by_job</button>
+    <button type="button" class="quiz-opt">B) job:http_requests:rate5m</button>
+    <button type="button" class="quiz-opt">C) job_http_requests_rate5m</button>
+    <button type="button" class="quiz-opt">D) recording:http_requests_total:rate</button>
   </div>
   <div class="quiz-ans">✅ Answer: B</div>
   <div class="quiz-exp">The convention is level:metric:operations. "job" = aggregation level, "http_requests" = base metric, "rate5m" = operation applied with a window. It makes the series easy to identify and avoids conflicts.</div>
@@ -420,10 +424,10 @@ max_over_time(
 <div class="quiz-block">
   <div class="quiz-q">Q6. What is the group_left() operator for in PromQL?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) To aggregate series on the left side of the query</div>
-    <div class="quiz-opt">B) For many-to-one joins where the left side has more series, allowing extra labels to be copied from the right side</div>
-    <div class="quiz-opt">C) To filter series based on the left side's labels</div>
-    <div class="quiz-opt">D) To sort the result by the left column</div>
+    <button type="button" class="quiz-opt">A) To aggregate series on the left side of the query</button>
+    <button type="button" class="quiz-opt">B) For many-to-one joins where the left side has more series, allowing extra labels to be copied from the right side</button>
+    <button type="button" class="quiz-opt">C) To filter series based on the left side's labels</button>
+    <button type="button" class="quiz-opt">D) To sort the result by the left column</button>
   </div>
   <div class="quiz-ans">✅ Answer: B</div>
   <div class="quiz-exp">group_left() allows many-to-one joins: many series on the left can link to one on the right. The labels inside group_left()'s parentheses are copied from the right side to enrich the left result.</div>
@@ -432,10 +436,10 @@ max_over_time(
 <div class="quiz-block">
   <div class="quiz-q">Q7. Which of the following statements about Recording Rules is INCORRECT?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Recording Rules are stored as new metrics in the TSDB</div>
-    <div class="quiz-opt">B) Recording Rules improve the performance of repeated queries</div>
-    <div class="quiz-opt">C) Recording Rules are evaluated in real time only when a dashboard queries them</div>
-    <div class="quiz-opt">D) Recording Rules follow the level:metric:operations naming convention</div>
+    <button type="button" class="quiz-opt">A) Recording Rules are stored as new metrics in the TSDB</button>
+    <button type="button" class="quiz-opt">B) Recording Rules improve the performance of repeated queries</button>
+    <button type="button" class="quiz-opt">C) Recording Rules are evaluated in real time only when a dashboard queries them</button>
+    <button type="button" class="quiz-opt">D) Recording Rules follow the level:metric:operations naming convention</button>
   </div>
   <div class="quiz-ans">✅ Answer: C</div>
   <div class="quiz-exp">INCORRECT: Recording Rules are evaluated periodically (per evaluation_interval) and stored in the TSDB, regardless of whether anything queries them. When a dashboard queries them, the data is already precomputed - which is why they are faster.</div>
@@ -444,10 +448,10 @@ max_over_time(
 <div class="quiz-block">
   <div class="quiz-q">Q8. Which function should be used to create an alert when a metric's value changed more than 3 times in the last hour?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) rate(config_version[1h]) > 3</div>
-    <div class="quiz-opt">B) changes(config_version[1h]) > 3</div>
-    <div class="quiz-opt">C) increase(config_version[1h]) > 3</div>
-    <div class="quiz-opt">D) delta(config_version[1h]) > 3</div>
+    <button type="button" class="quiz-opt">A) rate(config_version[1h]) > 3</button>
+    <button type="button" class="quiz-opt">B) changes(config_version[1h]) > 3</button>
+    <button type="button" class="quiz-opt">C) increase(config_version[1h]) > 3</button>
+    <button type="button" class="quiz-opt">D) delta(config_version[1h]) > 3</button>
   </div>
   <div class="quiz-ans">✅ Answer: B</div>
   <div class="quiz-exp">changes() counts how many times a series' value changed over the specified period. Ideal for detecting configs that changed unexpectedly many times. rate() would be for an increasing counter; increase() would be for the amount grown.</div>
@@ -482,4 +486,6 @@ max_over_time(
   <p style="margin-top:4pt"><strong>Docs:</strong> prometheus.io/docs/prometheus/latest/querying/functions/</p>
 </div>
 
+</main>
+<script src="day-quiz.js"></script>
 </body></html>

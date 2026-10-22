@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>PCA Guide — Day 5: Alerting, Alertmanager and Dashboards</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -39,7 +39,10 @@ tr:nth-child(even) td{background:#f8fafc}
 .quiz-block{border:.5pt solid #cbd5e1;border-radius:5pt;margin:7pt 0;page-break-inside:avoid;overflow:hidden}
 .quiz-q{padding:7pt 10pt;font-weight:600;font-size:9.5pt;background:#f8fafc;border-bottom:.5pt solid #cbd5e1}
 .quiz-opts{padding:6pt 10pt}
-.quiz-opt{padding:2pt 0;font-size:9pt}
+.quiz-opt{display:block;width:100%;padding:2pt 0;border:0;background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer;font-size:9pt}
+.quiz-opt:focus-visible{outline:2px solid #2563eb;outline-offset:2pt;border-radius:2pt}
+.quiz-opt.quiz-correct{background:#dcfce7;color:#166534}
+.quiz-opt.quiz-wrong{background:#fee2e2;color:#b91c1c}
 .quiz-ans{padding:5pt 10pt;background:#f0fdf4;border-top:.5pt solid #cbd5e1;font-size:9pt;color:#166534}
 .quiz-exp{padding:4pt 10pt 7pt;font-size:8.5pt;color:#475569;border-top:.5pt dashed #e2e8f0}
 .checklist{list-style:none;margin:6pt 0 6pt 14pt}
@@ -51,6 +54,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 .pb{page-break-before:always}
 @media screen and (max-width:600px){body{font-size:10pt}.cols2,.col{display:block;width:100%;padding:0}table,.kv-grid{display:block;overflow-x:auto}}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style></head><body>
+<main>
 
 <div class="cover-band">
   <h1>Alerting, Alertmanager &amp; Dashboarding</h1>
@@ -286,10 +290,10 @@ sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
 <div class="quiz-block">
   <div class="quiz-q">Q1. What is the state of an alert whose condition was met but the "for: 10m" field has not expired yet?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) firing - it is already active</div>
-    <div class="quiz-opt">B) inactive - it is not a real alert yet</div>
-    <div class="quiz-opt">C) pending - condition active but waiting for the "for" to confirm</div>
-    <div class="quiz-opt">D) warning - intermediate state</div>
+    <button type="button" class="quiz-opt">A) firing - it is already active</button>
+    <button type="button" class="quiz-opt">B) inactive - it is not a real alert yet</button>
+    <button type="button" class="quiz-opt">C) pending - condition active but waiting for the "for" to confirm</button>
+    <button type="button" class="quiz-opt">D) warning - intermediate state</button>
   </div>
   <div class="quiz-ans">Answer: C</div>
   <div class="quiz-exp">pending: condition met but within the "for" window. After "for" expires, it goes to firing. Without a "for" field, it goes straight from inactive to firing.</div>
@@ -298,10 +302,10 @@ sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
 <div class="quiz-block">
   <div class="quiz-q">Q2. What is the difference between "labels" and "annotations" in an alerting rule?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) They are equivalent - just different names</div>
-    <div class="quiz-opt">B) labels are used for routing in Alertmanager; annotations are human-readable information</div>
-    <div class="quiz-opt">C) annotations are used for routing; labels are descriptive</div>
-    <div class="quiz-opt">D) labels live in Prometheus; annotations live in Grafana</div>
+    <button type="button" class="quiz-opt">A) They are equivalent - just different names</button>
+    <button type="button" class="quiz-opt">B) labels are used for routing in Alertmanager; annotations are human-readable information</button>
+    <button type="button" class="quiz-opt">C) annotations are used for routing; labels are descriptive</button>
+    <button type="button" class="quiz-opt">D) labels live in Prometheus; annotations live in Grafana</button>
   </div>
   <div class="quiz-ans">Answer: B</div>
   <div class="quiz-exp">labels: added to the alert and used by Alertmanager for routing (match/match_re in routes). annotations: textual information for humans such as summary, description and runbook_url - they do NOT take part in routing.</div>
@@ -310,10 +314,10 @@ sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
 <div class="quiz-block">
   <div class="quiz-q">Q3. What does the "group_wait: 30s" field do in Alertmanager?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Waits 30s before resending already notified alerts</div>
-    <div class="quiz-opt">B) Waits 30s before sending the first notification of a new group of alerts</div>
-    <div class="quiz-opt">C) Waits 30s before evaluating the alerting rules</div>
-    <div class="quiz-opt">D) It is the timeout for the receiver to respond</div>
+    <button type="button" class="quiz-opt">A) Waits 30s before resending already notified alerts</button>
+    <button type="button" class="quiz-opt">B) Waits 30s before sending the first notification of a new group of alerts</button>
+    <button type="button" class="quiz-opt">C) Waits 30s before evaluating the alerting rules</button>
+    <button type="button" class="quiz-opt">D) It is the timeout for the receiver to respond</button>
   </div>
   <div class="quiz-ans">Answer: B</div>
   <div class="quiz-exp">group_wait defines how long Alertmanager waits to collect alerts from the same group before sending the FIRST notification. It allows grouping alerts that arrive in a burst right after an incident.</div>
@@ -322,10 +326,10 @@ sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
 <div class="quiz-block">
   <div class="quiz-q">Q4. What is the main difference between Silence and Inhibition in Alertmanager?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Silence is permanent; Inhibition is temporary</div>
-    <div class="quiz-opt">B) Silence is manual suppression for a period; Inhibition is automatic suppression based on another active alert</div>
-    <div class="quiz-opt">C) Silence works by labels; Inhibition works by time</div>
-    <div class="quiz-opt">D) They are identical - just different names in the UI</div>
+    <button type="button" class="quiz-opt">A) Silence is permanent; Inhibition is temporary</button>
+    <button type="button" class="quiz-opt">B) Silence is manual suppression for a period; Inhibition is automatic suppression based on another active alert</button>
+    <button type="button" class="quiz-opt">C) Silence works by labels; Inhibition works by time</button>
+    <button type="button" class="quiz-opt">D) They are identical - just different names in the UI</button>
   </div>
   <div class="quiz-ans">Answer: B</div>
   <div class="quiz-exp">Silence: a human creates it manually via UI/API for a period (e.g. maintenance). Inhibition: a rule in alertmanager.yml that automatically suppresses "child" alerts when a "parent" alert is firing (e.g. host down suppresses the app alerts on that host).</div>
@@ -334,10 +338,10 @@ sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
 <div class="quiz-block">
   <div class="quiz-q">Q5. How do you configure Grafana to use Prometheus data?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Import prometheus.yml directly into Grafana</div>
-    <div class="quiz-opt">B) Configure a Prometheus Data Source with the server URL and use PromQL in the panels</div>
-    <div class="quiz-opt">C) Install the node_exporter plugin in Grafana</div>
-    <div class="quiz-opt">D) Connect via SSH to the Prometheus server</div>
+    <button type="button" class="quiz-opt">A) Import prometheus.yml directly into Grafana</button>
+    <button type="button" class="quiz-opt">B) Configure a Prometheus Data Source with the server URL and use PromQL in the panels</button>
+    <button type="button" class="quiz-opt">C) Install the node_exporter plugin in Grafana</button>
+    <button type="button" class="quiz-opt">D) Connect via SSH to the Prometheus server</button>
   </div>
   <div class="quiz-ans">Answer: B</div>
   <div class="quiz-exp">In Grafana: Configuration > Data Sources > Add data source > Prometheus > URL http://prometheus:9090. Then, in each panel, write PromQL queries to visualize the data.</div>
@@ -346,10 +350,10 @@ sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
 <div class="quiz-block">
   <div class="quiz-q">Q6. What does the "continue: false" field do in an Alertmanager route?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Stops Alertmanager from processing new alerts</div>
-    <div class="quiz-opt">B) After matching this route, the alert is NOT evaluated by the following routes</div>
-    <div class="quiz-opt">C) Prevents the alert from transitioning to firing</div>
-    <div class="quiz-opt">D) Disables repeat_interval for this receiver</div>
+    <button type="button" class="quiz-opt">A) Stops Alertmanager from processing new alerts</button>
+    <button type="button" class="quiz-opt">B) After matching this route, the alert is NOT evaluated by the following routes</button>
+    <button type="button" class="quiz-opt">C) Prevents the alert from transitioning to firing</button>
+    <button type="button" class="quiz-opt">D) Disables repeat_interval for this receiver</button>
   </div>
   <div class="quiz-ans">Answer: B</div>
   <div class="quiz-exp">By default, an alert that matches a sub-route stops being evaluated by the next ones. "continue: true" does the opposite - it lets the alert keep being evaluated by subsequent routes even after a match.</div>
@@ -358,10 +362,10 @@ sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
 <div class="quiz-block">
   <div class="quiz-q">Q7. Which Alertmanager field defines the interval for REPEATING alerts that are still active and have already been notified?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) group_interval</div>
-    <div class="quiz-opt">B) group_wait</div>
-    <div class="quiz-opt">C) repeat_interval</div>
-    <div class="quiz-opt">D) resend_delay</div>
+    <button type="button" class="quiz-opt">A) group_interval</button>
+    <button type="button" class="quiz-opt">B) group_wait</button>
+    <button type="button" class="quiz-opt">C) repeat_interval</button>
+    <button type="button" class="quiz-opt">D) resend_delay</button>
   </div>
   <div class="quiz-ans">Answer: C</div>
   <div class="quiz-exp">repeat_interval: how long to wait before resending the notification of an alert that is still firing and has already been notified. Avoids spam for persistent alerts. Default: 4h.</div>
@@ -370,10 +374,10 @@ sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
 <div class="quiz-block">
   <div class="quiz-q">Q8. What is "group_by" in Alertmanager and how does it work?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Defines which receivers get which alerts</div>
-    <div class="quiz-opt">B) Defines the labels used to group alerts into a single notification</div>
-    <div class="quiz-opt">C) Groups alerts by severity automatically</div>
-    <div class="quiz-opt">D) Defines the priority order of alerts</div>
+    <button type="button" class="quiz-opt">A) Defines which receivers get which alerts</button>
+    <button type="button" class="quiz-opt">B) Defines the labels used to group alerts into a single notification</button>
+    <button type="button" class="quiz-opt">C) Groups alerts by severity automatically</button>
+    <button type="button" class="quiz-opt">D) Defines the priority order of alerts</button>
   </div>
   <div class="quiz-ans">Answer: B</div>
   <div class="quiz-exp">group_by: ['alertname', 'cluster'] - alerts with the same values in these labels are grouped and sent together in one notification. Reduces noise when multiple alerts of the same type fire at the same time.</div>
@@ -403,4 +407,6 @@ sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
   <p style="margin-top:4pt"><strong>Practice:</strong> Configure an alerting rule and watch the alert move through the 3 states</p>
 </div>
 
+</main>
+<script src="day-quiz.js"></script>
 </body></html>

@@ -1030,6 +1030,8 @@
   </div>
 </nav>
 
+<main id="main-content">
+
 <!-- ============================================================ -->
 <!--  TRILHA DE ESTUDOS                                            -->
 <!-- ============================================================ -->
@@ -1057,7 +1059,7 @@
   </div>
   <div class="week-grid">
 
-    <div class="day-card d-dom1" data-day="1" tabindex="0" onclick="loadDayStudy(1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(1)}">
+    <div class="day-card d-dom1" data-day="1" role="button" tabindex="0" onclick="loadDayStudy(1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(1)}">
       <div class="day-header">
         <div>
           <div class="day-number" data-i18n="day1.num">TÓPICO 01</div>
@@ -1088,7 +1090,7 @@
     </div>
   </div>
 
-    <div class="day-card d-dom2" data-day="2" tabindex="0" onclick="loadDayStudy(2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(2)}">
+    <div class="day-card d-dom2" data-day="2" role="button" tabindex="0" onclick="loadDayStudy(2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(2)}">
       <div class="day-header">
         <div>
           <div class="day-number" data-i18n="day2.num">TÓPICO 02</div>
@@ -1118,7 +1120,7 @@
       </div>
     </div>
 
-    <div class="day-card d-dom3" data-day="3" tabindex="0" onclick="loadDayStudy(3)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(3)}">
+    <div class="day-card d-dom3" data-day="3" role="button" tabindex="0" onclick="loadDayStudy(3)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(3)}">
       <div class="day-header">
         <div>
           <div class="day-number" data-i18n="day3.num">TÓPICO 03</div>
@@ -1148,7 +1150,7 @@
       </div>
     </div>
 
-    <div class="day-card d-dom4" data-day="4" tabindex="0" onclick="loadDayStudy(4)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(4)}">
+    <div class="day-card d-dom4" data-day="4" role="button" tabindex="0" onclick="loadDayStudy(4)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(4)}">
       <div class="day-header">
         <div>
           <div class="day-number" data-i18n="day4.num">TÓPICO 04</div>
@@ -1178,7 +1180,7 @@
       </div>
     </div>
 
-    <div class="day-card d-dom5" data-day="5" tabindex="0" onclick="loadDayStudy(5)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(5)}">
+    <div class="day-card d-dom5" data-day="5" role="button" tabindex="0" onclick="loadDayStudy(5)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(5)}">
       <div class="day-header">
         <div>
           <div class="day-number" data-i18n="day5.num">TÓPICO 05</div>
@@ -1208,7 +1210,7 @@
       </div>
     </div>
 
-    <div class="day-card d-dom6" data-day="6" tabindex="0" onclick="loadDayStudy(6)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(6)}">
+    <div class="day-card d-dom6" data-day="6" role="button" tabindex="0" onclick="loadDayStudy(6)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(6)}">
       <div class="day-header">
         <div>
           <div class="day-number" data-i18n="day6.num">TÓPICO 06</div>
@@ -1235,7 +1237,7 @@
       </div>
     </div>
 
-    <div class="day-card d-dom7 active-day" data-day="7" tabindex="0" onclick="loadDayStudy(7)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(7)}">
+    <div class="day-card d-dom7 active-day" data-day="7" role="button" tabindex="0" onclick="loadDayStudy(7)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();loadDayStudy(7)}">
       <div class="day-header active-header">
         <div>
           <div class="day-number" data-i18n="day7.num">TÓPICO 07</div>
@@ -2211,6 +2213,8 @@ receivers:
 
 <button class="print-btn" onclick="window.print()" data-i18n="print.btn">🖨️ Imprimir</button>
 
+</main>
+
 <script>
 // ============================================================
 // NAVIGATION
@@ -2328,6 +2332,8 @@ function loadDayStudy(dayNum) {
       body = body.replace(/<script[\s\S]*?<\/script>/gi, '');
       // remove leftover head content if any
       body = body.replace(/<head[\s\S]*?<\/head>/gi, '');
+      // day pages expose main for direct navigation; keep one main landmark on homepage
+      body = body.replace(/<\/?main\b[^>]*>/gi, '');
       // wrap in a div with scoped class
       content.innerHTML = body;
       initDayQuizzes(content);

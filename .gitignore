@@ -27,3 +27,8 @@ AGENTS.md
 
 # Artefatos de sessao do Playwright MCP
 .playwright-mcp/
+
+# Artefatos locais de QA/design e sessões de ferramentas
+.gstack/
+.playwright-cli/
+.taste-skill/

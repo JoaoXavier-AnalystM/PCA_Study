@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="pt-BR"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>PCA Guia — Dia 4: Instrumentação e Exporters</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -39,7 +39,10 @@ tr:nth-child(even) td{background:#f8fafc}
 .quiz-block{border:.5pt solid #cbd5e1;border-radius:5pt;margin:7pt 0;page-break-inside:avoid;overflow:hidden}
 .quiz-q{padding:7pt 10pt;font-weight:600;font-size:9.5pt;background:#f8fafc;border-bottom:.5pt solid #cbd5e1}
 .quiz-opts{padding:6pt 10pt}
-.quiz-opt{padding:2pt 0;font-size:9pt}
+.quiz-opt{display:block;width:100%;padding:2pt 0;border:0;background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer;font-size:9pt}
+.quiz-opt:focus-visible{outline:2px solid #2563eb;outline-offset:2pt;border-radius:2pt}
+.quiz-opt.quiz-correct{background:#dcfce7;color:#166534}
+.quiz-opt.quiz-wrong{background:#fee2e2;color:#b91c1c}
 .quiz-ans{padding:5pt 10pt;background:#f0fdf4;border-top:.5pt solid #cbd5e1;font-size:9pt;color:#166534}
 .quiz-exp{padding:4pt 10pt 7pt;font-size:8.5pt;color:#475569;border-top:.5pt dashed #e2e8f0}
 .checklist{list-style:none;margin:6pt 0 6pt 14pt}
@@ -52,6 +55,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 .avoid{page-break-inside:avoid}
 @media screen and (max-width:600px){body{font-size:10pt}.cols2,.col{display:block;width:100%;padding:0}table,.kv-grid{display:block;overflow-x:auto}}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style></head><body>
+<main>
 
 <div class="cover-band">
   <h1>Instrumentação & Exporters</h1>
@@ -335,10 +339,10 @@ scrape_configs:
 <div class="quiz-block">
   <div class="quiz-q">Q1. Qual exporter coleta métricas de CPU, memória e disco do sistema operacional host?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) cAdvisor</div>
-    <div class="quiz-opt">B) Blackbox Exporter</div>
-    <div class="quiz-opt">C) Node Exporter (:9100)</div>
-    <div class="quiz-opt">D) Pushgateway</div>
+    <button type="button" class="quiz-opt">A) cAdvisor</button>
+    <button type="button" class="quiz-opt">B) Blackbox Exporter</button>
+    <button type="button" class="quiz-opt">C) Node Exporter (:9100)</button>
+    <button type="button" class="quiz-opt">D) Pushgateway</button>
   </div>
   <div class="quiz-ans">✅ Resposta: C</div>
   <div class="quiz-exp">Node Exporter roda no host (não container) e expõe métricas do sistema operacional: CPU, memória, disco, rede, filesystem. Porta padrão :9100.</div>
@@ -347,10 +351,10 @@ scrape_configs:
 <div class="quiz-block">
   <div class="quiz-q">Q2. Qual das linguagens NÃO tem uma client library oficial do Prometheus?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Go</div>
-    <div class="quiz-opt">B) Python</div>
-    <div class="quiz-opt">C) PHP</div>
-    <div class="quiz-opt">D) Ruby</div>
+    <button type="button" class="quiz-opt">A) Go</button>
+    <button type="button" class="quiz-opt">B) Python</button>
+    <button type="button" class="quiz-opt">C) PHP</button>
+    <button type="button" class="quiz-opt">D) Ruby</button>
   </div>
   <div class="quiz-ans">✅ Resposta: C</div>
   <div class="quiz-exp">As 4 client libraries oficiais são: Go, Java/JVM, Python e Ruby. PHP não tem biblioteca oficial - existem apenas implementações de terceiros.</div>
@@ -359,10 +363,10 @@ scrape_configs:
 <div class="quiz-block">
   <div class="quiz-q">Q3. Qual o nome correto para uma métrica que conta o total de erros de banco de dados?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) dbErrors</div>
-    <div class="quiz-opt">B) database_error_count</div>
-    <div class="quiz-opt">C) myapp_database_errors_total</div>
-    <div class="quiz-opt">D) MYAPP.DATABASE.ERRORS.TOTAL</div>
+    <button type="button" class="quiz-opt">A) dbErrors</button>
+    <button type="button" class="quiz-opt">B) database_error_count</button>
+    <button type="button" class="quiz-opt">C) myapp_database_errors_total</button>
+    <button type="button" class="quiz-opt">D) MYAPP.DATABASE.ERRORS.TOTAL</button>
   </div>
   <div class="quiz-ans">✅ Resposta: C</div>
   <div class="quiz-exp">Naming convention: namespace_subsystem_name_unit em snake_case. Counters usam sufixo _total. myapp = namespace, database = subsystem, errors = nome, total = sufixo de counter.</div>
@@ -371,10 +375,10 @@ scrape_configs:
 <div class="quiz-block">
   <div class="quiz-q">Q4. O que acontece com as métricas no Pushgateway quando o batch job que as enviou termina?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) São automaticamente deletadas após o TTL configurado</div>
-    <div class="quiz-opt">B) Permanecem disponíveis até serem explicitamente deletadas via API ou restart</div>
-    <div class="quiz-opt">C) São enviadas imediatamente ao Prometheus e então apagadas</div>
-    <div class="quiz-opt">D) Expiram após o próximo scrape do Prometheus</div>
+    <button type="button" class="quiz-opt">A) São automaticamente deletadas após o TTL configurado</button>
+    <button type="button" class="quiz-opt">B) Permanecem disponíveis até serem explicitamente deletadas via API ou restart</button>
+    <button type="button" class="quiz-opt">C) São enviadas imediatamente ao Prometheus e então apagadas</button>
+    <button type="button" class="quiz-opt">D) Expiram após o próximo scrape do Prometheus</button>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
   <div class="quiz-exp">Pushgateway persiste métricas indefinidamente. O batch job DEVE deletar suas métricas após terminar (DELETE /metrics/job/{job}) - caso contrário, o Prometheus continuará vendo métricas "velhas" de um job que já terminou.</div>
@@ -383,10 +387,10 @@ scrape_configs:
 <div class="quiz-block">
   <div class="quiz-q">Q5. Qual a diferença entre relabel_configs e metric_relabel_configs?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) relabel_configs é para Kubernetes; metric_relabel_configs é para static_configs</div>
-    <div class="quiz-opt">B) relabel_configs executa antes do scrape (filtra targets); metric_relabel_configs executa após (filtra métricas)</div>
-    <div class="quiz-opt">C) São equivalentes - apenas nomes diferentes</div>
-    <div class="quiz-opt">D) metric_relabel_configs só funciona com regex</div>
+    <button type="button" class="quiz-opt">A) relabel_configs é para Kubernetes; metric_relabel_configs é para static_configs</button>
+    <button type="button" class="quiz-opt">B) relabel_configs executa antes do scrape (filtra targets); metric_relabel_configs executa após (filtra métricas)</button>
+    <button type="button" class="quiz-opt">C) São equivalentes - apenas nomes diferentes</button>
+    <button type="button" class="quiz-opt">D) metric_relabel_configs só funciona com regex</button>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
   <div class="quiz-exp">relabel_configs: executado antes do scrape para decidir quais targets serão scrapados. metric_relabel_configs: executado após o scrape para filtrar ou transformar métricas recebidas antes de armazenar.</div>
@@ -395,10 +399,10 @@ scrape_configs:
 <div class="quiz-block">
   <div class="quiz-q">Q6. Para que serve o Blackbox Exporter?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Para monitorar aplicações "black box" sem acesso ao código fonte</div>
-    <div class="quiz-opt">B) Para fazer probes externos de HTTP, TCP, ICMP - verificando disponibilidade como um usuário externo</div>
-    <div class="quiz-opt">C) Para criptografar métricas em trânsito</div>
-    <div class="quiz-opt">D) Para substituir o Node Exporter em ambientes containerizados</div>
+    <button type="button" class="quiz-opt">A) Para monitorar aplicações "black box" sem acesso ao código fonte</button>
+    <button type="button" class="quiz-opt">B) Para fazer probes externos de HTTP, TCP, ICMP - verificando disponibilidade como um usuário externo</button>
+    <button type="button" class="quiz-opt">C) Para criptografar métricas em trânsito</button>
+    <button type="button" class="quiz-opt">D) Para substituir o Node Exporter em ambientes containerizados</button>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
   <div class="quiz-exp">Blackbox Exporter verifica endpoints externamente: faz requisições HTTP, conecta via TCP, faz ping ICMP. Complementa métricas internas - enquanto a app reporta métricas internas, o Blackbox testa se está acessível de fora.</div>
@@ -407,10 +411,10 @@ scrape_configs:
 <div class="quiz-block">
   <div class="quiz-q">Q7. Qual a ação de relabeling para MANTER apenas targets com uma annotation específica?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) action: filter</div>
-    <div class="quiz-opt">B) action: keep</div>
-    <div class="quiz-opt">C) action: include</div>
-    <div class="quiz-opt">D) action: allow</div>
+    <button type="button" class="quiz-opt">A) action: filter</button>
+    <button type="button" class="quiz-opt">B) action: keep</button>
+    <button type="button" class="quiz-opt">C) action: include</button>
+    <button type="button" class="quiz-opt">D) action: allow</button>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
   <div class="quiz-exp">action: keep mantém targets onde o source_label faz match do regex, descartando todos os outros. É o oposto de action: drop, que remove os que fazem match.</div>
@@ -419,10 +423,10 @@ scrape_configs:
 <div class="quiz-block">
   <div class="quiz-q">Q8. Qual exporter é recomendado para monitorar métricas de pods no Kubernetes sem instalação adicional?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Node Exporter</div>
-    <div class="quiz-opt">B) cAdvisor (já integrado ao kubelet)</div>
-    <div class="quiz-opt">C) Blackbox Exporter</div>
-    <div class="quiz-opt">D) kube-state-metrics</div>
+    <button type="button" class="quiz-opt">A) Node Exporter</button>
+    <button type="button" class="quiz-opt">B) cAdvisor (já integrado ao kubelet)</button>
+    <button type="button" class="quiz-opt">C) Blackbox Exporter</button>
+    <button type="button" class="quiz-opt">D) kube-state-metrics</button>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
   <div class="quiz-exp">cAdvisor é integrado ao kubelet do Kubernetes - já está disponível em cada nó sem instalação extra. Expõe métricas de CPU, memória e rede de cada container. kube-state-metrics expõe estado dos objetos K8s (replicas, health), não métricas de recursos.</div>
@@ -455,4 +459,6 @@ scrape_configs:
   <p style="margin-top:4pt"><strong>Prática:</strong> Instale Node Exporter e observe as métricas em /metrics</p>
 </div>
 
+</main>
+<script src="day-quiz.js"></script>
 </body></html>

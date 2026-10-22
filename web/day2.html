@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="pt-BR"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>PCA Guia — Dia 2: PromQL Básico</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -40,7 +40,10 @@ tr:nth-child(even) td{background:#f8fafc}
 .quiz-block{border:.5pt solid #cbd5e1;border-radius:5pt;margin:7pt 0;page-break-inside:avoid;overflow:hidden}
 .quiz-q{padding:7pt 10pt;font-weight:600;font-size:9.5pt;background:#f8fafc;border-bottom:.5pt solid #cbd5e1}
 .quiz-opts{padding:6pt 10pt}
-.quiz-opt{padding:2pt 0;font-size:9pt}
+.quiz-opt{display:block;width:100%;padding:2pt 0;border:0;background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer;font-size:9pt}
+.quiz-opt:focus-visible{outline:2px solid #2563eb;outline-offset:2pt;border-radius:2pt}
+.quiz-opt.quiz-correct{background:#dcfce7;color:#166534}
+.quiz-opt.quiz-wrong{background:#fee2e2;color:#b91c1c}
 .quiz-ans{padding:5pt 10pt;background:#f0fdf4;border-top:.5pt solid #cbd5e1;font-size:9pt;color:#166534}
 .quiz-exp{padding:4pt 10pt 7pt;font-size:8.5pt;color:#475569;border-top:.5pt dashed #e2e8f0}
 .checklist{list-style:none;margin:6pt 0 6pt 14pt}
@@ -53,6 +56,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 .avoid{page-break-inside:avoid}
 @media screen and (max-width:600px){body{font-size:10pt}.cols2,.col{display:block;width:100%;padding:0}table,.kv-grid{display:block;overflow-x:auto}}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style></head><body>
+<main>
 
 <div class="cover-band">
   <h1>PromQL Básico - Seletores, Funções e Agregações</h1>
@@ -362,10 +366,10 @@ sum(increase(http_requests_total[1m])) by (job)
 <div class="quiz-block">
   <div class="quiz-q">Q1. Qual query calcula a taxa de requisições por segundo usando os 2 últimos pontos apenas?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) rate(http_requests_total[5m])</div>
-    <div class="quiz-opt">B) irate(http_requests_total[5m])</div>
-    <div class="quiz-opt">C) increase(http_requests_total[5m])</div>
-    <div class="quiz-opt">D) delta(http_requests_total[5m])</div>
+    <button type="button" class="quiz-opt">A) rate(http_requests_total[5m])</button>
+    <button type="button" class="quiz-opt">B) irate(http_requests_total[5m])</button>
+    <button type="button" class="quiz-opt">C) increase(http_requests_total[5m])</button>
+    <button type="button" class="quiz-opt">D) delta(http_requests_total[5m])</button>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
   <div class="quiz-exp">irate() usa apenas os 2 últimos pontos da janela para calcular a taxa - é mais reativo a mudanças bruscas. rate() usa todos os pontos da janela para uma taxa mais suavizada.</div>
@@ -374,10 +378,10 @@ sum(increase(http_requests_total[1m])) by (job)
 <div class="quiz-block">
   <div class="quiz-q">Q2. Qual label matcher seleciona status codes 4xx e 5xx?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) <code>status_code="4..|5.."</code></div>
-    <div class="quiz-opt">B) <code>status_code=~"[45].."</code></div>
-    <div class="quiz-opt">C) <code>status_code!="2.."</code></div>
-    <div class="quiz-opt">D) <code>status_code=~"4** OR 5**"</code></div>
+    <button type="button" class="quiz-opt">A) <code>status_code="4..|5.."</code></button>
+    <button type="button" class="quiz-opt">B) <code>status_code=~"[45].."</code></button>
+    <button type="button" class="quiz-opt">C) <code>status_code!="2.."</code></button>
+    <button type="button" class="quiz-opt">D) <code>status_code=~"4** OR 5**"</code></button>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
   <div class="quiz-exp">=~ é o matcher de regex. [45] é uma classe de caracteres que match "4" ou "5". Seguido de ".." (2 quaisquer caracteres) seleciona todos os codes 4xx e 5xx.</div>
@@ -386,10 +390,10 @@ sum(increase(http_requests_total[1m])) by (job)
 <div class="quiz-block">
   <div class="quiz-q">Q3. O que retorna <code>sum(http_requests_total) by (status_code)</code>?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) A média de requests por status_code</div>
-    <div class="quiz-opt">B) A soma total de todas as requests, sem distinção</div>
-    <div class="quiz-opt">C) A soma de requests agrupada por status_code, uma série por código</div>
-    <div class="quiz-opt">D) O ranking de status codes mais comuns</div>
+    <button type="button" class="quiz-opt">A) A média de requests por status_code</button>
+    <button type="button" class="quiz-opt">B) A soma total de todas as requests, sem distinção</button>
+    <button type="button" class="quiz-opt">C) A soma de requests agrupada por status_code, uma série por código</button>
+    <button type="button" class="quiz-opt">D) O ranking de status codes mais comuns</button>
   </div>
   <div class="quiz-ans">✅ Resposta: C</div>
   <div class="quiz-exp">by(status_code) mantém apenas o label status_code e soma os valores. Resultado: uma série para cada valor único de status_code (200, 404, 500, etc.) com a soma total de requests daquele código.</div>
@@ -398,10 +402,10 @@ sum(increase(http_requests_total[1m])) by (job)
 <div class="quiz-block">
   <div class="quiz-q">Q4. Qual a diferença entre <code>sum by (job)</code> e <code>sum without (pod)</code>?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) São equivalentes - apenas sintaxes diferentes para a mesma operação</div>
-    <div class="quiz-opt">B) by(job) mantém APENAS o label job; without(pod) mantém todos os labels EXCETO pod</div>
-    <div class="quiz-opt">C) by(job) soma; without(pod) subtrai</div>
-    <div class="quiz-opt">D) without() só funciona com labels de infraestrutura</div>
+    <button type="button" class="quiz-opt">A) São equivalentes - apenas sintaxes diferentes para a mesma operação</button>
+    <button type="button" class="quiz-opt">B) by(job) mantém APENAS o label job; without(pod) mantém todos os labels EXCETO pod</button>
+    <button type="button" class="quiz-opt">C) by(job) soma; without(pod) subtrai</button>
+    <button type="button" class="quiz-opt">D) without() só funciona com labels de infraestrutura</button>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
   <div class="quiz-exp">by() é explícito: mantém apenas os labels listados. without() é exclusivo: mantém tudo exceto os listados. Se a métrica tem labels [job, instance, pod, namespace], then: sum by(job) → só job; sum without(pod) → job + instance + namespace.</div>
@@ -410,10 +414,10 @@ sum(increase(http_requests_total[1m])) by (job)
 <div class="quiz-block">
   <div class="quiz-q">Q5. Qual função usar para calcular o total acumulado de erros nas últimas 24 horas?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) rate(errors_total[24h])</div>
-    <div class="quiz-opt">B) sum(errors_total)</div>
-    <div class="quiz-opt">C) increase(errors_total[24h])</div>
-    <div class="quiz-opt">D) delta(errors_total[24h])</div>
+    <button type="button" class="quiz-opt">A) rate(errors_total[24h])</button>
+    <button type="button" class="quiz-opt">B) sum(errors_total)</button>
+    <button type="button" class="quiz-opt">C) increase(errors_total[24h])</button>
+    <button type="button" class="quiz-opt">D) delta(errors_total[24h])</button>
   </div>
   <div class="quiz-ans">✅ Resposta: C</div>
   <div class="quiz-exp">increase() retorna o incremento total de um counter no período - exatamente o que queremos. rate() daria taxa/segundo. delta() é para gauges. sum() sem janela temporal não considera o histórico de 24h.</div>
@@ -422,10 +426,10 @@ sum(increase(http_requests_total[1m])) by (job)
 <div class="quiz-block">
   <div class="quiz-q">Q6. Qual a query correta para calcular o error rate como proporção de erros 5xx sobre total de requests?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) <code>count(http_requests_total{status=~"5.."})</code></div>
-    <div class="quiz-opt">B) <code>sum(rate(http_requests_total{status=~"5.."}[5m])) / sum(rate(http_requests_total[5m]))</code></div>
-    <div class="quiz-opt">C) <code>http_errors_total / http_requests_total</code></div>
-    <div class="quiz-opt">D) <code>avg(http_requests_total{status=~"5.."}[5m])</code></div>
+    <button type="button" class="quiz-opt">A) <code>count(http_requests_total{status=~"5.."})</code></button>
+    <button type="button" class="quiz-opt">B) <code>sum(rate(http_requests_total{status=~"5.."}[5m])) / sum(rate(http_requests_total[5m]))</code></button>
+    <button type="button" class="quiz-opt">C) <code>http_errors_total / http_requests_total</code></button>
+    <button type="button" class="quiz-opt">D) <code>avg(http_requests_total{status=~"5.."}[5m])</code></button>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
   <div class="quiz-exp">O padrão clássico para error rate: rate() nos erros / rate() no total. Ambos os lados precisam de rate() para comparar taxas comparáveis. O resultado é uma proporção de 0 a 1.</div>
@@ -434,10 +438,10 @@ sum(increase(http_requests_total[1m])) by (job)
 <div class="quiz-block">
   <div class="quiz-q">Q7. O que faz o modificador <code>offset</code> em PromQL?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Desloca o valor da métrica por um fator numérico</div>
-    <div class="quiz-opt">B) Permite consultar dados de um ponto no passado</div>
-    <div class="quiz-opt">C) Adiciona um delay antes de disparar o alerta</div>
-    <div class="quiz-opt">D) Normaliza a métrica removendo outliers</div>
+    <button type="button" class="quiz-opt">A) Desloca o valor da métrica por um fator numérico</button>
+    <button type="button" class="quiz-opt">B) Permite consultar dados de um ponto no passado</button>
+    <button type="button" class="quiz-opt">C) Adiciona um delay antes de disparar o alerta</button>
+    <button type="button" class="quiz-opt">D) Normaliza a métrica removendo outliers</button>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
   <div class="quiz-exp">offset permite "voltar no tempo" - por exemplo, rate(metric[5m] offset 1h) retorna a taxa de 1 hora atrás. Útil para comparar comportamento atual com histórico.</div>
@@ -446,10 +450,10 @@ sum(increase(http_requests_total[1m])) by (job)
 <div class="quiz-block">
   <div class="quiz-q">Q8. O que acontece quando um operador de comparação como <code>&gt; 0.8</code> é aplicado em PromQL?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Retorna 1 (true) ou 0 (false) para cada série</div>
-    <div class="quiz-opt">B) Filtra e retorna apenas as séries que satisfazem a condição</div>
-    <div class="quiz-opt">C) Lança erro se alguma série não satisfizer a condição</div>
-    <div class="quiz-opt">D) Converte os valores para booleano automaticamente</div>
+    <button type="button" class="quiz-opt">A) Retorna 1 (true) ou 0 (false) para cada série</button>
+    <button type="button" class="quiz-opt">B) Filtra e retorna apenas as séries que satisfazem a condição</button>
+    <button type="button" class="quiz-opt">C) Lança erro se alguma série não satisfizer a condição</button>
+    <button type="button" class="quiz-opt">D) Converte os valores para booleano automaticamente</button>
   </div>
   <div class="quiz-ans">✅ Resposta: B</div>
   <div class="quiz-exp">Operadores de comparação em PromQL filtram séries - retornam apenas as séries onde a condição é verdadeira, com seus valores originais. Para obter 0/1 booleano, use o modificador bool: metric > bool 0.8.</div>
@@ -484,4 +488,6 @@ sum(increase(http_requests_total[1m])) by (job)
   <p style="margin-top:4pt"><strong>Docs:</strong> prometheus.io/docs/prometheus/latest/querying/basics/</p>
 </div>
 
+</main>
+<script src="day-quiz.js"></script>
 </body></html>
