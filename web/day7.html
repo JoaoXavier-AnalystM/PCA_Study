@@ -1,73 +1,35 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>PCA Guia — Dia 7: Revisão Rápida e Dia da Prova</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:10.5pt;line-height:1.55;color:#1a1a2e;background:#fff}
-h1,h2,h3,h4,h5,h6{font-family:'Bricolage Grotesque','Syne',sans-serif}
-@page{size:A4;margin:18mm 16mm 18mm 16mm;}
-.cover-band{width:100%;padding:18pt 22pt 14pt;margin-bottom:18pt;border-radius:6pt;background:#1c1917;color:#fef3c7;page-break-after:avoid}
-.cover-band .day-label{font-size:9pt;font-weight:700;letter-spacing:2pt;text-transform:uppercase;opacity:.7;margin-bottom:4pt}
-.cover-band h1{font-size:22pt;font-weight:700;line-height:1.2;margin-bottom:6pt}
-.cover-band .subtitle{font-size:10pt;opacity:.8}
-.cover-band .domains{margin-top:10pt;display:flex;gap:6pt;flex-wrap:wrap}
-.badge{display:inline-block;padding:2pt 8pt;border-radius:3pt;font-size:8pt;font-weight:700;letter-spacing:.5pt;text-transform:uppercase;background:#eab308;color:#111}
-h2{font-size:13pt;font-weight:800;margin:18pt 0 8pt;padding-bottom:4pt;border-bottom:2pt solid #eab308;color:#1c1917;page-break-after:avoid}
-h3{font-size:10.5pt;font-weight:700;margin:12pt 0 5pt;color:#1c1917;page-break-after:avoid}
-p{margin-bottom:6pt}
-.box{padding:9pt 12pt;border-radius:5pt;margin:8pt 0;border-left:4pt solid;page-break-inside:avoid}
-.box.info{background:#eff6ff;border-color:#3b82f6}
-.box.warn{background:#fffbeb;border-color:#f59e0b}
-.box.tip{background:#f0fdf4;border-color:#22c55e}
-.box.danger{background:#fff1f2;border-color:#ef4444}
-.box.dark{background:#292524;border-color:#eab308;color:#fef3c7}
-.box .box-title{font-size:8.5pt;font-weight:700;letter-spacing:1pt;text-transform:uppercase;margin-bottom:4pt}
-code{font-family:'Space Mono','Courier New',monospace;font-size:8.5pt;background:#f1f5f9;padding:1pt 4pt;border-radius:2pt;color:#0f172a}
-pre{font-family:'Space Mono','Courier New',monospace;font-size:8pt;background:#0f172a;color:#e2e8f0;padding:10pt 12pt;border-radius:5pt;margin:7pt 0;white-space:pre-wrap;word-break:break-all;line-height:1.6;page-break-inside:avoid}
-table{width:100%;border-collapse:collapse;margin:8pt 0;font-size:9.5pt;page-break-inside:avoid}
-th{background:#1c1917;color:#fef3c7;padding:5pt 8pt;font-weight:600;text-align:left;font-size:9pt}
-td{padding:5pt 8pt;border-bottom:.5pt solid #e2e8f0;vertical-align:top}
-tr:nth-child(even) td{background:#f8fafc}
-.kv-grid{display:table;width:100%;border:.5pt solid #e2e8f0;border-radius:5pt;margin:8pt 0;overflow:hidden;page-break-inside:avoid}
-.kv-row{display:table-row}
-.kv-row:nth-child(even) .kv-k,.kv-row:nth-child(even) .kv-v{background:#f8fafc}
-.kv-k{display:table-cell;padding:5pt 10pt;font-weight:600;font-size:9pt;color:#475569;width:35%;border-bottom:.5pt solid #e2e8f0;vertical-align:middle}
-.kv-v{display:table-cell;padding:5pt 10pt;font-size:9pt;border-bottom:.5pt solid #e2e8f0;vertical-align:middle}
-.cols2{display:table;width:100%;margin:6pt 0}
-.col{display:table-cell;width:50%;padding-right:10pt;vertical-align:top}
-.col:last-child{padding-right:0;padding-left:4pt}
-.checklist{list-style:none;margin:6pt 0 6pt 14pt}
-.checklist li{font-weight:600;padding:4pt 0 4pt 22pt;position:relative;font-size:9.5pt;border-bottom:.5pt dashed #e2e8f0}
-.checklist li:last-child{border-bottom:none}
-.checklist li::before{content:'▸';position:absolute;left:2pt;font-size:10pt;color:#94a3b8}
-.hl{background:#fef3c7;font-weight:600}
-hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
-.pb{page-break-before:always}
-@media screen and (max-width:600px){body{font-size:10pt}.cols2,.col{display:block;width:100%;padding:0}table,.kv-grid{display:block;overflow-x:auto}}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
-</style></head><body>
-<main>
+<html lang="pt-BR"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>PCA Guia | Dia 7: Revisão Rápida e Dia da Prova</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/tokens.css?v=20261024">
+<link rel="stylesheet" href="css/study.css?v=20261024">
+<script>try{var t=localStorage.getItem('pca_theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script></head><body>
+<main class="study">
+<a class="study-back" href="index.html">Voltar ao guia</a>
 
 <div class="cover-band">
   <h1>Revisão Rápida + Exam Day</h1>
   <div class="subtitle">Revisão estratégica da manhã, preparação mental e checklist do ambiente de prova</div>
   <div class="domains">
-    <span class="badge">🎯 DIA DA PROVA</span>
+    <span class="badge">DIA DA PROVA</span>
   </div>
 </div>
 
 <div class="box dark">
   <div class="box-title">Mentalidade</div>
-  <p style="font-size:10pt;line-height:1.8;margin-top:4pt;">
-    Hoje NÃO é dia de estudar conteúdo novo. É dia de <strong>revisão estratégica</strong>, <strong>descanso mental</strong> e <strong>preparação logística</strong>. Você já estudou 6 dias - confie no preparo. Foco agora é estar fresco, confiante e com tudo pronto para a prova.
+  <p style="line-height:1.8;margin-top:4pt">
+    Hoje NÃO é dia de estudar conteúdo novo. É dia de <strong>revisão estratégica</strong>, <strong>descanso mental</strong> e <strong>preparação logística</strong>. Você já estudou 6 dias: confie no preparo. Foco agora é estar fresco, confiante e com tudo pronto para a prova.
   </p>
 </div>
 
-<h2>1. Revisão Rápida - Os 20% que Dão 80% dos Pontos</h2>
+<h2>1. Revisão Rápida: Os 20% que Dão 80% dos Pontos</h2>
 
 <div class="cols2">
 <div class="col">
 <h3>PromQL (28% da prova)</h3>
-<pre style="font-size:7.5pt;">
+<pre>
 rate(counter[5m])      # taxa/s do counter
 irate(counter[5m])     # taxa instantânea (2 pontos)
 increase(counter[1h])  # total no período
@@ -88,7 +50,7 @@ sum without (pod) (metric) # remove pod
 </div>
 <div class="col">
 <h3>Portas (Decore AGORA)</h3>
-<pre style="font-size:7.5pt;">
+<pre>
 :9090  Prometheus
 :9091  Pushgateway
 :9093  Alertmanager
@@ -98,7 +60,7 @@ sum without (pod) (metric) # remove pod
 </pre>
 
 <h3>Tipos de Métrica</h3>
-<pre style="font-size:7.5pt;">
+<pre>
 Counter   só sobe → use rate()
 Gauge     sobe/desce → use delta()
 Histogram _bucket, _sum, _count
@@ -107,14 +69,14 @@ Summary   quantis no cliente
 </div>
 </div>
 
-<h3>🎯 Estados de Alerta</h3>
+<h3>Estados de Alerta</h3>
 <div class="kv-grid">
   <div class="kv-row"><div class="kv-k">inactive</div><div class="kv-v">Condição não satisfeita</div></div>
   <div class="kv-row"><div class="kv-k">pending</div><div class="kv-v">Condição OK mas dentro do "for:"</div></div>
   <div class="kv-row"><div class="kv-k">firing</div><div class="kv-v">Condição OK por mais tempo que "for:" → enviado ao Alertmanager</div></div>
 </div>
 
-<h3>⏱️ Timing do Alertmanager</h3>
+<h3>⏱ Timing do Alertmanager</h3>
 <div class="kv-grid">
   <div class="kv-row"><div class="kv-k">group_wait</div><div class="kv-v">Espera antes da 1ª notificação de um grupo novo (padrão: 30s)</div></div>
   <div class="kv-row"><div class="kv-k">group_interval</div><div class="kv-v">Intervalo entre updates do mesmo grupo (padrão: 5m)</div></div>
@@ -122,15 +84,15 @@ Summary   quantis no cliente
 </div>
 
 <h3>Silence vs Inhibition</h3>
-<table>
+<div class="table-wrap"><table>
   <tr><th>Silence</th><th>Inhibition</th></tr>
   <tr><td>Manual, via UI/API</td><td>Automático, via YAML</td></tr>
   <tr><td>Por período de tempo</td><td>Enquanto outro alerta está firing</td></tr>
   <tr><td>Maintenance window</td><td>Host down suprime apps</td></tr>
-</table>
+</table></div>
 
 <h3>Naming Convention</h3>
-<pre style="font-size:7.5pt;">
+<pre>
 namespace_subsystem_name_unit  (snake_case)
 
 http_requests_total            # counter
@@ -142,30 +104,30 @@ disk_usage_ratio               # proporção 0-1
 <h2>2. Checklist Técnico </h2>
 
 <div class="box danger">
-  <div class="box-title">🚨 Faça isso ANTES da prova - não deixe para a última hora</div>
+  <div class="box-title">Faça isso ANTES da prova: não deixe para a última hora</div>
   
-  <h3 style="margin-top:12pt;font-size:10pt;">Equipamento</h3>
+  <h3 style="margin-top:12pt">Equipamento</h3>
   <ul class="checklist">
     <li>Webcam funcionando e posicionada corretamente (mostra rosto e mãos)</li>
-    <li>Microfone testado - áudio claro sem ruído</li>
-    <li>Internet estável - testar velocidade (recomendado 5Mbps+)</li>
+    <li>Microfone testado: áudio claro sem ruído</li>
+    <li>Internet estável: testar velocidade (recomendado 5Mbps+)</li>
     <li>Bateria do laptop carregada OU cabo conectado</li>
     <li>Navegador atualizado (Chrome ou Firefox recomendados)</li>
     <li>Fechar TODAS as abas exceto a da prova</li>
     <li>Desabilitar notificações do sistema (Slack, email, etc)</li>
   </ul>
 
-  <h3 style="margin-top:12pt;font-size:10pt;">Ambiente Físico</h3>
+  <h3 style="margin-top:12pt">Ambiente Físico</h3>
   <ul class="checklist">
-    <li>Mesa totalmente limpa - APENAS água e documento de identidade</li>
+    <li>Mesa totalmente limpa: APENAS água e documento de identidade</li>
     <li>Parede atrás de você sem pôsteres/papéis (exigência do proctor)</li>
     <li>Avisar família/roommates para NÃO interromper por 2 horas</li>
     <li>Silenciar celular e deixar longe da mesa</li>
-    <li>Iluminação boa - rosto visível na webcam</li>
+    <li>Iluminação boa: rosto visível na webcam</li>
     <li>Porta fechada, ambiente silencioso</li>
   </ul>
 
-  <h3 style="margin-top:12pt;font-size:10pt;">Documentação</h3>
+  <h3 style="margin-top:12pt">Documentação</h3>
   <ul class="checklist">
     <li>ID com foto (passaporte, CNH ou RG) pronto na mesa</li>
     <li>Confirmar que o nome no ID corresponde ao nome da inscrição</li>
@@ -177,17 +139,17 @@ disk_usage_ratio               # proporção 0-1
 
 <div class="cols2">
 <div class="col">
-<h3>⏱️ Gestão de Tempo</h3>
-<ul style="font-size:9pt;padding-left:14pt;">
+<h3>⏱ Gestão de Tempo</h3>
+<ul style="padding-left:14pt">
   <li>90 minutos ÷ 60 questões = 90 segundos por questão</li>
   <li>Marque (flag) questões duvidosas e siga em frente</li>
   <li>Reserve 15min finais para revisar as marcadas</li>
-  <li>Não trave em uma questão - se não sabe, marca e pula</li>
+  <li>Não trave em uma questão, se não sabe, marca e pula</li>
   <li>Leia a pergunta INTEIRA antes de escolher resposta</li>
 </ul>
 
-<h3>🎯 Priorização</h3>
-<ul style="font-size:9pt;padding-left:14pt;">
+<h3>Priorização</h3>
+<ul style="padding-left:14pt">
   <li>Responda as fáceis primeiro (confiança + pontos garantidos)</li>
   <li>Questões de PromQL geralmente são mais diretas</li>
   <li>Questões conceituais (Observability, Alerting) podem ter pegadinhas</li>
@@ -196,16 +158,16 @@ disk_usage_ratio               # proporção 0-1
 </div>
 <div class="col">
 <h3>Mentalidade</h3>
-<ul style="font-size:9pt;padding-left:14pt;">
+<ul style="padding-left:14pt">
   <li>Respire fundo se sentir ansiedade</li>
   <li>Lembre: você estudou 6 dias, está preparado</li>
-  <li>Não compare com outros - foque na sua prova</li>
-  <li>Confie no seu preparo - não mude resposta por "achismo"</li>
-  <li>Não precisa acertar todas - 75% já passa</li>
+  <li>Não compare com outros: foque na sua prova</li>
+  <li>Confie no seu preparo: não mude resposta por "achismo"</li>
+  <li>Não precisa acertar todas: 75% já passa</li>
 </ul>
 
-<h3>⚠️ Armadilhas Comuns</h3>
-<ul style="font-size:9pt;padding-left:14pt;">
+<h3>Armadilhas Comuns</h3>
+<ul style="padding-left:14pt">
   <li>Ler "NÃO" ou "EXCETO" na pergunta</li>
   <li>Confundir rate() com irate()</li>
   <li>Esquecer "le" em histogram_quantile</li>
@@ -216,27 +178,27 @@ disk_usage_ratio               # proporção 0-1
 </div>
 </div>
 
-<h2>4. Últimas Dicas - Leia 1h Antes da Prova</h2>
+<h2>4. Últimas Dicas: Leia 1h Antes da Prova</h2>
 
 <div class="box tip">
-  <div class="box-title">✅ Checklist Final (15min antes)</div>
-  <p style="font-size:9pt;line-height:1.8;margin-top:4pt;">
-    ☑️ Banheiro<br>
-    ☑️ Água na mesa<br>
-    ☑️ ID na mesa<br>
-    ☑️ Celular silenciado e LONGE<br>
-    ☑️ Todas as abas fechadas exceto a prova<br>
-    ☑️ Notificações desabilitadas<br>
-    ☑️ Família avisada para não interromper<br>
-    ☑️ Webcam/mic testados<br>
-    ☑️ Mesa limpa<br>
-    ☑️ Respire fundo - você consegue!
+  <div class="box-title"><span class="mk mk-ok" role="img" aria-label="Correto"></span>Checklist Final (15min antes)</div>
+  <p style="line-height:1.8;margin-top:4pt">
+    <span class="mk mk-check" aria-hidden="true"></span>Banheiro<br>
+    <span class="mk mk-check" aria-hidden="true"></span>Água na mesa<br>
+    <span class="mk mk-check" aria-hidden="true"></span>ID na mesa<br>
+    <span class="mk mk-check" aria-hidden="true"></span>Celular silenciado e LONGE<br>
+    <span class="mk mk-check" aria-hidden="true"></span>Todas as abas fechadas exceto a prova<br>
+    <span class="mk mk-check" aria-hidden="true"></span>Notificações desabilitadas<br>
+    <span class="mk mk-check" aria-hidden="true"></span>Família avisada para não interromper<br>
+    <span class="mk mk-check" aria-hidden="true"></span>Webcam/mic testados<br>
+    <span class="mk mk-check" aria-hidden="true"></span>Mesa limpa<br>
+    <span class="mk mk-check" aria-hidden="true"></span>Respire fundo: você consegue!
   </p>
 </div>
 
 
 <div class="pb"></div>
-<h2>✅ Checklist de Preparação</h2>
+<h2>Checklist de Preparação</h2>
 
 <ul class="checklist">
   <li>Revisei o Cheat Sheet completo pela manhã</li>
@@ -250,23 +212,23 @@ disk_usage_ratio               # proporção 0-1
   <li>Sei a diferença entre Silence e Inhibition</li>
   <li>Sei a diferença entre labels e annotations em alerting rules</li>
   <li>Testei câmera, microfone e internet</li>
-  <li>Limpei a mesa - só água e ID</li>
+  <li>Limpei a mesa: só água e ID</li>
   <li>Avisei família/roommates para não interromper</li>
   <li>Silenciei notificações e celular</li>
   <li>Fiz o check-in da prova 15min antes</li>
-  <li>Estou CALMO e CONFIANTE - vou passar!</li>
+  <li>Estou CALMO e CONFIANTE: vou passar!</li>
 </ul>
 
-<div class="box info" style="margin-top:20pt;padding:16pt;">
-  <h3 style="text-align:center;font-size:16pt;color:#1e3a5f;margin-bottom:8pt;">🎯 Você está pronto!</h3>
+<div class="box info" style="margin-top:20pt;padding:16pt">
+  <h3 style="text-align:center;margin-bottom:8pt">Você está pronto!</h3>
 </div>
 
 
 <div class="box tip">
   <div class="box-title">Recursos de preparação</div>
-  <p style="font-size:9pt;line-height:1.8;margin-top:4pt;">
-    <strong>KodeKloud</strong> - curso PCA com labs: <a href="https://learn.kodekloud.com/learn/courses/prometheus-certified-associate-pca" target="_blank" rel="noopener">learn.kodekloud.com</a><br>
-    <strong>YetMike</strong> - simulados estilo PCA: <a href="https://yetmike.com/practice/pca" target="_blank" rel="noopener">yetmike.com/practice/pca</a>
+  <p style="line-height:1.8;margin-top:4pt">
+    <strong>KodeKloud</strong>: curso PCA com labs: <a href="https://learn.kodekloud.com/learn/courses/prometheus-certified-associate-pca" target="_blank" rel="noopener">learn.kodekloud.com</a><br>
+    <strong>YetMike</strong>: simulados estilo PCA: <a href="https://yetmike.com/practice/pca" target="_blank" rel="noopener">yetmike.com/practice/pca</a>
   </p>
 </div>
 

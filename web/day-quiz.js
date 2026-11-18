@@ -26,14 +26,14 @@
         const optionLetter = (option.textContent.match(/^\s*([A-E])\)/) || [])[1];
         const correct = optionLetter === answerLetter;
         option.classList.add(correct ? 'quiz-correct' : 'quiz-wrong');
-        option.setAttribute('aria-label', `${option.textContent.trim()} — ${correct ? correctLabel : incorrectLabel}`);
+        option.setAttribute('aria-label', `${option.textContent.trim()}, ${correct ? correctLabel : incorrectLabel}`);
 
         if (!correct) {
           block.querySelectorAll('.quiz-opt').forEach(candidate => {
             const candidateLetter = (candidate.textContent.match(/^\s*([A-E])\)/) || [])[1];
             if (candidateLetter === answerLetter) {
               candidate.classList.add('quiz-correct');
-              candidate.setAttribute('aria-label', `${candidate.textContent.trim()} — ${correctLabel}`);
+              candidate.setAttribute('aria-label', `${candidate.textContent.trim()}, ${correctLabel}`);
             }
           });
         }

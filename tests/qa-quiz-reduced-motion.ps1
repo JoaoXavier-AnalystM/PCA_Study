@@ -39,7 +39,7 @@ const behavior = scrollCalls[0] && scrollCalls[0].behavior;
 const expectedBehavior = expectedReduced ? 'auto' : 'smooth';
 if (behavior !== expectedBehavior) throw new Error('scroll behavior is ' + behavior + ', expected ' + expectedBehavior);
 const label = option.getAttribute('aria-label') || '';
-const labelPattern = '$Language' === 'en' ? /\u2014 (correct|incorrect)$/ : /\u2014 (correta|incorreta)$/;
+const labelPattern = '$Language' === 'en' ? /, (correct|incorrect)$/ : /, (correta|incorreta)$/;
 if (!labelPattern.test(label)) throw new Error('quiz label is ' + label);
 "@
   $encoded = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($script))

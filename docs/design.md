@@ -2,11 +2,16 @@
 
 ## Direction
 
-The guide serves technical learners on desktop and mobile. Current visual language is a dark observability dashboard with amber/green accents, monospace technical labels and a light-theme alternative. Portuguese is default; English is a first-class variant.
+The guide serves technical learners on desktop and mobile. Current visual language is a calm technical panel: warm neutral surfaces, Prometheus orange as the single brand accent, light and dark themes designed together. Portuguese is default; English is a first-class variant.
 
 ## Existing system
 
-Styles and component rules are embedded in page HTML, with shared visual patterns repeated across static pages. Nginx serves Google Fonts and local badge/favicon assets. Treat existing CSS tokens and class names as source of truth before changing visual behavior.
+Styles live in `web/css/`: `tokens.css` (colors, fonts, base), `study.css` (topic content, used by `dayN.html` and by the homepage reader under `.study`) and `app.css` (homepage). Stylesheets are linked with `?v=` because Nginx serves assets as immutable; bump the version when CSS changes. Treat existing CSS tokens and class names as source of truth before changing visual behavior.
+
+- Prometheus orange (`#E6522C` dark, `#d4441c` light) is the only brand accent; domain colors are muted and used for small details only.
+- Type: Geist for text and headings, Geist Mono for code and numbers.
+- Icons: Lucide (ISC), inlined as an SVG sprite in `index.html` and as CSS masks in the stylesheets. No emoji as icons; right/wrong marks use `.mk-ok` / `.mk-no` with `aria-label`.
+- Copy avoids dash-as-punctuation; use a colon or comma instead.
 
 ## Interaction
 

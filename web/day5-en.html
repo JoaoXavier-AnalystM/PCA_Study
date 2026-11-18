@@ -1,60 +1,13 @@
 <!DOCTYPE html>
-<html lang="en"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>PCA Guide — Day 5: Alerting, Alertmanager and Dashboards</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:10.5pt;line-height:1.55;color:#1a1a2e;background:#fff}
-h1,h2,h3,h4,h5,h6{font-family:'Bricolage Grotesque','Syne',sans-serif}
-@page{size:A4;margin:18mm 16mm 18mm 16mm;}
-.cover-band{width:100%;padding:18pt 22pt 14pt;margin-bottom:18pt;border-radius:6pt;background:#4a1942;color:#fae8ff;page-break-after:avoid}
-.cover-band .day-label{font-size:9pt;font-weight:700;letter-spacing:2pt;text-transform:uppercase;opacity:.7;margin-bottom:4pt}
-.cover-band h1{font-size:22pt;font-weight:700;line-height:1.2;margin-bottom:6pt}
-.cover-band .subtitle{font-size:10pt;opacity:.8}
-.cover-band .domains{margin-top:10pt;display:flex;gap:6pt;flex-wrap:wrap}
-.badge{display:inline-block;padding:2pt 8pt;border-radius:3pt;font-size:8pt;font-weight:700;letter-spacing:.5pt;text-transform:uppercase;background:#a855f7;color:#fff}
-h2{font-size:13pt;font-weight:800;margin:18pt 0 8pt;padding-bottom:4pt;border-bottom:2pt solid #a855f7;color:#4a1942;page-break-after:avoid}
-h3{font-size:10.5pt;font-weight:700;margin:12pt 0 5pt;color:#4a1942;page-break-after:avoid}
-p{margin-bottom:6pt}
-.box{padding:9pt 12pt;border-radius:5pt;margin:8pt 0;border-left:4pt solid;page-break-inside:avoid}
-.box.info{background:#eff6ff;border-color:#3b82f6}
-.box.warn{background:#fffbeb;border-color:#f59e0b}
-.box.tip{background:#f0fdf4;border-color:#22c55e}
-.box.danger{background:#fff1f2;border-color:#ef4444}
-.box.dark{background:#2e1065;border-color:#a855f7;color:#fae8ff}
-.box .box-title{font-size:8.5pt;font-weight:700;letter-spacing:1pt;text-transform:uppercase;margin-bottom:4pt}
-code{font-family:'Space Mono','Courier New',monospace;font-size:8.5pt;background:#f1f5f9;padding:1pt 4pt;border-radius:2pt;color:#0f172a}
-pre{font-family:'Space Mono','Courier New',monospace;font-size:8pt;background:#0f172a;color:#e2e8f0;padding:10pt 12pt;border-radius:5pt;margin:7pt 0;white-space:pre-wrap;word-break:break-all;line-height:1.6;page-break-inside:avoid}
-table{width:100%;border-collapse:collapse;margin:8pt 0;font-size:9.5pt;page-break-inside:avoid}
-th{background:#4a1942;color:#fae8ff;padding:5pt 8pt;font-weight:600;text-align:left;font-size:9pt}
-td{padding:5pt 8pt;border-bottom:.5pt solid #e2e8f0;vertical-align:top}
-tr:nth-child(even) td{background:#f8fafc}
-.kv-grid{display:table;width:100%;border:.5pt solid #e2e8f0;border-radius:5pt;margin:8pt 0;overflow:hidden;page-break-inside:avoid}
-.kv-row{display:table-row}
-.kv-row:nth-child(even) .kv-k,.kv-row:nth-child(even) .kv-v{background:#f8fafc}
-.kv-k{display:table-cell;padding:5pt 10pt;font-weight:600;font-size:9pt;color:#475569;width:35%;border-bottom:.5pt solid #e2e8f0;vertical-align:middle}
-.kv-v{display:table-cell;padding:5pt 10pt;font-size:9pt;border-bottom:.5pt solid #e2e8f0;vertical-align:middle}
-.cols2{display:table;width:100%;margin:6pt 0}
-.col{display:table-cell;width:50%;padding-right:10pt;vertical-align:top}
-.col:last-child{padding-right:0;padding-left:4pt}
-.quiz-block{border:.5pt solid #cbd5e1;border-radius:5pt;margin:7pt 0;page-break-inside:avoid;overflow:hidden}
-.quiz-q{padding:7pt 10pt;font-weight:600;font-size:9.5pt;background:#f8fafc;border-bottom:.5pt solid #cbd5e1}
-.quiz-opts{padding:6pt 10pt}
-.quiz-opt{display:block;width:100%;padding:2pt 0;border:0;background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer;font-size:9pt}
-.quiz-opt:focus-visible{outline:2px solid #2563eb;outline-offset:2pt;border-radius:2pt}
-.quiz-opt.quiz-correct{background:#dcfce7;color:#166534}
-.quiz-opt.quiz-wrong{background:#fee2e2;color:#b91c1c}
-.quiz-ans{padding:5pt 10pt;background:#f0fdf4;border-top:.5pt solid #cbd5e1;font-size:9pt;color:#166534}
-.quiz-exp{padding:4pt 10pt 7pt;font-size:8.5pt;color:#475569;border-top:.5pt dashed #e2e8f0}
-.checklist{list-style:none;margin:6pt 0 6pt 14pt}
-.checklist li{font-weight:600;padding:4pt 0 4pt 22pt;position:relative;font-size:9.5pt;border-bottom:.5pt dashed #e2e8f0}
-.checklist li:last-child{border-bottom:none}
-.checklist li::before{content:'▸';position:absolute;left:2pt;font-size:10pt;color:#94a3b8}
-.hl{background:#fefce8;font-weight:600}
-hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
-.pb{page-break-before:always}
-@media screen and (max-width:600px){body{font-size:10pt}.cols2,.col{display:block;width:100%;padding:0}table,.kv-grid{display:block;overflow-x:auto}}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
-</style></head><body>
-<main>
+<html lang="en"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>PCA Guide | Day 5: Alerting, Alertmanager and Dashboards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/tokens.css?v=20261024">
+<link rel="stylesheet" href="css/study.css?v=20261024">
+<script>try{var t=localStorage.getItem('pca_theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script></head><body>
+<main class="study">
+<a class="study-back" href="index.html">Back to guide</a>
 
 <div class="cover-band">
   <h1>Alerting, Alertmanager &amp; Dashboarding</h1>
@@ -66,7 +19,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 
 <div class="box info">
   <div class="box-title">Objectives</div>
-  <ul style="padding-left:14pt;margin-top:4pt;font-size:9.5pt;">
+  <ul style="padding-left:14pt;margin-top:4pt">
     <li>Create complete alerting rules with all fields</li>
     <li>Master the 3 states: inactive, pending, firing</li>
     <li>Configure routing, grouping, silences and inhibition in Alertmanager</li>
@@ -76,7 +29,7 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
   </ul>
 </div>
 
-<h2>1. Alerting Rules - Complete Structure</h2>
+<h2>1. Alerting Rules: Complete Structure</h2>
 
 <pre>
 groups:
@@ -112,29 +65,29 @@ groups:
 </pre>
 
 <div class="box dark">
-  <div class="box-title">Fields - What the Exam Tests</div>
-  <p style="font-size:9pt;line-height:1.9;margin-top:4pt;">
+  <div class="box-title">Fields: What the Exam Tests</div>
+  <p style="line-height:1.9;margin-top:4pt">
     <strong>alert:</strong> unique alert name<br>
-    <strong>expr:</strong> PromQL expression - when it returns data, the alert fires<br>
+    <strong>expr:</strong> PromQL expression, when it returns data, the alert fires<br>
     <strong>for:</strong> minimum time in pending to avoid false positives<br>
-    <strong>labels:</strong> added to the alert - used for ROUTING<br>
-    <strong>annotations:</strong> readable info - summary, description, runbook - NOT used for routing
+    <strong>labels:</strong> added to the alert: used for ROUTING<br>
+    <strong>annotations:</strong> readable info: summary, description, runbook: NOT used for routing
   </p>
 </div>
 
 <h2>2. Alert States</h2>
 
-<table>
+<div class="table-wrap"><table>
   <tr><th>State</th><th>When it happens</th><th>Visible in Alertmanager?</th></tr>
-  <tr><td><strong>inactive</strong></td><td>Expression returns 0 or empty - condition not met</td><td>No</td></tr>
+  <tr><td><strong>inactive</strong></td><td>Expression returns 0 or empty: condition not met</td><td>No</td></tr>
   <tr class="hl"><td><strong>pending</strong></td><td>Condition met, but still within the "for" window</td><td>No</td></tr>
-  <tr><td><strong>firing</strong></td><td>Condition met for longer than "for" - alert sent</td><td>Yes</td></tr>
-</table>
+  <tr><td><strong>firing</strong></td><td>Condition met for longer than "for": alert sent</td><td>Yes</td></tr>
+</table></div>
 
 <div class="cols2">
 <div class="col">
 <h3>Transition flow</h3>
-<pre style="font-size:7.5pt;">
+<pre>
 inactive --[cond OK]--> pending
 pending  --[for elapsed]--> firing
 firing   --[cond fails]--> inactive
@@ -162,7 +115,7 @@ ALERTS
   <p>Without <code>for:</code>, the alert goes from <strong>inactive straight to firing</strong> on the first scrape that meets the condition. Always use <code>for:</code> to avoid alerts on momentary spikes.</p>
 </div>
 
-<h2>3. Alertmanager - Complete Configuration</h2>
+<h2>3. Alertmanager: Complete Configuration</h2>
 
 <pre>
 # alertmanager.yml
@@ -212,48 +165,48 @@ inhibit_rules:
     equal: ['alertname', 'cluster']  # with these labels equal
 </pre>
 
-<h2>4. Alertmanager Timing - Frequently Tested</h2>
+<h2>4. Alertmanager Timing: Frequently Tested</h2>
 
-<table>
+<div class="table-wrap"><table>
   <tr><th>Field</th><th>What it controls</th><th>Default</th></tr>
   <tr class="hl"><td><code>group_wait</code></td><td>Wait before sending the FIRST notification of a new group of alerts</td><td>30s</td></tr>
   <tr><td><code>group_interval</code></td><td>Minimum interval between notifications of the SAME group (updates)</td><td>5m</td></tr>
   <tr><td><code>repeat_interval</code></td><td>How long to wait before REPEATING an already notified, unresolved alert</td><td>4h</td></tr>
   <tr><td><code>resolve_timeout</code></td><td>Time to mark an alert as resolved after the condition stops</td><td>5m</td></tr>
-</table>
+</table></div>
 
 <h2>5. Silence vs Inhibition</h2>
 
 <div class="cols2">
 <div class="col">
-<h3>Silence - Manual Mute</h3>
+<h3>Silence: Manual Mute</h3>
 <div class="box warn" style="margin-top:0">
   <p><strong>What it is:</strong> Temporary manual suppression of alerts.</p>
   <p style="margin-top:6pt"><strong>How to create:</strong> Via the Alertmanager UI or API. Defines label matchers + a time period.</p>
   <p style="margin-top:6pt"><strong>When to use:</strong> Maintenance window, planned deploy, known false positive.</p>
-  <p style="margin-top:6pt"><strong>Configuration:</strong> Via the interface - not stored in a YAML file.</p>
+  <p style="margin-top:6pt"><strong>Configuration:</strong> Via the interface: not stored in a YAML file.</p>
 </div>
 </div>
 <div class="col">
-<h3>Inhibition - Automatic Suppression</h3>
+<h3>Inhibition: Automatic Suppression</h3>
 <div class="box danger" style="margin-top:0">
   <p><strong>What it is:</strong> A rule that automatically suppresses alerts when another alert is active.</p>
-  <p style="margin-top:6pt"><strong>Example:</strong> Host down suppresses all app alerts on that host - root cause already known.</p>
+  <p style="margin-top:6pt"><strong>Example:</strong> Host down suppresses all app alerts on that host: root cause already known.</p>
   <p style="margin-top:6pt"><strong>When to use:</strong> Avoid spam from secondary alerts when there is a root cause.</p>
   <p style="margin-top:6pt"><strong>Configuration:</strong> In the alertmanager.yml file, the <code>inhibit_rules</code> field.</p>
 </div>
 </div>
 </div>
 
-<table>
+<div class="table-wrap"><table>
   <tr><th>Aspect</th><th>Silence</th><th>Inhibition</th></tr>
   <tr><td>Type</td><td>Manual, for a period</td><td>Automatic, based on another alert</td></tr>
   <tr><td>Configuration</td><td>UI / API (not in YAML)</td><td>alertmanager.yml</td></tr>
   <tr><td>Activation</td><td>A human chooses when to silence</td><td>Automatic when source_match is firing</td></tr>
   <tr><td>Use case</td><td>Maintenance window</td><td>Host down suppresses app alerts</td></tr>
-</table>
+</table></div>
 
-<h2>6. Grafana - Prometheus Integration</h2>
+<h2>6. Grafana: Prometheus Integration</h2>
 
 <div class="kv-grid">
   <div class="kv-row"><div class="kv-k">Default port</div><div class="kv-v"><code>:3000</code></div></div>
@@ -290,10 +243,10 @@ sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
 <div class="quiz-block">
   <div class="quiz-q">Q1. What is the state of an alert whose condition was met but the "for: 10m" field has not expired yet?</div>
   <div class="quiz-opts">
-    <button type="button" class="quiz-opt">A) firing - it is already active</button>
-    <button type="button" class="quiz-opt">B) inactive - it is not a real alert yet</button>
-    <button type="button" class="quiz-opt">C) pending - condition active but waiting for the "for" to confirm</button>
-    <button type="button" class="quiz-opt">D) warning - intermediate state</button>
+    <button type="button" class="quiz-opt">A) firing: it is already active</button>
+    <button type="button" class="quiz-opt">B) inactive: it is not a real alert yet</button>
+    <button type="button" class="quiz-opt">C) pending: condition active but waiting for the "for" to confirm</button>
+    <button type="button" class="quiz-opt">D) warning: intermediate state</button>
   </div>
   <div class="quiz-ans">Answer: C</div>
   <div class="quiz-exp">pending: condition met but within the "for" window. After "for" expires, it goes to firing. Without a "for" field, it goes straight from inactive to firing.</div>
@@ -302,13 +255,13 @@ sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
 <div class="quiz-block">
   <div class="quiz-q">Q2. What is the difference between "labels" and "annotations" in an alerting rule?</div>
   <div class="quiz-opts">
-    <button type="button" class="quiz-opt">A) They are equivalent - just different names</button>
+    <button type="button" class="quiz-opt">A) They are equivalent: just different names</button>
     <button type="button" class="quiz-opt">B) labels are used for routing in Alertmanager; annotations are human-readable information</button>
     <button type="button" class="quiz-opt">C) annotations are used for routing; labels are descriptive</button>
     <button type="button" class="quiz-opt">D) labels live in Prometheus; annotations live in Grafana</button>
   </div>
   <div class="quiz-ans">Answer: B</div>
-  <div class="quiz-exp">labels: added to the alert and used by Alertmanager for routing (match/match_re in routes). annotations: textual information for humans such as summary, description and runbook_url - they do NOT take part in routing.</div>
+  <div class="quiz-exp">labels: added to the alert and used by Alertmanager for routing (match/match_re in routes). annotations: textual information for humans such as summary, description and runbook_url, they do NOT take part in routing.</div>
 </div>
 
 <div class="quiz-block">
@@ -329,7 +282,7 @@ sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
     <button type="button" class="quiz-opt">A) Silence is permanent; Inhibition is temporary</button>
     <button type="button" class="quiz-opt">B) Silence is manual suppression for a period; Inhibition is automatic suppression based on another active alert</button>
     <button type="button" class="quiz-opt">C) Silence works by labels; Inhibition works by time</button>
-    <button type="button" class="quiz-opt">D) They are identical - just different names in the UI</button>
+    <button type="button" class="quiz-opt">D) They are identical: just different names in the UI</button>
   </div>
   <div class="quiz-ans">Answer: B</div>
   <div class="quiz-exp">Silence: a human creates it manually via UI/API for a period (e.g. maintenance). Inhibition: a rule in alertmanager.yml that automatically suppresses "child" alerts when a "parent" alert is firing (e.g. host down suppresses the app alerts on that host).</div>
@@ -356,7 +309,7 @@ sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
     <button type="button" class="quiz-opt">D) Disables repeat_interval for this receiver</button>
   </div>
   <div class="quiz-ans">Answer: B</div>
-  <div class="quiz-exp">By default, an alert that matches a sub-route stops being evaluated by the next ones. "continue: true" does the opposite - it lets the alert keep being evaluated by subsequent routes even after a match.</div>
+  <div class="quiz-exp">By default, an alert that matches a sub-route stops being evaluated by the next ones. "continue: true" does the opposite, it lets the alert keep being evaluated by subsequent routes even after a match.</div>
 </div>
 
 <div class="quiz-block">
@@ -380,7 +333,7 @@ sum(rate(http_requests_total{status=~"5..", job="$job"}[5m]))
     <button type="button" class="quiz-opt">D) Defines the priority order of alerts</button>
   </div>
   <div class="quiz-ans">Answer: B</div>
-  <div class="quiz-exp">group_by: ['alertname', 'cluster'] - alerts with the same values in these labels are grouped and sent together in one notification. Reduces noise when multiple alerts of the same type fire at the same time.</div>
+  <div class="quiz-exp">group_by: ['alertname', 'cluster'], alerts with the same values in these labels are grouped and sent together in one notification. Reduces noise when multiple alerts of the same type fire at the same time.</div>
 </div>
 
 <div class="pb"></div>
