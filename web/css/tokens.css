@@ -1,0 +1,176 @@
+/* PCA Study: design tokens e base compartilhados (home + páginas de tópico).
+   Laranja Prometheus (#E6522C escuro / #d4441c claro) é o único acento de marca. */
+
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0f0f11;
+  --surface: #161618;
+  --surface2: #1d1d20;
+  --surface3: #26262a;
+  --border: #2a2a2f;
+  --border-strong: #3b3b42;
+  --text: #ececee;
+  --text-2: #b4b4bb;
+  --muted: #8e8e97;
+
+  --accent: #E6522C;
+  --accent-text: #f0714f;           /* texto laranja sobre fundo escuro, contraste AA */
+  --accent-soft: rgba(230, 82, 44, .12);
+  --accent-line: rgba(230, 82, 44, .45);
+  --on-accent: #120a07;
+
+  /* cores de domínio: dessaturadas, usadas só em detalhes (ponto, tag, título) */
+  --d-obs: #a59af0;
+  --d-fund: #6cb0dc;
+  --d-promql: #5cc08f;
+  --d-inst: #dcae55;
+  --d-alert: #ec7f76;
+
+  --ok: #5cc08f;     --ok-soft: rgba(92, 192, 143, .12);
+  --bad: #ec6f66;    --bad-soft: rgba(236, 111, 102, .12);
+  --warn: #dcae55;   --warn-soft: rgba(220, 174, 85, .12);
+  --info: #6cb0dc;   --info-soft: rgba(108, 176, 220, .12);
+
+  --code-bg: #131315;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .3);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, .35);
+
+  /* aliases legados: mantêm estilos inline antigos legíveis */
+  --promql: var(--d-promql);
+  --accent2: var(--info);
+  --accent3: var(--bad);
+  --accent4: var(--d-obs);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f7f7f5;
+  --surface: #ffffff;
+  --surface2: #f2f2ef;
+  --surface3: #e9e9e5;
+  --border: #e3e3de;
+  --border-strong: #cfcfc8;
+  --text: #19191c;
+  --text-2: #3f3f46;
+  --muted: #5e5e66;
+
+  --accent: #d4441c;
+  --accent-text: #b8390f;
+  --accent-soft: rgba(212, 68, 28, .08);
+  --accent-line: rgba(212, 68, 28, .4);
+  --on-accent: #ffffff;
+
+  --d-obs: #5f4fcf;
+  --d-fund: #1f6fa3;
+  --d-promql: #17784a;
+  --d-inst: #8a5a00;
+  --d-alert: #b8362c;
+
+  --ok: #17784a;     --ok-soft: rgba(23, 120, 74, .08);
+  --bad: #b8362c;    --bad-soft: rgba(184, 54, 44, .07);
+  --warn: #8a5a00;   --warn-soft: rgba(196, 140, 20, .1);
+  --info: #1f6fa3;   --info-soft: rgba(31, 111, 163, .07);
+
+  --code-bg: #f4f4f1;
+  --shadow-sm: 0 1px 2px rgba(20, 20, 15, .05);
+  --shadow-md: 0 8px 24px rgba(20, 20, 15, .08);
+}
+
+/* páginas de tópico abertas direto, sem preferência salva: seguem o sistema */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+    --bg: #f7f7f5; --surface: #ffffff; --surface2: #f2f2ef; --surface3: #e9e9e5;
+    --border: #e3e3de; --border-strong: #cfcfc8;
+    --text: #19191c; --text-2: #3f3f46; --muted: #5e5e66;
+    --accent: #d4441c; --accent-text: #b8390f; --accent-soft: rgba(212, 68, 28, .08);
+    --accent-line: rgba(212, 68, 28, .4); --on-accent: #ffffff;
+    --d-obs: #5f4fcf; --d-fund: #1f6fa3; --d-promql: #17784a; --d-inst: #8a5a00; --d-alert: #b8362c;
+    --ok: #17784a; --ok-soft: rgba(23, 120, 74, .08);
+    --bad: #b8362c; --bad-soft: rgba(184, 54, 44, .07);
+    --warn: #8a5a00; --warn-soft: rgba(196, 140, 20, .1);
+    --info: #1f6fa3; --info-soft: rgba(31, 111, 163, .07);
+    --code-bg: #f4f4f1;
+    --shadow-sm: 0 1px 2px rgba(20, 20, 15, .05);
+    --shadow-md: 0 8px 24px rgba(20, 20, 15, .08);
+  }
+}
+
+:root {
+  --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 14px;
+
+  --ease-out: cubic-bezier(.2, .8, .2, 1);
+  --dur: 160ms;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+  font-feature-settings: 'ss01', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100dvh;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-sans);
+  color: var(--text);
+  line-height: 1.25;
+  text-wrap: balance;
+}
+h1 { font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.35rem); font-weight: 650; letter-spacing: -0.025em; }
+h2 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.015em; }
+h3 { font-size: 1rem; font-weight: 600; letter-spacing: -0.005em; }
+h4 { font-size: .9375rem; font-weight: 600; }
+
+p { text-wrap: pretty; }
+
+a { color: var(--accent-text); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+
+code, pre, kbd { font-family: var(--font-mono); }
+
+::selection { background: var(--accent-soft); color: var(--text); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.icon {
+  width: 18px; height: 18px; flex: 0 0 auto;
+  stroke: currentColor; fill: none;
+  stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round;
+}
+.icon-sm { width: 15px; height: 15px; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
