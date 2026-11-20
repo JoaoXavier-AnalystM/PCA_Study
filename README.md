@@ -7,7 +7,6 @@ O conteúdo está disponível em **português e inglês**, com navegação adapt
 ## Acesso
 
 - **Produção:** [pca-notes.jxops.com.br](https://pca-notes.jxops.com.br/)
-- **Desenvolvimento:** [pca-notes-dev.jxops.com.br](https://pca-notes-dev.jxops.com.br/)
 
 ## O que você encontra
 
@@ -38,20 +37,15 @@ O conteúdo está disponível em **português e inglês**, com navegação adapt
 - Bibliotecas de instrumentação, exporters e boas práticas de métricas.
 - Regras de alerta, Alertmanager, Grafana e monitoramento em Kubernetes.
 
-## Estrutura do repositório
+## Estrutura principal do site
 
 ```text
-web/                 Site e fichas de estudo em português e inglês
-notas/               Anotações e imagens de apoio
-deploy/              Configuração do Nginx e containers
-tests/               Verificações de regressão
-PCA_Curriculum.pdf   Currículo do exame
+web/      Site e fichas de estudo em português e inglês
+deploy/   Configuração do Nginx e containers
 ```
-
-O site é estático, feito com HTML, CSS e JavaScript. As preferências e o progresso são armazenados no navegador, sem cadastro.
 
 ## Referências
 
 - [Documentação do Prometheus](https://prometheus.io/docs/)
 - [Projeto Prometheus na CNCF](https://www.cncf.io/projects/prometheus/)
-- [Certificação PCA — Linux Foundation](https://training.linuxfoundation.org/certification/prometheus-certified-associate/)
+- [Certificação PCA Linux Foundation](https://training.linuxfoundation.org/certification/prometheus-certified-associate/)
