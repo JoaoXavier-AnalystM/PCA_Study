@@ -1,69 +1,25 @@
 <!DOCTYPE html>
-<html lang="en"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:10.5pt;line-height:1.55;color:#1a1a2e;background:#fff}
-h1,h2,h3,h4,h5,h6{font-family:'Bricolage Grotesque','Syne',sans-serif}
-@page{size:A4;margin:18mm 16mm 18mm 16mm;}
-.cover-band{width:100%;padding:18pt 22pt 14pt;margin-bottom:18pt;border-radius:6pt;background:#1a1a2e;color:#e0e7ff;page-break-after:avoid}
-.cover-band .day-label{font-size:9pt;font-weight:700;letter-spacing:2pt;text-transform:uppercase;opacity:.7;margin-bottom:4pt}
-.cover-band h1{font-size:22pt;font-weight:700;line-height:1.2;margin-bottom:6pt}
-.cover-band .subtitle{font-size:10pt;opacity:.8}
-.cover-band .domains{margin-top:10pt;display:flex;gap:6pt;flex-wrap:wrap}
-.badge{display:inline-block;padding:2pt 8pt;border-radius:3pt;font-size:8pt;font-weight:700;letter-spacing:.5pt;text-transform:uppercase;background:#6366f1;color:#fff}
-h2{font-size:13pt;font-weight:800;margin:18pt 0 8pt;padding-bottom:4pt;border-bottom:2pt solid #6366f1;color:#1a1a2e;page-break-after:avoid}
-h3{font-size:10.5pt;font-weight:700;margin:12pt 0 5pt;color:#1a1a2e;page-break-after:avoid}
-p{margin-bottom:6pt}
-.box{padding:9pt 12pt;border-radius:5pt;margin:8pt 0;border-left:4pt solid;page-break-inside:avoid}
-.box.info{background:#eff6ff;border-color:#3b82f6}
-.box.warn{background:#fffbeb;border-color:#f59e0b}
-.box.tip{background:#f0fdf4;border-color:#22c55e}
-.box.danger{background:#fff1f2;border-color:#ef4444}
-.box.dark{background:#1e293b;border-color:#6366f1;color:#e2e8f0}
-.box .box-title{font-size:8.5pt;font-weight:700;letter-spacing:1pt;text-transform:uppercase;margin-bottom:4pt}
-code{font-family:'Space Mono','Courier New',monospace;font-size:8.5pt;background:#f1f5f9;padding:1pt 4pt;border-radius:2pt;color:#0f172a}
-pre{font-family:'Space Mono','Courier New',monospace;font-size:8pt;background:#0f172a;color:#e2e8f0;padding:10pt 12pt;border-radius:5pt;margin:7pt 0;white-space:pre-wrap;word-break:break-all;line-height:1.6;page-break-inside:avoid}
-table{width:100%;border-collapse:collapse;margin:8pt 0;font-size:9.5pt;page-break-inside:avoid}
-th{background:#1a1a2e;color:#e0e7ff;padding:5pt 8pt;font-weight:600;text-align:left;font-size:9pt}
-td{padding:5pt 8pt;border-bottom:.5pt solid #e2e8f0;vertical-align:top}
-tr:nth-child(even) td{background:#f8fafc}
-.kv-grid{display:table;width:100%;border:.5pt solid #e2e8f0;border-radius:5pt;margin:8pt 0;overflow:hidden;page-break-inside:avoid}
-.kv-row{display:table-row}
-.kv-row:nth-child(even) .kv-k,.kv-row:nth-child(even) .kv-v{background:#f8fafc}
-.kv-k{display:table-cell;padding:5pt 10pt;font-weight:600;font-size:9pt;color:#475569;width:35%;border-bottom:.5pt solid #e2e8f0;vertical-align:middle}
-.kv-v{display:table-cell;padding:5pt 10pt;font-size:9pt;border-bottom:.5pt solid #e2e8f0;vertical-align:middle}
-.cols2{display:table;width:100%;margin:6pt 0}
-.col{display:table-cell;width:50%;padding-right:10pt;vertical-align:top}
-.col:last-child{padding-right:0;padding-left:4pt}
-.quiz-block{border:.5pt solid #cbd5e1;border-radius:5pt;margin:7pt 0;page-break-inside:avoid;overflow:hidden}
-.quiz-q{padding:7pt 10pt;font-weight:600;font-size:9.5pt;background:#f8fafc;border-bottom:.5pt solid #cbd5e1}
-.quiz-opts{padding:6pt 10pt}
-.quiz-opt{padding:2pt 0;font-size:9pt}
-.quiz-ans{padding:5pt 10pt;background:#f0fdf4;border-top:.5pt solid #cbd5e1;font-size:9pt;color:#166534}
-.quiz-exp{padding:4pt 10pt 7pt;font-size:8.5pt;color:#475569;border-top:.5pt dashed #e2e8f0}
-.checklist{list-style:none;margin:6pt 0 6pt 14pt}
-.checklist li{font-weight:600;padding:4pt 0 4pt 22pt;position:relative;font-size:9.5pt;border-bottom:.5pt dashed #e2e8f0}
-.checklist li:last-child{border-bottom:none}
-.checklist li::before{content:'▸';position:absolute;left:2pt;font-size:10pt;color:#94a3b8}
-.hl{background:#fefce8;font-weight:600}
-hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
-.pb{page-break-before:always}
-.avoid{page-break-inside:avoid}
-@media screen and (max-width:600px){body{font-size:10pt}.cols2,.col{display:block;width:100%;padding:0}table,.kv-grid{display:block;overflow-x:auto}}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
-</style></head><body>
+<html lang="en"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>PCA Notes | Day 3: Advanced PromQL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/tokens.css?v=20261024">
+<link rel="stylesheet" href="css/study.css?v=20261024">
+<script>try{var t=localStorage.getItem('pca_theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script></head><body>
+<main class="study">
+<a class="study-back" href="index.html">Back to guide</a>
 
 <div class="cover-band">
-  <h1>Advanced PromQL - Histograms, Joins and Recording Rules</h1>
+  <h1>Advanced PromQL: Histograms, Joins and Recording Rules</h1>
   <div class="subtitle">histogram_quantile, binary operators, matching between series, predict_linear, and recording rules</div>
   <div class="domains">
     <span class="badge">PromQL 28%</span>
   </div>
 </div>
 
-<div class="box info avoid">
-  <div class="box-title">🎯 Objectives</div>
-  <ul style="padding-left:14pt;margin-top:4pt;font-size:9.5pt;">
+<div class="box info avoid goal">
+  <div class="box-title">Objectives</div>
+  <ul style="padding-left:14pt;margin-top:4pt">
     <li>Compute latency percentiles with histogram_quantile()</li>
     <li>Use binary operators between metrics with different labels (on/ignoring)</li>
     <li>Apply group_left() and group_right() for many-to-one joins</li>
@@ -75,13 +31,13 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<h2>1. histogram_quantile() - Latency Percentiles</h2>
+<h2>1. histogram_quantile(): Latency Percentiles</h2>
 
 <p>This is the most complex PromQL function and heavily tested on the exam. It computes percentiles (p50, p90, p99) from the buckets of a Histogram.</p>
 
 <div class="box dark">
   <div class="box-title">Syntax</div>
-  <p style="font-family:'Space Mono',monospace;font-size:9pt;margin-top:4pt;">
+  <p style="margin-top:4pt">
     histogram_quantile(<strong>φ</strong>, <strong>b</strong>)<br><br>
     φ = desired percentile (0 to 1). E.g., 0.99 = p99<br>
     b = range vector of the buckets with rate() or sum()
@@ -109,30 +65,30 @@ histogram_quantile(0.99,
 </pre>
 
 <div class="box danger">
-  <div class="box-title">🚫 Fatal error: forgetting the "le" label</div>
+  <div class="box-title">Fatal error: forgetting the "le" label</div>
   <p>When aggregating Histogram buckets, the <code>le</code> (less than or equal) label <strong>MUST</strong> be included in <code>by()</code>. Without it, all buckets are summed into a single value and the percentile comes out wrong.</p>
-  <p style="font-family:'Space Mono',monospace;font-size:8.5pt;margin-top:6pt;">
-    ✅ sum by (le, job) (rate(duration_bucket[5m]))<br>
-    ❌ sum by (job) (rate(duration_bucket[5m]))  ← loses the le!
+  <p style="margin-top:6pt">
+    <span class="mk mk-ok" role="img" aria-label="Correct"></span>sum by (le, job) (rate(duration_bucket[5m]))<br>
+    <span class="mk mk-no" role="img" aria-label="Incorrect"></span>sum by (job) (rate(duration_bucket[5m]))  ← loses the le!
   </p>
 </div>
 
 <h3>Why use Histogram instead of Summary for percentiles?</h3>
-<table>
+<div class="table-wrap"><table>
   <tr><th>Aspect</th><th>Histogram</th><th>Summary</th></tr>
   <tr><td>Percentile calculation</td><td>Prometheus server</td><td>Application client</td></tr>
-  <tr class="hl"><td>Multi-instance aggregation</td><td>✅ Possible (sum buckets, then quantile)</td><td>❌ Impossible</td></tr>
+  <tr class="hl"><td>Multi-instance aggregation</td><td><span class="mk mk-ok" role="img" aria-label="Correct"></span>Possible (sum buckets, then quantile)</td><td><span class="mk mk-no" role="img" aria-label="Incorrect"></span>Impossible</td></tr>
   <tr><td>Accuracy</td><td>Approximate (depends on buckets)</td><td>Exact (configurable)</td></tr>
   <tr><td>Computational cost</td><td>Server (evaluation)</td><td>Client (collection)</td></tr>
   <tr><td>Quantile flexibility</td><td>Any quantile after the fact</td><td>Only pre-defined quantiles</td></tr>
-</table>
+</table></div>
 
 <!-- ═══════════════════════════════════════════════════════ -->
 <h2>2. Binary Operators with Vector Matching</h2>
 
 <p>When operating on two vectors with different labels, we need to specify how to match them.</p>
 
-<h3>on() and ignoring() - Controlling which labels are used for the match</h3>
+<h3>on() and ignoring(): Controlling which labels are used for the match</h3>
 
 <pre>
 # Error: the metrics have different labels
@@ -150,7 +106,7 @@ method_code:http_errors:rate5m
 method:http_requests:rate5m
 </pre>
 
-<h3>group_left() and group_right() - Many-to-One Joins</h3>
+<h3>group_left() and group_right(): Many-to-One Joins</h3>
 
 <p>When one side has more series than the other, we need to specify which side "wins":</p>
 
@@ -173,13 +129,13 @@ container_cpu_usage{pod="api-1"} * on(pod) group_left(cluster) pod_info{pod="api
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<h2>3. predict_linear() - Predictive Alerts</h2>
+<h2>3. predict_linear(): Predictive Alerts</h2>
 
 <p>Projects the future value of a gauge using linear regression over recent history.</p>
 
 <div class="box dark">
   <div class="box-title">Syntax</div>
-  <p style="font-family:'Space Mono',monospace;font-size:9pt;margin-top:4pt;">
+  <p style="margin-top:4pt">
     predict_linear(<strong>v range-vector</strong>, <strong>t scalar</strong>)<br><br>
     v = series with history for the projection<br>
     t = how many seconds into the future to project
@@ -199,12 +155,12 @@ predict_linear(node_memory_MemAvailable_bytes[2h], 6 * 3600) < 0
 </pre>
 
 <div class="box tip">
-  <div class="box-title">💡 How to interpret</div>
+  <div class="box-title">How to interpret</div>
   <p>If <code>predict_linear(...) &lt; 0</code>, the linear projection indicates the value will reach zero (or go negative) before time T. For disk: available space reaching zero = disk full.</p>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<h2>4. absent() - Alerting When Metrics Disappear</h2>
+<h2>4. absent(): Alerting When Metrics Disappear</h2>
 
 <p>Returns a vector with value 1 if the expression produces no series. Essential for "absence alerts".</p>
 
@@ -261,7 +217,7 @@ absent(http_requests_total{env="production"})
 </div>
 </div>
 
-<h3>label_replace() - Practical example</h3>
+<h3>label_replace(): Practical example</h3>
 <pre>
 # Creates the "short_instance" label by stripping the port from "instance"
 label_replace(
@@ -274,7 +230,7 @@ label_replace(
 </pre>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<h2>6. Recording Rules - Precomputing Queries</h2>
+<h2>6. Recording Rules: Precomputing Queries</h2>
 
 <p>Recording Rules evaluate a PromQL expression at regular intervals and store the result as a new metric. Essential for heavy queries used across several dashboards/alerts.</p>
 
@@ -316,7 +272,7 @@ cluster:http_requests:sum       # sum of requests per cluster
 
 <h3>When to use Recording Rules?</h3>
 <div class="box info">
-  <ul style="padding-left:14pt;font-size:9.5pt;">
+  <ul style="padding-left:14pt">
     <li>Queries used across <strong>multiple dashboards</strong> (avoid reprocessing)</li>
     <li><strong>Computationally heavy</strong> queries (histogram_quantile with many buckets)</li>
     <li>Base queries for <strong>alerting rules</strong> (precompute for faster alerts)</li>
@@ -333,7 +289,7 @@ rule_files:
 </pre>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<h2>7. Subqueries - Queries within Queries</h2>
+<h2>7. Subqueries: Queries within Queries</h2>
 
 <pre>
 # Syntax: expr[range:resolution]
@@ -360,102 +316,102 @@ max_over_time(
 <div class="quiz-block">
   <div class="quiz-q">Q1. What is the correct query for computing the 99th latency percentile using a Histogram?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) quantile(0.99, http_request_duration_seconds)</div>
-    <div class="quiz-opt">B) histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m]))</div>
-    <div class="quiz-opt">C) histogram_quantile(99, rate(http_request_duration_seconds_bucket[5m]))</div>
-    <div class="quiz-opt">D) p99(http_request_duration_seconds[5m])</div>
+    <button type="button" class="quiz-opt">A) quantile(0.99, http_request_duration_seconds)</button>
+    <button type="button" class="quiz-opt">B) histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m]))</button>
+    <button type="button" class="quiz-opt">C) histogram_quantile(99, rate(http_request_duration_seconds_bucket[5m]))</button>
+    <button type="button" class="quiz-opt">D) p99(http_request_duration_seconds[5m])</button>
   </div>
-  <div class="quiz-ans">✅ Answer: B</div>
-  <div class="quiz-exp">histogram_quantile(φ, b) - φ is the quantile between 0 and 1 (not 0-100!), and b must be the buckets with rate(). It uses the _bucket suffix, not the base metric.</div>
+  <div class="quiz-ans">Answer: B</div>
+  <div class="quiz-exp">histogram_quantile(φ, b): φ is the quantile between 0 and 1 (not 0-100!), and b must be the buckets with rate(). It uses the _bucket suffix, not the base metric.</div>
 </div>
 
 <div class="quiz-block">
   <div class="quiz-q">Q2. When aggregating Histogram buckets with sum() for use in histogram_quantile(), which label must you keep?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) job</div>
-    <div class="quiz-opt">B) instance</div>
-    <div class="quiz-opt">C) le</div>
-    <div class="quiz-opt">D) handler</div>
+    <button type="button" class="quiz-opt">A) job</button>
+    <button type="button" class="quiz-opt">B) instance</button>
+    <button type="button" class="quiz-opt">C) le</button>
+    <button type="button" class="quiz-opt">D) handler</button>
   </div>
-  <div class="quiz-ans">✅ Answer: C</div>
+  <div class="quiz-ans">Answer: C</div>
   <div class="quiz-exp">The "le" (less than or equal) label defines each bucket's upper bound. Without it, histogram_quantile() cannot identify the buckets and the calculation comes out wrong. Always: sum by (le, ...) when aggregating buckets.</div>
 </div>
 
 <div class="quiz-block">
   <div class="quiz-q">Q3. What does the query <code>predict_linear(node_filesystem_avail_bytes[1h], 4*3600) &lt; 0</code> do?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Alerts if the disk has less than 4 hours of uptime</div>
-    <div class="quiz-opt">B) Computes the average free space over the last hour</div>
-    <div class="quiz-opt">C) Alerts if, based on the last hour's trend, the disk will fill up in less than 4 hours</div>
-    <div class="quiz-opt">D) Checks if the disk filled up in the last 4 seconds</div>
+    <button type="button" class="quiz-opt">A) Alerts if the disk has less than 4 hours of uptime</button>
+    <button type="button" class="quiz-opt">B) Computes the average free space over the last hour</button>
+    <button type="button" class="quiz-opt">C) Alerts if, based on the last hour's trend, the disk will fill up in less than 4 hours</button>
+    <button type="button" class="quiz-opt">D) Checks if the disk filled up in the last 4 seconds</button>
   </div>
-  <div class="quiz-ans">✅ Answer: C</div>
+  <div class="quiz-ans">Answer: C</div>
   <div class="quiz-exp">predict_linear(v, t) projects the value of v t seconds from now. If the projection is negative, the available space will reach zero before t. 4*3600 = 4 hours in seconds.</div>
 </div>
 
 <div class="quiz-block">
   <div class="quiz-q">Q4. What does absent(up{job="api"}) return when the "api" job is being monitored normally?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) 0 (zero)</div>
-    <div class="quiz-opt">B) 1 (one)</div>
-    <div class="quiz-opt">C) An empty vector (no data)</div>
-    <div class="quiz-opt">D) The current value of the up metric for the api job</div>
+    <button type="button" class="quiz-opt">A) 0 (zero)</button>
+    <button type="button" class="quiz-opt">B) 1 (one)</button>
+    <button type="button" class="quiz-opt">C) An empty vector (no data)</button>
+    <button type="button" class="quiz-opt">D) The current value of the up metric for the api job</button>
   </div>
-  <div class="quiz-ans">✅ Answer: C</div>
-  <div class="quiz-exp">absent() returns a vector with value 1 only if the series does NOT exist. If the series exists (the job is monitored), absent() returns an empty vector - no data. This means: the alerting rule does not fire when the job exists.</div>
+  <div class="quiz-ans">Answer: C</div>
+  <div class="quiz-exp">absent() returns a vector with value 1 only if the series does NOT exist. If the series exists (the job is monitored), absent() returns an empty vector: no data. This means: the alerting rule does not fire when the job exists.</div>
 </div>
 
 <div class="quiz-block">
   <div class="quiz-q">Q5. What is the correct naming format for a Recording Rule that computes the HTTP request rate per job?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) http_requests_rate_5m_by_job</div>
-    <div class="quiz-opt">B) job:http_requests:rate5m</div>
-    <div class="quiz-opt">C) job_http_requests_rate5m</div>
-    <div class="quiz-opt">D) recording:http_requests_total:rate</div>
+    <button type="button" class="quiz-opt">A) http_requests_rate_5m_by_job</button>
+    <button type="button" class="quiz-opt">B) job:http_requests:rate5m</button>
+    <button type="button" class="quiz-opt">C) job_http_requests_rate5m</button>
+    <button type="button" class="quiz-opt">D) recording:http_requests_total:rate</button>
   </div>
-  <div class="quiz-ans">✅ Answer: B</div>
+  <div class="quiz-ans">Answer: B</div>
   <div class="quiz-exp">The convention is level:metric:operations. "job" = aggregation level, "http_requests" = base metric, "rate5m" = operation applied with a window. It makes the series easy to identify and avoids conflicts.</div>
 </div>
 
 <div class="quiz-block">
   <div class="quiz-q">Q6. What is the group_left() operator for in PromQL?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) To aggregate series on the left side of the query</div>
-    <div class="quiz-opt">B) For many-to-one joins where the left side has more series, allowing extra labels to be copied from the right side</div>
-    <div class="quiz-opt">C) To filter series based on the left side's labels</div>
-    <div class="quiz-opt">D) To sort the result by the left column</div>
+    <button type="button" class="quiz-opt">A) To aggregate series on the left side of the query</button>
+    <button type="button" class="quiz-opt">B) For many-to-one joins where the left side has more series, allowing extra labels to be copied from the right side</button>
+    <button type="button" class="quiz-opt">C) To filter series based on the left side's labels</button>
+    <button type="button" class="quiz-opt">D) To sort the result by the left column</button>
   </div>
-  <div class="quiz-ans">✅ Answer: B</div>
+  <div class="quiz-ans">Answer: B</div>
   <div class="quiz-exp">group_left() allows many-to-one joins: many series on the left can link to one on the right. The labels inside group_left()'s parentheses are copied from the right side to enrich the left result.</div>
 </div>
 
 <div class="quiz-block">
   <div class="quiz-q">Q7. Which of the following statements about Recording Rules is INCORRECT?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Recording Rules are stored as new metrics in the TSDB</div>
-    <div class="quiz-opt">B) Recording Rules improve the performance of repeated queries</div>
-    <div class="quiz-opt">C) Recording Rules are evaluated in real time only when a dashboard queries them</div>
-    <div class="quiz-opt">D) Recording Rules follow the level:metric:operations naming convention</div>
+    <button type="button" class="quiz-opt">A) Recording Rules are stored as new metrics in the TSDB</button>
+    <button type="button" class="quiz-opt">B) Recording Rules improve the performance of repeated queries</button>
+    <button type="button" class="quiz-opt">C) Recording Rules are evaluated in real time only when a dashboard queries them</button>
+    <button type="button" class="quiz-opt">D) Recording Rules follow the level:metric:operations naming convention</button>
   </div>
-  <div class="quiz-ans">✅ Answer: C</div>
-  <div class="quiz-exp">INCORRECT: Recording Rules are evaluated periodically (per evaluation_interval) and stored in the TSDB, regardless of whether anything queries them. When a dashboard queries them, the data is already precomputed - which is why they are faster.</div>
+  <div class="quiz-ans">Answer: C</div>
+  <div class="quiz-exp">INCORRECT: Recording Rules are evaluated periodically (per evaluation_interval) and stored in the TSDB, regardless of whether anything queries them. When a dashboard queries them, the data is already precomputed, which is why they are faster.</div>
 </div>
 
 <div class="quiz-block">
   <div class="quiz-q">Q8. Which function should be used to create an alert when a metric's value changed more than 3 times in the last hour?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) rate(config_version[1h]) > 3</div>
-    <div class="quiz-opt">B) changes(config_version[1h]) > 3</div>
-    <div class="quiz-opt">C) increase(config_version[1h]) > 3</div>
-    <div class="quiz-opt">D) delta(config_version[1h]) > 3</div>
+    <button type="button" class="quiz-opt">A) rate(config_version[1h]) > 3</button>
+    <button type="button" class="quiz-opt">B) changes(config_version[1h]) > 3</button>
+    <button type="button" class="quiz-opt">C) increase(config_version[1h]) > 3</button>
+    <button type="button" class="quiz-opt">D) delta(config_version[1h]) > 3</button>
   </div>
-  <div class="quiz-ans">✅ Answer: B</div>
+  <div class="quiz-ans">Answer: B</div>
   <div class="quiz-exp">changes() counts how many times a series' value changed over the specified period. Ideal for detecting configs that changed unexpectedly many times. rate() would be for an increasing counter; increase() would be for the amount grown.</div>
 </div>
 
 <!-- CHECKLIST -->
 <div class="pb"></div>
-<h2>✅ Review Checklist</h2>
+<h2>Review Checklist</h2>
 
 
 <ul class="checklist">
@@ -474,7 +430,7 @@ max_over_time(
 </ul>
 
 <div class="box tip" style="margin-top:14pt">
-  <div class="box-title">Study Material for Today</div>
+  <div class="box-title">Study Material</div>
   <p><strong>LFS241:</strong> Chapter 11 (Advanced Querying) and Chapter 18 (Recording Rules)</p>
   <p style="margin-top:4pt"><strong>KodeKloud:</strong> <a href="https://learn.kodekloud.com/learn/courses/prometheus-certified-associate-pca" target="_blank" rel="noopener">Advanced PromQL Module</a><br>
     <strong>YetMike:</strong> <a href="https://yetmike.com/practice/pca" target="_blank" rel="noopener">PCA-style practice exams</a></p>
@@ -482,4 +438,6 @@ max_over_time(
   <p style="margin-top:4pt"><strong>Docs:</strong> prometheus.io/docs/prometheus/latest/querying/functions/</p>
 </div>
 
+</main>
+<script src="day-quiz.js"></script>
 </body></html>

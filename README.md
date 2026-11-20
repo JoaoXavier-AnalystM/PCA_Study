@@ -19,6 +19,27 @@ O objetivo é fornecer uma base sólida sobre:
 
 ---
 
+## Desenvolvimento
+
+- Instruções compartilhadas: [AGENTS.md](AGENTS.md)
+- Escopo do produto: [PRODUCT.md](PRODUCT.md)
+- Onboarding local: [docs/onboarding.md](docs/onboarding.md)
+- Arquitetura: [docs/architecture.md](docs/architecture.md)
+- Qualidade e regressões: [docs/quality.md](docs/quality.md)
+- Evidências de setup: [docs/setup.md](docs/setup.md)
+
+Servidor local:
+
+```powershell
+python -m http.server 8080 --directory web
+```
+
+Regressões:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File tests/qa-regressions.ps1 -Case all
+```
+
 ## 🚀 O que você encontrará neste repositório
 
 ### 📖 Fundamentos
@@ -93,10 +114,10 @@ Os principais tópicos cobrados incluem:
 ---
 ## 🌐 Acesso ao Projeto
 
-O **PCA Study Guide** está disponível online em dois ambientes:
+O **PCA Notes** está disponível online em dois ambientes:
 
-- 🚀 **Produção:** [pca-guide.joaoxavier.app.br](https://pca-guide.joaoxavier.app.br/)
-- 🧪 **Desenvolvimento:** [pca-guide-dev.joaoxavier.app.br](https://pca-guide-dev.joaoxavier.app.br/)
+- 🚀 **Produção:** [pca-notes.jxops.com.br](https://pca-notes.jxops.com.br/)
+- 🧪 **Desenvolvimento:** [pca-notes-dev.jxops.com.br](https://pca-notes-dev.jxops.com.br/)
 
 O projeto reúne materiais de estudo, anotações técnicas, exemplos e recursos práticos voltados à preparação para a certificação **Prometheus Certified Associate (PCA)**.
 

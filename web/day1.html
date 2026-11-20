@@ -1,59 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:10.5pt;line-height:1.55;color:#1a1a2e;background:#fff}
-h1,h2,h3,h4,h5,h6{font-family:'Bricolage Grotesque','Syne',sans-serif}
-@page{size:A4;margin:18mm 16mm 18mm 16mm;}
-@page:first{margin-top:14mm}
-.cover-band{width:100%;padding:18pt 22pt 14pt;margin-bottom:18pt;border-radius:6pt;background:#1e3a5f;color:#dbeafe;page-break-after:avoid}
-.cover-band .day-label{font-size:9pt;font-weight:700;letter-spacing:2pt;text-transform:uppercase;opacity:.7;margin-bottom:4pt}
-.cover-band h1{font-size:22pt;font-weight:700;line-height:1.2;margin-bottom:6pt}
-.cover-band .subtitle{font-size:10pt;opacity:.8}
-.cover-band .domains{margin-top:10pt;display:flex;gap:6pt;flex-wrap:wrap}
-.badge{display:inline-block;padding:2pt 8pt;border-radius:3pt;font-size:8pt;font-weight:700;letter-spacing:.5pt;text-transform:uppercase;background:#3b82f6;color:#fff}
-h2{font-size:13pt;font-weight:800;margin:18pt 0 8pt;padding-bottom:4pt;border-bottom:2pt solid #3b82f6;color:#1e3a5f;page-break-after:avoid}
-h3{font-size:10.5pt;font-weight:700;margin:12pt 0 5pt;color:#1e3a5f;page-break-after:avoid}
-h4{font-size:9.5pt;font-weight:600;margin:8pt 0 3pt;page-break-after:avoid}
-p{margin-bottom:6pt}
-.box{padding:9pt 12pt;border-radius:5pt;margin:8pt 0;border-left:4pt solid;page-break-inside:avoid}
-.box.info{background:#eff6ff;border-color:#3b82f6}
-.box.warn{background:#fffbeb;border-color:#f59e0b}
-.box.tip{background:#f0fdf4;border-color:#22c55e}
-.box.danger{background:#fff1f2;border-color:#ef4444}
-.box.dark{background:#1e293b;border-color:#e8ff47;color:#e2e8f0}
-.box .box-title{font-size:8.5pt;font-weight:700;letter-spacing:1pt;text-transform:uppercase;margin-bottom:4pt}
-code{font-family:'Space Mono','Courier New',monospace;font-size:8.5pt;background:#f1f5f9;padding:1pt 4pt;border-radius:2pt;color:#0f172a}
-pre{font-family:'Space Mono','Courier New',monospace;font-size:8pt;background:#0f172a;color:#e2e8f0;padding:10pt 12pt;border-radius:5pt;margin:7pt 0;white-space:pre-wrap;word-break:break-all;line-height:1.6;page-break-inside:avoid}
-table{width:100%;border-collapse:collapse;margin:8pt 0;font-size:9.5pt;page-break-inside:avoid}
-th{background:#1e293b;color:#e2e8f0;padding:5pt 8pt;font-weight:600;text-align:left;font-size:9pt}
-td{padding:5pt 8pt;border-bottom:.5pt solid #e2e8f0;vertical-align:top}
-tr:nth-child(even) td{background:#f8fafc}
-.kv-grid{display:table;width:100%;border:.5pt solid #e2e8f0;border-radius:5pt;margin:8pt 0;overflow:hidden;page-break-inside:avoid}
-.kv-row{display:table-row}
-.kv-row:nth-child(even) .kv-k,.kv-row:nth-child(even) .kv-v{background:#f8fafc}
-.kv-k{display:table-cell;padding:5pt 10pt;font-weight:600;font-size:9pt;color:#475569;width:35%;border-bottom:.5pt solid #e2e8f0;vertical-align:middle}
-.kv-v{display:table-cell;padding:5pt 10pt;font-size:9pt;border-bottom:.5pt solid #e2e8f0;vertical-align:middle}
-.cols2{display:table;width:100%;margin:6pt 0}
-.col{display:table-cell;width:50%;padding-right:10pt;vertical-align:top}
-.col:last-child{padding-right:0;padding-left:4pt}
-.quiz-block{border:.5pt solid #cbd5e1;border-radius:5pt;margin:7pt 0;page-break-inside:avoid;overflow:hidden}
-.quiz-q{padding:7pt 10pt;font-weight:600;font-size:9.5pt;background:#f8fafc;border-bottom:.5pt solid #cbd5e1}
-.quiz-opts{padding:6pt 10pt}
-.quiz-opt{padding:2pt 0;font-size:9pt}
-.quiz-ans{padding:5pt 10pt;background:#f0fdf4;border-top:.5pt solid #cbd5e1;font-size:9pt;color:#166534}
-.quiz-exp{padding:4pt 10pt 7pt;font-size:8.5pt;color:#475569;border-top:.5pt dashed #e2e8f0}
-.checklist{list-style:none;margin:6pt 0 6pt 14pt}
-.checklist li{font-weight:600;padding:4pt 0 4pt 22pt;position:relative;font-size:9.5pt;border-bottom:.5pt dashed #e2e8f0}
-.checklist li:last-child{border-bottom:none}
-.checklist li::before{content:'▸';position:absolute;left:2pt;font-size:10pt;color:#94a3b8}
-.hl{background:#fefce8;font-weight:600}
-hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
-.pb{page-break-before:always}
-.avoid{page-break-inside:avoid}
-@media screen and (max-width:600px){body{font-size:10pt}.cols2,.col{display:block;width:100%;padding:0}table,.kv-grid{display:block;overflow-x:auto}}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
-</style></head><body>
+<html lang="pt-BR"><head><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>PCA Notes | Dia 1: Observabilidade e Fundamentos do Prometheus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/tokens.css?v=20261024">
+<link rel="stylesheet" href="css/study.css?v=20261024">
+<script>try{var t=localStorage.getItem('pca_theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script></head><body>
+<main class="study">
+<a class="study-back" href="index.html">Voltar ao guia</a>
 
 <div class="cover-band">
   <h1>Observability Concepts + Prometheus Fundamentals</h1>
@@ -64,9 +18,9 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
   </div>
 </div>
 
-<div class="box info avoid">
-  <div class="box-title">🎯 Objetivos</div>
-  <ul style="padding-left:14pt;margin-top:4pt;font-size:9.5pt;">
+<div class="box info avoid goal">
+  <div class="box-title">Objetivos</div>
+  <ul style="padding-left:14pt;margin-top:4pt">
     <li>Entender os 3 pilares de observabilidade: Métricas, Logs e Traces</li>
     <li>Diferenciar SLI, SLO e SLA com exemplos práticos</li>
     <li>Compreender o modelo Pull do Prometheus e quando usar Push</li>
@@ -82,15 +36,15 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 
 <p>Observabilidade é a capacidade de entender o estado interno de um sistema a partir de suas saídas externas. Os três pilares são complementares, não substitutos.</p>
 
-<table>
+<div class="table-wrap"><table>
   <tr><th>Pilar</th><th>O que é</th><th>Formato</th><th>Melhor para</th><th>Exemplo</th></tr>
   <tr><td><strong>Métricas</strong></td><td>Valores numéricos agregados no tempo</td><td>Série temporal</td><td>Alertas, dashboards, SLOs</td><td>CPU: 72%, Req/s: 1.200</td></tr>
   <tr><td><strong>Logs</strong></td><td>Eventos discretos com contexto textual</td><td>Linha de texto estruturada</td><td>Debugging, auditoria</td><td>[ERROR] DB timeout after 5s</td></tr>
   <tr><td><strong>Traces</strong></td><td>Rastreamento de requisição ponta a ponta</td><td>Spans aninhados</td><td>Performance de microsserviços</td><td>req→auth(12ms)→db(45ms)</td></tr>
-</table>
+</table></div>
 
 <div class="box tip">
-  <div class="box-title">💡 Dica de Prova</div>
+  <div class="box-title">Dica de Prova</div>
   "Uma requisição lenta atravessando 5 microsserviços" → <strong>Tracing</strong>. "Taxa de erros nos últimos 5min" → <strong>Métricas</strong>. "Mensagem de erro específica" → <strong>Logs</strong>.
 </div>
 
@@ -101,9 +55,9 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 <div class="col">
 <h3>Definições</h3>
 <div class="kv-grid">
-  <div class="kv-row"><div class="kv-k">SLI - Indicator</div><div class="kv-v">Métrica real medida. Ex: disponibilidade = requisições_ok / total</div></div>
-  <div class="kv-row"><div class="kv-k">SLO - Objective</div><div class="kv-v">Meta interna do time. Ex: SLI ≥ 99,9% no mês</div></div>
-  <div class="kv-row"><div class="kv-k">SLA - Agreement</div><div class="kv-v">Contrato formal com o cliente com penalidades. Ex: SLA 99,5%</div></div>
+  <div class="kv-row"><div class="kv-k">SLI: Indicator</div><div class="kv-v">Métrica real medida. Ex: disponibilidade = requisições_ok / total</div></div>
+  <div class="kv-row"><div class="kv-k">SLO: Objective</div><div class="kv-v">Meta interna do time. Ex: SLI ≥ 99,9% no mês</div></div>
+  <div class="kv-row"><div class="kv-k">SLA: Agreement</div><div class="kv-v">Contrato formal com o cliente com penalidades. Ex: SLA 99,5%</div></div>
   <div class="kv-row"><div class="kv-k">Error Budget</div><div class="kv-v">100% − SLO = margem de erros permitida. Se SLO=99,9% → budget = 0,1%</div></div>
 </div>
 </div>
@@ -111,30 +65,30 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 <h3>Hierarquia prática</h3>
 <div class="box warn" style="margin-top:0">
   <p><strong>SLA &lt; SLO &lt; 100%</strong></p>
-  <p style="margin-top:4pt;font-size:9pt;">O SLO deve ser mais restrito que o SLA - assim você tem margem para resolver problemas antes de violar o contrato com o cliente.</p>
-  <p style="margin-top:6pt;font-size:9pt;">Ex: SLA = 99,5% / SLO = 99,9% / Error Budget mensal = ~4,4h</p>
+  <p style="margin-top:4pt">O SLO deve ser mais restrito que o SLA, assim você tem margem para resolver problemas antes de violar o contrato com o cliente.</p>
+  <p style="margin-top:6pt">Ex: SLA = 99,5% / SLO = 99,9% / Error Budget mensal = ~4,4h</p>
 </div>
 <div class="box tip" style="margin-top:6pt">
-  <p style="font-size:9pt;">Error Budget esgotado → time para de lançar features e foca em confiabilidade (prática SRE do Google).</p>
+  <p>Error Budget esgotado → time para de lançar features e foca em confiabilidade (prática SRE do Google).</p>
 </div>
 </div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<h2>3. Push vs Pull - Coleta de Métricas</h2>
+<h2>3. Push vs Pull: Coleta de Métricas</h2>
 
-<table>
+<div class="table-wrap"><table>
   <tr><th>Aspecto</th><th>Pull (padrão Prometheus)</th><th>Push (Pushgateway)</th></tr>
   <tr><td>Como funciona</td><td>Prometheus agenda e scrapa <code>/metrics</code> de cada target</td><td>Aplicação envia métricas pro Pushgateway</td></tr>
   <tr><td>Frequência</td><td>Controlada pelo Prometheus (<code>scrape_interval</code>)</td><td>Controlada pela aplicação</td></tr>
   <tr><td>Uso ideal</td><td>Serviços de longa duração</td><td>Batch jobs de curta duração</td></tr>
   <tr><td>Descoberta</td><td>Service discovery automático</td><td>Requer push manual</td></tr>
   <tr class="hl"><td>Endpoint</td><td><code>GET /metrics</code></td><td><code>PUT /metrics/job/{nome}</code></td></tr>
-</table>
+</table></div>
 
 <div class="box warn">
-  <div class="box-title">⚠️ Cuidado com o Pushgateway</div>
-  O Pushgateway <strong>persiste métricas indefinidamente</strong> após o job terminar. Para limpar: <code>DELETE /metrics/job/{job_name}</code>. Não é um evento bus - é um cache de métricas.
+  <div class="box-title">Cuidado com o Pushgateway</div>
+  O Pushgateway <strong>persiste métricas indefinidamente</strong> após o job terminar. Para limpar: <code>DELETE /metrics/job/{job_name}</code>. Não é um evento bus: é um cache de métricas.
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ -->
@@ -153,8 +107,8 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 </div>
 
 <div class="box dark">
-  <div class="box-title">Mnemônico das Portas - Essencial para Prova</div>
-  <p style="font-family:'Space Mono',monospace;font-size:9pt;margin-top:4pt;">
+  <div class="box-title">Mnemônico das Portas: Essencial para Prova</div>
+  <p style="margin-top:4pt">
     9090 = Prometheus (P é a 16ª letra → 9+0+9+0=18, esqueça isso, decore!)<br>
     9091 = Pushgateway (Push vem depois de P → +1)<br>
     9093 = Alertmanager (Alert → +3)<br>
@@ -164,22 +118,22 @@ hr{border:none;border-top:.5pt solid #e2e8f0;margin:12pt 0}
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<h2>5. Tipos de Métricas - O Mais Cobrado da Prova</h2>
+<h2>5. Tipos de Métricas: O Mais Cobrado da Prova</h2>
 
-<table>
+<div class="table-wrap"><table>
   <tr><th>Tipo</th><th>Comportamento</th><th>Sufixo</th><th>Função PromQL</th><th>Exemplos de uso</th></tr>
   <tr><td><strong>Counter</strong></td><td>Só aumenta (ou zera no restart)</td><td><code>_total</code></td><td><code>rate()</code>, <code>increase()</code></td><td>Requisições, erros, bytes enviados</td></tr>
   <tr><td><strong>Gauge</strong></td><td>Sobe e desce livremente</td><td>variado</td><td><code>delta()</code>, funções diretas</td><td>CPU%, memória, temperatura, conexões ativas</td></tr>
   <tr><td><strong>Histogram</strong></td><td>Distribui observações em buckets</td><td><code>_bucket _sum _count</code></td><td><code>histogram_quantile()</code></td><td>Latência de requests, tamanho de payload</td></tr>
   <tr><td><strong>Summary</strong></td><td>Percentis pré-calculados no cliente</td><td><code>_sum _count {quantile=""}</code></td><td>Direto (percentis já calculados)</td><td>Latência quando sem necessidade de agregar</td></tr>
-</table>
+</table></div>
 
 <div class="cols2">
 <div class="col">
 <h3>Histogram vs Summary: Diferença essencial</h3>
 <div class="kv-grid">
   <div class="kv-row"><div class="kv-k">Cálculo do percentil</div><div class="kv-v"><strong>Histogram:</strong> servidor (Prometheus)<br><strong>Summary:</strong> cliente (aplicação)</div></div>
-  <div class="kv-row"><div class="kv-k">Agregação multi-instância</div><div class="kv-v"><strong>Histogram:</strong> ✅ possível<br><strong>Summary:</strong> ❌ não possível</div></div>
+  <div class="kv-row"><div class="kv-k">Agregação multi-instância</div><div class="kv-v"><strong>Histogram:</strong> <span class="mk mk-ok" role="img" aria-label="Correto"></span>possível<br><strong>Summary:</strong> <span class="mk mk-no" role="img" aria-label="Incorreto"></span>não possível</div></div>
   <div class="kv-row"><div class="kv-k">Precisão</div><div class="kv-v"><strong>Histogram:</strong> depende dos buckets<br><strong>Summary:</strong> exata</div></div>
   <div class="kv-row"><div class="kv-k">Recomendado</div><div class="kv-v">Histogram na maioria dos casos</div></div>
 </div>
@@ -195,12 +149,12 @@ http_request_duration_seconds_bucket{le="+Inf"} 31
 http_request_duration_seconds_sum   13.2
 http_request_duration_seconds_count 31
 </pre>
-<p style="font-size:8.5pt;color:#64748b;margin-top:2pt;"><code>le</code> = "less than or equal" - todos os buckets são cumulativos!</p>
+<p style="margin-top:2pt"><code>le</code> = "less than or equal": todos os buckets são cumulativos!</p>
 </div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<h2>6. Data Model - Time Series, Labels e Samples</h2>
+<h2>6. Data Model: Time Series, Labels e Samples</h2>
 
 <h3>Estrutura de uma Time Series</h3>
 <pre>
@@ -213,23 +167,23 @@ http_requests_total{job="api", instance="10.0.0.1:8080", method="GET", status="2
 <div class="kv-grid">
   <div class="kv-row"><div class="kv-k">Metric name</div><div class="kv-v">Identifica o que está sendo medido. Ex: <code>http_requests_total</code></div></div>
   <div class="kv-row"><div class="kv-k">Labels</div><div class="kv-v">Pares chave=valor que diferenciam instâncias. Cada combinação única = 1 time series</div></div>
-  <div class="kv-row"><div class="kv-k">Sample</div><div class="kv-v">Par (timestamp, float64) - é o dado em si</div></div>
+  <div class="kv-row"><div class="kv-k">Sample</div><div class="kv-v">Par (timestamp, float64): é o dado em si</div></div>
   <div class="kv-row"><div class="kv-k">Cardinality</div><div class="kv-v">Total de time series únicas. Alta cardinality = problema de performance</div></div>
 </div>
 
 <div class="box danger">
-  <div class="box-title">🚫 Labels de Alta Cardinality - Nunca faça isso</div>
+  <div class="box-title">Labels de Alta Cardinality: Nunca faça isso</div>
   <strong>Jamais use como label:</strong> user_id, request_id, session_id, email, IP de usuário<br>
-  <span style="font-size:9pt;">Isso cria milhões de time series → colapsa o TSDB. Use logs para dados de alta cardinality.</span>
+  <span>Isso cria milhões de time series → colapsa o TSDB. Use logs para dados de alta cardinality.</span>
 </div>
 
 <h3>Naming Convention</h3>
 <div class="kv-grid">
   <div class="kv-row"><div class="kv-k">Formato</div><div class="kv-v"><code>namespace_subsystem_name_unit</code> em snake_case</div></div>
-  <div class="kv-row"><div class="kv-k">Sufixo _total</div><div class="kv-v">Counters - ex: <code>http_requests_total</code></div></div>
-  <div class="kv-row"><div class="kv-k">Sufixo _seconds</div><div class="kv-v">Duração - ex: <code>http_request_duration_seconds</code></div></div>
-  <div class="kv-row"><div class="kv-k">Sufixo _bytes</div><div class="kv-v">Tamanho - ex: <code>http_response_size_bytes</code></div></div>
-  <div class="kv-row"><div class="kv-k">Sufixo _ratio</div><div class="kv-v">Proporção 0-1 - ex: <code>disk_usage_ratio</code></div></div>
+  <div class="kv-row"><div class="kv-k">Sufixo _total</div><div class="kv-v">Counters: ex: <code>http_requests_total</code></div></div>
+  <div class="kv-row"><div class="kv-k">Sufixo _seconds</div><div class="kv-v">Duração: ex: <code>http_request_duration_seconds</code></div></div>
+  <div class="kv-row"><div class="kv-k">Sufixo _bytes</div><div class="kv-v">Tamanho: ex: <code>http_response_size_bytes</code></div></div>
+  <div class="kv-row"><div class="kv-k">Sufixo _ratio</div><div class="kv-v">Proporção 0-1: ex: <code>disk_usage_ratio</code></div></div>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ -->
@@ -262,18 +216,18 @@ http_request_duration_seconds_count 120
 <!-- ═══════════════════════════════════════════════════════ -->
 <h2>8. Limitações do Prometheus</h2>
 
-<table>
+<div class="table-wrap"><table>
   <tr><th>Limitação</th><th>Detalhe</th><th>Solução</th></tr>
   <tr><td><strong>Long-term storage</strong></td><td>Retenção padrão 15 dias, storage local não escala para anos</td><td>Thanos, Cortex, VictoriaMetrics via remote_write</td></tr>
-  <tr><td><strong>Alta disponibilidade</strong></td><td>Sem consenso nativo entre réplicas - dados podem divergir</td><td>Rodar múltiplas instâncias + Thanos/Cortex para dedup</td></tr>
+  <tr><td><strong>Alta disponibilidade</strong></td><td>Sem consenso nativo entre réplicas: dados podem divergir</td><td>Rodar múltiplas instâncias + Thanos/Cortex para dedup</td></tr>
   <tr><td><strong>Alta cardinality</strong></td><td>Muitas time series degradam memória e TSDB</td><td>Evitar labels de alta cardinality, usar recording rules</td></tr>
   <tr><td><strong>Não é para logs</strong></td><td>Prometheus é para métricas numéricas, não texto</td><td>Loki, Elasticsearch para logs</td></tr>
-  <tr><td><strong>100% de precisão</strong></td><td>Scrape baseado em pull - pode perder eventos entre scrapes</td><td>Pushgateway para eventos críticos, aumentar frequência</td></tr>
+  <tr><td><strong>100% de precisão</strong></td><td>Scrape baseado em pull: pode perder eventos entre scrapes</td><td>Pushgateway para eventos críticos, aumentar frequência</td></tr>
   <tr><td><strong>Dados de negócio</strong></td><td>Não adequado para dados transacionais ou billing exato</td><td>Banco de dados dedicado + exportar agregados</td></tr>
-</table>
+</table></div>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<h2>9. Service Discovery - Visão Geral</h2>
+<h2>9. Service Discovery: Visão Geral</h2>
 
 <p>O Prometheus pode descobrir targets automaticamente sem precisar editar o arquivo de configuração manualmente:</p>
 
@@ -282,7 +236,7 @@ http_request_duration_seconds_count 120
   <div class="kv-row"><div class="kv-k">kubernetes_sd_configs</div><div class="kv-v">Descobre pods, services, nodes e endpoints do Kubernetes automaticamente</div></div>
   <div class="kv-row"><div class="kv-k">consul_sd_configs</div><div class="kv-v">Integra com Consul Service Registry</div></div>
   <div class="kv-row"><div class="kv-k">ec2_sd_configs</div><div class="kv-v">Descobre instâncias EC2 via AWS API</div></div>
-  <div class="kv-row"><div class="kv-k">file_sd_configs</div><div class="kv-v">Lê targets de arquivo JSON/YAML - recarrega dinamicamente</div></div>
+  <div class="kv-row"><div class="kv-k">file_sd_configs</div><div class="kv-v">Lê targets de arquivo JSON/YAML: recarrega dinamicamente</div></div>
 </div>
 
 <h3>Exemplo de prometheus.yml básico</h3>
@@ -315,102 +269,102 @@ scrape_configs:
 <div class="quiz-block">
   <div class="quiz-q">Q1. Qual pilar de observabilidade é mais adequado para rastrear uma requisição lenta atravessando 6 microsserviços?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Métricas - por serem mais eficientes para análise de latência</div>
-    <div class="quiz-opt">B) Logs - pois cada serviço registra o evento com timestamp</div>
-    <div class="quiz-opt">C) Traces (rastreamento distribuído) com spans</div>
-    <div class="quiz-opt">D) Alertas - porque identificam o problema automaticamente</div>
+    <button type="button" class="quiz-opt">A) Métricas, por serem mais eficientes para análise de latência</button>
+    <button type="button" class="quiz-opt">B) Logs, pois cada serviço registra o evento com timestamp</button>
+    <button type="button" class="quiz-opt">C) Traces (rastreamento distribuído) com spans</button>
+    <button type="button" class="quiz-opt">D) Alertas, porque identificam o problema automaticamente</button>
   </div>
-  <div class="quiz-ans">✅ Resposta: C</div>
+  <div class="quiz-ans">Resposta: C</div>
   <div class="quiz-exp">Distributed Tracing com spans é exatamente feito para esse cenário: rastrear o caminho completo de uma requisição através de múltiplos serviços, mostrando onde ocorreu o gargalo. Ferramentas: Jaeger, Zipkin, OpenTelemetry.</div>
 </div>
 
 <div class="quiz-block">
   <div class="quiz-q">Q2. Uma empresa tem SLO de 99,9% de disponibilidade mensal. Quanto tempo de downtime é permitido?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) 0 minutos - 99,9% significa praticamente disponível sempre</div>
-    <div class="quiz-opt">B) Aproximadamente 43,8 minutos por mês (0,1% do tempo)</div>
-    <div class="quiz-opt">C) 1 hora por mês exatamente</div>
-    <div class="quiz-opt">D) Depende do SLA com o cliente</div>
+    <button type="button" class="quiz-opt">A) 0 minutos: 99,9% significa praticamente disponível sempre</button>
+    <button type="button" class="quiz-opt">B) Aproximadamente 43,8 minutos por mês (0,1% do tempo)</button>
+    <button type="button" class="quiz-opt">C) 1 hora por mês exatamente</button>
+    <button type="button" class="quiz-opt">D) Depende do SLA com o cliente</button>
   </div>
-  <div class="quiz-ans">✅ Resposta: B</div>
+  <div class="quiz-ans">Resposta: B</div>
   <div class="quiz-exp">Error Budget = 100% − 99,9% = 0,1%. Em um mês com 30 dias = 43.200 minutos × 0,001 = ~43,2 minutos. Este é o "orçamento de erros" disponível antes de violar o SLO.</div>
 </div>
 
 <div class="quiz-block">
   <div class="quiz-q">Q3. Por que o Prometheus usa o modelo Pull em vez de Push por padrão?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Pull é mais seguro pois o firewall não precisa permitir conexões de entrada</div>
-    <div class="quiz-opt">B) Pull permite ao Prometheus controlar a frequência e detectar targets down (up=0)</div>
-    <div class="quiz-opt">C) Push não é suportado em nenhuma situação no Prometheus</div>
-    <div class="quiz-opt">D) Pull é mais eficiente em termos de rede</div>
+    <button type="button" class="quiz-opt">A) Pull é mais seguro pois o firewall não precisa permitir conexões de entrada</button>
+    <button type="button" class="quiz-opt">B) Pull permite ao Prometheus controlar a frequência e detectar targets down (up=0)</button>
+    <button type="button" class="quiz-opt">C) Push não é suportado em nenhuma situação no Prometheus</button>
+    <button type="button" class="quiz-opt">D) Pull é mais eficiente em termos de rede</button>
   </div>
-  <div class="quiz-ans">✅ Resposta: B</div>
+  <div class="quiz-ans">Resposta: B</div>
   <div class="quiz-exp">Com Pull, o Prometheus controla o timing do scrape e sabe exatamente quando um target parou de responder (gerando up=0). Com Push, se o agente para de enviar, não há forma simples de saber se é intencional ou falha.</div>
 </div>
 
 <div class="quiz-block">
   <div class="quiz-q">Q4. Qual tipo de métrica é correto para medir o número atual de conexões abertas em um banco de dados?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Counter - pois conta o número de conexões</div>
-    <div class="quiz-opt">B) Summary - para calcular percentis de conexões</div>
-    <div class="quiz-opt">C) Gauge - pois o valor sobe e desce conforme conexões abrem e fecham</div>
-    <div class="quiz-opt">D) Histogram - para distribuir conexões por faixa de tempo</div>
+    <button type="button" class="quiz-opt">A) Counter, pois conta o número de conexões</button>
+    <button type="button" class="quiz-opt">B) Summary: para calcular percentis de conexões</button>
+    <button type="button" class="quiz-opt">C) Gauge, pois o valor sobe e desce conforme conexões abrem e fecham</button>
+    <button type="button" class="quiz-opt">D) Histogram: para distribuir conexões por faixa de tempo</button>
   </div>
-  <div class="quiz-ans">✅ Resposta: C</div>
-  <div class="quiz-exp">Gauge é para valores que sobem E descem. Conexões ativas aumentam quando novas conexões são estabelecidas e diminuem quando fechadas. Counter só sobe - seria correto para "total de conexões já abertas".</div>
+  <div class="quiz-ans">Resposta: C</div>
+  <div class="quiz-exp">Gauge é para valores que sobem E descem. Conexões ativas aumentam quando novas conexões são estabelecidas e diminuem quando fechadas. Counter só sobe: seria correto para "total de conexões já abertas".</div>
 </div>
 
 <div class="quiz-block">
   <div class="quiz-q">Q5. Qual a principal vantagem do Histogram sobre o Summary para medir latência?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Histogram é mais preciso - calcula percentis exatos</div>
-    <div class="quiz-opt">B) Histogram permite agregação entre múltiplas instâncias via histogram_quantile()</div>
-    <div class="quiz-opt">C) Histogram usa menos memória que Summary</div>
-    <div class="quiz-opt">D) Summary não suporta percentis acima de p90</div>
+    <button type="button" class="quiz-opt">A) Histogram é mais preciso: calcula percentis exatos</button>
+    <button type="button" class="quiz-opt">B) Histogram permite agregação entre múltiplas instâncias via histogram_quantile()</button>
+    <button type="button" class="quiz-opt">C) Histogram usa menos memória que Summary</button>
+    <button type="button" class="quiz-opt">D) Summary não suporta percentis acima de p90</button>
   </div>
-  <div class="quiz-ans">✅ Resposta: B</div>
-  <div class="quiz-exp">Histogram armazena buckets no Prometheus e calcula percentis no servidor - por isso é possível agregar buckets de múltiplas instâncias antes de calcular o quantil. Summary calcula percentis no cliente da aplicação, impossibilitando agregação posterior.</div>
+  <div class="quiz-ans">Resposta: B</div>
+  <div class="quiz-exp">Histogram armazena buckets no Prometheus e calcula percentis no servidor, por isso é possível agregar buckets de múltiplas instâncias antes de calcular o quantil. Summary calcula percentis no cliente da aplicação, impossibilitando agregação posterior.</div>
 </div>
 
 <div class="quiz-block">
   <div class="quiz-q">Q6. Qual label seria problemático usar em uma métrica do Prometheus?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) <code>method="GET"</code></div>
-    <div class="quiz-opt">B) <code>status_code="200"</code></div>
-    <div class="quiz-opt">C) <code>user_id="usr_abc123"</code></div>
-    <div class="quiz-opt">D) <code>region="us-east-1"</code></div>
+    <button type="button" class="quiz-opt">A) <code>method="GET"</code></button>
+    <button type="button" class="quiz-opt">B) <code>status_code="200"</code></button>
+    <button type="button" class="quiz-opt">C) <code>user_id="usr_abc123"</code></button>
+    <button type="button" class="quiz-opt">D) <code>region="us-east-1"</code></button>
   </div>
-  <div class="quiz-ans">✅ Resposta: C</div>
-  <div class="quiz-exp">user_id tem altíssima cardinality - pode ter milhões de valores únicos. Cada combinação de labels = 1 time series. Isso criaria milhões de séries, sobrecarregando o TSDB. Labels devem ter cardinality baixa e previsível.</div>
+  <div class="quiz-ans">Resposta: C</div>
+  <div class="quiz-exp">user_id tem altíssima cardinality: pode ter milhões de valores únicos. Cada combinação de labels = 1 time series. Isso criaria milhões de séries, sobrecarregando o TSDB. Labels devem ter cardinality baixa e previsível.</div>
 </div>
 
 <div class="quiz-block">
   <div class="quiz-q">Q7. Um batch job termina em 10 segundos, mas o scrape_interval é 15s. Qual solução usar?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) Reduzir o scrape_interval para 5s</div>
-    <div class="quiz-opt">B) Usar o Pushgateway - o job faz push antes de terminar</div>
-    <div class="quiz-opt">C) Adicionar um sleep de 5s no final do job</div>
-    <div class="quiz-opt">D) Não é possível monitorar jobs de curta duração com Prometheus</div>
+    <button type="button" class="quiz-opt">A) Reduzir o scrape_interval para 5s</button>
+    <button type="button" class="quiz-opt">B) Usar o Pushgateway: o job faz push antes de terminar</button>
+    <button type="button" class="quiz-opt">C) Adicionar um sleep de 5s no final do job</button>
+    <button type="button" class="quiz-opt">D) Não é possível monitorar jobs de curta duração com Prometheus</button>
   </div>
-  <div class="quiz-ans">✅ Resposta: B</div>
+  <div class="quiz-ans">Resposta: B</div>
   <div class="quiz-exp">Pushgateway existe exatamente para batch jobs que terminam antes do próximo scrape. O job faz push das métricas (status, duração, resultado) para o Pushgateway, que fica disponível para o Prometheus scrapar indefinidamente.</div>
 </div>
 
 <div class="quiz-block">
   <div class="quiz-q">Q8. Qual o arquivo de configuração principal do Prometheus e qual campo define o intervalo de scrape padrão?</div>
   <div class="quiz-opts">
-    <div class="quiz-opt">A) <code>config.yaml</code>, campo <code>interval</code></div>
-    <div class="quiz-opt">B) <code>prometheus.yml</code>, campo <code>scrape_interval</code> dentro de <code>global:</code></div>
-    <div class="quiz-opt">C) <code>prometheus.conf</code>, campo <code>collection_interval</code></div>
-    <div class="quiz-opt">D) <code>prometheus.yml</code>, campo <code>evaluation_interval</code></div>
+    <button type="button" class="quiz-opt">A) <code>config.yaml</code>, campo <code>interval</code></button>
+    <button type="button" class="quiz-opt">B) <code>prometheus.yml</code>, campo <code>scrape_interval</code> dentro de <code>global:</code></button>
+    <button type="button" class="quiz-opt">C) <code>prometheus.conf</code>, campo <code>collection_interval</code></button>
+    <button type="button" class="quiz-opt">D) <code>prometheus.yml</code>, campo <code>evaluation_interval</code></button>
   </div>
-  <div class="quiz-ans">✅ Resposta: B</div>
-  <div class="quiz-exp">O arquivo é <code>prometheus.yml</code>. O campo <code>scrape_interval</code> dentro de <code>global:</code> define o intervalo padrão de coleta. <code>evaluation_interval</code> define com que frequência as REGRAS (alerting/recording) são avaliadas - diferente do scrape!</div>
+  <div class="quiz-ans">Resposta: B</div>
+  <div class="quiz-exp">O arquivo é <code>prometheus.yml</code>. O campo <code>scrape_interval</code> dentro de <code>global:</code> define o intervalo padrão de coleta. <code>evaluation_interval</code> define com que frequência as REGRAS (alerting/recording) são avaliadas: diferente do scrape!</div>
 </div>
 
 <!-- CHECKLIST -->
 <div class="pb"></div>
-<h2>✅ Checklist de Revisão</h2>
+<h2>Checklist de Revisão</h2>
 
 
 <ul class="checklist">
@@ -431,11 +385,13 @@ scrape_configs:
 </ul>
 
 <div class="box tip" style="margin-top:14pt">
-  <div class="box-title">Material de Estudo para Hoje</div>
+  <div class="box-title">Material de Estudo</div>
   <p><strong>LFS241:</strong> Capítulos 2 (Observability), 3 (Intro Prometheus) e 4 (Setup)</p>
   <p style="margin-top:4pt"><strong>KodeKloud:</strong> <a href="https://learn.kodekloud.com/learn/courses/prometheus-certified-associate-pca" target="_blank" rel="noopener">Módulos 1-2 (Observability Fundamentals + Prometheus Architecture)</a><br>
     <strong>YetMike:</strong> <a href="https://yetmike.com/practice/pca" target="_blank" rel="noopener">Simulados estilo PCA</a></p>
   <p style="margin-top:4pt"><strong>Docs:</strong> prometheus.io/docs/concepts/data_model/ e /metric_types/</p>
 </div>
 
+</main>
+<script src="day-quiz.js"></script>
 </body></html>
