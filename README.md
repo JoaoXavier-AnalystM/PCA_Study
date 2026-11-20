@@ -116,8 +116,8 @@ Os principais tópicos cobrados incluem:
 
 O **PCA Notes** está disponível online em dois ambientes:
 
-- 🚀 **Produção:** [pca-guide.joaoxavier.app.br](https://pca-guide.joaoxavier.app.br/)
-- 🧪 **Desenvolvimento:** [pca-guide-dev.joaoxavier.app.br](https://pca-guide-dev.joaoxavier.app.br/)
+- 🚀 **Produção:** [pca-notes.jxops.com.br](https://pca-notes.jxops.com.br/)
+- 🧪 **Desenvolvimento:** [pca-notes-dev.jxops.com.br](https://pca-notes-dev.jxops.com.br/)
 
 O projeto reúne materiais de estudo, anotações técnicas, exemplos e recursos práticos voltados à preparação para a certificação **Prometheus Certified Associate (PCA)**.
 
