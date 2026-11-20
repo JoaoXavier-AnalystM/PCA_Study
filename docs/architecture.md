@@ -28,7 +28,7 @@ No database. Browser-only state uses `localStorage` for language, theme, visited
 
 - Preserve static architecture: product has no backend requirement, and framework migration would add scope and deployment risk.
 - Keep bilingual pages as explicit files: current content and deployment are static; shared quiz logic remains in one JS file.
-- Keep browser regression suite in PowerShell: it matches current Windows/Orca environment and proves real local navigation.
+- Keep browser regression suite in PowerShell to verify real local navigation.
 
 ## Maintenance
 

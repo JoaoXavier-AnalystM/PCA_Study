@@ -36,10 +36,6 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File tests/qa-regressions.ps1
 
 The suite starts an isolated local Python server, uses a unique agent-browser session and port, checks homepage localization/quiz/headings/landmarks, and checks direct PT/EN study-page quiz feedback.
 
-## Agents
-
-Read [AGENTS.md](../AGENTS.md) before editing. `CLAUDE.md` imports the same shared rules. See [setup evidence](setup.md) for installed or pending integrations.
-
 ## Known issues
 
 None observed in baseline regression run on 2026-10-18. Future content and accessibility findings must identify page, language variant and reproducible browser state.

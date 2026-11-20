@@ -27,8 +27,8 @@ Use real local HTTP serving plus agent-browser for behavior. Static file checks 
 
 ## Review
 
-Review exact diff, connected PT/EN pages, shared quiz behavior and deployment config. Independent review is required for security headers, destructive deployment changes or broad content rewrites. Agents do not commit; coordinator integrates after checks.
+Review exact diff, connected PT/EN pages, shared quiz behavior and deployment config. Independent review is required for security headers, destructive deployment changes or broad content rewrites.
 
 ## Security and inapplicable capabilities
 
-Use the toolkit security prompt for read-only baseline or precise-diff review when scope warrants it. Keep reports private and redact environment details. Next.js, PostgreSQL, Drizzle, shadcn, Sentry and typed async lint do not apply to current static stack. Graphify is optional and not needed for current project size.
+Keep security reports private and redact environment details. Next.js, PostgreSQL, Drizzle, shadcn, Sentry and typed async lint do not apply to current static stack.

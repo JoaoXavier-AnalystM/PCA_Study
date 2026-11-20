@@ -1,8 +1,16 @@
 # Config local / secrets
 .claude/
+.agents/
+.codex/
+skills-lock.json
 
 # Memória de sessão local
 .remember/
+.memory/
+MEMORY.md
+memory/
+docs/setup.md
+docs/superpowers/
 
 # Arquivos de trabalho do impeccable
 .impeccable/
