@@ -5,7 +5,7 @@
 - Toolkit: `soumatheusgomes/vibe-coding-toolkit`, revision `de66fe371a49f5a4d3b521759e5c401f390b6424`.
 - Adoption date: 2026-10-18.
 - Client: Codex in Orca-managed Windows workspace; project branch `dev`.
-- Product: static PCA Study Guide; existing local changes preserved.
+- Product: static PCA Notes site; existing local changes preserved.
 - No provider, proxy or API key changes.
 
 ## Decisions and sources

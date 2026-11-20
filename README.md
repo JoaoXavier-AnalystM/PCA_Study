@@ -114,7 +114,7 @@ Os principais tópicos cobrados incluem:
 ---
 ## 🌐 Acesso ao Projeto
 
-O **PCA Study Guide** está disponível online em dois ambientes:
+O **PCA Notes** está disponível online em dois ambientes:
 
 - 🚀 **Produção:** [pca-guide.joaoxavier.app.br](https://pca-guide.joaoxavier.app.br/)
 - 🧪 **Desenvolvimento:** [pca-guide-dev.joaoxavier.app.br](https://pca-guide-dev.joaoxavier.app.br/)

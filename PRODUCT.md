@@ -1,4 +1,4 @@
-# PCA Study Guide
+# PCA Notes
 
 ## Problem
 

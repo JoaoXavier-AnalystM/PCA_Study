@@ -7,7 +7,7 @@ invalidate_when: stack, deployment ports, page model or canonical QA command cha
 
 # Project context
 
-PCA Study is a static bilingual HTML/CSS/JS guide served by Nginx in Docker. Homepage and seven PT/EN study pages are the product surface; `web/day-quiz.js` is shared study-page behavior. Browser state uses localStorage only.
+PCA Notes is a static bilingual HTML/CSS/JS guide served by Nginx in Docker. Homepage and seven PT/EN study pages are the product surface; `web/day-quiz.js` is shared study-page behavior. Browser state uses localStorage only.
 
 Canonical verification: `powershell.exe -NoProfile -ExecutionPolicy Bypass -File tests/qa-regressions.ps1 -Case all`.
 

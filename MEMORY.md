@@ -1,4 +1,4 @@
-# PCA Study memory index
+# PCA Notes memory index
 
 - [Project context](memory/project-context.md) — product boundaries, commands and invalidation: update when stack/deployment contracts change.
 

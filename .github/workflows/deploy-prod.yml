@@ -1,4 +1,4 @@
-name: Deploy PCA Study (Prod)
+name: Deploy PCA Notes (Prod)
 
 on:
   push:

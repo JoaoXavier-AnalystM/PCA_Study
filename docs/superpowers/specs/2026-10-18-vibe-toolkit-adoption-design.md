@@ -2,7 +2,7 @@
 
 ## Intent
 
-Prepare PCA Study for repeatable AI-assisted development without changing product stack or deployment contracts, then use focused agents for safe improvements.
+Prepare PCA Notes for repeatable AI-assisted development without changing product stack or deployment contracts, then use focused agents for safe improvements.
 
 ## Goals
 

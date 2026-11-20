@@ -1,4 +1,4 @@
-name: Deploy PCA Study (Dev)
+name: Deploy PCA Notes (Dev)
 
 on:
   push:
