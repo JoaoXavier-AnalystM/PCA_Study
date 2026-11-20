@@ -35,6 +35,7 @@ __pycache__/
 # Instrucoes locais do Claude (nao publicar)
 CLAUDE.md
 AGENTS.md
+PRODUCT.md
 
 # Artefatos de sessao do Playwright MCP
 .playwright-mcp/
