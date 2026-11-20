@@ -71,12 +71,12 @@ try {
 
     Invoke-AgentBrowser @('open', "$($url -replace '/index\.html$','')/day1.html")
     Invoke-AgentBrowser @('wait', '--load', 'networkidle')
-    Invoke-AgentBrowser @('eval', "const main=document.querySelectorAll('main'); const first=document.querySelector('.quiz-opt'); if(!document.title.includes('PCA Guia')||!document.title.includes('Dia 1')) throw new Error('PT day title is '+document.title); if(main.length!==1) throw new Error('PT day main count is '+main.length); if(!first||first.tagName!=='BUTTON'||first.type!=='button') throw new Error('PT quiz option is not button'); first.focus(); if(document.activeElement!==first) throw new Error('PT quiz option cannot receive focus')")
+    Invoke-AgentBrowser @('eval', "const main=document.querySelectorAll('main'); const first=document.querySelector('.quiz-opt'); if(!document.title.includes('PCA Notes')||!document.title.includes('Dia 1')) throw new Error('PT day title is '+document.title); if(main.length!==1) throw new Error('PT day main count is '+main.length); if(!first||first.tagName!=='BUTTON'||first.type!=='button') throw new Error('PT quiz option is not button'); first.focus(); if(document.activeElement!==first) throw new Error('PT quiz option cannot receive focus')")
     Invoke-AgentBrowser @('eval', "document.querySelector('.quiz-opt').click(); if(document.querySelector('.quiz-exp').hidden) throw new Error('PT quiz feedback did not appear')")
 
     Invoke-AgentBrowser @('open', "$($url -replace '/index\.html$','')/day1-en.html")
     Invoke-AgentBrowser @('wait', '--load', 'networkidle')
-    Invoke-AgentBrowser @('eval', "const main=document.querySelectorAll('main'); const first=document.querySelector('.quiz-opt'); if(!document.title.includes('PCA Guide')||!document.title.includes('Day 1')) throw new Error('EN day title is '+document.title); if(main.length!==1) throw new Error('EN day main count is '+main.length); if(!first||first.tagName!=='BUTTON'||first.type!=='button') throw new Error('EN quiz option is not button'); first.focus(); first.click(); if(document.querySelector('.quiz-exp').hidden) throw new Error('EN quiz feedback did not appear')")
+    Invoke-AgentBrowser @('eval', "const main=document.querySelectorAll('main'); const first=document.querySelector('.quiz-opt'); if(!document.title.includes('PCA Notes')||!document.title.includes('Day 1')) throw new Error('EN day title is '+document.title); if(main.length!==1) throw new Error('EN day main count is '+main.length); if(!first||first.tagName!=='BUTTON'||first.type!=='button') throw new Error('EN quiz option is not button'); first.focus(); first.click(); if(document.querySelector('.quiz-exp').hidden) throw new Error('EN quiz feedback did not appear')")
     Write-Output 'PASS issue4: direct PT/EN study pages and quiz feedback'
   }
 }
