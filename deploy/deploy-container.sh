@@ -35,12 +35,12 @@ trap rollback EXIT
 
 docker compose -f "$compose" build --pull
 
-if docker inspect "$legacy" >/dev/null 2>&1; then
-  if docker inspect "$backup" >/dev/null 2>&1; then
+if docker container inspect "$legacy" >/dev/null 2>&1; then
+  if docker container inspect "$backup" >/dev/null 2>&1; then
     echo "Backup $backup já existe; migração interrompida." >&2
     exit 1
   fi
-  was_running=$(docker inspect --format '{{.State.Running}}' "$legacy")
+  was_running=$(docker container inspect --format '{{.State.Running}}' "$legacy")
   if [ "$was_running" = true ]; then
     docker stop "$legacy"
     stopped=true
