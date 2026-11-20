@@ -4,13 +4,16 @@
 .codex/
 skills-lock.json
 
+# Documentação, notas e testes locais
+*.md
+/docs/
+/memory/
+/notas/
+/tests/
+
 # Memória de sessão local
 .remember/
 .memory/
-MEMORY.md
-memory/
-docs/setup.md
-docs/superpowers/
 
 # Arquivos de trabalho do impeccable
 .impeccable/
