@@ -1,141 +1,51 @@
-# Prometheus Certified Associate (PCA) Study
+# PCA Notes
 
+Guia de estudos para a certificação **Prometheus Certified Associate (PCA)**. Reúne notas, referências, exemplos e questões para quem quer aprender observabilidade e monitoramento com Prometheus.
 
-## 📚 Sobre o Projeto
+O conteúdo está disponível em **português e inglês**, com navegação adaptada para computador e celular.
 
-Este repositório foi criado para centralizar estudos, laboratórios práticos e materiais relacionados à certificação **Prometheus Certified Associate (PCA)**.
+## Acesso
 
-O objetivo é fornecer uma base sólida sobre:
+- **Produção:** [pca-notes.jxops.com.br](https://pca-notes.jxops.com.br/)
 
-* Observabilidade
-* Monitoramento moderno
-* Arquitetura do Prometheus
-* Consultas PromQL
-* Alertas
-* Métricas
-* Integração com Kubernetes
-* Dashboards e visualização
-* Boas práticas de monitoramento
+## O que você encontra
 
----
+- **Trilha de estudos:** sete tópicos que vão dos fundamentos à revisão para a prova.
+- **Fichas de estudo:** explicações, exemplos de PromQL e questões de revisão.
+- **Simulado:** questões de múltipla escolha com respostas comentadas e filtros por domínio.
+- **Referência rápida:** resumo dos principais conceitos, operadores e funções.
+- **Progresso local:** tópicos revisados e respostas ficam salvos no navegador.
+- **Preferências:** alternância entre temas claro e escuro e entre português e inglês.
 
-## Desenvolvimento
+## Trilha de estudos
 
-- Instruções compartilhadas: [AGENTS.md](AGENTS.md)
-- Escopo do produto: [PRODUCT.md](PRODUCT.md)
-- Onboarding local: [docs/onboarding.md](docs/onboarding.md)
-- Arquitetura: [docs/architecture.md](docs/architecture.md)
-- Qualidade e regressões: [docs/quality.md](docs/quality.md)
-- Evidências de setup: [docs/setup.md](docs/setup.md)
+| Tópico | Conteúdo |
+| --- | --- |
+| 1 | Observabilidade e fundamentos do Prometheus |
+| 2 | PromQL básico: seletores, funções e agregações |
+| 3 | PromQL avançado: operadores, histogramas e consultas |
+| 4 | Instrumentação e exporters |
+| 5 | Alertas, Alertmanager e dashboards |
+| 6 | Simulado completo e revisão |
+| 7 | Revisão rápida e preparação para o dia da prova |
 
-Servidor local:
+## Assuntos abordados
 
-```powershell
-python -m http.server 8080 --directory web
+- Métricas, logs, traces, SLI, SLO e SLA.
+- Arquitetura do Prometheus, coleta de métricas e service discovery.
+- Modelo de dados, labels, tipos de métricas e consultas PromQL.
+- Bibliotecas de instrumentação, exporters e boas práticas de métricas.
+- Regras de alerta, Alertmanager, Grafana e monitoramento em Kubernetes.
+
+## Estrutura principal do site
+
+```text
+web/      Site e fichas de estudo em português e inglês
+deploy/   Configuração do Nginx e containers
 ```
 
-Regressões:
+## Referências
 
-```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File tests/qa-regressions.ps1 -Case all
-```
-
-## 🚀 O que você encontrará neste repositório
-
-### 📖 Fundamentos
-
-* Conceitos de Observabilidade
-* Métricas, Logs e Traces
-* Golden Signals
-* RED Method
-* USE Method
-
-### ⚙️ Prometheus
-
-* Arquitetura do Prometheus
-* Instalação e configuração
-* Targets e Scrape Jobs
-* Service Discovery
-* Exporters
-* Pushgateway
-* Alertmanager
-
-### 🔎 PromQL
-
-* Seletores
-* Operadores
-* Funções
-* Agregações
-* Quantiles
-* Queries avançadas
-
-Exemplo:
-
-rate(http_requests_total[5m])
-
-### 📊 Visualização
-
-* Dashboards com Grafana
-* Boas práticas de visualização
-* Criação de painéis estratégicos
-
-### ☸️ Kubernetes Monitoring
-
-* Monitoramento de clusters
-* kube-state-metrics
-* node-exporter
-* ServiceMonitor
-* Integração com Prometheus Operator
-
----
-
-## 🎯 Objetivo
-
-Este projeto serve como:
-
-* Guia de estudos para PCA
-
----
-
-## 📌 Conteúdo do Exame PCA
-
-Os principais tópicos cobrados incluem:
-
-* Observabilidade
-* Arquitetura Prometheus
-* Instalação e configuração
-* Exporters
-* PromQL
-* Alertmanager
-* Service Discovery
-* Instrumentação
-* Kubernetes Monitoring
-
----
-## 🌐 Acesso ao Projeto
-
-O **PCA Notes** está disponível online em dois ambientes:
-
-- 🚀 **Produção:** [pca-notes.jxops.com.br](https://pca-notes.jxops.com.br/)
-- 🧪 **Desenvolvimento:** [pca-notes-dev.jxops.com.br](https://pca-notes-dev.jxops.com.br/)
-
-O projeto reúne materiais de estudo, anotações técnicas, exemplos e recursos práticos voltados à preparação para a certificação **Prometheus Certified Associate (PCA)**.
-
-> O ambiente de **produção** contém a versão estável do guia, enquanto o ambiente de **desenvolvimento** pode conter funcionalidades, conteúdos e alterações ainda em validação.
----
-
-## 📖 Referências
-
-- 📘 Prometheus – Documentação oficial  
-  https://prometheus.io/docs/
-
-- ☁️ Cloud Native Computing Foundation (CNCF) – Prometheus Project  
-  https://www.cncf.io/projects/prometheus/
-
-- 🧪 Laboratórios práticos  
-  Experimentos e práticas com Prometheus, exporters, métricas e dashboards em ambientes de observabilidade.
-
-- 📝 Simulados PCA (Prometheus Certified Associate)  
-  Questões práticas baseadas no currículo oficial da Linux Foundation e CNCF para preparação do exame.
-
----
+- [Documentação do Prometheus](https://prometheus.io/docs/)
+- [Projeto Prometheus na CNCF](https://www.cncf.io/projects/prometheus/)
+- [Certificação PCA Linux Foundation](https://training.linuxfoundation.org/certification/prometheus-certified-associate/)

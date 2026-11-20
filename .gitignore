@@ -1,8 +1,19 @@
 # Config local / secrets
 .claude/
+.agents/
+.codex/
+skills-lock.json
+
+# Documentação, notas e testes locais
+*.md
+/docs/
+/memory/
+/notas/
+/tests/
 
 # Memória de sessão local
 .remember/
+.memory/
 
 # Arquivos de trabalho do impeccable
 .impeccable/
@@ -24,6 +35,7 @@ __pycache__/
 # Instrucoes locais do Claude (nao publicar)
 CLAUDE.md
 AGENTS.md
+PRODUCT.md
 
 # Artefatos de sessao do Playwright MCP
 .playwright-mcp/
