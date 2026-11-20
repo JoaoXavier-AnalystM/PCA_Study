@@ -47,7 +47,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            mkdir -p /var/www/pca-study
+            mkdir -p /var/www/pca-notes
 
       - name: Deploy files to VPS
         uses: appleboy/scp-action@v1.0.0
@@ -56,7 +56,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           source: "deploy,web"
-          target: "/var/www/pca-study"
+          target: "/var/www/pca-notes"
 
       - name: Build and run container
         uses: appleboy/ssh-action@v1.2.5
@@ -65,12 +65,9 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            cd /var/www/pca-study
-
-            docker tag pca-study-prod:latest pca-study-prod:previous 2>/dev/null || true
-            docker compose -f deploy/docker-compose.yml build --pull
-            docker compose -f deploy/docker-compose.yml up -d
-            docker image prune -f
+            set -e
+            cd /var/www/pca-notes
+            bash deploy/deploy-container.sh prod
 
       - name: Health Check
         uses: appleboy/ssh-action@v1.2.5
