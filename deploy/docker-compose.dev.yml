@@ -1,10 +1,12 @@
+name: pca-notes-dev
+
 services:
-  pca-study:
+  pca-notes:
     build:
       context: ..
       dockerfile: deploy/Dockerfile
-    image: pca-study-dev:latest
-    container_name: pca-study-dev
+    image: pca-notes-dev:latest
+    container_name: pca-notes-dev
     restart: unless-stopped
     ports:
       - "0.0.0.0:8082:80"
